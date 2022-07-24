@@ -1,0 +1,17 @@
+server:
+  port: ${PORT}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    url: ${URL}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
