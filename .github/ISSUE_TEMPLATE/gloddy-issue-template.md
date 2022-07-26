@@ -2,7 +2,7 @@
 name: gloddy issue template
 about: Describe this issue template's purpose here.
 title: ''
-labels: bug, fix, improve, recycle
+labels: bug, feature, fix, improve, recycle
 assignees: ''
 
 ---
