@@ -15,3 +15,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SMTPEMAIL}
+    password: ${SMTPPASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  redis:
+    host: ${REDISHOST}
+    port: ${REDISPORT}
