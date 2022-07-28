@@ -11,7 +11,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+
+jwt:
+  header: ${JWT_HEADER}
+  secret: ${JWT_SECRET}
+  validTime: ${JWT_VALID_TIME}
