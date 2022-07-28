@@ -9,6 +9,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenExtractor jwtTokenExtractor;
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public JwtAuthenticationFilter(JwtTokenExtractor jwtTokenExtractor,
                                    JwtTokenValidator jwtTokenValidator,
-                                   AuthenticationProvider authenticationProvider,
+                                   AuthenticfationProvider authenticationProvider,
                                    @Value("${jwt.header}") String secretHeader,
                                    @Value("${jwt.secret}") String key) {
         this.jwtTokenExtractor = jwtTokenExtractor;
