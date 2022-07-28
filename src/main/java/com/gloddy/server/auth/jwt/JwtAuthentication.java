@@ -12,7 +12,6 @@ import javax.security.auth.Subject;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class JwtAuthentication implements Authentication {
 
     private final JwtUserAdapter userDetails;

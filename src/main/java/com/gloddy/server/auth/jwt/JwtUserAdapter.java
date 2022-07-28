@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Component
+
 @AllArgsConstructor
 @Getter
 public class JwtUserAdapter implements UserDetails{
