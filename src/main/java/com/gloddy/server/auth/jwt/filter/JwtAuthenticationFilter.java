@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public JwtAuthenticationFilter(JwtTokenExtractor jwtTokenExtractor,
                                    JwtTokenValidator jwtTokenValidator,
-                                   AuthenticfationProvider authenticationProvider,
+                                   AuthenticationProvider authenticationProvider,
                                    @Value("${jwt.header}") String secretHeader,
                                    @Value("${jwt.secret}") String key) {
         this.jwtTokenExtractor = jwtTokenExtractor;
