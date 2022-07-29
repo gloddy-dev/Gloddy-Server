@@ -3,6 +3,7 @@ package com.gloddy.server.core.dto.auth;
 import com.gloddy.server.auth.entity.kind.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ public class AuthRequest {
 
     @Getter
     @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class Login{
         private String email;
