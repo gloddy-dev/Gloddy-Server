@@ -1,4 +1,4 @@
-package com.gloddy.server.core.dto.auth;
+package com.gloddy.server.auth.dto;
 
 import com.gloddy.server.auth.entity.kind.Gender;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package com.gloddy.server.core.dto.auth;
+package com.gloddy.server.auth.dto;
 
-import com.gloddy.server.core.error.handler.errorcode.ErrorCode;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import lombok.*;
 
 @Getter

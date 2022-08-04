@@ -1,6 +1,6 @@
 package com.gloddy.server.core.error.handler.exception;
 
-import com.gloddy.server.core.error.handler.errorcode.ErrorCode;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 
 public class UserBusinessException extends RuntimeException{
     private final ErrorCode errorCode;

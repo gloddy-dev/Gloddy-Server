@@ -1,4 +1,4 @@
-package com.gloddy.server.core.error.handler.errorcode;
+package com.gloddy.server.core.error.handler.errorCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,11 @@ public enum ErrorCode {
     TOKEN_BLANK(400, "토큰이 비어져 있습니다."),
     TOKEN_EXPIRED(412, "토큰이 만료되었습니다."),
 
-    USER_NOT_FOUND(404, "존재하지 않는 유저입니다.");
+    USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
+
+    EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
+    CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
+    ;
 
     private int status;
     private String errorMessage;

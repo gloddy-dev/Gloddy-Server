@@ -1,6 +1,5 @@
-package com.gloddy.server.authEmail.controller;
+package com.gloddy.server.authEmail.api;
 
-import com.gloddy.server.authEmail.dto.request.AuthCodeRequest;
 import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
 import com.gloddy.server.authEmail.service.AuthEmailService;
 import com.gloddy.server.core.response.ApiResponse;
@@ -16,19 +15,19 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class AuthEmailController {
+public class AuthEmailApi {
     private final AuthEmailService authEmailService;
 
     @PostMapping("/auth/email")
     public ResponseEntity<Void> authEmail(
-            @Valid @RequestBody AuthEmailRequest request) {
+            @Valid @RequestBody AuthEmailRequest.AuthEmail request) {
         authEmailService.authEmail(request);
         return ApiResponse.noContent();
     }
 
     @PostMapping("/auth/verify-code")
     public ResponseEntity<Boolean> verifyCode(
-            @RequestBody AuthCodeRequest request) {
+            @RequestBody AuthEmailRequest.AuthCode request) {
         Boolean response = authEmailService.verifyCode(request);
         return ApiResponse.ok(response);
     }

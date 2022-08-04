@@ -2,7 +2,6 @@ package com.gloddy.server.authEmail.service;
 
 import com.gloddy.server.Exception.auth.InvalidEmailException;
 import com.gloddy.server.Exception.auth.InvalidVerificationCodeException;
-import com.gloddy.server.authEmail.dto.request.AuthCodeRequest;
 import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
 import com.gloddy.server.core.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class AuthEmailService {
 
     // TODO: 트랜잭션 내부 메소드간 호출 이슈 고민 - 트랜잭션 작동 안함
     @Transactional
-    public void authEmail(AuthEmailRequest request) {
+    public void authEmail(AuthEmailRequest.AuthEmail request) {
         validateEmail(request.getEmail());
         String code = createCode();
         sendEmail(request.getEmail(), code);
@@ -68,7 +67,7 @@ public class AuthEmailService {
 
     // TODO: 유효하지 않은 인증코드인 경우 401 에러를 던지는데 500에러로 뜸 httpStatus 잘못 설정한 듯
     @Transactional
-    public Boolean verifyCode(AuthCodeRequest request) {
+    public Boolean verifyCode(AuthEmailRequest.AuthCode request) {
         String code = redisUtil.getData(request.getEmail());
         if(!code.equals(request.getAuthCode())) {
             throw new InvalidVerificationCodeException();

@@ -3,10 +3,10 @@ package com.gloddy.server.auth.service;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
-import com.gloddy.server.auth.repository.UserRepository;
-import com.gloddy.server.core.dto.auth.AuthRequest;
-import com.gloddy.server.core.dto.auth.AuthResponse;
-import com.gloddy.server.core.error.handler.errorcode.ErrorCode;
+import com.gloddy.server.auth.repository.AuthRepository;
+import com.gloddy.server.auth.dto.AuthRequest;
+import com.gloddy.server.auth.dto.AuthResponse;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AuthService {
 
-    private final UserRepository userRepository;
+    private final AuthRepository userRepository;
     private final JwtTokenBuilder jwtTokenBuilder;
 
     @Transactional

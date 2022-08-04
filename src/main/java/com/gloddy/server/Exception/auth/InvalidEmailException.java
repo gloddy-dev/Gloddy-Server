@@ -1,11 +1,11 @@
 package com.gloddy.server.Exception.auth;
 
-import com.gloddy.server.Exception.BusinessException;
-import com.gloddy.server.Exception.ExceptionCode;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 
-public class InvalidEmailException extends BusinessException {
+public class InvalidEmailException extends UserBusinessException {
 
     public InvalidEmailException() {
-        super(ExceptionCode.INVALID_EMAIL);
+        super(ErrorCode.EMAIL_INVALID);
     }
 }

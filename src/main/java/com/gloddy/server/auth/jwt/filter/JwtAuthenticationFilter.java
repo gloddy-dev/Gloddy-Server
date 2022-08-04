@@ -3,7 +3,7 @@ package com.gloddy.server.auth.jwt.filter;
 import com.gloddy.server.auth.jwt.JwtAuthentication;
 import com.gloddy.server.auth.jwt.JwtTokenExtractor;
 import com.gloddy.server.auth.jwt.JwtTokenValidator;
-import com.gloddy.server.core.error.handler.errorcode.ErrorCode;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
