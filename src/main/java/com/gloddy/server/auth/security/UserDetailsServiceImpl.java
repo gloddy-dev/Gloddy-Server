@@ -3,7 +3,7 @@ package com.gloddy.server.auth.security;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.jwt.JwtUserAdapter;
-import com.gloddy.server.auth.repository.AuthRepository;
+import com.gloddy.server.auth.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final AuthRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
