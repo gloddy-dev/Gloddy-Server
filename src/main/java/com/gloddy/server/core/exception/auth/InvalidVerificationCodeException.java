@@ -1,4 +1,4 @@
-package com.gloddy.server.Exception.auth;
+package com.gloddy.server.core.exception.auth;
 
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;

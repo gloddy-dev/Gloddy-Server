@@ -1,7 +1,7 @@
 package com.gloddy.server.authEmail.service;
 
-import com.gloddy.server.Exception.auth.InvalidEmailException;
-import com.gloddy.server.Exception.auth.InvalidVerificationCodeException;
+import com.gloddy.server.core.exception.auth.InvalidEmailException;
+import com.gloddy.server.core.exception.auth.InvalidVerificationCodeException;
 import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
 import com.gloddy.server.core.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
