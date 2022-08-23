@@ -56,8 +56,4 @@ public class AuthService {
 
         return new AuthResponse.Login(findUser.getId(), findUser.getAuthority().getRole(), token);
     }
-
-
-
-
 }

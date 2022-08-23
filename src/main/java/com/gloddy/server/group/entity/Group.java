@@ -23,8 +23,14 @@ public class Group extends BaseTimeEntity {
     @JoinColumn(name = "captain_id")
     private User user;
 
+    @Column(name = "school")
+    private String school;
+
     @Column(name = "title")
     private String title;
+
+    @Column(name = "content", columnDefinition = "longtext")
+    private String content;
 
     @Column(name = "meet_date")
     private LocalDate meetDate;
