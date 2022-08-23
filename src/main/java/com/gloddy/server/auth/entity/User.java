@@ -4,6 +4,7 @@ import com.gloddy.server.auth.entity.kind.Authority;
 import com.gloddy.server.auth.entity.kind.Gender;
 import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.core.converter.EnumArrayConverter;
+import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "User")
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
