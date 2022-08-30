@@ -18,6 +18,13 @@ public class AuthApi {
 
     private final AuthService userService;
 
+    @PostMapping("/auth/email/check")
+    public ResponseEntity<AuthResponse.Whether> emailCheck(@RequestBody AuthRequest.EmailCheck req) {
+        AuthResponse.Whether response = userService.emailCheck(req.getEmail());
+
+        return ApiResponse.ok(response);
+    }
+
     @PostMapping("/auth/sign-up")
     public ResponseEntity<AuthResponse.SignUp> signUp(@RequestBody AuthRequest.SignUp req) {
         AuthResponse.SignUp response = userService.signUp(req);
