@@ -49,6 +49,7 @@ public class GroupService {
 
         Group buildGroup = Group.builder()
                 .user(captain)
+                .fileUrl(req.getFileUrl())
                 .title(req.getTitle())
                 .content(req.getContent())
                 .meetDate(req.getMeetDate())

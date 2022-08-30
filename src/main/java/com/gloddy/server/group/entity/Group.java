@@ -59,9 +59,10 @@ public class Group extends BaseTimeEntity {
     private int maxUser;
 
     @Builder
-    public Group(User user, String title, String content, LocalDate meetDate, String startTime, String endTime,
+    public Group(User user, String fileUrl, String title, String content, LocalDate meetDate, String startTime, String endTime,
                  String place, String placeLatitude, String placeLongitude, int maxUser) {
         this.user = user;
+        this.fileUrl = fileUrl;
         this.title = title;
         this.content = content;
         this.meetDate = meetDate;
