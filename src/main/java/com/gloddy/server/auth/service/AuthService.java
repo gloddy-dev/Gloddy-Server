@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,5 +56,16 @@ public class AuthService {
         String token = jwtTokenBuilder.createToken(email);
 
         return new AuthResponse.Login(findUser.getId(), findUser.getAuthority().getRole(), token);
+    }
+
+    public AuthResponse.Whether emailCheck(String email) {
+
+        Optional<User> findUser = userRepository.findByEmail(email);
+
+        if (findUser.isEmpty()) {
+            return new AuthResponse.Whether(false);
+        } else {
+            return new AuthResponse.Whether(true);
+        }
     }
 }
