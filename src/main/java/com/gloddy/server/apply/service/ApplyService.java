@@ -39,4 +39,11 @@ public class ApplyService {
         );
         return new ApplyResponse.create(apply.getId());
     }
+
+    @Transactional
+    public void deleteApply(Long userId, Long groupId) {
+        Apply apply = applyJpaRepository.findByUserIdAndGroupId(userId, groupId)
+                .orElseThrow(() -> new RuntimeException("지원서 없음"));
+        applyJpaRepository.delete(apply);
+    }
 }
