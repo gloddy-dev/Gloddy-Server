@@ -32,4 +32,12 @@ public class AuthRequest {
     public static class Login{
         private String email;
     }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmailCheck {
+        private String email;
+    }
 }

@@ -27,4 +27,11 @@ public class AuthResponse {
         private String authority;
         private String token;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class Whether extends AuthResponse {
+        private Boolean aBoolean;
+    }
 }
