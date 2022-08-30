@@ -25,4 +25,13 @@ public class ApplyApi {
         ApplyResponse.create response = applyService.createApply(userId, groupId, request);
         return ApiResponse.ok(response);
     }
+
+    @DeleteMapping("/groups/{groupId}/apply")
+    public ResponseEntity<Void> delete(
+         @AuthenticationPrincipal Long userId,
+         @PathVariable Long groupId
+    ) {
+        applyService.deleteApply(userId, groupId);
+        return ApiResponse.noContent();
+    }
 }
