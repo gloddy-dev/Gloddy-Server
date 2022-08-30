@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum Status {
     APPROVE("승인"),
     REFUSE("거절"),
+    WAIT("대기"),
     ;
 
     private final String status;

@@ -5,6 +5,7 @@ import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.entity.Group;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Table(name = "apply")
 public class Apply extends BaseTimeEntity {
 
     @Id
@@ -37,4 +39,13 @@ public class Apply extends BaseTimeEntity {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Builder
+    public Apply(User user, Group group, String content, String reason) {
+        this.user = user;
+        this.group = group;
+        this.content = content;
+        this.reason = reason;
+        this.status = Status.WAIT;
+    }
 }
