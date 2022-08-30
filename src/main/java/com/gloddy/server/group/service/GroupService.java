@@ -45,7 +45,8 @@ public class GroupService {
 
         return PageResponse.from(groups);
     }
-    
+
+    // TODO: school 컬럼 추가하셈
     @Transactional
     public GroupResponse.Create createGroup(Long captainId, GroupRequest.Create req) {
 
