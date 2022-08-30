@@ -1,5 +1,6 @@
 package com.gloddy.server.apply.entity;
 
+import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.entity.Group;
@@ -32,4 +33,8 @@ public class Apply extends BaseTimeEntity {
 
     @Column(name = "reason", columnDefinition = "longtext")
     private String reason;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

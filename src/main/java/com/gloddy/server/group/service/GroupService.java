@@ -1,12 +1,12 @@
 package com.gloddy.server.group.service;
 
+import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.repository.UserRepository;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.dto.GroupResponse;
-import com.gloddy.server.group.dto.response.GetGroupResponse;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,19 +24,20 @@ public class GroupService {
     private final ApplyJpaRepository applyJpaRepository;
     private final UserRepository userRepository;
 
-    // TODO: 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
-    // TODO: 참가 멤버 수 -> apply 엔티티에 상태값 추가해 가져오기
+    // 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
+    // 참가 멤버 수 -> apply 엔티티에 상태값 추가해 가져오기
     // TODO: exception 처리
     // TODO: 모임 날짜 처리 (LocalDate에 요일도 포함되나 요일은 어찜)
     @Transactional(readOnly = true)
-    public PageResponse<GetGroupResponse.GetGroup> getGroups(Long userId, int size, int page) {
+    public PageResponse<GroupResponse.GetGroup> getGroups(Long userId, int size, int page) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저 없음"));
         Pageable pageable = PageRequest.of(page, size);
-        Page<GetGroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
-             .map(group -> new GetGroupResponse.GetGroup(
+        Page<GroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
+             .map(group -> new GroupResponse.GetGroup(
                   group.getTitle(),
                   group.getContent(),
+                  applyJpaRepository.countApplyByGroupIdAndStatus(group.getId(), Status.APPROVE),
                   group.getPlace(),
                   group.getMeetDate()
              )
