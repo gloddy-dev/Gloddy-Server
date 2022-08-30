@@ -1,6 +1,7 @@
 package com.gloddy.server.authEmail.api;
 
 import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
+import com.gloddy.server.authEmail.dto.response.AuthEmailResponse;
 import com.gloddy.server.authEmail.service.AuthEmailService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class AuthEmailApi {
     }
 
     @PostMapping("/auth/verify-code")
-    public ResponseEntity<Boolean> verifyCode(
+    public ResponseEntity<AuthEmailResponse.schoolResponse> verifyCode(
             @RequestBody AuthEmailRequest.AuthCode request) {
-        Boolean response = authEmailService.verifyCode(request);
+        AuthEmailResponse.schoolResponse response = authEmailService.verifyCode(request);
         return ApiResponse.ok(response);
     }
 }

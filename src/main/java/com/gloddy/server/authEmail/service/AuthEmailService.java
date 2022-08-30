@@ -1,5 +1,6 @@
 package com.gloddy.server.authEmail.service;
 
+import com.gloddy.server.authEmail.dto.response.AuthEmailResponse;
 import com.gloddy.server.core.exception.auth.InvalidEmailException;
 import com.gloddy.server.core.exception.auth.InvalidVerificationCodeException;
 import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
@@ -23,7 +24,6 @@ public class AuthEmailService {
     private final JavaMailSender mailSender;
     private final RedisUtil redisUtil;
 
-    // TODO: 트랜잭션 내부 메소드간 호출 이슈 고민 - 트랜잭션 작동 안함
     @Transactional
     public void authEmail(AuthEmailRequest.AuthEmail request) {
         validateEmail(request.getEmail());
@@ -50,6 +50,8 @@ public class AuthEmailService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        log.info("email: {}", email);
+        log.info("code: {}", code);
         redisUtil.setDataExpire(email, code, 60 * 5L);
     }
 
@@ -67,11 +69,13 @@ public class AuthEmailService {
 
     // TODO: 유효하지 않은 인증코드인 경우 401 에러를 던지는데 500에러로 뜸 httpStatus 잘못 설정한 듯
     @Transactional
-    public Boolean verifyCode(AuthEmailRequest.AuthCode request) {
+    public AuthEmailResponse.schoolResponse verifyCode(AuthEmailRequest.AuthCode request) {
         String code = redisUtil.getData(request.getEmail());
         if(!code.equals(request.getAuthCode())) {
             throw new InvalidVerificationCodeException();
         }
-        return true;
+        String school = request.getEmail().split("@")[1].split("\\.")[0];
+        log.info("school: {}", school);
+        return new AuthEmailResponse.schoolResponse(school);
     }
 }

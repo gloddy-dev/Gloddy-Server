@@ -24,6 +24,7 @@ public class GroupService {
     private final ApplyJpaRepository applyJpaRepository;
     private final UserRepository userRepository;
 
+    // TODO: 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
     // TODO: 참가 멤버 수 -> apply 엔티티에 상태값 추가해 가져오기
     // TODO: exception 처리
     // TODO: 모임 날짜 처리 (LocalDate에 요일도 포함되나 요일은 어찜)

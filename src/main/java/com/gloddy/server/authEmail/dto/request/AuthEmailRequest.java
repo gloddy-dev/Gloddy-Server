@@ -17,7 +17,6 @@ public class AuthEmailRequest {
     @Getter
     public static class AuthCode {
         @Email
-        @NotBlank(message = "이메일 정보는 필수입니다.")
         private String email;
         private String authCode;
     }
