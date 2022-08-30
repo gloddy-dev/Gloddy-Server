@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Getter
+@Table(name = "`group`")
 public class Group extends BaseTimeEntity {
 
     @Id
