@@ -25,6 +25,9 @@ public class Group extends BaseTimeEntity {
     @JoinColumn(name = "captain_id")
     private User user;
 
+    @Column(name = "file_url")
+    private String fileUrl;
+
     @Column(name = "title")
     private String title;
 
