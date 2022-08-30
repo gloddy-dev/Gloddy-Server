@@ -34,7 +34,7 @@ public class AuthApi {
 
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponse.Login> login(@RequestBody AuthRequest.Login req) {
-        AuthResponse.Login response = userService.login(req.getEmail());
+        AuthResponse.Login response = userService.login(req);
 
         return ApiResponse.ok(response);
     }
