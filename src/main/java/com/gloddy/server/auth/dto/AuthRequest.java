@@ -19,7 +19,9 @@ public class AuthRequest {
     @AllArgsConstructor
     public static class SignUp{
         private String email;
+        private String password;
         private String name;
+        private String school;
         private LocalDate birth;
         private Gender gender;
         private List<String> personalities;
