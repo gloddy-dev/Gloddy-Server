@@ -31,6 +31,7 @@ public class AuthRequest {
     @AllArgsConstructor
     public static class Login{
         private String email;
+        private String password;
     }
 
     @Setter
