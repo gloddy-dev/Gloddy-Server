@@ -4,7 +4,6 @@ import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.dto.GroupResponse;
-import com.gloddy.server.group.dto.response.GetGroupResponse;
 import com.gloddy.server.group.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class GroupApi {
     }
 
     @GetMapping("/groups")
-    public PageResponse<GetGroupResponse.GetGroup> getGroups(
+    public PageResponse<GroupResponse.GetGroup> getGroups(
             @AuthenticationPrincipal Long userId,
             @RequestParam int size,
             @RequestParam int page
