@@ -30,7 +30,9 @@ public class AuthService {
 
         User created = User.builder()
                 .email(req.getEmail())
+                .password(req.getPassword())
                 .name(req.getName())
+                .school(req.getSchool())
                 .birth(req.getBirth())
                 .gender(req.getGender())
                 .personalities(personalities)
