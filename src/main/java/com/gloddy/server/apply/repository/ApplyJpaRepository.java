@@ -4,4 +4,5 @@ import com.gloddy.server.apply.entity.Apply;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApplyJpaRepository extends JpaRepository<Apply, Long> {
+    int countApplyByGroupId(Long group_id);
 }

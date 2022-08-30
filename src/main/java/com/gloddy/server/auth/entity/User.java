@@ -31,6 +31,9 @@ public class User extends BaseTimeEntity {
 
     private String name;
 
+    @Column(name = "school")
+    private String school;
+
     private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
