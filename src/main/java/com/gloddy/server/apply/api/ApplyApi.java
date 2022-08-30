@@ -2,6 +2,7 @@ package com.gloddy.server.apply.api;
 
 import com.gloddy.server.apply.dto.ApplyRequest;
 import com.gloddy.server.apply.dto.ApplyResponse;
+import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.service.ApplyService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,25 @@ public class ApplyApi {
         return ApiResponse.ok(response);
     }
 
+    // 모임 나가기 api
     @DeleteMapping("/groups/{groupId}/apply")
     public ResponseEntity<Void> delete(
          @AuthenticationPrincipal Long userId,
          @PathVariable Long groupId
     ) {
         applyService.deleteApply(userId, groupId);
+        return ApiResponse.noContent();
+    }
+
+    // 지원서 승인/거절 api
+    @PatchMapping("/groups/{groupId}/applys/{applyId}")
+    public ResponseEntity<Void> updateStatus(
+         @AuthenticationPrincipal Long userId,
+         @PathVariable Long groupId,
+         @PathVariable Long applyId,
+         @RequestParam Status status
+    ) {
+        applyService.updateStatusApply(userId, groupId, applyId, status);
         return ApiResponse.noContent();
     }
 }

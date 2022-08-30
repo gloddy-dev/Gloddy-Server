@@ -48,4 +48,8 @@ public class Apply extends BaseTimeEntity {
         this.reason = reason;
         this.status = Status.WAIT;
     }
+
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
 }
