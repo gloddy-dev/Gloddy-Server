@@ -50,9 +50,11 @@ public class User extends BaseTimeEntity {
     private List<Personality> personalities = new ArrayList<>();
 
     @Builder
-    public User(String email, String name, LocalDate birth, Gender gender, List<Personality> personalities) {
+    public User(String email, String password, String name, String school, LocalDate birth, Gender gender, List<Personality> personalities) {
         this.email = email;
+        this.password = password;
         this.name = name;
+        this.school = school;
         this.birth = birth;
         this.gender = gender;
         this.personalities = personalities;
