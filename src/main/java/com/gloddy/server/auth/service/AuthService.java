@@ -48,16 +48,22 @@ public class AuthService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public AuthResponse.Login login(String email) {
+    @Transactional(readOnly = true)
+    public AuthResponse.Login login(AuthRequest.Login req) {
 
-        User findUser = userRepository.findByEmail(email)
+        User findUser = userRepository.findByEmail(req.getEmail())
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
 
-        String token = jwtTokenBuilder.createToken(email);
+        if (!req.getPassword().equals(findUser.getPassword())) {
+            throw new UserBusinessException(ErrorCode.PASSWORD_DISCORD);
+        }
+
+        String token = jwtTokenBuilder.createToken(req.getEmail());
 
         return new AuthResponse.Login(findUser.getId(), findUser.getAuthority().getRole(), token);
     }
 
+    @Transactional(readOnly = true)
     public AuthResponse.Whether emailCheck(String email) {
 
         Optional<User> findUser = userRepository.findByEmail(email);
