@@ -35,4 +35,21 @@ public class GroupResponse {
         LocalDate meetDate;
     }
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetGroupDetail {
+        private String title;
+        private String fileUrl;
+        private String content;
+        private int CountParticipants;
+        private List<String> participantNames;
+        private String meetDate;
+        private String startTime;
+        private String endTime;
+        private String place;
+        private String place_latitude;
+        private String place_longitude;
+    }
+
 }
