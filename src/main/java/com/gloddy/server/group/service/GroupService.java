@@ -1,9 +1,11 @@
 package com.gloddy.server.group.service;
 
+import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.dto.GroupResponse;
@@ -15,6 +17,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -34,17 +41,18 @@ public class GroupService {
                 .orElseThrow(() -> new RuntimeException("유저 없음"));
         Pageable pageable = PageRequest.of(page, size);
         Page<GroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
-             .map(group -> new GroupResponse.GetGroup(
-                  group.getTitle(),
-                  group.getContent(),
-                  applyJpaRepository.countApplyByGroupIdAndStatus(group.getId(), Status.APPROVE),
-                  group.getPlace(),
-                  group.getMeetDate()
-             )
-        );
+                .map(group -> new GroupResponse.GetGroup(
+                                group.getTitle(),
+                                group.getContent(),
+                                applyJpaRepository.countApplyByGroupIdAndStatus(group.getId(), Status.APPROVE),
+                                group.getPlace(),
+                                group.getMeetDate()
+                        )
+                );
 
         return PageResponse.from(groups);
     }
+
 
     // TODO: school 컬럼 추가하셈
     @Transactional
@@ -71,4 +79,41 @@ public class GroupService {
 
         return new GroupResponse.Create(saveGroup.getId());
     }
- }
+
+    @Transactional(readOnly = true)
+    public GroupResponse.GetGroupDetail getGroupDetail(Long groupId) {
+        Group findGroup = groupJpaRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("해당 그룹을 찾을 수 없습니다"));
+
+        List<Apply> allApplyInFindGroup = applyJpaRepository.findAppliesByGroupAndStatusFetchUser(findGroup, Status.APPROVE);
+
+        return mapGroupDetailDto(findGroup, allApplyInFindGroup);
+    }
+
+    private GroupResponse.GetGroupDetail mapGroupDetailDto(Group group, Collection<Apply> applies) {
+
+        List<String> participantNames = new ArrayList<>(applies.stream()
+                .map(apply -> apply.getUser().getName())
+                .collect(Collectors.toUnmodifiableList()));
+
+        DayOfWeek dayOfWeek = group.getMeetDate().getDayOfWeek();
+        String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+        String meetDate = group.getMeetDate() + " " + day;
+
+        participantNames.add(group.getUser().getName());
+
+        return new GroupResponse.GetGroupDetail(
+                group.getTitle(),
+                group.getFileUrl(),
+                group.getContent(),
+                applies.size() + 1,
+                participantNames,
+                meetDate,
+                group.getStartTime(),
+                group.getEndTime(),
+                group.getPlace(),
+                group.getPlaceLatitude(),
+                group.getPlaceLongitude()
+        );
+    }
+}
