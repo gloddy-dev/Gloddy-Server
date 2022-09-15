@@ -32,4 +32,13 @@ public class GroupApi {
     ) {
         return groupService.getGroups(userId, size, page);
     }
+
+    @GetMapping("/groups/{groupId}")
+    public ResponseEntity getGroupDetail(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long groupId
+    ) {
+        GroupResponse.GetGroupDetail response = groupService.getGroupDetail(groupId);
+        return ApiResponse.ok(response);
+    }
 }
