@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/articles")
@@ -19,7 +21,7 @@ public class CommentController {
     @PostMapping("/{articleId}/comment")
     public ResponseEntity<CommentResponse.Create> create(
             @PathVariable Long articleId,
-            @RequestBody CommentRequest.Create request,
+            @RequestBody @Valid CommentRequest.Create request,
             @AuthenticationPrincipal Long userId
     ) {
         CommentResponse.Create response = commentService.create(userId, articleId, request);

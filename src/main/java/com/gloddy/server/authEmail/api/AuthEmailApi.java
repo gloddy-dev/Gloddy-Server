@@ -21,14 +21,14 @@ public class AuthEmailApi {
 
     @PostMapping("/auth/email")
     public ResponseEntity<Void> authEmail(
-            @Valid @RequestBody AuthEmailRequest.AuthEmail request) {
+            @RequestBody @Valid AuthEmailRequest.AuthEmail request) {
         authEmailService.authEmail(request);
         return ApiResponse.noContent();
     }
 
     @PostMapping("/auth/verify-code")
     public ResponseEntity<AuthEmailResponse.schoolResponse> verifyCode(
-            @RequestBody AuthEmailRequest.AuthCode request) {
+            @RequestBody @Valid AuthEmailRequest.AuthCode request) {
         AuthEmailResponse.schoolResponse response = authEmailService.verifyCode(request);
         return ApiResponse.ok(response);
     }
