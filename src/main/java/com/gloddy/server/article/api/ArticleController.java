@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class ArticleController {
     @PostMapping("/groups/{groupId}/article")
     public ResponseEntity<ArticleResponse.Create> create(
             @PathVariable Long groupId,
-            @RequestBody ArticleRequest.Create request,
+            @RequestBody @Valid ArticleRequest.Create request,
             @AuthenticationPrincipal Long userId
     ) {
         ArticleResponse.Create response = articleService.create(groupId, userId, request);
@@ -28,7 +30,7 @@ public class ArticleController {
     @PatchMapping("/articles/{articleId}")
     public ResponseEntity<ArticleResponse.Update> update(
             @PathVariable Long articleId,
-            @RequestBody ArticleRequest.Update request,
+            @RequestBody @Valid ArticleRequest.Update request,
             @AuthenticationPrincipal Long userId
     ) {
         ArticleResponse.Update response = articleService.update(articleId, userId, request);
