@@ -20,6 +20,11 @@ public enum ErrorCode {
 
     EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
     CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
+
+    ARTICLE_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
+
+    COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
+    COMMENT_USER_MISMATCH(400, "해당 댓글 작성자가 아닙니다.")
     ;
 
     private int status;
