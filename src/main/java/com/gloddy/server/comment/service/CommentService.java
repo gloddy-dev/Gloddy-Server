@@ -38,7 +38,6 @@ public class CommentService {
         return new CommentResponse.Create(comment.getId());
     }
 
-    // TODO: 자신이 작성하지 않은 댓글 삭제 시 exception 처리 리팩토링
     @Transactional
     public void delete(Long commentId, Long userId, Long articleId) {
         User user = userHandlerImpl.findById(userId);
@@ -47,14 +46,14 @@ public class CommentService {
         Group group = article.getGroup();
         Comment comment = commentHandlerImpl.findById(commentId);
 
-        if(comment.getUser().equals(user) || group.getUser().equals(user)) {
-            commentJpaRepository.delete(comment);
-        }
-        else {
+        if(checkCommentUser(comment, group, user)) {
             throw new UserBusinessException(ErrorCode.COMMENT_USER_MISMATCH);
         }
+        commentJpaRepository.delete(comment);
+    }
 
-
+    private boolean checkCommentUser(Comment comment, Group group, User user) {
+        return comment.getUser().equals(user) || group.getUser().equals(user);
     }
 
 }
