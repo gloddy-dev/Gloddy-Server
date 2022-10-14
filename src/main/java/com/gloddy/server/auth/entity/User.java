@@ -48,6 +48,8 @@ public class User extends BaseTimeEntity {
     @Column(name = "personality")
     private List<Personality> personalities = new ArrayList<>();
 
+    private int score;
+
     @Builder
     public User(String email, String password, String name, String school, LocalDate birth, Gender gender, List<Personality> personalities) {
         this.email = email;
@@ -62,6 +64,11 @@ public class User extends BaseTimeEntity {
 
     private void authorityDefault() {
         this.authority = Authority.USER;
+    }
+
+    // TODO: ENUM으로 score 값 관리
+    private void updateScore() {
+
     }
 
 
