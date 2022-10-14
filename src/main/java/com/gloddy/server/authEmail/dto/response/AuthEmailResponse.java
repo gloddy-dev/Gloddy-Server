@@ -9,7 +9,7 @@ public class AuthEmailResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class schoolResponse {
-        private String school;
+    public static class VerifyCode {
+        private boolean isVerify;
     }
 }

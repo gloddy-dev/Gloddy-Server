@@ -69,13 +69,13 @@ public class AuthEmailService {
 
     // TODO: 유효하지 않은 인증코드인 경우 401 에러를 던지는데 500에러로 뜸 httpStatus 잘못 설정한 듯
     @Transactional
-    public AuthEmailResponse.schoolResponse verifyCode(AuthEmailRequest.AuthCode request) {
+    public AuthEmailResponse.VerifyCode verifyCode(AuthEmailRequest.AuthCode request) {
         String code = redisUtil.getData(request.getEmail());
         if(!code.equals(request.getAuthCode())) {
             throw new InvalidVerificationCodeException();
         }
-        String school = request.getEmail().split("@")[1].split("\\.")[0];
-        log.info("school: {}", school);
-        return new AuthEmailResponse.schoolResponse(school);
+        //String school = request.getEmail().split("@")[1].split("\\.")[0];
+        //log.info("school: {}", school);
+        return new AuthEmailResponse.VerifyCode(true);
     }
 }

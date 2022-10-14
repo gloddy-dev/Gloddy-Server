@@ -27,9 +27,9 @@ public class AuthEmailApi {
     }
 
     @PostMapping("/auth/verify-code")
-    public ResponseEntity<AuthEmailResponse.schoolResponse> verifyCode(
+    public ResponseEntity<AuthEmailResponse.VerifyCode> verifyCode(
             @RequestBody @Valid AuthEmailRequest.AuthCode request) {
-        AuthEmailResponse.schoolResponse response = authEmailService.verifyCode(request);
+        AuthEmailResponse.VerifyCode response = authEmailService.verifyCode(request);
         return ApiResponse.ok(response);
     }
 }
