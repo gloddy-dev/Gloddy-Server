@@ -4,6 +4,7 @@ import com.gloddy.server.auth.dto.UserRequest;
 import com.gloddy.server.auth.dto.UserResponse;
 import com.gloddy.server.auth.entity.Mate;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.entity.score.Score;
 import com.gloddy.server.auth.handler.UserHandler;
 import com.gloddy.server.auth.handler.UserHandlerImpl;
 import com.gloddy.server.auth.repository.MateJpaRepository;
@@ -18,6 +19,7 @@ public class UserService {
 
     public UserResponse.CrateMate create(UserRequest.CreateMate request) {
         User user = userHandlerImpl.findById(request.getUserId());
+        user.updateScore(Score.BEST_MATE);
         Mate mate = mateJpaRepository.save(Mate.builder()
                  .user(user)
                  .content(request.getContent())
