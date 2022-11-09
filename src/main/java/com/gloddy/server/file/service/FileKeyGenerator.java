@@ -1,8 +1,8 @@
-package com.concorn.ozjejakso.application.service;
-
-import java.util.UUID;
+package com.gloddy.server.file.service;
 
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class FileKeyGenerator {

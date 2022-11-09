@@ -1,17 +1,18 @@
-package com.concorn.ozjejakso.application.service;
-
-import static com.ozjejakso.core.error.handler.code.ErrorCode.FILE_INTERNAL_ERROR;
+package com.gloddy.server.file.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.ozjejakso.core.error.handler.exception.FileBusinessException;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.gloddy.server.core.error.handler.exception.FileBusinessException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.*;
 
 @Component
 public class S3Service {
