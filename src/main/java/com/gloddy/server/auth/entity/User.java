@@ -3,17 +3,20 @@ package com.gloddy.server.auth.entity;
 import com.gloddy.server.auth.entity.kind.Authority;
 import com.gloddy.server.auth.entity.kind.Gender;
 import com.gloddy.server.auth.entity.kind.Personality;
+import com.gloddy.server.auth.entity.score.Score;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -59,6 +62,7 @@ public class User extends BaseTimeEntity {
         this.birth = birth;
         this.gender = gender;
         this.personalities = personalities;
+        this.score = 0;
         authorityDefault();
     }
 
@@ -66,10 +70,33 @@ public class User extends BaseTimeEntity {
         this.authority = Authority.USER;
     }
 
-    // TODO: ENUM으로 score 값 관리
-    private void updateScore() {
-
+    public void updateScore(Score score) {
+        this.score += score.getValue();
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        System.out.println(Hibernate.getClass(this));
+        System.out.println(Hibernate.getClass(obj));
+
+        if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+            return false;
+        }
+
+        User target = (User) obj;
+
+        System.out.println(this.id);
+        System.out.println(target.getId());
+
+        return Objects.equals(this.id, target.getId());
+    }
 }
