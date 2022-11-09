@@ -24,7 +24,9 @@ public enum ErrorCode {
     ARTICLE_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
 
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
-    COMMENT_USER_MISMATCH(400, "해당 댓글 작성자가 아닙니다.")
+    COMMENT_USER_MISMATCH(400, "해당 댓글 작성자가 아닙니다."),
+    FILE_EXTENSION_NOT_FOUND(404, "파일 확장자를 얻을 수 없습니다."),
+    FILE_INTERNAL_ERROR(500, "파일 byte input stream 변환 중 에러")
     ;
 
     private int status;
