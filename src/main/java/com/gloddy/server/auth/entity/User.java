@@ -3,6 +3,7 @@ package com.gloddy.server.auth.entity;
 import com.gloddy.server.auth.entity.kind.Authority;
 import com.gloddy.server.auth.entity.kind.Gender;
 import com.gloddy.server.auth.entity.kind.Personality;
+import com.gloddy.server.auth.entity.score.Score;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,8 @@ public class User extends BaseTimeEntity {
     @Column(name = "personality")
     private List<Personality> personalities = new ArrayList<>();
 
+    private int score;
+
     @Builder
     public User(String email, String password, String name, String school, LocalDate birth, Gender gender, List<Personality> personalities) {
         this.email = email;
@@ -59,11 +62,16 @@ public class User extends BaseTimeEntity {
         this.birth = birth;
         this.gender = gender;
         this.personalities = personalities;
+        this.score = 0;
         authorityDefault();
     }
 
     private void authorityDefault() {
         this.authority = Authority.USER;
+    }
+
+    public void updateScore(Score score) {
+        this.score += score.getValue();
     }
 
     @Override
