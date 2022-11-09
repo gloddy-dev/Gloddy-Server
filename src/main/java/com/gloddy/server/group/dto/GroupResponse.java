@@ -39,6 +39,7 @@ public class GroupResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class GetGroupDetail {
+        private Boolean myGroup;
         private String title;
         private String fileUrl;
         private String content;

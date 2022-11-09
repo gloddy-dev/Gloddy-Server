@@ -38,7 +38,7 @@ public class GroupApi {
             @AuthenticationPrincipal Long userId,
             @PathVariable Long groupId
     ) {
-        GroupResponse.GetGroupDetail response = groupService.getGroupDetail(groupId);
+        GroupResponse.GetGroupDetail response = groupService.getGroupDetail(userId, groupId);
         return ApiResponse.ok(response);
     }
 }

@@ -5,6 +5,7 @@ import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.dto.GroupRequest;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,39 +84,53 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
-    public GroupResponse.GetGroupDetail getGroupDetail(Long groupId) {
+    public GroupResponse.GetGroupDetail getGroupDetail(Long userId, Long groupId) {
+
+        User findUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
+
         Group findGroup = groupJpaRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("해당 그룹을 찾을 수 없습니다"));
 
         List<Apply> allApplyInFindGroup = applyJpaRepository.findAppliesByGroupAndStatusFetchUser(findGroup, Status.APPROVE);
 
-        return mapGroupDetailDto(findGroup, allApplyInFindGroup);
+        Boolean myGroupIs = checkMyGroupIs(findUser, allApplyInFindGroup);
+
+        return mapGroupDetailDto(myGroupIs, findGroup, allApplyInFindGroup);
     }
 
-    private GroupResponse.GetGroupDetail mapGroupDetailDto(Group group, Collection<Apply> applies) {
+    private GroupResponse.GetGroupDetail mapGroupDetailDto(Boolean myGroupIs, Group group, Collection<Apply> applies) {
 
         List<String> participantNames = new ArrayList<>(applies.stream()
                 .map(apply -> apply.getUser().getName())
                 .collect(Collectors.toUnmodifiableList()));
 
-        DayOfWeek dayOfWeek = group.getMeetDate().getDayOfWeek();
-        String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
-        String meetDate = group.getMeetDate() + " " + day;
-
         participantNames.add(group.getUser().getName());
 
         return new GroupResponse.GetGroupDetail(
+                myGroupIs,
                 group.getTitle(),
                 group.getFileUrl(),
                 group.getContent(),
                 applies.size() + 1,
                 participantNames,
-                meetDate,
+                dateTimeFormatter(group.getMeetDate()),
                 group.getStartTime(),
                 group.getEndTime(),
                 group.getPlace(),
                 group.getPlaceLatitude(),
                 group.getPlaceLongitude()
         );
+    }
+
+    private Boolean checkMyGroupIs(User user, List<Apply> applies) {
+        return applies.stream()
+                .anyMatch(apply -> user.equals(apply.getUser()));
+    }
+
+    private String dateTimeFormatter(LocalDate date) {
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+        return date + " " + day;
     }
 }
