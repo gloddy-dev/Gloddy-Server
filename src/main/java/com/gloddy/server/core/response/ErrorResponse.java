@@ -16,4 +16,15 @@ public class ErrorResponse {
         this.message = errorCode.name();
         this.reason = errorCode.getErrorMessage();
     }
+
+    private ErrorResponse(int status, String message, String reason){
+        this.timestamp = LocalDateTime.now();
+        this.status = status;
+        this.message = message;
+        this.reason = reason;
+    }
+
+    public static ErrorResponse of(int status, String message, String reason) {
+        return new ErrorResponse(status, message, reason);
+    }
 }
