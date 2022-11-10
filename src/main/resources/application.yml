@@ -31,6 +31,10 @@ spring:
     host: ${REDISHOST}
     port: ${REDISPORT}
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 jwt:
   header: ${JWT_HEADER}
   secret: ${JWT_SECRET}
