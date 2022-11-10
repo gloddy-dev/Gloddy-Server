@@ -33,7 +33,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("X-AUTH-TOKEN", "", "header");
+        return new ApiKey("JWT", "X-AUTH-TOKEN", "header");
     }
 
 
@@ -41,6 +41,6 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("glbal", "access All");
         AuthorizationScope[] authorizationScopes = {authorizationScope};
 
-        return List.of(new SecurityReference("X-AUTH-TOKEN", authorizationScopes));
+        return List.of(new SecurityReference("JWT", authorizationScopes));
     }
 }
