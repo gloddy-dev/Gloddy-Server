@@ -1,9 +1,11 @@
 package com.gloddy.server.core.response;
 
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class ErrorResponse {
     private final LocalDateTime timestamp;
     private final int status;
