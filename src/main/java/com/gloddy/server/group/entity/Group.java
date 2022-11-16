@@ -60,7 +60,7 @@ public class Group extends BaseTimeEntity {
 
     @Builder
     public Group(User user, String fileUrl, String title, String content, LocalDate meetDate, String startTime, String endTime,
-                 String place, String placeLatitude, String placeLongitude, int maxUser) {
+                 String place, String placeLatitude, String placeLongitude, int maxUser, String school) {
         this.user = user;
         this.fileUrl = fileUrl;
         this.title = title;
@@ -72,5 +72,6 @@ public class Group extends BaseTimeEntity {
         this.placeLatitude = placeLatitude;
         this.placeLongitude = placeLongitude;
         this.maxUser = maxUser;
+        this.school = school;
     }
 }

@@ -45,6 +45,7 @@ public class GroupService {
         Pageable pageable = PageRequest.of(page, size);
         Page<GroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
                 .map(group -> new GroupResponse.GetGroup(
+                                group.getFileUrl(),
                                 group.getTitle(),
                                 group.getContent(),
                                 applyJpaRepository.countApplyByGroupIdAndStatus(group.getId(), Status.APPROVE),
@@ -76,6 +77,7 @@ public class GroupService {
                 .placeLatitude(req.getPlace_latitude())
                 .placeLongitude(req.getPlace_longitude())
                 .maxUser(req.getMaxUser())
+                .school(captain.getSchool())
                 .build();
 
         Group saveGroup = groupJpaRepository.save(buildGroup);
