@@ -1,4 +1,4 @@
-package com.gloddy.server.auth.dto;
+package com.gloddy.server.Mate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

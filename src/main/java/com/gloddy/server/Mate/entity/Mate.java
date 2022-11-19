@@ -1,5 +1,6 @@
-package com.gloddy.server.auth.entity;
+package com.gloddy.server.Mate.entity;
 
+import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import jdk.jfr.ContentType;
 import lombok.Builder;

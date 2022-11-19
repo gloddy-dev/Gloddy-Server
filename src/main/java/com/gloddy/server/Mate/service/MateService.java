@@ -1,19 +1,18 @@
-package com.gloddy.server.auth.service;
+package com.gloddy.server.Mate.service;
 
-import com.gloddy.server.auth.dto.UserRequest;
-import com.gloddy.server.auth.dto.UserResponse;
-import com.gloddy.server.auth.entity.Mate;
+import com.gloddy.server.Mate.dto.UserRequest;
+import com.gloddy.server.Mate.dto.UserResponse;
+import com.gloddy.server.Mate.entity.Mate;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.entity.score.Score;
-import com.gloddy.server.auth.handler.UserHandler;
 import com.gloddy.server.auth.handler.UserHandlerImpl;
-import com.gloddy.server.auth.repository.MateJpaRepository;
+import com.gloddy.server.Mate.repository.MateJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class MateService {
     private final MateJpaRepository mateJpaRepository;
     private final UserHandlerImpl userHandlerImpl;
 

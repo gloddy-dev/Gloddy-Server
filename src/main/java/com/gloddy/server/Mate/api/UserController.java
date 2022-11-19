@@ -1,8 +1,8 @@
-package com.gloddy.server.auth.api;
+package com.gloddy.server.Mate.api;
 
-import com.gloddy.server.auth.dto.UserRequest;
-import com.gloddy.server.auth.dto.UserResponse;
-import com.gloddy.server.auth.service.UserService;
+import com.gloddy.server.Mate.dto.UserRequest;
+import com.gloddy.server.Mate.dto.UserResponse;
+import com.gloddy.server.Mate.service.MateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/group")
 public class UserController {
-    private final UserService userService;
+    private final MateService userService;
 
     @PostMapping("/{groupId}/mate")
     public UserResponse.CrateMate create(

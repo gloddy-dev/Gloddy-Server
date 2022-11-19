@@ -1,7 +1,7 @@
-package com.gloddy.server.auth.repository;
+package com.gloddy.server.Mate.repository;
 
 
-import com.gloddy.server.auth.entity.Mate;
+import com.gloddy.server.Mate.entity.Mate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
