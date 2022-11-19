@@ -45,6 +45,7 @@ public class GroupService {
         Pageable pageable = PageRequest.of(page, size);
         Page<GroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
                 .map(group -> new GroupResponse.GetGroup(
+                                group.getId(),
                                 group.getFileUrl(),
                                 group.getTitle(),
                                 group.getContent(),

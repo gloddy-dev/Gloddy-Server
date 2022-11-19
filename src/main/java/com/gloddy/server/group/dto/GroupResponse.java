@@ -26,6 +26,7 @@ public class GroupResponse {
     @Getter
     @AllArgsConstructor
     public static class GetGroup {
+        Long groupId;
         String imageUrl;
         String title;
         String content;
