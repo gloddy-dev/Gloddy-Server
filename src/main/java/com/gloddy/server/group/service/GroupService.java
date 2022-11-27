@@ -97,7 +97,7 @@ public class GroupService {
 
         List<Apply> allApplyInFindGroup = applyJpaRepository.findAppliesByGroupAndStatusFetchUser(findGroup, Status.APPROVE);
 
-        Boolean myGroupIs = checkMyGroupIs(findUser, allApplyInFindGroup);
+       Boolean myGroupIs = checkMyGroup(findUser, findGroup, allApplyInFindGroup);
 
         return mapGroupDetailDto(myGroupIs, findGroup, allApplyInFindGroup);
     }
@@ -126,7 +126,15 @@ public class GroupService {
         );
     }
 
-    private Boolean checkMyGroupIs(User user, List<Apply> applies) {
+    private Boolean checkMyGroup(User user, Group group, List<Apply> applies) {
+        return isGroupCaptain(user, group) || isGroupMember(user, applies);
+    }
+
+    private Boolean isGroupCaptain(User user, Group group) {
+        return user.equals(group.getUser());
+    }
+
+    private Boolean isGroupMember(User user, List<Apply> applies) {
         return applies.stream()
                 .anyMatch(apply -> user.equals(apply.getUser()));
     }
