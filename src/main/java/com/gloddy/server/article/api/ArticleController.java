@@ -4,6 +4,7 @@ import com.gloddy.server.article.dto.ArticleRequest;
 import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.service.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -54,6 +55,15 @@ public class ArticleController {
         @AuthenticationPrincipal Long userId
     ) {
         GetPreview response = articleService.getPreview(groupId, userId);
+        return ApiResponse.ok(response);
+    }
+
+    @GetMapping("/articles/{articleId}")
+    public ResponseEntity<GetDetail> getDetail(
+        @PathVariable Long articleId,
+        @AuthenticationPrincipal Long userId
+    ) {
+        GetDetail response = articleService.getDetail(articleId, userId);
         return ApiResponse.ok(response);
     }
 }
