@@ -32,18 +32,39 @@ public class ArticleResponse {
 //        private String groupImageUrl;
         private String groupTitle;
         private String groupContent;
-        List<Preview> previews;
+        List<GetArticle> previews;
     }
 
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
-    public static class Preview {
+    public static class GetArticle {
 //        private String userImageUrl;
         private String name;
         private String date;
         private String content;
         private int commentCount;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class GetDetail {
+//        private String userImageUrl;
+        private GetArticle article;
+        private List<GetComment> comments;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class GetComment {
+//        private String userImageUrl;
+        private String name;
+        private String date;
+        private String content;
     }
 }
