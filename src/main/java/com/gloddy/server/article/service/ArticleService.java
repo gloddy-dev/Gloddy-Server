@@ -84,7 +84,7 @@ public class ArticleService {
             .collect(Collectors.toList());
 
         return new GetPreview(
-//            group.getImageUrl();
+            group.getFileUrl(),
             group.getTitle(),
             group.getContent(),
             previews

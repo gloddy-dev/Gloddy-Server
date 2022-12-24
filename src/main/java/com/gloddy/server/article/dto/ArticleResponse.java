@@ -29,7 +29,7 @@ public class ArticleResponse {
     @Getter
     @Setter
     public static class GetPreview {
-//        private String groupImageUrl;
+        private String groupFileUrl;
         private String groupTitle;
         private String groupContent;
         List<GetArticle> previews;
