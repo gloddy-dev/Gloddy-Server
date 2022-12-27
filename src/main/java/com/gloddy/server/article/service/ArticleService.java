@@ -1,25 +1,23 @@
 package com.gloddy.server.article.service;
 
 import com.gloddy.server.article.dto.ArticleRequest;
-import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.entity.Article;
 import com.gloddy.server.article.handler.ArticleHandler;
 import com.gloddy.server.article.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.handler.UserHandler;
-import com.gloddy.server.auth.repository.UserRepository;
 import com.gloddy.server.comment.entity.Comment;
 import com.gloddy.server.comment.repository.CommentJpaRepository;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import com.gloddy.server.core.error.handler.exception.ArticleBusinessException;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.handler.GroupHandler;
-import com.gloddy.server.group.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +32,7 @@ public class ArticleService {
     private final UserHandler userHandler;
     private final GroupHandler groupHandler;
 
+    @Transactional
     // TODO:게시글에 사진 추가 하는 경우 null값 검사해 null이 아니면 S3에 사진 업로드 후 url DB에 저장
     public Create create(Long groupId, Long userId, ArticleRequest.Create request) {
         User user = userHandler.findById(userId);
@@ -49,12 +48,14 @@ public class ArticleService {
         return new Create(article.getId());
     }
 
+    @Transactional
     public Update update(Long articleId, Long userId, ArticleRequest.Update request) {
         Article article = articleHandler.findById(articleId);
-        if(!article.getUser().getId().equals(userId)) {
-            throw new RuntimeException("게시글 작성자가 아닙니다.");
-        }
+        User user = userHandler.findById(userId);
+        checkWriter(article, user);
+
         article.update(request.getContent(), request.isNotice());
+        // TODO: JPA는 더티체킹이 되지 않나? 업데이트 후 save 안해줘도 되지 않나?
         Article updateArticle = articleJpaRepository.save(article);
         return new Update(
                 updateArticle.getContent(),
@@ -62,19 +63,31 @@ public class ArticleService {
         );
     }
 
-    // TODO: 그룹 captain도 해당 그룹 게시글 삭제할 수 있도록 수정 필요
-    public void delete(Long articleId, Long userId) {
-        Article article = articleJpaRepository.findById(articleId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 게시글입니다."));
-        if(!article.getUser().getId().equals(userId)) {
-            throw new RuntimeException("게시글 작성자가 아닙니다.");
+    private void checkWriter(Article article, User user) {
+        if (!article.getUser().equals(user)) {
+            throw new ArticleBusinessException(ErrorCode.NO_ARTICLE_WRITER);
         }
+    }
+
+    @Transactional
+    public void delete(Long groupId, Long articleId, Long userId) {
+        Group group = groupHandler.findById(groupId);
+        Article article = articleHandler.findById(articleId);
+        User user = userHandler.findById(userId);
+        checkPermission(group, article, user);
         articleJpaRepository.delete(article);
     }
 
+    private void checkPermission(Group group, Article article, User user) {
+        checkWriter(article, user);
+        if (!group.getUser().equals(user)) {
+            throw new ArticleBusinessException(ErrorCode.NO_ARTICLE_DELETE_PERMISSION);
+        }
+    }
+
     // TODO: 추후 좋아요 여부 구현 위해 userId 받음
-    // TODO: 그룹 이미지 추가해야됨
     // TODO: 게시글 사진 추가해야됨
+    @Transactional(readOnly = true)
     public GetPreview getPreview(Long groupId, Long userId) {
         Group group = groupHandler.findById(groupId);
         List<Article> articles = articleJpaRepository.findAllByGroup(group);
@@ -106,6 +119,7 @@ public class ArticleService {
     }
 
     // TODO: 좋아요 구현 위해 userId 받음
+    @Transactional(readOnly = true)
     public GetDetail getDetail(Long articleId, Long userId) {
         Article article = articleHandler.findById(articleId);
         List<Comment> comments = commentJpaRepository.findAllByArticle(article);
