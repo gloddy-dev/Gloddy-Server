@@ -40,12 +40,13 @@ public class ArticleController {
         return ApiResponse.ok(response);
     }
 
-    @DeleteMapping("/articles/{articleId}")
+    @DeleteMapping("/groups/{groupId}/articles/{articleId}")
     public ResponseEntity<Void> delete(
+            @PathVariable Long groupId,
             @PathVariable Long articleId,
             @AuthenticationPrincipal Long userId
     ) {
-        articleService.delete(articleId, userId);
+        articleService.delete(groupId, articleId, userId);
         return ApiResponse.noContent();
     }
 
