@@ -22,6 +22,8 @@ public enum ErrorCode {
     CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
 
     ARTICLE_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
+    NO_ARTICLE_WRITER(400, "게시글 작성자가 아닙니다."),
+    NO_ARTICLE_DELETE_PERMISSION(400, "게시글을 삭제할 권한이 없습니다."),
 
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
     COMMENT_USER_MISMATCH(400, "해당 댓글 작성자가 아닙니다."),
