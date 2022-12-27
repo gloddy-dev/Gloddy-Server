@@ -1,5 +1,6 @@
 package com.gloddy.server.core.error.handler;
 
+import com.gloddy.server.core.error.handler.exception.ArticleBusinessException;
 import com.gloddy.server.core.error.handler.exception.BaseBusinessException;
 import com.gloddy.server.core.error.handler.exception.FileBusinessException;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
@@ -21,7 +22,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {
             UserBusinessException.class,
-            FileBusinessException.class
+            FileBusinessException.class,
+            ArticleBusinessException.class
     })
     public ResponseEntity<ErrorResponse> handleBusinessException(BaseBusinessException e) {
         System.out.println("여기를 확인하세요");
