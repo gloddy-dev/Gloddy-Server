@@ -10,9 +10,13 @@ import com.gloddy.server.comment.entity.Comment;
 import com.gloddy.server.comment.repository.CommentJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.ArticleBusinessException;
+import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.handler.GroupHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,22 +89,19 @@ public class ArticleService {
         }
     }
 
-    // TODO: 추후 좋아요 여부 구현 위해 userId 받음
     // TODO: 게시글 사진 추가해야됨
     @Transactional(readOnly = true)
-    public GetPreview getPreview(Long groupId, Long userId) {
+    public GetPreview getPreview(Long groupId, int page, int size) {
         Group group = groupHandler.findById(groupId);
-        List<Article> articles = articleJpaRepository.findAllByGroup(group);
-
-        List<GetArticle> previews = articles.stream()
-            .map(this::getArticle)
-            .collect(Collectors.toList());
+        Pageable pageable = PageRequest.of(page, size);
+        Page<GetArticle> articles = articleJpaRepository.findAllByGroup(group, pageable)
+                .map(this::getArticle);
 
         return new GetPreview(
             group.getFileUrl(),
             group.getTitle(),
             group.getContent(),
-            previews
+            PageResponse.from(articles)
         );
     }
 
@@ -118,9 +119,8 @@ public class ArticleService {
         );
     }
 
-    // TODO: 좋아요 구현 위해 userId 받음
     @Transactional(readOnly = true)
-    public GetDetail getDetail(Long articleId, Long userId) {
+    public GetDetail getDetail(Long articleId) {
         Article article = articleHandler.findById(articleId);
         List<Comment> comments = commentJpaRepository.findAllByArticle(article);
         List<GetComment> responseComments = comments.stream()

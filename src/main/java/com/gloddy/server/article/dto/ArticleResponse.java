@@ -1,5 +1,6 @@
 package com.gloddy.server.article.dto;
 
+import com.gloddy.server.core.response.PageResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class ArticleResponse {
         private String groupFileUrl;
         private String groupTitle;
         private String groupContent;
-        List<GetArticle> previews;
+        PageResponse<GetArticle> previews;
     }
 
     @NoArgsConstructor
