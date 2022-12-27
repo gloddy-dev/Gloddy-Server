@@ -1,6 +1,7 @@
 package com.gloddy.server.article.entity;
 
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.comment.entity.Comment;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.entity.Group;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +36,9 @@ public class Article extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Article(String content, boolean isNotice, User user, Group group) {

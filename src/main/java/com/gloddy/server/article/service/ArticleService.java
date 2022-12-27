@@ -83,8 +83,7 @@ public class ArticleService {
     }
 
     private void checkPermission(Group group, Article article, User user) {
-        checkWriter(article, user);
-        if (!group.getUser().equals(user)) {
+        if (!article.getUser().equals(user) && !group.getUser().equals(user)) {
             throw new ArticleBusinessException(ErrorCode.NO_ARTICLE_DELETE_PERMISSION);
         }
     }
