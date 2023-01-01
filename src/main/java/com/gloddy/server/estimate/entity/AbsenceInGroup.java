@@ -1,7 +1,6 @@
 package com.gloddy.server.estimate.entity;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.estimate.entity.embedded.PraiseInGroup;
 import com.gloddy.server.group.entity.Group;
 import lombok.AccessLevel;
 import lombok.Getter;

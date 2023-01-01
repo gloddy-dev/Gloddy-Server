@@ -21,9 +21,9 @@ public class EstimateApi {
     private final EstimateService estimateService;
 
     @ApiOperation("칭찬 할 멤버 조회")
-    @GetMapping("/groups/{groupId}/praise")
+    @GetMapping("/groups/{groupId}/estimate")
     public GetGroupMembers getGroupMembersForEstimate(@PathVariable("groupId") Long groupId,
-                                                                       @AuthenticationPrincipal Long userId) {
+                                                      @AuthenticationPrincipal Long userId) {
         return getGroupMemberForEstimateService.getGroupMembers(userId, groupId)
                 .stream()
                 .map(GetGroupMembers.GetGroupMember::from)
