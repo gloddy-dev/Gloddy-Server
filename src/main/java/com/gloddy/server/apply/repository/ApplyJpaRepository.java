@@ -19,4 +19,6 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long> {
 
     @Query("select a from Apply a join fetch a.user where a.group = :group and a.status = :status")
     List<Apply> findAppliesByGroupAndStatusFetchUser(@Param("group") Group group, @Param("status") Status status);
+
+    Long countByGroupIdAndStatus(Long groupId, Status status);
 }
