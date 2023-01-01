@@ -39,6 +39,7 @@ public class UserPraise {
         absenceInGroupDomain.plusAbsenceCount();
 
         if (absenceInGroupDomain.checkAbsenceCountOver()) {
+            absenceInGroupDomain.absence();
             user.getPraise().plusAbsenceCount();
         }
     }

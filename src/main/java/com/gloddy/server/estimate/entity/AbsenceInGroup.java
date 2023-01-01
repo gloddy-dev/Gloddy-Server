@@ -19,21 +19,25 @@ public class AbsenceInGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "absence_count")
+    @Column(name = "absence_count", nullable = false)
     private Integer absenceCount;
 
-    @Column(name = "absence")
+    @Column(name = "absence", nullable = false)
     private Boolean absence;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     public void plusAbsenceCount() {
         this.absenceCount++;
+    }
+
+    public void absence() {
+        this.absence = true;
     }
 }

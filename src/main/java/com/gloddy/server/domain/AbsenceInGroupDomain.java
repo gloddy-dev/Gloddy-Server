@@ -20,8 +20,10 @@ public class AbsenceInGroupDomain {
     }
 
     public boolean checkAbsenceCountOver() {
-        return this.absenceInGroup.getAbsenceCount() > this.totalGroupCount;
+        return this.absenceInGroup.getAbsenceCount() > (this.totalGroupCount / 2);
     }
 
-
+    public void absence() {
+        this.absenceInGroup.absence();
+    }
 }
