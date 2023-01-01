@@ -18,19 +18,19 @@ public class Praise {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "praise")
     private User user;
 
-    @Column(name = "total_calm_count")
+    @Column(name = "total_calm_count", nullable = false)
     private Integer totalCalmCount;
 
-    @Column(name = "total_kind_count")
+    @Column(name = "total_kind_count", nullable = false)
     private Integer totalKindCount;
 
-    @Column(name = "total_active_count")
+    @Column(name = "total_active_count", nullable = false)
     private Integer totalActiveCount;
 
-    @Column(name = "total_humor_count")
+    @Column(name = "total_humor_count", nullable = false)
     private Integer totalHumorCount;
 
-    @Column(name = "total_absence_count")
+    @Column(name = "total_absence_count", nullable = false)
     private Integer totalAbsenceCount;
 
     public void plusCalmCount() {

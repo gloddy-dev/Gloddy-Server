@@ -16,14 +16,14 @@ public class Mate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "mate_id")
+    @Column(name = "mate_id", nullable = false)
     private Long mateId;
 
-    @Column(name = "selection_reason", columnDefinition = "longtext")
+    @Column(name = "selection_reason", columnDefinition = "longtext", nullable = false)
     private String selectionReason;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Builder
