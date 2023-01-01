@@ -1,8 +1,6 @@
 package com.gloddy.server.estimate.entity;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.estimate.entity.embedded.Mate;
-import com.gloddy.server.estimate.entity.embedded.Praise;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -10,19 +8,45 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "estimate")
-public class Estimate {
+@Table(name = "praise")
+public class Praise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "estimate")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "praise")
     private User user;
 
-    @Embedded
-    private Praise praise;
+    @Column(name = "total_calm_count")
+    private Integer totalCalmCount;
 
-    @Embedded
-    private Mate mate;
+    @Column(name = "total_kind_count")
+    private Integer totalKindCount;
+
+    @Column(name = "total_active_count")
+    private Integer totalActiveCount;
+
+    @Column(name = "total_humor_count")
+    private Integer totalHumorCount;
+
+    @Column(name = "total_absence_count")
+    private Integer totalAbsenceCount;
+
+    public void plusCalmCount() {
+        totalCalmCount++;
+    }
+    public void plusKindCount() {
+        totalKindCount++;
+    }
+    public void plusActiveCount() {
+        totalActiveCount++;
+    }
+    public void plusHumorCount() {
+        totalHumorCount++;
+    }
+
+    public void plusAbsenceCount() {
+        totalAbsenceCount++;
+    }
 }
