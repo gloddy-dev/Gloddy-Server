@@ -1,15 +1,11 @@
 package com.gloddy.server.estimate.service;
 
-import com.gloddy.server.Mate.service.UserFindService;
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.handler.UserHandler;
-import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.auth.service.UserFindService;
 import com.gloddy.server.domain.AbsenceInGroupDomain;
 import com.gloddy.server.domain.UserPraise;
 import com.gloddy.server.estimate.dto.PraiseDto;
 import com.gloddy.server.estimate.entity.AbsenceInGroup;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.handler.GroupQueryHandler;
 import com.gloddy.server.group.service.GroupUserCountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

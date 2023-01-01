@@ -1,7 +1,7 @@
 package com.gloddy.server.estimate.service;
 
-import com.gloddy.server.Mate.service.UserFindService;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.service.UserFindService;
 import com.gloddy.server.estimate.dto.MateDto;
 import com.gloddy.server.estimate.entity.Mate;
 import com.gloddy.server.estimate.repository.MateJpaRepository;
