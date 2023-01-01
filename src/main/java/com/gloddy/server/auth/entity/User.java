@@ -6,7 +6,7 @@ import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.auth.entity.score.Score;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
-import com.gloddy.server.estimate.entity.Estimate;
+import com.gloddy.server.estimate.entity.Praise;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,8 +58,8 @@ public class User extends BaseTimeEntity {
     private int score;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estimate_id")
-    private Estimate estimate;
+    @JoinColumn(name = "praise_id")
+    private Praise praise;
 
     @Builder
     public User(String email, String password, String name, String school, LocalDate birth, Gender gender, List<Personality> personalities) {
