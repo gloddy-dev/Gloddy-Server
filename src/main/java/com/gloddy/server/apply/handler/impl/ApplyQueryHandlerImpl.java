@@ -20,4 +20,9 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     public List<Apply> findAllApprovedAppliesFetchUserBy(Group group) {
         return applyJpaRepository.findAppliesByGroupAndStatusFetchUser(group, Status.APPROVE);
     }
+
+    @Override
+    public Long countApprovedAppliesBy(Long groupId) {
+        return applyJpaRepository.countByGroupIdAndStatus(groupId, Status.APPROVE);
+    }
 }

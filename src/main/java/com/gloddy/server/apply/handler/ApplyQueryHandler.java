@@ -8,4 +8,6 @@ import java.util.List;
 public interface ApplyQueryHandler {
 
     List<Apply> findAllApprovedAppliesFetchUserBy(Group group);
+
+    Long countApprovedAppliesBy(Long groupId);
 }
