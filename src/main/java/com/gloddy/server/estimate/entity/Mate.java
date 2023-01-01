@@ -1,11 +1,14 @@
 package com.gloddy.server.estimate.entity;
 
 import com.gloddy.server.auth.entity.User;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "mate")
 public class Mate {
 
