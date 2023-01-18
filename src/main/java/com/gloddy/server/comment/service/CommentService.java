@@ -1,5 +1,6 @@
 package com.gloddy.server.comment.service;
 
+import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.entity.Article;
 import com.gloddy.server.article.handler.ArticleHandlerImpl;
 import com.gloddy.server.auth.entity.User;
@@ -16,6 +17,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.gloddy.server.comment.dto.CommentResponse.*;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -26,7 +34,7 @@ public class CommentService {
     private final ArticleHandlerImpl articleHandlerImpl;
 
     @Transactional
-    public CommentResponse.Create create(Long userId, Long articleId, CommentRequest.Create request) {
+    public Create create(Long userId, Long articleId, CommentRequest.Create request) {
         User user = userHandlerImpl.findById(userId);
         Article article = articleHandlerImpl.findById(articleId);
         Comment comment = commentJpaRepository.save(Comment.builder()
@@ -35,7 +43,7 @@ public class CommentService {
                 .content(request.getContent())
                 .build()
         );
-        return new CommentResponse.Create(comment.getId());
+        return new Create(comment.getId());
     }
 
     @Transactional
@@ -56,4 +64,27 @@ public class CommentService {
         return comment.getUser().equals(user) || group.getUser().equals(user);
     }
 
+    @Transactional(readOnly = true)
+    public List<GetComment> getComments(Article article) {
+        return commentJpaRepository.findAllByArticle(article)
+                .stream()
+                .map(this::generateCommentDto)
+                .collect(Collectors.toList());
+    }
+
+    private GetComment generateCommentDto(Comment comment) {
+        return new GetComment(
+                comment.getUser().getName(),
+                formatDate(comment.getCreatedAt()),
+                comment.getContent()
+        );
+    }
+
+    public int getCommentCount(Article article) {
+        return commentJpaRepository.countAllByArticle(article);
+    }
+
+    private String formatDate(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 }

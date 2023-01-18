@@ -12,4 +12,14 @@ public class CommentResponse {
     public static class Create {
         Long commentId;
     }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class GetComment {
+        //        private String userImageUrl;
+        private String name;
+        private String date;
+        private String content;
+    }
 }

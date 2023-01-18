@@ -26,8 +26,8 @@ public class Article extends BaseTimeEntity {
     @Column(name = "content", columnDefinition = "longtext")
     private String content;
 
-    @Column(name = "is_notice")
-    private boolean isNotice;
+    @Column(name = "notice")
+    private boolean notice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -38,18 +38,22 @@ public class Article extends BaseTimeEntity {
     private Group group;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<ArticleImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Article(String content, boolean isNotice, User user, Group group) {
+    public Article(String content, boolean notice, User user, Group group) {
         this.content = content;
-        this.isNotice = isNotice;
+        this.notice = notice;
         this.user = user;
         this.group = group;
     }
 
-    public void update(String content, boolean isNotice) {
+    public void update(String content, boolean notice) {
         this.content = content;
-        this.isNotice = isNotice;
+        System.out.println("isNotice = " + notice);
+        this.notice = notice;
     }
 }

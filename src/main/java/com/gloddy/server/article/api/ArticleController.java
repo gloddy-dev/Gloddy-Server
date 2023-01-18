@@ -1,12 +1,9 @@
 package com.gloddy.server.article.api;
 
 import com.gloddy.server.article.dto.ArticleRequest;
-import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.service.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
