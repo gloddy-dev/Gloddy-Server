@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 public class ArticleRequest {
 
@@ -16,7 +17,8 @@ public class ArticleRequest {
     public static class Create {
         @NotBlank
         private String content;
-        private boolean isNotice;
+        private boolean notice;
+        private List<String> images;
     }
 
     @NoArgsConstructor
@@ -26,6 +28,7 @@ public class ArticleRequest {
     public static class Update {
         @NotBlank
         private String content;
-        private boolean isNotice;
+        private boolean notice;
+        private List<String> images;
     }
 }
