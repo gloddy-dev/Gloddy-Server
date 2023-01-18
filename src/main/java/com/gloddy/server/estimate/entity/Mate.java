@@ -1,0 +1,35 @@
+package com.gloddy.server.estimate.entity;
+
+import com.gloddy.server.auth.entity.User;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "mate")
+public class Mate {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "mate_id", nullable = false)
+    private Long mateId;
+
+    @Column(name = "selection_reason", columnDefinition = "longtext", nullable = false)
+    private String selectionReason;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Builder
+    public Mate(Long mateId, String selectionReason, User user) {
+        this.mateId = mateId;
+        this.selectionReason = selectionReason;
+        this.user = user;
+    }
+}
