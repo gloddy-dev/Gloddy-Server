@@ -1,5 +1,6 @@
 package com.gloddy.server.group.dto;
 
+import com.gloddy.server.core.dto.UserInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,11 +42,12 @@ public class GroupResponse {
     @AllArgsConstructor
     public static class GetGroupDetail {
         private Boolean myGroup;
+        private Boolean isCaptain;
         private String title;
         private String fileUrl;
         private String content;
         private int CountParticipants;
-        private List<String> participantNames;
+        private List<UserInfoDto> userInfoDtos;
         private String meetDate;
         private String startTime;
         private String endTime;

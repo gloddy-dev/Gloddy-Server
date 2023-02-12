@@ -1,14 +1,18 @@
 package com.gloddy.server.domain;
 
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.dto.UserInfoDto;
 import com.gloddy.server.group.entity.Group;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class GroupUsers {
 
     private Group group;
@@ -20,9 +24,12 @@ public class GroupUsers {
     }
 
     public static GroupUsers from(GroupApplies groupApplies) {
+        List<User> allUsers = groupApplies.getAllUsers();
+        allUsers.add(groupApplies.getCaptain());
+
         return new GroupUsers(
                 groupApplies.getGroup(),
-                groupApplies.getAllUsers()
+                allUsers
         );
     }
 
@@ -31,5 +38,15 @@ public class GroupUsers {
         userList = this.users;
         userList.remove(user);
         return userList;
+    }
+
+    public int getUserCount() {
+        return users.size();
+    }
+
+    public List<UserInfoDto> getUserInfoDtos() {
+        return users.stream()
+            .map(UserInfoDto::from)
+            .collect(Collectors.toUnmodifiableList());
     }
 }

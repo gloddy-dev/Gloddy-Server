@@ -24,4 +24,8 @@ public class GroupApplies {
                 .map(Apply::getUser)
                 .collect(Collectors.toUnmodifiableList());
     }
+
+    public User getCaptain() {
+        return group.getUser();
+    }
 }

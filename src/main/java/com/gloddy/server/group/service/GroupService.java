@@ -8,6 +8,8 @@ import com.gloddy.server.auth.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
+import com.gloddy.server.domain.GroupApplies;
+import com.gloddy.server.domain.GroupUsers;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.dto.GroupResponse;
 import com.gloddy.server.group.entity.Group;
@@ -97,32 +99,30 @@ public class GroupService {
 
         List<Apply> allApplyInFindGroup = applyJpaRepository.findAppliesByGroupAndStatusFetchUser(findGroup, Status.APPROVE);
 
-       Boolean myGroupIs = checkMyGroup(findUser, findGroup, allApplyInFindGroup);
+        GroupApplies groupApplies = new GroupApplies(findGroup, allApplyInFindGroup);
+        GroupUsers groupUsers = GroupUsers.from(groupApplies);
 
-        return mapGroupDetailDto(myGroupIs, findGroup, allApplyInFindGroup);
+        Boolean isMyGroup = checkMyGroup(findUser, findGroup, allApplyInFindGroup);
+        Boolean isGroupCaptain = isGroupCaptain(findUser, findGroup);
+
+        return mapGroupDetailDto(isMyGroup, isGroupCaptain, groupUsers);
     }
 
-    private GroupResponse.GetGroupDetail mapGroupDetailDto(Boolean myGroupIs, Group group, Collection<Apply> applies) {
-
-        List<String> participantNames = new ArrayList<>(applies.stream()
-                .map(apply -> apply.getUser().getName())
-                .collect(Collectors.toUnmodifiableList()));
-
-        participantNames.add(group.getUser().getName());
-
+    private GroupResponse.GetGroupDetail mapGroupDetailDto(Boolean myGroupIs, Boolean isGroupCaptain, GroupUsers groupUsers) {
         return new GroupResponse.GetGroupDetail(
                 myGroupIs,
-                group.getTitle(),
-                group.getFileUrl(),
-                group.getContent(),
-                applies.size() + 1,
-                participantNames,
-                dateTimeFormatter(group.getMeetDate()),
-                group.getStartTime(),
-                group.getEndTime(),
-                group.getPlace(),
-                group.getPlaceLatitude(),
-                group.getPlaceLongitude()
+                isGroupCaptain,
+                groupUsers.getGroup().getTitle(),
+                groupUsers.getGroup().getFileUrl(),
+                groupUsers.getGroup().getContent(),
+                groupUsers.getUserCount(),
+                groupUsers.getUserInfoDtos(),
+                dateTimeFormatter(groupUsers.getGroup().getMeetDate()),
+                groupUsers.getGroup().getStartTime(),
+                groupUsers.getGroup().getEndTime(),
+                groupUsers.getGroup().getPlace(),
+                groupUsers.getGroup().getPlaceLatitude(),
+                groupUsers.getGroup().getPlaceLongitude()
         );
     }
 
