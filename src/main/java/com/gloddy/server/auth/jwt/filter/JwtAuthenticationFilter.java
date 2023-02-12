@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String token = jwtTokenExtractor.extractToken(request, TOKEN_HEADER);
             if (jwtTokenValidator.validateToken(token)) {
-                throw new JwtException("exception");
+                throw new UserBusinessException(ErrorCode.TOKEN_BLANK);
             }
 
             String email = jwtTokenExtractor.extractEmailFromToken(token, KEY);
