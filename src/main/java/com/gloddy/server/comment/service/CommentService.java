@@ -2,7 +2,9 @@ package com.gloddy.server.comment.service;
 
 import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.entity.Article;
+import com.gloddy.server.article.handler.ArticleHandler;
 import com.gloddy.server.article.handler.ArticleHandlerImpl;
+import com.gloddy.server.article.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.handler.UserHandlerImpl;
 import com.gloddy.server.comment.dto.CommentRequest;
@@ -65,18 +67,23 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetComment> getComments(Article article) {
-        return commentJpaRepository.findAllByArticle(article)
+    public GetComments getComments(Long articleId, Long userId) {
+        Article article = articleHandlerImpl.findById(articleId);
+        User user = userHandlerImpl.findById(userId);
+        List<GetComment> comments = commentJpaRepository.findAllByArticle(article)
                 .stream()
-                .map(this::generateCommentDto)
+                .map(comment -> generateCommentDto(comment, user))
                 .collect(Collectors.toList());
+        return new GetComments(comments);
     }
 
-    private GetComment generateCommentDto(Comment comment) {
+    private GetComment generateCommentDto(Comment comment, User user) {
         return new GetComment(
+                comment.getUser().getImageUrl(),
                 comment.getUser().getName(),
                 formatDate(comment.getCreatedAt()),
-                comment.getContent()
+                comment.getContent(),
+                comment.getUser().equals(user)
         );
     }
 
