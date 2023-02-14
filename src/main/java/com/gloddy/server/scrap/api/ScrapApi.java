@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ScrapApi {
-    private ScrapService scrapService;
+    private final ScrapService scrapService;
 
     @PostMapping("/groups/{groupId}/scrap")
     public ResponseEntity<CreateScrap> create(
@@ -37,7 +37,7 @@ public class ScrapApi {
         return ApiResponse.ok(response);
     }
 
-    @DeleteMapping("/groups/{groupId}/scraps")
+    @DeleteMapping("/groups/{groupId}/scrap")
     public ResponseEntity<Void> delete(
             @PathVariable Long groupId,
             @AuthenticationPrincipal Long userId

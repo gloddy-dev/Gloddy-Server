@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ScrapService {
-    private final ScrapJpaRepository  scrapJpaRepository;
+    private final ScrapJpaRepository scrapJpaRepository;
     private final GroupHandler groupHandler;
     private final UserHandler userHandler;
     private final GroupUserCountService groupUserCountService;
