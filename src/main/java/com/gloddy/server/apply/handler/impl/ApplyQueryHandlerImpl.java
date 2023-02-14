@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
 
-    private ApplyJpaRepository applyJpaRepository;
+    private final ApplyJpaRepository applyJpaRepository;
 
     @Override
     public List<Apply> findAllApprovedAppliesFetchUserBy(Group group) {
