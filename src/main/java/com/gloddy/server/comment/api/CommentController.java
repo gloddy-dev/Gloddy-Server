@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.gloddy.server.comment.dto.CommentResponse.*;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/articles")
@@ -19,13 +21,22 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{articleId}/comment")
-    public ResponseEntity<CommentResponse.Create> create(
+    public ResponseEntity<Create> create(
             @PathVariable Long articleId,
             @RequestBody @Valid CommentRequest.Create request,
             @AuthenticationPrincipal Long userId
     ) {
-        CommentResponse.Create response = commentService.create(userId, articleId, request);
+        Create response = commentService.create(userId, articleId, request);
         return ApiResponse.created(response);
+    }
+
+    @GetMapping("/{articleId}/comments")
+    public ResponseEntity<GetComments> getAll(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal Long userId
+    ) {
+        GetComments response = commentService.getComments(articleId, userId);
+        return ApiResponse.ok(response);
     }
 
     @DeleteMapping("/{articleId}/comments/{commentId}")
