@@ -5,6 +5,7 @@ import com.gloddy.server.group.entity.Group;
 
 import java.util.List;
 
+
 public interface ApplyQueryHandler {
 
     List<Apply> findAllApprovedAppliesFetchUserBy(Group group);
