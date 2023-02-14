@@ -57,8 +57,7 @@ public class User extends BaseTimeEntity {
 
     private int score;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "praise_id")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private Praise praise;
 
     @Builder
