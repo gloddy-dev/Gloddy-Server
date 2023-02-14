@@ -3,12 +3,14 @@ package com.gloddy.server.scrap.entity;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.group.entity.Group;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Scrap {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +24,6 @@ public class Scrap {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @Builder
     public Scrap(User user, Group group) {
         this.user = user;
         this.group = group;
