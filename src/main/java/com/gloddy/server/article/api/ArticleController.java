@@ -57,12 +57,4 @@ public class ArticleController {
         GetPreview response = articleService.getPreview(groupId, page, size);
         return ApiResponse.ok(response);
     }
-
-    @GetMapping("/articles/{articleId}")
-    public ResponseEntity<GetDetail> getDetail(
-        @PathVariable Long articleId
-    ) {
-        GetDetail response = articleService.getDetail(articleId);
-        return ApiResponse.ok(response);
-    }
 }

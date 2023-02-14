@@ -40,20 +40,12 @@ public class ArticleResponse {
     @AllArgsConstructor
     @Getter
     public static class GetArticle {
-//        private String userImageUrl;
+        private String userImageUrl;
         private String name;
         private String date;
         private String content;
         private boolean notice;
         private int commentCount;
         private List<ImageDto> images;
-    }
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    public static class GetDetail {
-        private GetArticle article;
-        private List<GetComment> comments;
     }
 }

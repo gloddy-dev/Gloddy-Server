@@ -42,7 +42,6 @@ public class ArticleService {
     private final CommentService commentService;
 
     @Transactional
-    // TODO:게시글에 사진 추가 하는 경우 null값 검사해 null이 아니면 S3에 사진 업로드 후 url DB에 저장
     public ArticleResponse.Create create(Long groupId, Long userId, ArticleRequest.Create request) {
         User user = userHandler.findById(userId);
         Group group = groupHandler.findById(groupId);
@@ -99,7 +98,6 @@ public class ArticleService {
         }
     }
 
-    // TODO: 게시글 사진 추가해야됨
     @Transactional(readOnly = true)
     public GetPreview getPreview(Long groupId, int page, int size) {
         Group group = groupHandler.findById(groupId);
@@ -115,25 +113,13 @@ public class ArticleService {
         );
     }
 
-    @Transactional(readOnly = true)
-    public GetDetail getDetail(Long articleId) {
-        Article article = articleHandler.findById(articleId);
-        List<GetComment> comments = commentService.getComments(article);
-
-        return new GetDetail(
-            getArticle(article),
-            comments
-        );
-    }
-
-    // TODO: 게시글 작성자 이미지 추가 해야됨.
     private GetArticle getArticle(Article article) {
         User writer = article.getUser();
         int commentCount = commentService.getCommentCount(article);
         List<ImageDto> images = imageService.get(article);
 
         return new GetArticle(
-//            writer.getImageUrl(),
+                writer.getImageUrl(),
                 writer.getName(),
                 formatDate(article.getCreatedAt()),
                 article.getContent(),
