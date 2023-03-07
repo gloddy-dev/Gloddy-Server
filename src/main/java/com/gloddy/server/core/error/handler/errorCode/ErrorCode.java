@@ -18,6 +18,8 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
     PASSWORD_DISCORD(404, "패스워드가 일치하지 않습니다."),
 
+    PRAISE_NOT_FOUND(404, "해당 유저에 대한 칭찬이 존재하지 않습니다."),
+
     EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
     CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
 

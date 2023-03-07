@@ -23,7 +23,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {
             UserBusinessException.class,
             FileBusinessException.class,
-            ArticleBusinessException.class
+            ArticleBusinessException.class,
+            BaseBusinessException.class
     })
     public ResponseEntity<ErrorResponse> handleBusinessException(BaseBusinessException e) {
         System.out.println("여기를 확인하세요");
