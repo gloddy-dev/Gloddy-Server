@@ -1,4 +1,4 @@
-package com.gloddy.server.auth.repository;
+package com.gloddy.server.user.repository;
 
 import com.gloddy.server.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
