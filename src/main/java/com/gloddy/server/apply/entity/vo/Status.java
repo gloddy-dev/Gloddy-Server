@@ -12,4 +12,8 @@ public enum Status {
     ;
 
     private final String status;
+
+    public boolean isApprove() {
+        return this == APPROVE;
+    }
 }
