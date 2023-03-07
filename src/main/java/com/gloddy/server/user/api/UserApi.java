@@ -1,7 +1,6 @@
 package com.gloddy.server.user.api;
 
 import com.gloddy.server.core.response.ApiResponse;
-import com.gloddy.server.estimate.service.mate.MateGetService;
 import com.gloddy.server.estimate.service.mate.MateService;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.user.dto.UserResponse;
