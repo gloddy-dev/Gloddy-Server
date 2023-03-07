@@ -1,7 +1,7 @@
 package com.gloddy.server.auth.api;
 
-import com.gloddy.server.auth.dto.UserResponse;
-import com.gloddy.server.auth.service.UserService;
+import com.gloddy.server.user.UserResponse;
+import com.gloddy.server.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;

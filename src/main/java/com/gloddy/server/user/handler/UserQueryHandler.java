@@ -1,4 +1,4 @@
-package com.gloddy.server.auth.handler;
+package com.gloddy.server.user.handler;
 
 import com.gloddy.server.auth.entity.User;
 
