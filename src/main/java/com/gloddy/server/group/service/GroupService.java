@@ -4,7 +4,7 @@ import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
@@ -23,10 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service

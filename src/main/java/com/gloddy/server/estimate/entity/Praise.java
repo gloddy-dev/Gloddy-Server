@@ -2,12 +2,14 @@ package com.gloddy.server.estimate.entity;
 
 import com.gloddy.server.auth.entity.User;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Table(name = "praise")
 public class Praise {
 

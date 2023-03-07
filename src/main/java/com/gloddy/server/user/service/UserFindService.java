@@ -1,7 +1,7 @@
-package com.gloddy.server.auth.service;
+package com.gloddy.server.user.service;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

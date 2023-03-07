@@ -4,13 +4,10 @@ import com.gloddy.server.article.dto.ArticleRequest;
 import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.dto.ImageDto;
 import com.gloddy.server.article.entity.Article;
-import com.gloddy.server.article.entity.ArticleImage;
 import com.gloddy.server.article.handler.ArticleHandler;
-import com.gloddy.server.article.repository.ArticleImageJpaRepository;
 import com.gloddy.server.article.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.handler.UserHandler;
-import com.gloddy.server.comment.repository.CommentJpaRepository;
+import com.gloddy.server.user.handler.UserQueryHandler;
 import com.gloddy.server.comment.service.CommentService;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.ArticleBusinessException;
@@ -29,14 +26,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.gloddy.server.article.dto.ArticleResponse.*;
-import static com.gloddy.server.comment.dto.CommentResponse.*;
 
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleJpaRepository articleJpaRepository;
     private final ArticleHandler articleHandler;
-    private final UserHandler userHandler;
+    private final UserQueryHandler userHandler;
     private final GroupHandler groupHandler;
     private final ImageService imageService;
     private final CommentService commentService;

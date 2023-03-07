@@ -1,14 +1,10 @@
 package com.gloddy.server.comment.service;
 
-import com.gloddy.server.article.dto.ArticleResponse;
 import com.gloddy.server.article.entity.Article;
-import com.gloddy.server.article.handler.ArticleHandler;
 import com.gloddy.server.article.handler.ArticleHandlerImpl;
-import com.gloddy.server.article.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.handler.UserHandlerImpl;
+import com.gloddy.server.user.handler.UserQueryHandlerImpl;
 import com.gloddy.server.comment.dto.CommentRequest;
-import com.gloddy.server.comment.dto.CommentResponse;
 import com.gloddy.server.comment.entity.Comment;
 import com.gloddy.server.comment.handler.CommentHandlerImpl;
 import com.gloddy.server.comment.repository.CommentJpaRepository;
@@ -32,7 +28,7 @@ public class CommentService {
 
     private final CommentJpaRepository commentJpaRepository;
     private final CommentHandlerImpl commentHandlerImpl;
-    private final UserHandlerImpl userHandlerImpl;
+    private final UserQueryHandlerImpl userHandlerImpl;
     private final ArticleHandlerImpl articleHandlerImpl;
 
     @Transactional

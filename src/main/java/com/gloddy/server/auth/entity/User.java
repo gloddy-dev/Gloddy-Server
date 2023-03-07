@@ -45,6 +45,8 @@ public class User extends BaseTimeEntity {
 
     private LocalDate birth;
 
+    private String introduce;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 

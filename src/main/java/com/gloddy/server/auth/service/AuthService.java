@@ -3,7 +3,7 @@ package com.gloddy.server.auth.service;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
-import com.gloddy.server.auth.repository.UserRepository;
+import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.auth.dto.AuthRequest;
 import com.gloddy.server.auth.dto.AuthResponse;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
