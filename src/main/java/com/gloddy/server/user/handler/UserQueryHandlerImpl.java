@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserHandlerImpl implements UserHandler {
+public class UserQueryHandlerImpl implements UserQueryHandler {
 
     private final UserRepository userRepository;
 
