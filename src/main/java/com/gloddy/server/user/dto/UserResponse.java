@@ -1,4 +1,4 @@
-package com.gloddy.server.user;
+package com.gloddy.server.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,6 @@ public class UserResponse {
         private int age;
         private String school;
 //        private int score;  // 신뢰도
-        private int groupHistoryCount;
         private int praiseCount;
         private int reviewCount;
         private String introduce;
