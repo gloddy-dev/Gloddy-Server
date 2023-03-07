@@ -8,6 +8,7 @@ import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
+import com.gloddy.server.core.utils.DateTimeUtils;
 import com.gloddy.server.domain.GroupApplies;
 import com.gloddy.server.domain.GroupUsers;
 import com.gloddy.server.group.dto.GroupRequest;
@@ -71,9 +72,18 @@ public class GroupService {
                 .fileUrl(req.getFileUrl())
                 .title(req.getTitle())
                 .content(req.getContent())
-                .meetDate(req.getMeetDate())
-                .startTime(req.getStartTime())
-                .endTime(req.getEndTime())
+                .startTime(
+                        DateTimeUtils.concatDateAndTime(
+                                req.getMeetDate(),
+                                DateTimeUtils.StringToLocalTime(req.getStartTime())
+                        )
+                )
+                .endTime(
+                        DateTimeUtils.concatDateAndTime(
+                                req.getMeetDate(),
+                                DateTimeUtils.StringToLocalTime(req.getEndTime())
+                        )
+                )
                 .place(req.getPlace())
                 .placeLatitude(req.getPlace_latitude())
                 .placeLongitude(req.getPlace_longitude())
@@ -116,8 +126,8 @@ public class GroupService {
                 groupUsers.getUserCount(),
                 groupUsers.getUserInfoDtos(),
                 dateTimeFormatter(groupUsers.getGroup().getMeetDate()),
-                groupUsers.getGroup().getStartTime(),
-                groupUsers.getGroup().getEndTime(),
+                groupUsers.getGroup().getStartTime().toLocalTime().toString(),
+                groupUsers.getGroup().getEndTime().toLocalTime().toString(),
                 groupUsers.getGroup().getPlace(),
                 groupUsers.getGroup().getPlaceLatitude(),
                 groupUsers.getGroup().getPlaceLongitude()
