@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.service;
+package com.gloddy.server.estimate.service.praise;
 
 import ch.qos.logback.core.joran.action.AppenderRefAction;
 import com.gloddy.server.auth.entity.User;
@@ -7,6 +7,7 @@ import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
 import com.gloddy.server.estimate.dto.PraiseResponse;
 import com.gloddy.server.estimate.entity.Praise;
 import com.gloddy.server.estimate.repository.PraiseJpaRepository;
+import com.gloddy.server.estimate.service.AbsenceInGroupFindService;
 import com.gloddy.server.user.service.UserFindService;
 import com.gloddy.server.domain.AbsenceInGroupDomain;
 import com.gloddy.server.domain.UserPraise;
