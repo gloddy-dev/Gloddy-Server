@@ -1,7 +1,7 @@
 package com.gloddy.server.scrap.service;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.handler.UserHandler;
+import com.gloddy.server.user.handler.UserQueryHandler;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.dto.GroupResponse.GetGroup;
 import com.gloddy.server.group.entity.Group;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScrapService {
     private final ScrapJpaRepository scrapJpaRepository;
     private final GroupHandler groupHandler;
-    private final UserHandler userHandler;
+    private final UserQueryHandler userHandler;
     private final GroupUserCountService groupUserCountService;
 
     public CreateScrap create(Long groupId, Long userId) {

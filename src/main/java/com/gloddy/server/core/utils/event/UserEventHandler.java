@@ -1,6 +1,6 @@
 package com.gloddy.server.core.utils.event;
 
-import com.gloddy.server.estimate.service.PraiseSaveService;
+import com.gloddy.server.estimate.service.praise.PraiseSaveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
