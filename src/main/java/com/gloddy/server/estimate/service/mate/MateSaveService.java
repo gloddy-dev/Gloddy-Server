@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.service;
+package com.gloddy.server.estimate.service.mate;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.user.service.UserFindService;
