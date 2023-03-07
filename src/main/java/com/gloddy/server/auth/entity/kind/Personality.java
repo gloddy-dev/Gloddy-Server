@@ -1,11 +1,15 @@
 package com.gloddy.server.auth.entity.kind;
 
+import lombok.Getter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public enum Personality {
     KIND("상냥한"),
-    CUTE("귀여운")
+    TEST("테스트1"),
+    TEST1("테스트2")
     ;
 
     private String value;
