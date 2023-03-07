@@ -1,16 +1,19 @@
 package com.gloddy.server.estimate.entity;
 
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "mate")
-public class Mate {
+public class Mate extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
