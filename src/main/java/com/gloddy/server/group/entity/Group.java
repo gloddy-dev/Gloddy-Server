@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,14 +38,11 @@ public class Group extends BaseTimeEntity {
     @Column(name = "content", columnDefinition = "longtext")
     private String content;
 
-    @Column(name = "meet_date")
-    private LocalDate meetDate;
-
     @Column(name = "start_time")
-    private String startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "end_time")
-    private String endTime;
+    private LocalDateTime endTime;
 
     @Column(name = "place")
     private String place;
@@ -59,13 +57,12 @@ public class Group extends BaseTimeEntity {
     private int maxUser;
 
     @Builder
-    public Group(User user, String fileUrl, String title, String content, LocalDate meetDate, String startTime, String endTime,
+    public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
                  String place, String placeLatitude, String placeLongitude, int maxUser, String school) {
         this.user = user;
         this.fileUrl = fileUrl;
         this.title = title;
         this.content = content;
-        this.meetDate = meetDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.place = place;
@@ -73,5 +70,9 @@ public class Group extends BaseTimeEntity {
         this.placeLongitude = placeLongitude;
         this.maxUser = maxUser;
         this.school = school;
+    }
+
+    public LocalDate getMeetDate() {
+        return this.getStartTime().toLocalDate();
     }
 }
