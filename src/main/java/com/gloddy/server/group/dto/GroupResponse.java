@@ -1,6 +1,7 @@
 package com.gloddy.server.group.dto;
 
 import com.gloddy.server.core.dto.UserInfoDto;
+import com.gloddy.server.group.entity.Group;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,18 @@ public class GroupResponse {
         int memberCount;
         String place;
         LocalDate meetDate;
+
+        public static GetGroup from(Group group) {
+            return new GetGroup(
+                    group.getId(),
+                    group.getFileUrl(),
+                    group.getTitle(),
+                    group.getContent(),
+                    group.getMemberCount(),
+                    group.getPlace(),
+                    group.getMeetDate()
+            );
+        }
     }
 
     @Getter
