@@ -17,7 +17,7 @@ public class ScoreEventHandler {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void updateScoreListener(ScoreUpdateEvent event) {
-        Long score = scoreService.update(event.getUser(), event.getScoreType());
+        Long score = scoreService.update(event.getUser(), event.getType());
         reliabilityEventPublisher.publish(new ReliabilityLevelUpdateEvent(event.getUser(), score));
     }
 }
