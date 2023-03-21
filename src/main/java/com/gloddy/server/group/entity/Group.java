@@ -2,6 +2,7 @@ package com.gloddy.server.group.entity;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import com.gloddy.server.group.entity.embedded.UserGroups;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,6 +57,9 @@ public class Group extends BaseTimeEntity {
     @Column(name = "max_user")
     private int maxUser;
 
+    @Embedded
+    private UserGroups userGroups;
+
     @Builder
     public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
                  String place, String placeLatitude, String placeLongitude, int maxUser, String school) {
@@ -74,5 +78,9 @@ public class Group extends BaseTimeEntity {
 
     public LocalDate getMeetDate() {
         return this.getStartTime().toLocalDate();
+    }
+
+    public int getMemberCount() {
+        return this.userGroups.getSize();
     }
 }
