@@ -8,7 +8,7 @@ import com.gloddy.server.auth.dto.AuthRequest;
 import com.gloddy.server.auth.dto.AuthResponse;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
-import com.gloddy.server.core.utils.event.UserCreateEvent;
+import com.gloddy.server.core.event.user.UserCreateEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
