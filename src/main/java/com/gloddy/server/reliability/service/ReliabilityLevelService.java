@@ -1,8 +1,7 @@
 package com.gloddy.server.reliability.service;
 
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
+import com.gloddy.server.auth.entity.User;
 
-public interface ReliabilityService {
-    ReliabilityLevel updateLevel(Long score, ReliabilityLevel level);
+public interface ReliabilityLevelService {
+    void update(User user, Long score);
 }
