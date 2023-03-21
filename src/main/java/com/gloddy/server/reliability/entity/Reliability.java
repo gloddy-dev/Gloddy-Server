@@ -1,5 +1,6 @@
 package com.gloddy.server.reliability.entity;
 
+import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,21 +14,24 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reliability {
+    private static final ReliabilityLevel INIT_LEVEL = ReliabilityLevel.HOOD;
+    private static final Long INIT_SCORE = 0L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private Long score;
 
     @Enumerated(EnumType.STRING)
     private ReliabilityLevel level;
 
-    @Builder
-    public Reliability(Long userId, Long score, ReliabilityLevel level) {
-        this.userId = userId;
-        this.score = score;
-        this.level = level;
+    public Reliability(User user) {
+        this.user = user;
+        this.score = INIT_SCORE;
+        this.level = INIT_LEVEL;
     }
 }

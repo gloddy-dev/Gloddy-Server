@@ -1,5 +1,7 @@
 package com.gloddy.server.reliability.entity.vo;
 
+import java.util.Arrays;
+
 public enum ScorePlusType {
     Estimated("평가 참여", 5L),
     Praised("칭찬 스티커 (지목 받은 사용자)", 2L),
@@ -13,6 +15,11 @@ public enum ScorePlusType {
     private ScorePlusType(String description, Long score) {
         this.description = description;
         this.score = score;
+    }
+
+    public static boolean isPlusType(String scoreType) {
+        return Arrays.stream(ScorePlusType.values())
+                .anyMatch(type -> type.name().equals(scoreType));
     }
 
     public Long plusScore(Long score) {
