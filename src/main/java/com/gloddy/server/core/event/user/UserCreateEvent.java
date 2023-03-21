@@ -1,4 +1,4 @@
-package com.gloddy.server.core.utils.event;
+package com.gloddy.server.core.event.user;
 
 import com.gloddy.server.auth.entity.User;
 import lombok.AllArgsConstructor;
