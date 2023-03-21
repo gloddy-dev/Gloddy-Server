@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ScorePlusService {
+public class ScoreServiceImpl {
     private final ReliabilityQueryHandler reliabilityQueryHandler;
-    private final ReliabilityLevelService reliabilityLevelService;
+    private final ReliabilityService reliabilityLevelService;
 
     @Transactional
     public void plus(Long userId, ScorePlusType type) {

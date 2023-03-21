@@ -4,10 +4,10 @@ import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReliabilityLevelServiceImpl implements ReliabilityLevelService {
+public class ReliabilityServiceImpl implements ReliabilityService {
 
     @Override
-    public ReliabilityLevel upgrade(Long score, ReliabilityLevel level) {
+    public ReliabilityLevel updateLevel(Long score, ReliabilityLevel level) {
         return level.upgradeLevel(score);
     }
 }
