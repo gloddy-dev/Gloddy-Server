@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/gloddy_server
+
+permissions:
+  - object: /home/ubuntu/gloddy_server/*
+    owner: ubuntu
+  - object: /home/ubuntu/gloddy_server
+    owner: ubuntu
+
+hooks:
+  BeforeInstall:
+    - location: script/delete-before-install.sh
+      runas: ubuntu
+  AfterInstall:
+    - location: script/change-permission.sh
+      runas: ubuntu
+  ApplicationStart:
+    - location: script/build.sh
+      runas: ubuntu
