@@ -58,7 +58,7 @@ public class Group extends BaseTimeEntity {
     private int maxUser;
 
     @Embedded
-    private UserGroups userGroups;
+    private UserGroups userGroups = UserGroups.empty();
 
     @Builder
     public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
@@ -74,6 +74,10 @@ public class Group extends BaseTimeEntity {
         this.placeLongitude = placeLongitude;
         this.maxUser = maxUser;
         this.school = school;
+    }
+
+    public void addUserGroup(UserGroup userGroup) {
+        this.userGroups.addUserGroups(userGroup);
     }
 
     public LocalDate getMeetDate() {

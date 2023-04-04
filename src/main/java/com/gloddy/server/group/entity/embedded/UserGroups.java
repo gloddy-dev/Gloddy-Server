@@ -18,6 +18,14 @@ public class UserGroups {
     @OneToMany(mappedBy = "group")
     public List<UserGroup> userGroups = new ArrayList<>();
 
+    public static UserGroups empty() {
+        return new UserGroups();
+    }
+
+    public void addUserGroups(UserGroup userGroup) {
+        this.userGroups.add(userGroup);
+    }
+
     public int getSize() {
         return this.userGroups.size();
     }
