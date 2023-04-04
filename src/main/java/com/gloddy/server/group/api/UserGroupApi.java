@@ -26,7 +26,7 @@ public class UserGroupApi {
 
     @ApiOperation("내가 참여했던 그룹 조회 - 나의 모임 아랫 부분 - paging처리 o")
     @GetMapping("/groups/my-participated")
-    public PageResponse<GroupResponse.GetGroup> getParticipatedMyGroup(
+    public PageResponse<GroupResponse.GetParticipatedGroup> getParticipatedMyGroup(
             @AuthenticationPrincipal Long userId,
             @RequestParam int page,
             @RequestParam int size) {

@@ -28,11 +28,11 @@ public class MyGroupService {
            .collect(Collectors.collectingAndThen(Collectors.toList(), GroupResponse.GetGroups::new));
     }
 
-    public PageResponse<GroupResponse.GetGroup> getParticipatedMyGroup(Long userId, int page, int size) {
+    public PageResponse<GroupResponse.GetParticipatedGroup> getParticipatedMyGroup(Long userId, int page, int size) {
         User findUser = userFindService.findById(userId);
         return PageResponse.from(
            userGroupJpaRepository.findParticipatedGroupsByUser(findUser, PageRequest.of(page, size))
-           .map(GroupResponse.GetGroup::from)
+           .map(GroupResponse.GetParticipatedGroup::from)
         );
     }
 }

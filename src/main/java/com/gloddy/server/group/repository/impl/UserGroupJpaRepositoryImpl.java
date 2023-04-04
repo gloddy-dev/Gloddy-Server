@@ -2,6 +2,7 @@ package com.gloddy.server.group.repository.impl;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.group.entity.Group;
+import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.repository.custom.UserGroupJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -34,8 +35,8 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
     }
 
     @Override
-    public Page<Group> findParticipatedGroupsByUser(User user, Pageable pageable) {
-        List<Group> groups = query.select(group)
+    public Page<UserGroup> findParticipatedGroupsByUser(User user, Pageable pageable) {
+        List<UserGroup> groups = query.select(userGroup)
                 .from(userGroup)
                 .join(userGroup.group, group)
                 .where(userEq(user), startTimeBefore(LocalDateTime.now()))

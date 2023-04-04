@@ -2,6 +2,7 @@ package com.gloddy.server.group.dto;
 
 import com.gloddy.server.core.dto.UserInfoDto;
 import com.gloddy.server.group.entity.Group;
+import com.gloddy.server.group.entity.UserGroup;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -67,6 +68,34 @@ public class GroupResponse {
         private String place;
         private String place_latitude;
         private String place_longitude;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetParticipatedGroup {
+        private Long groupId;
+        private String imageUrl;
+        private String title;
+        private String content;
+        // List<String> memberProfiles;
+        private int memberCount;
+        private String place;
+        private LocalDate meetDate;
+        private boolean isPraised;
+
+        public static GetParticipatedGroup from(UserGroup userGroup) {
+            return new GetParticipatedGroup(
+                    userGroup.getGroup().getId(),
+                    userGroup.getGroup().getFileUrl(),
+                    userGroup.getGroup().getTitle(),
+                    userGroup.getGroup().getContent(),
+                    userGroup.getGroup().getMemberCount(),
+                    userGroup.getGroup().getPlace(),
+                    userGroup.getGroup().getMeetDate(),
+                    userGroup.isPraised()
+            );
+        }
     }
 
 }
