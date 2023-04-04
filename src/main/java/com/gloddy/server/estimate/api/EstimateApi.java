@@ -32,7 +32,7 @@ public class EstimateApi {
     }
 
     @ApiOperation("팀원 평가 - 칭찬 + 최고의 짝꿍")
-    @PostMapping("/groups/{groupId]/estimate")
+    @PostMapping("/groups/{groupId}/estimate")
     public ResponseEntity<Void> estimateInGroup(@AuthenticationPrincipal Long userId,
                                                 @PathVariable("groupId") Long groupId,
                                                 @RequestBody EstimateRequest estimateRequest) {
