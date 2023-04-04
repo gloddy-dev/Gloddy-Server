@@ -22,6 +22,7 @@ public class UserGroupSaveService {
         User findUser = userFindService.findById(userId);
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(findUser, findGroup);
+        findGroup.addUserGroup(userGroup);
         return userGroupJpaRepository.save(userGroup);
     }
 }
