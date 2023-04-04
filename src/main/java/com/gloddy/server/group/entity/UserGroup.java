@@ -3,6 +3,7 @@ package com.gloddy.server.group.entity;
 import com.gloddy.server.auth.entity.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
+@Getter
 @Table(name = "user_group")
 public class UserGroup {
 
@@ -41,5 +43,9 @@ public class UserGroup {
         this.group = group;
         this.isEnd = false;
         this.isPraised = false;
+    }
+
+    public void completePraise() {
+        this.isPraised = true;
     }
 }
