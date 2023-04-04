@@ -6,6 +6,9 @@ import com.gloddy.server.group.repository.custom.UserGroupJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -26,8 +29,28 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
             .from(userGroup)
             .join(userGroup.group, group)
             .where(userEq(user), startTimeAfter(LocalDateTime.now()))
-            .orderBy(group.id.desc())
+            .orderBy(group.startTime.desc())
             .fetch();
+    }
+
+    @Override
+    public Page<Group> findParticipatedGroupsByUser(User user, Pageable pageable) {
+        List<Group> groups = query.select(group)
+                .from(userGroup)
+                .join(userGroup.group, group)
+                .where(userEq(user), startTimeBefore(LocalDateTime.now()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(group.startTime.desc())
+                .fetch();
+
+        Long total = query.select(group.count())
+                .from(userGroup)
+                .join(userGroup.group, group)
+                .where(userEq(user), startTimeBefore(LocalDateTime.now()))
+                .fetchOne();
+
+        return new PageImpl<>(groups, pageable, total);
     }
 
     private BooleanExpression userEq(User user) {
@@ -36,5 +59,9 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
 
     private BooleanExpression startTimeAfter(LocalDateTime limit) {
         return userGroup.group.startTime.after(limit);
+    }
+
+    private BooleanExpression startTimeBefore(LocalDateTime limit) {
+        return userGroup.group.startTime.before(limit);
     }
 }
