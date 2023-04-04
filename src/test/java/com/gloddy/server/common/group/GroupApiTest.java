@@ -30,6 +30,14 @@ abstract public class GroupApiTest extends BaseApiTest {
         return userGroupJpaRepository.save(userGroup);
     }
 
+    protected UserGroup createCompletePraiseUserGroup(User user, Group group) {
+        UserGroup userGroup = UserGroup.empty();
+        userGroup.init(user, group);
+        group.addUserGroup(userGroup);
+        userGroup.completePraise();
+        return userGroupJpaRepository.save(userGroup);
+    }
+
     protected Group createExpectedGroup() {
         Group expectedGroup = Group.builder().startTime(LocalDateTime.now().plusDays(1L)).build();
         return groupJpaRepository.save(expectedGroup);
