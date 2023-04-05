@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER_ID=$(docker ps -f  "name=server-server" -q)
+CONTAINER_ID=$(docker ps -f  "name=server-springboot" -q)
 
 cd /home/ubuntu/gloddy_server
 if [ -n ${CONTAINER_ID} ]; then
