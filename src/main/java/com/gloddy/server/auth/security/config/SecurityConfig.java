@@ -21,9 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenExtractor jwtTokenExtractor;
     private final JwtTokenValidator jwtTokenValidator;
     private final AuthenticationProvider authenticationProvider;
-    @Value("${JWT_SECRET}")
+    @Value("${jwt.secret}")
     private String key;
-    @Value("${JWT_HEADER}")
+    @Value("${jwt.header}")
     private String secretHeader;
 
     @Override

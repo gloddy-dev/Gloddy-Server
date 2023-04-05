@@ -52,4 +52,8 @@ public class Apply extends BaseTimeEntity {
     public void updateStatus(Status status) {
         this.status = status;
     }
+
+    public boolean isApproved() {
+        return this.status.isApprove();
+    }
 }

@@ -7,9 +7,11 @@ import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.user.repository.UserRepository;
+import com.gloddy.server.core.utils.event.ApplyApproveEvent;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class ApplyService {
     private final ApplyJpaRepository applyJpaRepository;
     private final UserRepository userRepository;
     private final GroupJpaRepository groupJpaRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     // TODO: user exception 처리
     @Transactional
@@ -54,6 +57,10 @@ public class ApplyService {
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 지원서"));
         if(checkCaptain(groupId, userId)){
             apply.updateStatus(status);
+        }
+
+        if (apply.isApproved()) {
+            applicationEventPublisher.publishEvent(new ApplyApproveEvent(userId, groupId));
         }
     }
 

@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:gloddy;MODE=MYSQL;DATABASE_TO_UPPER=false
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dummy-username
+    password: dummy-password
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  redis:
+    host: dummy-host
+    port: 9999
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+jwt:
+  header: X-AUTH-TOKEN
+  secret: testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret
+  validTime: 3600000
+
+cloud:
+  aws:
+    credentials:
+      access-key: dummy-key
+      secret-key: dummy-key
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+aws:
+  s3:
+    bucket: dummy-bucket
