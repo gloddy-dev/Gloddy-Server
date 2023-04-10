@@ -67,7 +67,7 @@ public class ApplyService {
     public Boolean checkCaptain(Long groupId, Long userId) {
         Group group = groupJpaRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹"));
-        if(group.getUser().getId().equals(userId)){
+        if(group.getCaptain().getId().equals(userId)){
             return true;
         }
         return false;

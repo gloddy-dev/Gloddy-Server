@@ -139,7 +139,7 @@ public class GroupService {
     }
 
     private Boolean isGroupCaptain(User user, Group group) {
-        return user.equals(group.getUser());
+        return user.equals(group.getCaptain());
     }
 
     private Boolean isGroupMember(User user, List<Apply> applies) {
