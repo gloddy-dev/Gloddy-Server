@@ -4,10 +4,13 @@ import ch.qos.logback.core.joran.action.AppenderRefAction;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
+import com.gloddy.server.core.event.score.ScoreEventPublisher;
+import com.gloddy.server.core.event.score.ScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.PraiseResponse;
 import com.gloddy.server.estimate.entity.Praise;
 import com.gloddy.server.estimate.repository.PraiseJpaRepository;
 import com.gloddy.server.estimate.service.AbsenceInGroupFindService;
+import com.gloddy.server.reliability.entity.vo.ScoreType;
 import com.gloddy.server.user.service.UserFindService;
 import com.gloddy.server.domain.AbsenceInGroupDomain;
 import com.gloddy.server.domain.UserPraise;
@@ -31,6 +34,7 @@ public class PraiseService {
     private final AbsenceInGroupFindService absenceInGroupFindService;
     private final UserFindService userFindService;
     private final PraiseJpaRepository praiseJpaRepository;
+    private final ScoreEventPublisher scoreEventPublisher;
 
     @Transactional
     public void praiseInGroup(List<PraiseDto> praiseDtos, Long groupId) {
@@ -46,7 +50,9 @@ public class PraiseService {
                 })
                 .collect(Collectors.toUnmodifiableList());
 
-        userPraises.forEach(UserPraise::applyPraisePoint);
+        userPraises.forEach(userPraise -> {
+            userPraise.applyPraisePoint(scoreEventPublisher);
+        });
     }
 
     @Transactional(readOnly = true)
