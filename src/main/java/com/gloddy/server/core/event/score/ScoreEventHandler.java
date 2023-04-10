@@ -1,7 +1,5 @@
 package com.gloddy.server.core.event.score;
 
-import com.gloddy.server.core.event.reliability.ReliabilityLevelEventPublisher;
-import com.gloddy.server.core.event.reliability.ReliabilityLevelUpdateEvent;
 import com.gloddy.server.reliability.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

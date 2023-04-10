@@ -3,7 +3,6 @@ package com.gloddy.server.reliability.entity;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
