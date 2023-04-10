@@ -13,11 +13,9 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @RequiredArgsConstructor
 public class ScoreEventHandler {
     private final ScoreService scoreService;
-    private final ReliabilityLevelEventPublisher reliabilityEventPublisher;
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void updateScoreListener(ScoreUpdateEvent event) {
-        Long score = scoreService.update(event.getUser(), event.getType());
-        reliabilityEventPublisher.publish(new ReliabilityLevelUpdateEvent(event.getUser(), score));
+        scoreService.update(event.getUser(), event.getType());
     }
 }
