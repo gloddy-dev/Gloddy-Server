@@ -1,5 +1,6 @@
 package com.gloddy.server.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @SpringBootTest
@@ -31,6 +33,12 @@ abstract public class BaseApiTest {
 
     @Autowired
     protected PraiseJpaRepository praiseJpaRepository;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected EntityManager em;
 
     protected String testUserEmail = "testEmail@soogsil.ac.kr";
     protected String accessToken;
