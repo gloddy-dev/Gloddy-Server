@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface AbsenceInGroupJpaRepository extends JpaRepository<AbsenceInGroup, Long> {
 
     Optional<AbsenceInGroup> findByGroupIdAndUserId(Long groupId, Long userId);
+
+    AbsenceInGroup findFirstByOrderByIdDesc();
 }

@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GroupJpaRepository extends JpaRepository<Group, Long>, GroupJpaRepositoryCustom {
     Page<Group> findBySchoolOrderByIdDesc(Pageable pageable, String school);
+
+    Group findFirstByOrderByIdDesc();
 }
