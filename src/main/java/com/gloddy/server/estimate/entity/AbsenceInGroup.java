@@ -3,6 +3,7 @@ package com.gloddy.server.estimate.entity;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.group.entity.Group;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,5 +39,13 @@ public class AbsenceInGroup {
 
     public void absence() {
         this.absence = true;
+    }
+
+    @Builder
+    public AbsenceInGroup(User user, Group group) {
+        this.user = user;
+        this.group = group;
+        this.absence = false;
+        this.absenceCount = 0;
     }
 }
