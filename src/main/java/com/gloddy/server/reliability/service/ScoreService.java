@@ -28,8 +28,11 @@ public class ScoreService {
     private Long updateScore(Long originScore, ScoreType type) {
         if (ScorePlusType.isPlusType(type.name())) {
             return plusScore(originScore, type);
+        } else if (ScoreMinusType.isMinusType(type.name())) {
+            return minusScore(originScore, type);
+        } else {
+            throw new RuntimeException("존재하지 않는 Score 유형입니다.");
         }
-        return minusScore(originScore, type);
     }
 
     private Long plusScore(Long originScore, ScoreType scoreType) {

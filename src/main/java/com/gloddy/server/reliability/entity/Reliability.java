@@ -33,4 +33,12 @@ public class Reliability {
         this.score = INIT_SCORE;
         this.level = INIT_LEVEL;
     }
+
+    public void updateLevel(ReliabilityLevel level) {
+        this.level = level;
+    }
+
+    public void updateScore(Long score) {
+        this.score = score;
+    }
 }
