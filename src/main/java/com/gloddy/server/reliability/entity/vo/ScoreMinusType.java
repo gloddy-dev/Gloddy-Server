@@ -1,5 +1,7 @@
 package com.gloddy.server.reliability.entity.vo;
 
+import java.util.Arrays;
+
 public enum ScoreMinusType {
     Absence_Group("모임 불참", 10L),
     ;
@@ -10,6 +12,11 @@ public enum ScoreMinusType {
     private ScoreMinusType(String description, Long score) {
         this.description = description;
         this.score = score;
+    }
+
+    public static boolean isMinusType(String scoreType) {
+        return Arrays.stream(ScoreMinusType.values())
+                .anyMatch(type -> type.name().equals(scoreType));
     }
 
     public Long minusScore(Long score) {

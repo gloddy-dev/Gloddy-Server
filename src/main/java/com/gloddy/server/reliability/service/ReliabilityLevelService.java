@@ -15,12 +15,7 @@ public class ReliabilityLevelService {
     public void update(User user, Long score) {
         Reliability reliability = reliabilityQueryHandler.findByUser(user);
         ReliabilityLevel level = reliability.getLevel().upgradeLevel(score);
-
-        reliabilityQueryHandler.save(new Reliability(
-                reliability.getId(),
-                reliability.getUser(),
-                score,
-                level
-        ));
+        reliability.updateLevel(level);
+        reliability.updateScore(score);
     }
 }
