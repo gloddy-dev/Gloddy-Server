@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ReliabilityLevelEventPublisher {
+public class ReliabilityEventPublisher {
     private final ApplicationEventPublisher publisher;
 
-    public void publish(ReliabilityLevelUpdateEvent event) {
+    public void publish(ReliabilityScoreUpdateEvent event) {
         publisher.publishEvent(event);
     }
 }
