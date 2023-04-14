@@ -25,4 +25,8 @@ public enum ScorePlusType {
     public Long plusScore(Long score) {
         return score + this.score;
     }
+
+    public Long getScore() {
+        return this.score;
+    }
 }

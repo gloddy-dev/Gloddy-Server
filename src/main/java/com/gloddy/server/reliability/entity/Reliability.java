@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "reliability")
 public class Reliability {
     private static final ReliabilityLevel INIT_LEVEL = ReliabilityLevel.HOOD;
     private static final Long INIT_SCORE = 0L;
