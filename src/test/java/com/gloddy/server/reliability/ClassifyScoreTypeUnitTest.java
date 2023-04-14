@@ -7,10 +7,7 @@ import com.gloddy.server.reliability.entity.vo.ScoreType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
 public class ClassifyScoreTypeUnitTest extends BaseApiTest {
 
     @Test
@@ -47,8 +44,10 @@ public class ClassifyScoreTypeUnitTest extends BaseApiTest {
 
         // then
         boolean isPlusType = ScorePlusType.isPlusType(scoreType);
+        boolean isMinusType = ScoreMinusType.isMinusType(scoreType);
 
         // when
         Assertions.assertThat(isPlusType).isFalse();
+        Assertions.assertThat(isMinusType).isFalse();
     }
 }
