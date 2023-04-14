@@ -1,8 +1,8 @@
 package com.gloddy.server.domain;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.core.event.score.ScoreEventPublisher;
-import com.gloddy.server.core.event.score.ScoreUpdateEvent;
+import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.reliability.entity.vo.ScoreType;
 import lombok.AllArgsConstructor;
@@ -17,16 +17,15 @@ public class UserPraise {
     protected UserPraise() {
     }
 
-    public void applyPraisePoint(ScoreEventPublisher scoreEventPublisher) {
-
+    public void applyPraisePoint(ReliabilityEventPublisher reliabilityEventPublisher) {
         if (praiseValue.isAbsence()) {
-            procAbsence(scoreEventPublisher);
+            procAbsence(reliabilityEventPublisher);
             return;
         }
-        updatePraisePoint(scoreEventPublisher);
+        updatePraisePoint(reliabilityEventPublisher);
     }
 
-    private void updatePraisePoint(ScoreEventPublisher scoreEventPublisher) {
+    private void updatePraisePoint(ReliabilityEventPublisher reliabilityEventPublisher) {
 
         if (praiseValue.isCalm()) {
             user.getPraise().plusCalmCount();
@@ -40,21 +39,20 @@ public class UserPraise {
             throw new RuntimeException("존재하지 않는 칭찬 타입입니다.");
         }
 
-        scoreEventPublisher.publish(new ScoreUpdateEvent(user, ScoreType.Praised));
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Praised));
     }
 
-    private void procAbsence(ScoreEventPublisher scoreEventPublisher) {
+    private void procAbsence(ReliabilityEventPublisher reliabilityEventPublisher) {
         if (absenceInGroupDomain.checkAlreadyAbsence()) {
             return;
         }
 
         absenceInGroupDomain.plusAbsenceCount();
 
-        // TODO: 왜 checkAbsenceCountOver()가 됐을 때 user.getPraise().plusAbsenceCount(); 하지?
         if (absenceInGroupDomain.checkAbsenceCountOver()) {
             absenceInGroupDomain.absence();
             user.getPraise().plusAbsenceCount();
-            scoreEventPublisher.publish(new ScoreUpdateEvent(user, ScoreType.Absence_Group));
+            reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Absence_Group));
         }
     }
 }
