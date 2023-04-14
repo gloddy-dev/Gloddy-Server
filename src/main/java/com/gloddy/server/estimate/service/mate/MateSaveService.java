@@ -1,8 +1,8 @@
 package com.gloddy.server.estimate.service.mate;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.core.event.score.ScoreEventPublisher;
-import com.gloddy.server.core.event.score.ScoreUpdateEvent;
+import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.reliability.entity.vo.ScoreType;
 import com.gloddy.server.user.service.UserFindService;
 import com.gloddy.server.estimate.dto.MateDto;
@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class MateSaveService {
     private final MateJpaRepository mateJpaRepository;
     private final UserFindService userFindService;
-    private final ScoreEventPublisher scoreEventPublisher;
+    private final ReliabilityEventPublisher reliabilityEventPublisher;
 
 
     @Transactional
     public Mate save(MateDto mateDto, Long mateId) {
         User user = userFindService.findById(mateDto.getUserId());
-        scoreEventPublisher.publish(new ScoreUpdateEvent(user, ScoreType.Mated));
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Mated));
         return mateJpaRepository.save(
                 Mate.builder()
                    .mateId(mateId)
