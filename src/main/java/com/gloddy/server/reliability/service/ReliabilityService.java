@@ -1,8 +1,6 @@
 package com.gloddy.server.reliability.service;
 
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.core.event.reliability.ReliabilityLevelEventPublisher;
-import com.gloddy.server.core.event.reliability.ReliabilityLevelUpdateEvent;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.entity.vo.ScoreMinusType;
 import com.gloddy.server.reliability.entity.vo.ScoreType;
@@ -11,18 +9,20 @@ import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.entity.vo.ScorePlusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ScoreService {
+public class ReliabilityService {
+
     private final ReliabilityQueryHandler reliabilityQueryHandler;
-    private final ReliabilityLevelEventPublisher reliabilityEventPublisher;
 
     public void update(User user, ScoreType type) {
         Reliability reliability = reliabilityQueryHandler.findByUser(user);
-        Long newScore = updateScore(reliability.getScore(), type);
-        reliabilityEventPublisher.publish(new ReliabilityLevelUpdateEvent(user, newScore));
+        Long score = updateScore(reliability.getScore(), type);
+        ReliabilityLevel level = reliability.getLevel().upgradeLevel(score);
+
+        reliability.updateLevel(level);
+        reliability.updateScore(score);
     }
 
     private Long updateScore(Long originScore, ScoreType type) {
