@@ -1,6 +1,7 @@
 package com.gloddy.server.core.event.user;
 
 import com.gloddy.server.estimate.service.praise.PraiseSaveService;
+import com.gloddy.server.reliability.service.ReliabilitySaveService;
 import com.gloddy.server.reliability.service.ReliabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,12 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class UserEventHandler {
 
     private final PraiseSaveService praiseSaveService;
-    private final ReliabilityService reliabilityService;
+    private final ReliabilitySaveService reliabilitySaveService;
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     @Transactional
     public void userCreateListener(UserCreateEvent userCreateEvent) {
         praiseSaveService.initPraiseSaveBy(userCreateEvent.getUser());
-        reliabilityService.init(userCreateEvent.getUser());
+        reliabilitySaveService.init(userCreateEvent.getUser());
     }
 }
