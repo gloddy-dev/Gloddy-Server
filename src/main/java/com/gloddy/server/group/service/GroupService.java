@@ -4,6 +4,7 @@ import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.utils.event.GroupParticipateEvent;
 import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
@@ -16,6 +17,7 @@ import com.gloddy.server.group.dto.GroupResponse;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ public class GroupService {
     private final GroupJpaRepository groupJpaRepository;
     private final ApplyJpaRepository applyJpaRepository;
     private final UserRepository userRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     // 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
     // 참가 멤버 수 -> apply 엔티티에 상태값 추가해 가져오기
@@ -93,6 +96,8 @@ public class GroupService {
 
         Group saveGroup = groupJpaRepository.save(buildGroup);
 
+        eventPublisher.publishEvent(new GroupParticipateEvent(captainId, saveGroup.getId()));
+
         return new GroupResponse.Create(saveGroup.getId());
     }
 
@@ -139,7 +144,7 @@ public class GroupService {
     }
 
     private Boolean isGroupCaptain(User user, Group group) {
-        return user.equals(group.getUser());
+        return user.equals(group.getCaptain());
     }
 
     private Boolean isGroupMember(User user, List<Apply> applies) {

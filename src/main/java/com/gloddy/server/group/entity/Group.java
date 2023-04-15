@@ -25,7 +25,7 @@ public class Group extends BaseTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "captain_id")
-    private User user;
+    private User captain;
 
     @Column(name = "school")
     private String school;
@@ -63,7 +63,7 @@ public class Group extends BaseTimeEntity {
     @Builder
     public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
                  String place, String placeLatitude, String placeLongitude, int maxUser, String school) {
-        this.user = user;
+        this.captain = user;
         this.fileUrl = fileUrl;
         this.title = title;
         this.content = content;

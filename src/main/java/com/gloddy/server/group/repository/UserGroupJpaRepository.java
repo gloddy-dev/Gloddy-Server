@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface UserGroupJpaRepository extends JpaRepository<UserGroup, Long>, UserGroupJpaRepositoryCustom {
     Optional<UserGroup> findByUserIdAndGroupId(Long userId, Long groupId);
+
+    UserGroup findFirstByOrderByIdDesc();
 }

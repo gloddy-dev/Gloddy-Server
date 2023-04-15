@@ -59,7 +59,7 @@ public class CommentService {
     }
 
     private boolean checkCommentUser(Comment comment, Group group, User user) {
-        return comment.getUser().equals(user) || group.getUser().equals(user);
+        return comment.getUser().equals(user) || group.getCaptain().equals(user);
     }
 
     @Transactional(readOnly = true)

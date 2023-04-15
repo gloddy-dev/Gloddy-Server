@@ -6,8 +6,10 @@ import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import com.gloddy.server.core.error.handler.exception.GroupBusinessException;
+import com.gloddy.server.core.utils.event.GroupParticipateEvent;
 import com.gloddy.server.user.repository.UserRepository;
-import com.gloddy.server.core.utils.event.ApplyApproveEvent;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,16 +62,16 @@ public class ApplyService {
         }
 
         if (apply.isApproved()) {
-            applicationEventPublisher.publishEvent(new ApplyApproveEvent(userId, groupId));
+            applicationEventPublisher.publishEvent(new GroupParticipateEvent(apply.getUser().getId(), groupId));
         }
     }
 
     public Boolean checkCaptain(Long groupId, Long userId) {
         Group group = groupJpaRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹"));
-        if(group.getUser().getId().equals(userId)){
+        if(group.getCaptain().getId().equals(userId)){
             return true;
         }
-        return false;
+        throw new GroupBusinessException(ErrorCode.GROUP_NOT_CAPTAIN);
     }
 }

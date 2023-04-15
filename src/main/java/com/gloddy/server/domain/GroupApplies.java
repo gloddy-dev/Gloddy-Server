@@ -26,6 +26,6 @@ public class GroupApplies {
     }
 
     public User getCaptain() {
-        return group.getUser();
+        return group.getCaptain();
     }
 }
