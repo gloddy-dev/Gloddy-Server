@@ -1,12 +1,12 @@
 package com.gloddy.server.reliability;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
-import com.gloddy.server.estimate.service.mate.MateSaveService;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.service.UserGroupUpdateService;
 import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.entity.vo.ScorePlusType;
@@ -24,15 +24,14 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @RecordApplicationEvents
-public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
+public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
 
     @MockBean
     private PraiseService praiseService;
 
     @MockBean
-    private MateSaveService mateSaveService;
+    private UserGroupUpdateService userGroupUpdateService;
 
     @Autowired
     private ApplicationEvents events;
@@ -40,12 +39,11 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     @Test
     @Transactional
     @Commit
-    @DisplayName("평가 참여 신뢰도 점수 업데이트 테스트")
-    void successUpdateReliabilityByEstimate() throws Exception {
+    @DisplayName("최고의 짝꿍으로 선정된 유저 신뢰도 점수 업데이트 테스트")
+    void successUpdateReliabilityByMatedTest() throws Exception {
         // given
-        Group group = createGroup();
-        UserGroup userGroup = createUserGroup(group);
         EstimateRequest request = createEstimateRequest();
+        Group group = createGroup();
 
         // when
         String url = "/api/v1/groups/" + group.getId() + "/estimate";
@@ -64,7 +62,7 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     void afterEvent() {
         Reliability reliability = reliabilityQueryHandler.findByUser(user);
 
-        Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
+        Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Mated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
     }
 }
