@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "absence_in_group")
-public class AbsenceInGroup {
+@Table(name = "user_group_absence")
+public class UserGroupAbsence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class AbsenceInGroup {
     }
 
     @Builder
-    public AbsenceInGroup(User user, Group group) {
+    public UserGroupAbsence(User user, Group group) {
         this.user = user;
         this.group = group;
         this.absence = false;

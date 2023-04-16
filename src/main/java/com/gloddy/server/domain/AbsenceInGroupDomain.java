@@ -1,29 +1,29 @@
 package com.gloddy.server.domain;
 
-import com.gloddy.server.estimate.entity.AbsenceInGroup;
+import com.gloddy.server.estimate.entity.UserGroupAbsence;
 
 public class AbsenceInGroupDomain {
-    private AbsenceInGroup absenceInGroup;
+    private UserGroupAbsence userGroupAbsence;
     private Long totalGroupCount;
 
-    public AbsenceInGroupDomain(AbsenceInGroup absenceInGroup, Long totalGroupCount) {
-        this.absenceInGroup = absenceInGroup;
+    public AbsenceInGroupDomain(UserGroupAbsence userGroupAbsence, Long totalGroupCount) {
+        this.userGroupAbsence = userGroupAbsence;
         this.totalGroupCount = totalGroupCount;
     }
 
     public void plusAbsenceCount() {
-        this.absenceInGroup.plusAbsenceCount();
+        this.userGroupAbsence.plusAbsenceCount();
     }
 
     public boolean checkAlreadyAbsence() {
-        return this.absenceInGroup.getAbsence();
+        return this.userGroupAbsence.getAbsence();
     }
 
     public boolean checkAbsenceCountOver() {
-        return this.absenceInGroup.getAbsenceCount() > (this.totalGroupCount / 2);
+        return this.userGroupAbsence.getAbsenceCount() > (this.totalGroupCount / 2);
     }
 
     public void absence() {
-        this.absenceInGroup.absence();
+        this.userGroupAbsence.absence();
     }
 }
