@@ -104,4 +104,8 @@ public class User extends BaseTimeEntity {
 
         return Objects.equals(this.id, target.getId());
     }
+
+    public void setPraise(Praise praise) {
+        this.praise = praise;
+    }
 }
