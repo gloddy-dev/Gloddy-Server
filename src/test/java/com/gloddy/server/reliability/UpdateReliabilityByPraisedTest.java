@@ -7,6 +7,7 @@ import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
 import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.estimate.entity.Praise;
+import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.estimate.service.AbsenceInGroupFindService;
 import com.gloddy.server.estimate.service.mate.MateSaveService;
 import com.gloddy.server.group.entity.Group;
@@ -55,7 +56,7 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
     void successUpdateReliabilityByPraisedTest() throws Exception {
         // given
         Group group = createGroup();
-        EstimateRequest request = createEstimateRequest();
+        EstimateRequest request = createEstimateRequest(PraiseValue.KIND);
 
         given(absenceInGroupFindService.findByGroupIdAndUserId(group.getId(), user.getId()))
                 .willReturn(Mockito.mock(AbsenceInGroup.class));

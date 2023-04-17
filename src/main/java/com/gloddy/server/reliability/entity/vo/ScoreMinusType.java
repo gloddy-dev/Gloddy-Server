@@ -26,4 +26,8 @@ public enum ScoreMinusType {
         }
         return 0L;
     }
+
+    public Long getScore() {
+        return this.score;
+    }
 }

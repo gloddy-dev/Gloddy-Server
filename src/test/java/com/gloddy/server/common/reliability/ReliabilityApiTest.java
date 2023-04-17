@@ -1,9 +1,11 @@
 package com.gloddy.server.common.reliability;
 
+import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.estimate.dto.EstimateRequest;
 import com.gloddy.server.estimate.dto.MateDto;
 import com.gloddy.server.estimate.dto.PraiseDto;
+import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.estimate.repository.AbsenceInGroupJpaRepository;
 import com.gloddy.server.group.dto.GroupRequest;
@@ -35,11 +37,6 @@ public class ReliabilityApiTest extends BaseApiTest {
     @Autowired
     protected AbsenceInGroupJpaRepository absenceInGroupJpaRepository;
 
-//    public Reliability createReliability(User user) {
-//        Reliability reliability = new Reliability(user);
-//        return reliabilityQueryHandler.save(reliability);
-//    }
-
     public Group createGroup() {
         Group group = new Group();
         return groupJpaRepository.save(group);
@@ -49,6 +46,18 @@ public class ReliabilityApiTest extends BaseApiTest {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
         return userGroupJpaRepository.save(userGroup);
+    }
+
+    public AbsenceInGroup createAbsenceInGroup(User user, Group group) {
+        AbsenceInGroup absenceInGroup = AbsenceInGroup.builder()
+                .user(user)
+                .group(group)
+                .build();
+        return absenceInGroupJpaRepository.save(absenceInGroup);
+    }
+
+    public void updateReliabilityScore(Long score) {
+        reliability.updateScore(score);
     }
 
     public GroupRequest.Create createGroupCreateRequest() {
@@ -67,8 +76,8 @@ public class ReliabilityApiTest extends BaseApiTest {
         );
     }
 
-    public EstimateRequest createEstimateRequest() {
-        PraiseDto praiseDto = new PraiseDto(user.getId(), PraiseValue.KIND);
+    public EstimateRequest createEstimateRequest(PraiseValue praiseValue) {
+        PraiseDto praiseDto = new PraiseDto(user.getId(), praiseValue);
         MateDto mateDto = new MateDto(user.getId(), "test");
 
         return new EstimateRequest(

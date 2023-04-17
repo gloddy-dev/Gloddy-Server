@@ -3,6 +3,7 @@ package com.gloddy.server.reliability;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
+import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.estimate.service.mate.MateSaveService;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
@@ -45,7 +46,7 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
         // given
         Group group = createGroup();
         UserGroup userGroup = createUserGroup(group);
-        EstimateRequest request = createEstimateRequest();
+        EstimateRequest request = createEstimateRequest(PraiseValue.KIND);
 
         // when
         String url = "/api/v1/groups/" + group.getId() + "/estimate";

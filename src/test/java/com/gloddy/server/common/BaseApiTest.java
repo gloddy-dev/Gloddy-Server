@@ -53,6 +53,7 @@ abstract public class BaseApiTest {
     protected String testUserEmail = "testEmail@soogsil.ac.kr";
     protected String accessToken;
     protected User user;
+    protected Reliability reliability;
 
     protected Praise createPraise(User user) {
         Praise mockPraise = Praise.empty();
@@ -85,7 +86,7 @@ abstract public class BaseApiTest {
     void setUp() {
         User mockUser = createLoginUser();
         createPraise(mockUser);
-        createReliability(mockUser);
+        reliability = createReliability(mockUser);
         accessToken = getTokenAfterLogin(mockUser);
         user = mockUser;
     }

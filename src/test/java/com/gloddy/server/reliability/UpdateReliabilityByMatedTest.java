@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
+import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.estimate.repository.MateJpaRepository;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
@@ -46,7 +47,7 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     @DisplayName("최고의 짝꿍으로 선정된 유저 신뢰도 점수 업데이트 테스트")
     void successUpdateReliabilityByMatedTest() throws Exception {
         // given
-        EstimateRequest request = createEstimateRequest();
+        EstimateRequest request = createEstimateRequest(PraiseValue.KIND);
         Group group = createGroup();
 
         // when
