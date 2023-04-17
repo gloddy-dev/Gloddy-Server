@@ -1,6 +1,5 @@
 package com.gloddy.server.reliability;
 
-
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.group.dto.GroupRequest;
@@ -71,19 +70,3 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         userRepository.deleteAll();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
