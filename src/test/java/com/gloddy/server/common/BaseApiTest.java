@@ -8,6 +8,7 @@ import com.gloddy.server.estimate.entity.Praise;
 import com.gloddy.server.estimate.repository.PraiseJpaRepository;
 import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.repository.ReliabilityRepository;
 import com.gloddy.server.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ abstract public class BaseApiTest {
 
     @Autowired
     protected ReliabilityQueryHandler reliabilityQueryHandler;
+
+    @Autowired
+    protected ReliabilityRepository reliabilityRepository;
 
     @Autowired
     protected ObjectMapper objectMapper;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
+import com.gloddy.server.estimate.repository.MateJpaRepository;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.service.UserGroupUpdateService;
@@ -36,6 +37,9 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     @Autowired
     private ApplicationEvents events;
 
+    @Autowired
+    private MateJpaRepository mateJpaRepository;
+
     @Test
     @Transactional
     @Commit
@@ -59,10 +63,20 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     }
 
     @AfterTransaction
+    @Transactional
+    @Commit
     void afterEvent() {
         Reliability reliability = reliabilityQueryHandler.findByUser(user);
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Mated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+
+        absenceInGroupJpaRepository.deleteAll();
+        userGroupJpaRepository.deleteAll();
+        mateJpaRepository.deleteAll();
+        reliabilityRepository.deleteAll();
+        groupJpaRepository.deleteAll();
+        praiseJpaRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }

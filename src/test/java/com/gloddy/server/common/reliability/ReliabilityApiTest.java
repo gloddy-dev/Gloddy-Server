@@ -12,6 +12,7 @@ import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import com.gloddy.server.group.repository.UserGroupJpaRepository;
 import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.repository.ReliabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -21,6 +22,9 @@ public class ReliabilityApiTest extends BaseApiTest {
 
     @Autowired
     protected ReliabilityQueryHandler reliabilityQueryHandler;
+
+    @Autowired
+    protected ReliabilityRepository reliabilityRepository;
 
     @Autowired
     protected GroupJpaRepository groupJpaRepository;

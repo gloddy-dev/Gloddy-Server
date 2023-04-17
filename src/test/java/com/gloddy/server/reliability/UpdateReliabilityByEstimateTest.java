@@ -61,10 +61,19 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     }
 
     @AfterTransaction
+    @Transactional
+    @Commit
     void afterEvent() {
         Reliability reliability = reliabilityQueryHandler.findByUser(user);
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+
+        absenceInGroupJpaRepository.deleteAll();
+        userGroupJpaRepository.deleteAll();
+        reliabilityRepository.deleteAll();
+        groupJpaRepository.deleteAll();
+        praiseJpaRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }
