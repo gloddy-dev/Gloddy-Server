@@ -35,6 +35,7 @@ public enum ErrorCode {
     FILE_EXTENSION_NOT_FOUND(404, "파일 확장자를 얻을 수 없습니다."),
     FILE_INTERNAL_ERROR(500, "파일 byte input stream 변환 중 에러"),
     GROUP_NOT_FOUND(404, "존재하지 않는 그룹입니다."),
+    GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
     ;
 
     private int status;

@@ -1,5 +1,6 @@
 package com.gloddy.server.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.auth.entity.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
@@ -13,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,6 +35,12 @@ abstract public class BaseApiTest {
     @Autowired
     protected PraiseJpaRepository praiseJpaRepository;
 
+    @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected EntityManager em;
+
     protected String testUserEmail = "testEmail@soogsil.ac.kr";
     protected String accessToken;
     protected User user;
@@ -42,10 +51,16 @@ abstract public class BaseApiTest {
         return praiseJpaRepository.save(mockPraise);
     }
 
-    protected User createUser() {
+    protected User createLoginUser() {
         User mockUser = User.builder().email(testUserEmail).
                 personalities(List.of(Personality.KIND)).build();
         return userRepository.save(mockUser);
+    }
+
+    protected User createUser() {
+        User user = User.builder().email(UUID.randomUUID().toString() + "@soongsil.ac.kr")
+                .personalities(List.of(Personality.KIND)).build();
+        return userRepository.save(user);
     }
 
     protected String getTokenAfterLogin(User user) {
@@ -54,7 +69,7 @@ abstract public class BaseApiTest {
 
     @BeforeEach
     void setUp() {
-        User mockUser = createUser();
+        User mockUser = createLoginUser();
         createPraise(mockUser);
         accessToken = getTokenAfterLogin(mockUser);
         user = mockUser;
