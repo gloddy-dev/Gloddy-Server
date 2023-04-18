@@ -62,9 +62,6 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
                 .willReturn(Mockito.mock(AbsenceInGroup.class));
 
         // when
-        Praise praise = praiseJpaRepository.findByUserId(user.getId()).orElseThrow(() -> new RuntimeException("parise 없음"));
-        System.out.println(praise.getId());
-
         String url = "/api/v1/groups/" + group.getId() + "/estimate";
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
