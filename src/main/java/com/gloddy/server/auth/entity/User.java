@@ -3,10 +3,10 @@ package com.gloddy.server.auth.entity;
 import com.gloddy.server.auth.entity.kind.Authority;
 import com.gloddy.server.auth.entity.kind.Gender;
 import com.gloddy.server.auth.entity.kind.Personality;
-import com.gloddy.server.auth.entity.score.Score;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.estimate.entity.Praise;
+import com.gloddy.server.reliability.entity.Reliability;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,7 +57,8 @@ public class User extends BaseTimeEntity {
     @Column(name = "personality")
     private List<Personality> personalities = new ArrayList<>();
 
-    private int score;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private Reliability reliability;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private Praise praise;
@@ -71,16 +72,11 @@ public class User extends BaseTimeEntity {
         this.birth = birth;
         this.gender = gender;
         this.personalities = personalities;
-        this.score = 0;
         authorityDefault();
     }
 
     private void authorityDefault() {
         this.authority = Authority.USER;
-    }
-
-    public void updateScore(Score score) {
-        this.score += score.getValue();
     }
 
     @Override
@@ -107,5 +103,9 @@ public class User extends BaseTimeEntity {
         System.out.println(target.getId());
 
         return Objects.equals(this.id, target.getId());
+    }
+
+    public void setPraise(Praise praise) {
+        this.praise = praise;
     }
 }

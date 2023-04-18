@@ -1,13 +1,15 @@
-package com.gloddy.server.core.utils.event;
+package com.gloddy.server.core.event.reliability;
 
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.reliability.entity.vo.ScoreType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-public class UserCreateEvent {
+public class ReliabilityScoreUpdateEvent {
     private User user;
+    private ScoreType type;
 }

@@ -1,7 +1,10 @@
 package com.gloddy.server.domain;
 
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.entity.embedded.PraiseValue;
+import com.gloddy.server.reliability.entity.vo.ScoreType;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -14,7 +17,15 @@ public class UserPraise {
     protected UserPraise() {
     }
 
-    public void applyPraisePoint() {
+    public void applyPraisePoint(ReliabilityEventPublisher reliabilityEventPublisher) {
+        if (praiseValue.isAbsence()) {
+            procAbsence(reliabilityEventPublisher);
+            return;
+        }
+        updatePraisePoint(reliabilityEventPublisher);
+    }
+
+    private void updatePraisePoint(ReliabilityEventPublisher reliabilityEventPublisher) {
 
         if (praiseValue.isCalm()) {
             user.getPraise().plusCalmCount();
@@ -24,14 +35,14 @@ public class UserPraise {
             user.getPraise().plusActiveCount();
         } else if (praiseValue.isHumor()) {
             user.getPraise().plusHumorCount();
-        } else if (praiseValue.isAbsence()) {
-            procAbsence();
+        } else {
+            throw new RuntimeException("존재하지 않는 칭찬 타입입니다.");
         }
 
-        throw new RuntimeException("fail applyPraisePoint");
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Praised));
     }
 
-    private void procAbsence() {
+    private void procAbsence(ReliabilityEventPublisher reliabilityEventPublisher) {
         if (absenceInGroupDomain.checkAlreadyAbsence()) {
             return;
         }
@@ -41,6 +52,7 @@ public class UserPraise {
         if (absenceInGroupDomain.checkAbsenceCountOver()) {
             absenceInGroupDomain.absence();
             user.getPraise().plusAbsenceCount();
+            reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Absence_Group));
         }
     }
 }

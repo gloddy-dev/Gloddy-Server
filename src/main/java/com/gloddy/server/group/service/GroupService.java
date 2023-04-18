@@ -4,6 +4,9 @@ import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.entity.vo.Status;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.reliability.entity.vo.ScoreType;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
 import com.gloddy.server.user.repository.UserRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
@@ -36,6 +39,7 @@ public class GroupService {
     private final GroupJpaRepository groupJpaRepository;
     private final ApplyJpaRepository applyJpaRepository;
     private final UserRepository userRepository;
+    private final ReliabilityEventPublisher reliabilityEventPublisher;
     private final ApplicationEventPublisher eventPublisher;
 
     // 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
@@ -97,6 +101,7 @@ public class GroupService {
         Group saveGroup = groupJpaRepository.save(buildGroup);
 
         eventPublisher.publishEvent(new GroupParticipateEvent(captainId, saveGroup.getId()));
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(captain, ScoreType.Created_Group));
 
         return new GroupResponse.Create(saveGroup.getId());
     }

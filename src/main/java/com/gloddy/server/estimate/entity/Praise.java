@@ -49,6 +49,7 @@ public class Praise {
         this.totalHumorCount = INIT;
         this.totalAbsenceCount = INIT;
         this.user = user;
+        user.setPraise(this);
     }
 
     public void plusCalmCount() {

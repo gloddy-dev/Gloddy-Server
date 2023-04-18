@@ -9,6 +9,7 @@ import com.gloddy.server.core.utils.event.GroupParticipateEvent;
 import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.reliability.repository.ReliabilityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -126,6 +127,7 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(absenceInGroup.getAbsence()).isEqualTo(false);
 
             absenceInGroupJpaRepository.deleteAll();
+            reliabilityRepository.deleteAll();
             userGroupJpaRepository.deleteAll();
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
