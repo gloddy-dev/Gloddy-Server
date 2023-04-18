@@ -14,11 +14,6 @@ public enum ScoreMinusType {
         this.score = score;
     }
 
-    public static boolean isMinusType(String scoreType) {
-        return Arrays.stream(ScoreMinusType.values())
-                .anyMatch(type -> type.name().equals(scoreType));
-    }
-
     public Long minusScore(Long score) {
         long newScore = score - this.score;
         if (newScore > 0) {
