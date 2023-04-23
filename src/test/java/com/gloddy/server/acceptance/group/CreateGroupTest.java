@@ -2,7 +2,6 @@ package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.estimate.entity.UserGroupAbsence;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
@@ -65,21 +64,13 @@ public class CreateGroupTest extends GroupApiTest {
     void afterEvent() {
         Group group = groupJpaRepository.findFirstByOrderByIdDesc();
         UserGroup userGroup = userGroupJpaRepository.findFirstByOrderByIdDesc();
-        UserGroupAbsence userGroupAbsence = userGroupAbsenceJpaRepository.findFirstByOrderByIdDesc();
 
         assertThat(userGroup.getUser().getId()).isEqualTo(user.getId());
         assertThat(userGroup.getGroup().getId()).isEqualTo(group.getId());
         assertThat(userGroup.isEnd()).isEqualTo(false);
         assertThat(userGroup.isPraised()).isEqualTo(false);
 
-        assertThat(userGroupAbsence.getUser().getId()).isEqualTo(user.getId());
-        assertThat(userGroupAbsence.getGroup().getId()).isEqualTo(group.getId());
-        assertThat(userGroupAbsence.isAbsence()).isEqualTo(false);
-        assertThat(userGroupAbsence.getAbsenceVoteCount()).isEqualTo(0);
-
-
         reliabilityRepository.deleteAll();
-        userGroupAbsenceJpaRepository.deleteAll();
         userGroupJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();

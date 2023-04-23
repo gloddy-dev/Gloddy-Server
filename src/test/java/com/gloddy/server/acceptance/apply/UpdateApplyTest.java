@@ -6,7 +6,6 @@ import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.apply.ApplyApiTest;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.estimate.entity.UserGroupAbsence;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
 import org.junit.jupiter.api.DisplayName;
@@ -113,21 +112,14 @@ public class UpdateApplyTest extends ApplyApiTest {
             User user = userRepository.findFirstByOrderByIdDesc();
             Group group = groupJpaRepository.findFirstByOrderByIdDesc();
             UserGroup userGroup = userGroupJpaRepository.findFirstByOrderByIdDesc();
-            UserGroupAbsence userGroupAbsence = userGroupAbsenceJpaRepository.findFirstByOrderByIdDesc();
 
             assertThat(userGroup.getGroup().getId()).isEqualTo(group.getId());
             assertThat(userGroup.getUser().getId()).isEqualTo(user.getId());
             assertThat(userGroup.isEnd()).isEqualTo(false);
             assertThat(userGroup.isPraised()).isEqualTo(false);
 
-            assertThat(userGroupAbsence.getUser().getId()).isEqualTo(user.getId());
-            assertThat(userGroupAbsence.getGroup().getId()).isEqualTo(group.getId());
-            assertThat(userGroupAbsence.getAbsenceVoteCount()).isEqualTo(0);
-            assertThat(userGroupAbsence.isAbsence()).isEqualTo(false);
-
 
             reliabilityRepository.deleteAll();
-            userGroupAbsenceJpaRepository.deleteAll();
             userGroupJpaRepository.deleteAll();
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();

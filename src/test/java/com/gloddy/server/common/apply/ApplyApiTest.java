@@ -4,7 +4,6 @@ import com.gloddy.server.apply.entity.Apply;
 import com.gloddy.server.apply.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.estimate.repository.UserGroupAbsenceJpaRepository;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import com.gloddy.server.group.repository.UserGroupJpaRepository;
@@ -20,9 +19,6 @@ public abstract class ApplyApiTest extends BaseApiTest {
 
     @Autowired
     protected UserGroupJpaRepository userGroupJpaRepository;
-
-    @Autowired
-    protected UserGroupAbsenceJpaRepository userGroupAbsenceJpaRepository;
 
     protected Group createMyGroup() {
         Group group = Group.builder().user(user).build();
