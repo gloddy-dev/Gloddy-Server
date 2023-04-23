@@ -10,7 +10,6 @@ import com.gloddy.server.estimate.repository.PraiseJpaRepository;
 import com.gloddy.server.estimate.service.AbsenceInGroupFindService;
 import com.gloddy.server.user.service.UserFindService;
 import com.gloddy.server.domain.AbsenceInGroupDomain;
-import com.gloddy.server.domain.UserPraise;
 import com.gloddy.server.estimate.dto.PraiseDto;
 import com.gloddy.server.group.service.GroupUserCountService;
 import lombok.RequiredArgsConstructor;
