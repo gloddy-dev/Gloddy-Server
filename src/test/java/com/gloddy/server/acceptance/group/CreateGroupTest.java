@@ -74,8 +74,8 @@ public class CreateGroupTest extends GroupApiTest {
 
         assertThat(userGroupAbsence.getUser().getId()).isEqualTo(user.getId());
         assertThat(userGroupAbsence.getGroup().getId()).isEqualTo(group.getId());
-        assertThat(userGroupAbsence.getAbsence()).isEqualTo(false);
-        assertThat(userGroupAbsence.getAbsenceCount()).isEqualTo(0);
+        assertThat(userGroupAbsence.isAbsence()).isEqualTo(false);
+        assertThat(userGroupAbsence.getAbsenceVoteCount()).isEqualTo(0);
 
 
         reliabilityRepository.deleteAll();

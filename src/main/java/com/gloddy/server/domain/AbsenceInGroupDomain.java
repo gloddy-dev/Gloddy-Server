@@ -16,11 +16,11 @@ public class AbsenceInGroupDomain {
     }
 
     public boolean checkAlreadyAbsence() {
-        return this.userGroupAbsence.getAbsence();
+        return this.userGroupAbsence.isAbsence();
     }
 
     public boolean checkAbsenceCountOver() {
-        return this.userGroupAbsence.getAbsenceCount() > (this.totalGroupCount / 2);
+        return this.userGroupAbsence.getAbsenceVoteCount() > (this.totalGroupCount / 2);
     }
 
     public void absence() {

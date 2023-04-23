@@ -19,11 +19,11 @@ public class UserGroupAbsence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "absence_count", nullable = false)
-    private Integer absenceCount;
+    @Column(name = "absence_vote_count", nullable = false)
+    private Integer absenceVoteCount;
 
-    @Column(name = "absence", nullable = false)
-    private Boolean absence;
+    @Column(name = "is_absence", nullable = false)
+    private Boolean isAbsence;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -34,18 +34,26 @@ public class UserGroupAbsence {
     private Group group;
 
     public void plusAbsenceCount() {
-        this.absenceCount++;
+        this.absenceVoteCount++;
     }
 
     public void absence() {
-        this.absence = true;
+        this.isAbsence = true;
+    }
+
+    public boolean isAbsence() {
+        return this.isAbsence;
+    }
+
+    public boolean isAbsenceVoteCountOver() {
+        return this.absenceVoteCount > (this.group.getMemberCount() / 2);
     }
 
     @Builder
     public UserGroupAbsence(User user, Group group) {
         this.user = user;
         this.group = group;
-        this.absence = false;
-        this.absenceCount = 0;
+        this.isAbsence = false;
+        this.absenceVoteCount = 0;
     }
 }
