@@ -1,6 +1,8 @@
 package com.gloddy.server.group.repository.impl;
 
+import com.gloddy.server.auth.entity.QUser;
 import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.estimate.entity.QPraise;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.repository.custom.UserGroupJpaRepositoryCustom;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.gloddy.server.auth.entity.QUser.*;
+import static com.gloddy.server.estimate.entity.QPraise.*;
 import static com.gloddy.server.group.entity.QGroup.group;
 import static com.gloddy.server.group.entity.QUserGroup.userGroup;
 
@@ -27,11 +31,11 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
     @Override
     public List<Group> findExpectedGroupsByUser(User user) {
         return query.select(group)
-            .from(userGroup)
-            .join(userGroup.group, group)
-            .where(userEq(user), startTimeAfter(LocalDateTime.now()))
-            .orderBy(group.startTime.desc())
-            .fetch();
+                .from(userGroup)
+                .join(userGroup.group, group)
+                .where(userEq(user), startTimeAfter(LocalDateTime.now()))
+                .orderBy(group.startTime.desc())
+                .fetch();
     }
 
     @Override
@@ -54,6 +58,16 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
         return new PageImpl<>(groups, pageable, total);
     }
 
+    @Override
+    public List<UserGroup> findUserGroupsToPraiseByUserIdInAndGroupId(List<Long> userIds, Long groupId) {
+        return query.selectFrom(userGroup)
+                .join(userGroup.user, user).fetchJoin()
+                .join(userGroup.group, group).fetchJoin()
+                .join(user.praise, praise).fetchJoin()
+                .where(userIdIn(userIds), groupIdEq(groupId))
+                .fetch();
+    }
+
     private BooleanExpression userEq(User user) {
         return userGroup.user.eq(user);
     }
@@ -64,5 +78,13 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
 
     private BooleanExpression startTimeBefore(LocalDateTime limit) {
         return userGroup.group.startTime.before(limit);
+    }
+
+    private BooleanExpression userIdIn(List<Long> userIds) {
+        return userGroup.user.id.in(userIds);
+    }
+
+    private BooleanExpression groupIdEq(Long groupId) {
+        return userGroup.group.id.eq(groupId);
     }
 }
