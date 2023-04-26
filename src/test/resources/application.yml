@@ -11,6 +11,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
 
   mail:
     host: smtp.gmail.com
