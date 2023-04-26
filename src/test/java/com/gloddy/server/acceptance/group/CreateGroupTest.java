@@ -40,9 +40,9 @@ public class CreateGroupTest extends GroupApiTest {
         //모임을 생성한다.
         ResultActions test = mockMvc.perform(
                 post("/api/v1/group-create")
-                .header("X-AUTH-TOKEN", accessToken)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
+                        .header("X-AUTH-TOKEN", accessToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
         );
 
         //then
@@ -69,6 +69,8 @@ public class CreateGroupTest extends GroupApiTest {
         assertThat(userGroup.getGroup().getId()).isEqualTo(group.getId());
         assertThat(userGroup.isEnd()).isEqualTo(false);
         assertThat(userGroup.isPraised()).isEqualTo(false);
+        assertThat(userGroup.getAbsenceVoteCount()).isEqualTo(0);
+        assertThat(userGroup.isAbsence()).isFalse();
 
         reliabilityRepository.deleteAll();
         userGroupJpaRepository.deleteAll();

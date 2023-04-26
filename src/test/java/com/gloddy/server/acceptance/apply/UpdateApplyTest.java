@@ -117,6 +117,8 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(userGroup.getUser().getId()).isEqualTo(user.getId());
             assertThat(userGroup.isEnd()).isEqualTo(false);
             assertThat(userGroup.isPraised()).isEqualTo(false);
+            assertThat(userGroup.getAbsenceVoteCount()).isEqualTo(0);
+            assertThat(userGroup.isAbsence()).isFalse();
 
 
             reliabilityRepository.deleteAll();
