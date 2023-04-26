@@ -55,12 +55,15 @@ public class Praise {
     public void plusCalmCount() {
         totalCalmCount++;
     }
+
     public void plusKindCount() {
         totalKindCount++;
     }
+
     public void plusActiveCount() {
         totalActiveCount++;
     }
+
     public void plusHumorCount() {
         totalHumorCount++;
     }
