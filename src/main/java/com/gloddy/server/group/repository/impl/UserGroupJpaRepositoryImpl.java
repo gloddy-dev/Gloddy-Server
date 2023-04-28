@@ -1,8 +1,6 @@
 package com.gloddy.server.group.repository.impl;
 
-import com.gloddy.server.auth.entity.QUser;
 import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.estimate.entity.QPraise;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.repository.custom.UserGroupJpaRepositoryCustom;
@@ -21,6 +19,7 @@ import static com.gloddy.server.auth.entity.QUser.*;
 import static com.gloddy.server.estimate.entity.QPraise.*;
 import static com.gloddy.server.group.entity.QGroup.group;
 import static com.gloddy.server.group.entity.QUserGroup.userGroup;
+import static com.gloddy.server.reliability.entity.QReliability.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -64,6 +63,7 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
                 .join(userGroup.user, user).fetchJoin()
                 .join(userGroup.group, group).fetchJoin()
                 .join(user.praise, praise).fetchJoin()
+                .join(user.reliability, reliability).fetchJoin()
                 .where(userIdIn(userIds), groupIdEq(groupId))
                 .fetch();
     }
