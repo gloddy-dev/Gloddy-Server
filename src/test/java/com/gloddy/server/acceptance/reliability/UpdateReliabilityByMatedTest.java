@@ -1,4 +1,4 @@
-package com.gloddy.server.reliability;
+package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
