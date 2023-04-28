@@ -101,7 +101,7 @@ public class GroupService {
         Group saveGroup = groupJpaRepository.save(buildGroup);
 
         eventPublisher.publishEvent(new GroupParticipateEvent(captainId, saveGroup.getId()));
-        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(captain, ScoreType.Created_Group));
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(captainId, ScoreType.Created_Group));
 
         return new GroupResponse.Create(saveGroup.getId());
     }

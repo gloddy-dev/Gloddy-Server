@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ReliabilityRepository extends JpaRepository<Reliability, Long> {
-    Optional<Reliability> findByUser(User user);
+    Optional<Reliability> findByUserId(Long userId);
 }

@@ -16,8 +16,8 @@ public class ReliabilityService {
 
     private final ReliabilityQueryHandler reliabilityQueryHandler;
 
-    public void update(User user, ScoreType type) {
-        Reliability reliability = reliabilityQueryHandler.findByUser(user);
+    public void update(Long userId, ScoreType type) {
+        Reliability reliability = reliabilityQueryHandler.findByUserId(userId);
         Long score = updateScore(reliability.getScore(), type);
         ReliabilityLevel level = reliability.getLevel().upgradeLevel(score);
 

@@ -14,6 +14,6 @@ public class ReliabilityEventHandler {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void updateReliabilityScoreListener(ReliabilityScoreUpdateEvent event) {
-        scoreService.update(event.getUser(), event.getType());
+        scoreService.update(event.getUseId(), event.getType());
     }
 }
