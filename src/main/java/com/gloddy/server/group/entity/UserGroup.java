@@ -54,6 +54,7 @@ public class UserGroup {
         this.isPraised = false;
         this.absenceVoteCount = 0;
         this.isAbsence = false;
+        this.group.addUserGroup(this);
     }
 
     public void receivePraise(PraiseValue praiseValue) {
@@ -63,6 +64,10 @@ public class UserGroup {
 
     public boolean isAbsenceVoteCountOver() {
         return this.absenceVoteCount > (this.group.getMemberCount() / 2);
+    }
+
+    public boolean isAlreadyAbsenceVoteCountOver() {
+        return (this.absenceVoteCount - 1) > (this.group.getMemberCount() / 2);
     }
 
     public void completePraise() {
