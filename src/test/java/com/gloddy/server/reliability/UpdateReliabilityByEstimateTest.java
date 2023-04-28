@@ -1,5 +1,6 @@
 package com.gloddy.server.reliability;
 
+import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.dto.EstimateRequest;
@@ -8,6 +9,7 @@ import com.gloddy.server.estimate.service.mate.MateSaveService;
 import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.service.UserGroupUpdateService;
 import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.entity.vo.ScorePlusType;
@@ -35,6 +37,9 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     @MockBean
     private MateSaveService mateSaveService;
 
+    @MockBean
+    private UserGroupUpdateService userGroupUpdateService;
+
     @Autowired
     private ApplicationEvents events;
 
@@ -44,9 +49,11 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     @DisplayName("평가 참여 신뢰도 점수 업데이트 테스트")
     void successUpdateReliabilityByEstimate() throws Exception {
         // given
+        User estimateUser = user;
+        User receivePraiseUser = createUser();
         Group group = createGroup();
-        UserGroup userGroup = createUserGroup(group);
-        EstimateRequest request = createEstimateRequest(PraiseValue.KIND);
+        UserGroup userGroup = createUserGroup(estimateUser, group);
+        EstimateRequest request = createEstimateRequest(receivePraiseUser, PraiseValue.KIND);
 
         // when
         String url = "/api/v1/groups/" + group.getId() + "/estimate";
@@ -65,12 +72,11 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUser(user);
+        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        absenceInGroupJpaRepository.deleteAll();
         userGroupJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();

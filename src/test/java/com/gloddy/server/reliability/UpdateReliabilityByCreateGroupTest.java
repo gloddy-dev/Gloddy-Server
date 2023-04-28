@@ -44,7 +44,7 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         );
 
         // then
-        Reliability reliability = reliabilityQueryHandler.findByUser(user);
+        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
         assertThat(reliability).isNotNull();
         assertThat(reliability.getScore()).isEqualTo(0);
         assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
@@ -57,12 +57,11 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUser(user);
+        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
 
         assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
         assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        absenceInGroupJpaRepository.deleteAll();
         userGroupJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();

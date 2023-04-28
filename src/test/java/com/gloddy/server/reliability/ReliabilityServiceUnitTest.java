@@ -12,11 +12,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ReliabilityServiceUnitTest {
@@ -41,11 +41,13 @@ public class ReliabilityServiceUnitTest {
                 999999L, user, 89L, ReliabilityLevel.HOOD
         );
 
-        BDDMockito.willReturn(reliability)
-                .given(reliabilityQueryHandler).findByUser(user);
+        willReturn(9999L)
+                .given(user).getId();
+        willReturn(reliability)
+                .given(reliabilityQueryHandler).findByUserId(9999L);
 
         // when
-        reliabilityService.update(user, ScoreType.Created_Group);
+        reliabilityService.update(user.getId(), ScoreType.Created_Group);
 
         // then
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.MATE);
@@ -60,11 +62,13 @@ public class ReliabilityServiceUnitTest {
                 999999L, user, 95L, ReliabilityLevel.MATE
         );
 
-        BDDMockito.willReturn(reliability)
-                .given(reliabilityQueryHandler).findByUser(user);
+        willReturn(9999L)
+                .given(user).getId();
+        willReturn(reliability)
+                .given(reliabilityQueryHandler).findByUserId(9999L);
 
         // when
-        reliabilityService.update(user, ScoreType.Absence_Group);
+        reliabilityService.update(user.getId(), ScoreType.Absence_Group);
 
         // then
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);

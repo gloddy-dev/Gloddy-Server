@@ -5,14 +5,14 @@ import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.estimate.dto.EstimateRequest;
 import com.gloddy.server.estimate.dto.MateDto;
 import com.gloddy.server.estimate.dto.PraiseDto;
-import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.estimate.entity.embedded.PraiseValue;
-import com.gloddy.server.estimate.repository.AbsenceInGroupJpaRepository;
+import com.gloddy.server.estimate.repository.MateJpaRepository;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.repository.GroupJpaRepository;
 import com.gloddy.server.group.repository.UserGroupJpaRepository;
+import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
 import com.gloddy.server.reliability.repository.ReliabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ReliabilityApiTest extends BaseApiTest {
+public abstract class ReliabilityApiTest extends BaseApiTest {
 
     @Autowired
     protected ReliabilityQueryHandler reliabilityQueryHandler;
@@ -35,32 +35,26 @@ public class ReliabilityApiTest extends BaseApiTest {
     protected UserGroupJpaRepository userGroupJpaRepository;
 
     @Autowired
-    protected AbsenceInGroupJpaRepository absenceInGroupJpaRepository;
+    protected MateJpaRepository mateJpaRepository;
 
-    public Group createGroup() {
+
+    protected Group createGroup() {
         Group group = new Group();
         return groupJpaRepository.save(group);
     }
 
-    public UserGroup createUserGroup(Group group) {
+    protected UserGroup createUserGroup(User user, Group group) {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
         return userGroupJpaRepository.save(userGroup);
     }
 
-    public AbsenceInGroup createAbsenceInGroup(User user, Group group) {
-        AbsenceInGroup absenceInGroup = AbsenceInGroup.builder()
-                .user(user)
-                .group(group)
-                .build();
-        return absenceInGroupJpaRepository.save(absenceInGroup);
+    protected Reliability createReliability(User user) {
+        Reliability reliability = new Reliability(user);
+        return reliabilityQueryHandler.save(reliability);
     }
 
-    public void updateReliabilityScore(Long score) {
-        reliability.updateScore(score);
-    }
-
-    public GroupRequest.Create createGroupCreateRequest() {
+    protected GroupRequest.Create createGroupCreateRequest() {
         LocalDate now = LocalDate.now();
         return new GroupRequest.Create(
                 "test_FileUrl",
@@ -76,7 +70,7 @@ public class ReliabilityApiTest extends BaseApiTest {
         );
     }
 
-    public EstimateRequest createEstimateRequest(PraiseValue praiseValue) {
+    protected EstimateRequest createEstimateRequest(User user, PraiseValue praiseValue) {
         PraiseDto praiseDto = new PraiseDto(user.getId(), praiseValue);
         MateDto mateDto = new MateDto(user.getId(), "test");
 
