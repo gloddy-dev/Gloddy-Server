@@ -6,6 +6,7 @@ import com.gloddy.server.estimate.entity.Praise;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.query.QueryTest;
+import com.gloddy.server.reliability.entity.Reliability;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public class FindUserGroupsToPraiseByUserIdInAndGroupIdTest extends QueryTest {
         return praiseJpaRepository.save(praise);
     }
 
+    private Reliability getReliability(User user) {
+        Reliability reliability = new Reliability(user);
+        return reliabilityRepository.save(reliability);
+    }
+
     private UserGroup getUserGroup(User user, Group group) {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
@@ -42,8 +48,10 @@ public class FindUserGroupsToPraiseByUserIdInAndGroupIdTest extends QueryTest {
 
         User user_1 = getUser();
         Praise praise_1 = getPraise(user_1);
+        getReliability(user_1);
         User user_2 = getUser();
         Praise praise_2 = getPraise(user_2);
+        getReliability(user_2);
 
         UserGroup userGroup_1 = getUserGroup(user_1, group);
         UserGroup userGroup_2 = getUserGroup(user_2, group);
