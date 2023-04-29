@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReliabilityScoreUpdateEvent {
-    private User user;
+    private Long useId;
     private ScoreType type;
 }

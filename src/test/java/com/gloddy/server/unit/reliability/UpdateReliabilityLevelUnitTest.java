@@ -1,4 +1,4 @@
-package com.gloddy.server.reliability;
+package com.gloddy.server.unit.reliability;
 
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
 import org.assertj.core.api.Assertions;

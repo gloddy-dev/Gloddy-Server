@@ -2,7 +2,6 @@ package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
@@ -41,9 +40,9 @@ public class CreateGroupTest extends GroupApiTest {
         //모임을 생성한다.
         ResultActions test = mockMvc.perform(
                 post("/api/v1/group-create")
-                .header("X-AUTH-TOKEN", accessToken)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
+                        .header("X-AUTH-TOKEN", accessToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
         );
 
         //then
@@ -65,19 +64,14 @@ public class CreateGroupTest extends GroupApiTest {
     void afterEvent() {
         Group group = groupJpaRepository.findFirstByOrderByIdDesc();
         UserGroup userGroup = userGroupJpaRepository.findFirstByOrderByIdDesc();
-        AbsenceInGroup absenceInGroup = absenceInGroupJpaRepository.findFirstByOrderByIdDesc();
 
         assertThat(userGroup.getUser().getId()).isEqualTo(user.getId());
         assertThat(userGroup.getGroup().getId()).isEqualTo(group.getId());
         assertThat(userGroup.isEnd()).isEqualTo(false);
         assertThat(userGroup.isPraised()).isEqualTo(false);
+        assertThat(userGroup.getAbsenceVoteCount()).isEqualTo(0);
+        assertThat(userGroup.isAbsence()).isFalse();
 
-        assertThat(absenceInGroup.getUser().getId()).isEqualTo(user.getId());
-        assertThat(absenceInGroup.getGroup().getId()).isEqualTo(group.getId());
-        assertThat(absenceInGroup.getAbsence()).isEqualTo(false);
-        assertThat(absenceInGroup.getAbsenceCount()).isEqualTo(0);
-
-        absenceInGroupJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         userGroupJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();

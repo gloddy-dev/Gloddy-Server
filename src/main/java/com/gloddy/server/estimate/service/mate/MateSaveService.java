@@ -23,7 +23,7 @@ public class MateSaveService {
     @Transactional
     public Mate save(MateDto mateDto, Long mateId) {
         User user = userFindService.findById(mateDto.getUserId());
-        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(user, ScoreType.Mated));
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(mateDto.getUserId(), ScoreType.Mated));
         return mateJpaRepository.save(
                 Mate.builder()
                    .mateId(mateId)

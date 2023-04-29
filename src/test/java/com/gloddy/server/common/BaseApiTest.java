@@ -53,7 +53,7 @@ abstract public class BaseApiTest {
     protected String testUserEmail = "testEmail@soogsil.ac.kr";
     protected String accessToken;
     protected User user;
-    protected Reliability reliability;
+    protected Reliability loginUserReliability;
 
     protected Praise createPraise(User user) {
         Praise mockPraise = Praise.empty();
@@ -67,7 +67,7 @@ abstract public class BaseApiTest {
         return userRepository.save(mockUser);
     }
 
-    public Reliability createReliability(User user) {
+    private Reliability createReliability(User user) {
         Reliability reliability = new Reliability(user);
         return reliabilityQueryHandler.save(reliability);
     }
@@ -86,7 +86,7 @@ abstract public class BaseApiTest {
     void setUp() {
         User mockUser = createLoginUser();
         createPraise(mockUser);
-        reliability = createReliability(mockUser);
+        loginUserReliability = createReliability(mockUser);
         accessToken = getTokenAfterLogin(mockUser);
         user = mockUser;
     }

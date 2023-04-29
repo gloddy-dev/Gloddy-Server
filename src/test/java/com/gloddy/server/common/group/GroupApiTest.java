@@ -2,7 +2,6 @@ package com.gloddy.server.common.group;
 
 import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.estimate.repository.AbsenceInGroupJpaRepository;
 import com.gloddy.server.group.dto.GroupRequest;
 import com.gloddy.server.group.entity.Group;
 import com.gloddy.server.group.entity.UserGroup;
@@ -20,9 +19,6 @@ abstract public class GroupApiTest extends BaseApiTest {
 
     @Autowired
     protected UserGroupJpaRepository userGroupJpaRepository;
-
-    @Autowired
-    protected AbsenceInGroupJpaRepository absenceInGroupJpaRepository;
 
     protected Group createGroup() {
         Group group = Group.builder().build();

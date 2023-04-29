@@ -1,23 +1,21 @@
-package com.gloddy.server.reliability;
+package com.gloddy.server.acceptance.reliability;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.domain.AbsenceInGroupDomain;
 import com.gloddy.server.estimate.dto.EstimateRequest;
-import com.gloddy.server.estimate.entity.AbsenceInGroup;
 import com.gloddy.server.estimate.entity.embedded.PraiseValue;
 import com.gloddy.server.estimate.service.mate.MateSaveService;
+import com.gloddy.server.estimate.service.praise.PraiseService;
 import com.gloddy.server.group.entity.Group;
+import com.gloddy.server.group.entity.UserGroup;
 import com.gloddy.server.group.service.UserGroupUpdateService;
 import com.gloddy.server.reliability.entity.Reliability;
 import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.entity.vo.ScoreMinusType;
+import com.gloddy.server.reliability.entity.vo.ScorePlusType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -29,13 +27,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @RecordApplicationEvents
-public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
+public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
 
-    private final static Long INIT_SCORE = 20L;
-
-    @Mock
-    private AbsenceInGroupDomain absenceInGroupDomain;
+    @MockBean
+    private PraiseService praiseService;
 
     @MockBean
     private MateSaveService mateSaveService;
@@ -46,25 +43,19 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
     @Autowired
     private ApplicationEvents events;
 
-    /**
-     * 신뢰도 20, HOOD -> 모임 불참 평가 -> 신뢰도 10, HOOD
-     */
     @Test
-    @DisplayName("모임 불참 신뢰도 점수 업데이트 테스트")
     @Transactional
     @Commit
-    void successUpdateReliabilityByAbsenceGroupTest() throws Exception {
+    @DisplayName("평가 참여 신뢰도 점수 업데이트 테스트")
+    void successUpdateReliabilityByEstimate() throws Exception {
         // given
-        // 모임 불참 투표 과반수 이상
-        updateReliabilityScore(INIT_SCORE);
+        User estimateUser = user;
+        User receivePraiseUser = createUser();
         Group group = createGroup();
-        AbsenceInGroup absenceInGroup = createAbsenceInGroup(user, group);
-        EstimateRequest request = createEstimateRequest(PraiseValue.ABSENCE);
+        UserGroup userGroup = createUserGroup(estimateUser, group);
+        EstimateRequest request = createEstimateRequest(receivePraiseUser, PraiseValue.KIND);
 
-        BDDMockito.willReturn(true)
-                .given(absenceInGroupDomain).checkAbsenceCountOver();
-
-        // then
+        // when
         String url = "/api/v1/groups/" + group.getId() + "/estimate";
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +63,7 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
                 .content(objectMapper.writeValueAsString(request))
         );
 
-        // when
+        // then
         long eventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
         Assertions.assertThat(eventCount).isEqualTo(1);
     }
@@ -81,12 +72,11 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUser(user);
+        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
 
-        Assertions.assertThat(reliability.getScore()).isEqualTo(INIT_SCORE - ScoreMinusType.Absence_Group.getScore());
+        Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        absenceInGroupJpaRepository.deleteAll();
         userGroupJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();

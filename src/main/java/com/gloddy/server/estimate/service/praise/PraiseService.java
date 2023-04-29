@@ -1,54 +1,36 @@
 package com.gloddy.server.estimate.service.praise;
 
-import com.gloddy.server.auth.entity.User;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
 import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.entity.Praise;
 import com.gloddy.server.estimate.repository.PraiseJpaRepository;
-import com.gloddy.server.estimate.service.AbsenceInGroupFindService;
-import com.gloddy.server.user.service.UserFindService;
-import com.gloddy.server.domain.AbsenceInGroupDomain;
-import com.gloddy.server.domain.UserPraise;
+import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.service.UserGroupFindService;
 import com.gloddy.server.estimate.dto.PraiseDto;
-import com.gloddy.server.estimate.entity.AbsenceInGroup;
-import com.gloddy.server.group.service.GroupUserCountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.gloddy.server.estimate.dto.PraiseResponse.*;
+import static com.gloddy.server.estimate.entity.embedded.PraiseValue.*;
+import static com.gloddy.server.reliability.entity.vo.ScoreType.*;
 
 @Service
 @RequiredArgsConstructor
 public class PraiseService {
 
-    private final GroupUserCountService groupUserCountService;
-    private final AbsenceInGroupFindService absenceInGroupFindService;
-    private final UserFindService userFindService;
+    private final UserGroupFindService userGroupFindService;
     private final PraiseJpaRepository praiseJpaRepository;
     private final ReliabilityEventPublisher reliabilityEventPublisher;
 
     @Transactional
-    public void praiseInGroup(List<PraiseDto> praiseDtos, Long groupId) {
-
-        Long countUserInGroup = groupUserCountService.countUserInGroup(groupId);
-
-        List<UserPraise> userPraises = praiseDtos.stream()
-                .map(praiseDto -> {
-                    AbsenceInGroup findAbsenceInGroup = absenceInGroupFindService.findByGroupIdAndUserId(groupId, praiseDto.getUserId());
-                    AbsenceInGroupDomain absenceInGroupDomain = new AbsenceInGroupDomain(findAbsenceInGroup, countUserInGroup);
-                    User findUser = userFindService.findById(praiseDto.getUserId());
-                    return new UserPraise(findUser, absenceInGroupDomain, praiseDto.getPraiseValue());
-                })
-                .collect(Collectors.toUnmodifiableList());
-
-        userPraises.forEach(userPraise -> {
-            userPraise.applyPraisePoint(reliabilityEventPublisher);
-        });
+    public void praise(PraiseDto praiseDto, Long groupId) {
+        UserGroup findUserGroup = userGroupFindService.findByUserIdAndGroupId(praiseDto.getUserId(), groupId);
+        findUserGroup.receivePraise(praiseDto.getPraiseValue());
+        praiseEventPublish(findUserGroup, praiseDto);
     }
 
     @Transactional(readOnly = true)
@@ -63,5 +45,16 @@ public class PraiseService {
                 praise.getTotalHumorCount(),
                 praise.getTotalAbsenceCount()
         );
+    }
+
+    private void praiseEventPublish(UserGroup userGroup, PraiseDto praiseDto) {
+        if (ABSENCE.equals(praiseDto.getPraiseValue())) {
+            if (!(userGroup.isAlreadyAbsenceVoteCountOver())) {
+                reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(praiseDto.getUserId(), Absence_Group));
+                return;
+            }
+            return;
+        }
+        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(praiseDto.getUserId(), Praised));
     }
 }

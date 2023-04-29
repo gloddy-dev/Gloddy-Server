@@ -14,8 +14,8 @@ public class ReliabilityQueryHandlerImpl implements ReliabilityQueryHandler {
     private final ReliabilityRepository reliabilityRepository;
 
     @Override
-    public Reliability findByUser(User user) {
-        return reliabilityRepository.findByUser(user)
+    public Reliability findByUserId(Long userId) {
+        return reliabilityRepository.findByUserId(userId)
                 .orElseThrow(() -> new ReliabilityBusinessException(ErrorCode.RELIABILITY_NOT_FOUND));
     }
 

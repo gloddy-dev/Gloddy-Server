@@ -13,4 +13,6 @@ public interface UserGroupJpaRepositoryCustom {
     List<Group> findExpectedGroupsByUser(User user);
 
     Page<UserGroup> findParticipatedGroupsByUser(User user, Pageable pageable);
+
+    List<UserGroup> findUserGroupsToPraiseByUserIdInAndGroupId(List<Long> userIds, Long groupId);
 }
