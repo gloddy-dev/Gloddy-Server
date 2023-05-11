@@ -1,8 +1,8 @@
 package com.gloddy.server.group.api;
 
 import com.gloddy.server.core.response.PageResponse;
-import com.gloddy.server.group.dto.GroupResponse;
-import com.gloddy.server.group.service.MyGroupService;
+import com.gloddy.server.group.domain.dto.GroupResponse;
+import com.gloddy.server.group.application.MyGroupService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

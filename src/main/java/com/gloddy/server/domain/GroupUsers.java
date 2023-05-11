@@ -1,13 +1,12 @@
 package com.gloddy.server.domain;
 
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.dto.UserInfoDto;
-import com.gloddy.server.group.entity.Group;
+import com.gloddy.server.group.domain.Group;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

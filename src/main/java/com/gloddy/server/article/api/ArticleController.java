@@ -1,7 +1,7 @@
 package com.gloddy.server.article.api;
 
-import com.gloddy.server.article.dto.ArticleRequest;
-import com.gloddy.server.article.service.ArticleService;
+import com.gloddy.server.article.domain.dto.ArticleRequest;
+import com.gloddy.server.article.application.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.gloddy.server.article.dto.ArticleResponse.*;
+import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 
 @RestController
 @RequestMapping("/api/v1")

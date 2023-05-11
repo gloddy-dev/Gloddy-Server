@@ -1,12 +1,12 @@
 package com.gloddy.server.common.apply;
 
-import com.gloddy.server.apply.entity.Apply;
-import com.gloddy.server.apply.repository.ApplyJpaRepository;
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.apply.domain.Apply;
+import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.repository.GroupJpaRepository;
-import com.gloddy.server.group.repository.UserGroupJpaRepository;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.infra.repository.GroupJpaRepository;
+import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class ApplyApiTest extends BaseApiTest {

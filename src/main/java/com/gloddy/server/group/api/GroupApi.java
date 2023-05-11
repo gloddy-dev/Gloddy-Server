@@ -2,9 +2,9 @@ package com.gloddy.server.group.api;
 
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.core.response.PageResponse;
-import com.gloddy.server.group.dto.GroupRequest;
-import com.gloddy.server.group.dto.GroupResponse;
-import com.gloddy.server.group.service.GroupService;
+import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.group.domain.dto.GroupResponse;
+import com.gloddy.server.group.application.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

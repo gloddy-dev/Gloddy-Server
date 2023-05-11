@@ -1,6 +1,6 @@
 package com.gloddy.server.core.event.reliability;
 
-import com.gloddy.server.reliability.service.ReliabilityService;
+import com.gloddy.server.reliability.application.ReliabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;

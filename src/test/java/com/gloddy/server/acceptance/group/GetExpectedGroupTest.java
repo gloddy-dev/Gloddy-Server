@@ -1,8 +1,7 @@
 package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.domain.Group;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

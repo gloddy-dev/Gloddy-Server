@@ -1,12 +1,12 @@
 package com.gloddy.server.common.group;
 
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.group.dto.GroupRequest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
-import com.gloddy.server.group.repository.GroupJpaRepository;
-import com.gloddy.server.group.repository.UserGroupJpaRepository;
+import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.group.infra.repository.GroupJpaRepository;
+import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;

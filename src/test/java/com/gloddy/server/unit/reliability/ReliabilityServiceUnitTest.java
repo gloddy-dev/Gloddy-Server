@@ -1,13 +1,13 @@
 package com.gloddy.server.unit.reliability;
 
-import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.entity.vo.ScoreMinusType;
-import com.gloddy.server.reliability.entity.vo.ScorePlusType;
-import com.gloddy.server.reliability.entity.vo.ScoreType;
-import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.service.ReliabilityService;
+import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.reliability.domain.vo.ScoreMinusType;
+import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.reliability.domain.vo.ScoreType;
+import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.application.ReliabilityService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

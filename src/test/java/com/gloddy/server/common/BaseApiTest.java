@@ -1,15 +1,15 @@
 package com.gloddy.server.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.entity.kind.Personality;
+import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
-import com.gloddy.server.estimate.entity.Praise;
-import com.gloddy.server.estimate.repository.PraiseJpaRepository;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.repository.ReliabilityRepository;
-import com.gloddy.server.user.repository.UserRepository;
+import com.gloddy.server.estimate.domain.Praise;
+import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
+import com.gloddy.server.user.infra.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

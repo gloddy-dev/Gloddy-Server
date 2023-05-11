@@ -1,20 +1,20 @@
 package com.gloddy.server.common.reliability;
 
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.estimate.dto.EstimateRequest;
-import com.gloddy.server.estimate.dto.MateDto;
-import com.gloddy.server.estimate.dto.PraiseDto;
-import com.gloddy.server.estimate.entity.embedded.PraiseValue;
-import com.gloddy.server.estimate.repository.MateJpaRepository;
-import com.gloddy.server.group.dto.GroupRequest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
-import com.gloddy.server.group.repository.GroupJpaRepository;
-import com.gloddy.server.group.repository.UserGroupJpaRepository;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.repository.ReliabilityRepository;
+import com.gloddy.server.estimate.domain.dto.EstimateRequest;
+import com.gloddy.server.estimate.domain.dto.MateDto;
+import com.gloddy.server.estimate.domain.dto.PraiseDto;
+import com.gloddy.server.estimate.domain.vo.PraiseValue;
+import com.gloddy.server.estimate.infra.repository.MateJpaRepository;
+import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.group.infra.repository.GroupJpaRepository;
+import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;

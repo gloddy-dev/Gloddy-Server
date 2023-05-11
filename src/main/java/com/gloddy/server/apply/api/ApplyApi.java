@@ -1,9 +1,9 @@
 package com.gloddy.server.apply.api;
 
-import com.gloddy.server.apply.dto.ApplyRequest;
-import com.gloddy.server.apply.dto.ApplyResponse;
-import com.gloddy.server.apply.entity.vo.Status;
-import com.gloddy.server.apply.service.ApplyService;
+import com.gloddy.server.apply.domain.dto.ApplyRequest;
+import com.gloddy.server.apply.domain.dto.ApplyResponse;
+import com.gloddy.server.apply.domain.vo.Status;
+import com.gloddy.server.apply.application.ApplyService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

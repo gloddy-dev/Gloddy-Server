@@ -1,8 +1,7 @@
 package com.gloddy.server.comment.api;
 
-import com.gloddy.server.comment.dto.CommentRequest;
-import com.gloddy.server.comment.dto.CommentResponse;
-import com.gloddy.server.comment.service.CommentService;
+import com.gloddy.server.comment.domain.dto.CommentRequest;
+import com.gloddy.server.comment.application.CommentService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.gloddy.server.comment.dto.CommentResponse.*;
+import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 
 @RestController
 @RequiredArgsConstructor
