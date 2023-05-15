@@ -11,4 +11,6 @@ public interface ApplyQueryHandler {
     List<Apply> findAllApprovedAppliesFetchUserBy(Group group);
 
     Long countApprovedAppliesBy(Long groupId);
+
+    Apply findApplyToUpdateStatus(Long id);
 }

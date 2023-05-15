@@ -3,15 +3,14 @@ package com.gloddy.server.apply.application;
 import com.gloddy.server.apply.domain.dto.ApplyRequest;
 import com.gloddy.server.apply.domain.dto.ApplyResponse;
 import com.gloddy.server.apply.domain.Apply;
+import com.gloddy.server.apply.domain.handler.ApplyCommandHandler;
+import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
+import com.gloddy.server.apply.domain.service.ApplyStatusUpdatePolicy;
 import com.gloddy.server.apply.domain.vo.Status;
-import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
-import com.gloddy.server.core.error.handler.exception.GroupBusinessException;
-import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.group.domain.handler.GroupQueryHandler;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -21,57 +20,43 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ApplyService {
 
-    private final ApplyJpaRepository applyJpaRepository;
-    private final UserRepository userRepository;
-    private final GroupJpaRepository groupJpaRepository;
+    private final ApplyCommandHandler applyCommandHandler;
+    private final ApplyQueryHandler applyQueryHandler;
+    private final UserQueryHandler userQueryHandler;
+    private final GroupQueryHandler groupQueryHandler;
+    private final ApplyStatusUpdatePolicy applyStatusUpdatePolicy;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    // TODO: user exception 처리
     @Transactional
-    public ApplyResponse.create createApply(Long userId, Long groupId, ApplyRequest.create request) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("유저 없음"));
-        Group group = groupJpaRepository.findById(groupId)
-            .orElseThrow(() -> new RuntimeException("그룹 없음"));
-        Apply apply = applyJpaRepository.save(
-            Apply.builder()
-                .user(user)
-                .group(group)
-                .content(request.getIntroduce())
-                .reason(request.getReason())
-                .build()
+    public ApplyResponse.Create createApply(Long userId, Long groupId, ApplyRequest.Create request) {
+        User user = userQueryHandler.findById(userId);
+        Group group = groupQueryHandler.findById(groupId);
+        Apply apply = applyCommandHandler.save(
+                group.createApply(user, request.getIntroduce(), request.getReason())
         );
-        return new ApplyResponse.create(apply.getId());
+        return new ApplyResponse.Create(apply.getId());
     }
 
     // TODO: exception 처리
-    @Transactional
-    public void deleteApply(Long userId, Long groupId) {
-        Apply apply = applyJpaRepository.findByUserIdAndGroupId(userId, groupId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 지원서"));
-        applyJpaRepository.delete(apply);
-    }
+    // TODO: 모임 나갔는데, Apply 삭제? -> 다시 설계할 필요가 있을 듯
+//    @Transactional
+//    public void deleteApply(Long userId, Long groupId) {
+//        Apply apply = applyJpaRepository.findByUserIdAndGroupId(userId, groupId)
+//                .orElseThrow(() -> new RuntimeException("존재하지 않는 지원서"));
+//        applyJpaRepository.delete(apply);
+//    }
 
-    // TODO: exception 처리
     @Transactional
     public void updateStatusApply(Long userId, Long groupId, Long applyId, Status status) {
-        Apply apply = applyJpaRepository.findById(applyId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 지원서"));
-        if(checkCaptain(groupId, userId)){
-            apply.updateStatus(status);
-        }
+        User user = userQueryHandler.findById(userId);
+        Apply apply = applyQueryHandler.findApplyToUpdateStatus(applyId);
 
-        if (apply.isApproved()) {
-            applicationEventPublisher.publishEvent(new GroupParticipateEvent(apply.getUser().getId(), groupId));
-        }
-    }
+        applyStatusUpdatePolicy.validate(user, apply.getGroup());
 
-    public Boolean checkCaptain(Long groupId, Long userId) {
-        Group group = groupJpaRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹"));
-        if(group.getCaptain().getId().equals(userId)){
-            return true;
+        if (status.isApprove()) {
+            apply.approveApply(applicationEventPublisher);
+            return;
         }
-        throw new GroupBusinessException(ErrorCode.GROUP_NOT_CAPTAIN);
+        apply.refuseApply();
     }
 }

@@ -3,6 +3,7 @@ package com.gloddy.server.apply.domain.handler.impl;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
+import com.gloddy.server.apply.exception.NotFoundApplyException;
 import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
 import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,11 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     @Override
     public Long countApprovedAppliesBy(Long groupId) {
         return applyJpaRepository.countByGroupIdAndStatus(groupId, Status.APPROVE);
+    }
+
+    @Override
+    public Apply findApplyToUpdateStatus(Long id) {
+        return applyJpaRepository.findByIdFetchGroupAndCaptain(id)
+                .orElseThrow(NotFoundApplyException::new);
     }
 }

@@ -3,11 +3,13 @@ package com.gloddy.server.apply.domain;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import com.gloddy.server.core.utils.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
 
@@ -49,8 +51,13 @@ public class Apply extends BaseTimeEntity {
         this.status = Status.WAIT;
     }
 
-    public void updateStatus(Status status) {
-        this.status = status;
+    public void approveApply(ApplicationEventPublisher applicationEventPublisher) {
+        this.status = Status.APPROVE;
+        applicationEventPublisher.publishEvent(new GroupParticipateEvent(this.user.getId(), this.group.getId()));
+    }
+
+    public void refuseApply() {
+        this.status = Status.REFUSE;
     }
 
     public boolean isApproved() {

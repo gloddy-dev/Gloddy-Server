@@ -18,24 +18,25 @@ public class ApplyApi {
     private final ApplyService applyService;
 
     @PostMapping("/groups/{groupId}/apply")
-    public ResponseEntity<ApplyResponse.create> create(
+    public ResponseEntity<ApplyResponse.Create> create(
             @AuthenticationPrincipal Long userId,
             @PathVariable Long groupId,
-            @RequestBody ApplyRequest.create request
+            @RequestBody ApplyRequest.Create request
     ) {
-        ApplyResponse.create response = applyService.createApply(userId, groupId, request);
+        ApplyResponse.Create response = applyService.createApply(userId, groupId, request);
         return ApiResponse.ok(response);
     }
 
     // 모임 나가기 api
-    @DeleteMapping("/groups/{groupId}/apply")
-    public ResponseEntity<Void> delete(
-         @AuthenticationPrincipal Long userId,
-         @PathVariable Long groupId
-    ) {
-        applyService.deleteApply(userId, groupId);
-        return ApiResponse.noContent();
-    }
+    // TODO: 모임 나가기 다시 설계합시다~
+//    @DeleteMapping("/groups/{groupId}/apply")
+//    public ResponseEntity<Void> delete(
+//         @AuthenticationPrincipal Long userId,
+//         @PathVariable Long groupId
+//    ) {
+//        applyService.deleteApply(userId, groupId);
+//        return ApiResponse.noContent();
+//    }
 
     // 지원서 승인/거절 api
     @PatchMapping("/groups/{groupId}/applys/{applyId}")
