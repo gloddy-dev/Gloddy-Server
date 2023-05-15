@@ -36,6 +36,7 @@ public enum ErrorCode {
     FILE_INTERNAL_ERROR(500, "파일 byte input stream 변환 중 에러"),
     GROUP_NOT_FOUND(404, "존재하지 않는 그룹입니다."),
     GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
+    APPLY_NOT_FOUND(404, "존재하지 않는 지원서입니다."),
     ;
 
     private int status;

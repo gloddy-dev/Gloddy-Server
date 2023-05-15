@@ -9,7 +9,7 @@ public class ApplyResponse {
 
     @Getter
     @AllArgsConstructor
-    public static class create {
+    public static class Create {
         private Long applyId;
     }
 }

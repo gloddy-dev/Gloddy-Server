@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain;
 
+import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.vo.UserGroups;
@@ -86,5 +87,15 @@ public class Group extends BaseTimeEntity {
 
     public int getMemberCount() {
         return this.userGroups.getSize();
+    }
+
+    public Apply createApply(User applier, String introduce, String reason) {
+        return Apply.builder()
+                .user(applier)
+                .group(this)
+                .content(introduce)
+                .reason(reason)
+                .build();
+
     }
 }

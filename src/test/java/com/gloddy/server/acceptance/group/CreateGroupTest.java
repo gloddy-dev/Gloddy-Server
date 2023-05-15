@@ -76,6 +76,6 @@ public class CreateGroupTest extends GroupApiTest {
         userGroupJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

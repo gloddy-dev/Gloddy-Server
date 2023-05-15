@@ -20,7 +20,7 @@ public class FindUserGroupsToPraiseByUserIdInAndGroupIdTest extends QueryTest {
     }
 
     private User getUser() {
-        return userRepository.save(User.builder().personalities(List.of(Personality.KIND)).build());
+        return userJpaRepository.save(User.builder().personalities(List.of(Personality.KIND)).build());
     }
 
     private Praise getPraise(User user) {

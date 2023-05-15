@@ -9,7 +9,7 @@ import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,7 +33,7 @@ abstract public class BaseApiTest {
     protected JwtTokenBuilder jwtTokenBuilder;
 
     @Autowired
-    protected UserRepository userRepository;
+    protected UserJpaRepository userJpaRepository;
 
     @Autowired
     protected PraiseJpaRepository praiseJpaRepository;
@@ -64,7 +64,7 @@ abstract public class BaseApiTest {
     protected User createLoginUser() {
         User mockUser = User.builder().email(testUserEmail).
                 personalities(List.of(Personality.KIND)).build();
-        return userRepository.save(mockUser);
+        return userJpaRepository.save(mockUser);
     }
 
     private Reliability createReliability(User user) {
@@ -75,7 +75,7 @@ abstract public class BaseApiTest {
     protected User createUser() {
         User user = User.builder().email(UUID.randomUUID().toString() + "@soongsil.ac.kr")
                 .personalities(List.of(Personality.KIND)).build();
-        return userRepository.save(user);
+        return userJpaRepository.save(user);
     }
 
     protected String getTokenAfterLogin(User user) {

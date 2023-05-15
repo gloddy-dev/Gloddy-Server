@@ -90,17 +90,11 @@ public class User extends BaseTimeEntity {
             return true;
         }
 
-        System.out.println(Hibernate.getClass(this));
-        System.out.println(Hibernate.getClass(obj));
-
         if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
             return false;
         }
 
         User target = (User) obj;
-
-        System.out.println(this.id);
-        System.out.println(target.getId());
 
         return Objects.equals(this.id, target.getId());
     }

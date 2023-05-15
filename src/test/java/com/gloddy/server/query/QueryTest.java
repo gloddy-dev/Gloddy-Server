@@ -4,7 +4,7 @@ import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
@@ -22,7 +22,7 @@ public abstract class QueryTest {
     protected UserGroupJpaRepository userGroupJpaRepository;
 
     @Autowired
-    protected UserRepository userRepository;
+    protected UserJpaRepository userJpaRepository;
 
     @Autowired
     protected PraiseJpaRepository praiseJpaRepository;

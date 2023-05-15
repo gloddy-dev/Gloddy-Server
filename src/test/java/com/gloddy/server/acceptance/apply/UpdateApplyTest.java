@@ -109,7 +109,7 @@ public class UpdateApplyTest extends ApplyApiTest {
         @Transactional
         @Commit
         void afterEvent() {
-            User user = userRepository.findFirstByOrderByIdDesc();
+            User user = userJpaRepository.findFirstByOrderByIdDesc();
             Group group = groupJpaRepository.findFirstByOrderByIdDesc();
             UserGroup userGroup = userGroupJpaRepository.findFirstByOrderByIdDesc();
 
@@ -126,7 +126,7 @@ public class UpdateApplyTest extends ApplyApiTest {
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
             praiseJpaRepository.deleteAll();
-            userRepository.deleteAll();
+            userJpaRepository.deleteAll();
         }
     }
 

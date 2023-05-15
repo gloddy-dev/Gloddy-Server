@@ -81,7 +81,7 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        User receivePraiseUser = userRepository.findFirstByOrderByIdDesc();
+        User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
         Reliability reliability = reliabilityQueryHandler.findByUserId(receivePraiseUser.getId());
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(INIT_SCORE - ScoreMinusType.Absence_Group.getScore());
@@ -91,6 +91,6 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

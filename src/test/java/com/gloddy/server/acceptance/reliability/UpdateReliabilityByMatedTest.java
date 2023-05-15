@@ -70,7 +70,7 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        User receiveMateUser = userRepository.findFirstByOrderByIdDesc();
+        User receiveMateUser = userJpaRepository.findFirstByOrderByIdDesc();
         Reliability reliability = reliabilityQueryHandler.findByUserId(receiveMateUser.getId());
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Mated.getScore());
@@ -81,6 +81,6 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

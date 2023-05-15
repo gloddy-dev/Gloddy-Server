@@ -8,7 +8,7 @@ import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.reliability.domain.vo.ScoreType;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.core.response.PageResponse;
@@ -38,7 +38,7 @@ import java.util.*;
 public class GroupService {
     private final GroupJpaRepository groupJpaRepository;
     private final ApplyJpaRepository applyJpaRepository;
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
     private final ReliabilityEventPublisher reliabilityEventPublisher;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -48,7 +48,7 @@ public class GroupService {
     // TODO: 모임 날짜 처리 (LocalDate에 요일도 포함되나 요일은 어찜)
     @Transactional(readOnly = true)
     public PageResponse<GroupResponse.GetGroup> getGroups(Long userId, int size, int page) {
-        User user = userRepository.findById(userId)
+        User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저 없음"));
         Pageable pageable = PageRequest.of(page, size);
         Page<GroupResponse.GetGroup> groups = groupJpaRepository.findBySchoolOrderByIdDesc(pageable, user.getSchool())
@@ -71,7 +71,7 @@ public class GroupService {
     @Transactional
     public GroupResponse.Create createGroup(Long captainId, GroupRequest.Create req) {
 
-        User captain = userRepository.findById(captainId)
+        User captain = userJpaRepository.findById(captainId)
                 .orElseThrow(() -> new RuntimeException("해당 회원을 찾을 수 없습니다."));
 
         Group buildGroup = Group.builder()
@@ -109,7 +109,7 @@ public class GroupService {
     @Transactional(readOnly = true)
     public GroupResponse.GetGroupDetail getGroupDetail(Long userId, Long groupId) {
 
-        User findUser = userRepository.findById(userId)
+        User findUser = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
 
         Group findGroup = groupJpaRepository.findById(groupId)

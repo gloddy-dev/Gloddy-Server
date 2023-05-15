@@ -9,7 +9,7 @@ public class ApplyRequest {
 
     @Getter
     @AllArgsConstructor
-    public static class create{
+    public static class Create{
         @NotBlank(message = "introduce is empty")
         private String introduce;
         @NotBlank(message = "reason is empty")

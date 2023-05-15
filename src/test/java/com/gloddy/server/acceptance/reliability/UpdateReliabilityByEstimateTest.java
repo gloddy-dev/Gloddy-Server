@@ -81,6 +81,6 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

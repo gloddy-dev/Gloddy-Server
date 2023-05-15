@@ -1,7 +1,8 @@
-package com.gloddy.server.user.domain.handler;
+package com.gloddy.server.user.domain.handler.impl;
 
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import lombok.RequiredArgsConstructor;
@@ -11,17 +12,17 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserQueryHandlerImpl implements UserQueryHandler {
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id)
+        return userJpaRepository.findById(id)
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
+        return userJpaRepository.findByEmail(email)
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
     }
 

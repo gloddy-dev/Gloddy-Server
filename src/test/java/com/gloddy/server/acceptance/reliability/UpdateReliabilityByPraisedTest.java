@@ -70,7 +70,7 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        User receivePraiseUser = userRepository.findFirstByOrderByIdDesc();
+        User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
         Reliability reliability = reliabilityQueryHandler.findByUserId(receivePraiseUser.getId());
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Praised.getScore());
@@ -80,6 +80,6 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

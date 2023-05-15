@@ -3,7 +3,7 @@ package com.gloddy.server.auth.application;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
-import com.gloddy.server.user.infra.repository.UserRepository;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.auth.domain.dto.AuthRequest;
 import com.gloddy.server.auth.domain.dto.AuthResponse;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
     private final JwtTokenBuilder jwtTokenBuilder;
     private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -43,7 +43,7 @@ public class AuthService {
 
         applicationEventPublisher.publishEvent(new UserCreateEvent(created));
 
-        User user = userRepository.save(created);
+        User user = userJpaRepository.save(created);
 
         return new AuthResponse.SignUp(user.getId(), user.getAuthority().getRole());
 
@@ -58,7 +58,7 @@ public class AuthService {
     @Transactional(readOnly = true)
     public AuthResponse.Login login(AuthRequest.Login req) {
 
-        User findUser = userRepository.findByEmail(req.getEmail())
+        User findUser = userJpaRepository.findByEmail(req.getEmail())
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
 
         if (!req.getPassword().equals(findUser.getPassword())) {
@@ -73,7 +73,7 @@ public class AuthService {
     @Transactional(readOnly = true)
     public AuthResponse.Whether emailCheck(String email) {
 
-        Optional<User> findUser = userRepository.findByEmail(email);
+        Optional<User> findUser = userJpaRepository.findByEmail(email);
 
         if (findUser.isEmpty()) {
             return new AuthResponse.Whether(false);

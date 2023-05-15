@@ -3,7 +3,7 @@ package com.gloddy.server.comment.application;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleHandlerImpl;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.user.domain.handler.UserQueryHandlerImpl;
+import com.gloddy.server.user.domain.handler.impl.UserQueryHandlerImpl;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.comment.domain.handler.CommentHandlerImpl;
