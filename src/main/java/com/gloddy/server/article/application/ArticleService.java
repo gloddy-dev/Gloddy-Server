@@ -4,9 +4,14 @@ import com.gloddy.server.article.domain.dto.ArticleRequest;
 import com.gloddy.server.article.domain.dto.ArticleResponse;
 import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.handler.ArticleHandler;
+import com.gloddy.server.article.domain.handler.ArticleCommandHandler;
+import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
+import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
+import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
 import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.comment.application.CommentService;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
@@ -31,59 +36,50 @@ import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleJpaRepository articleJpaRepository;
-    private final ArticleHandler articleHandler;
-    private final UserQueryHandler userHandler;
+    private final ArticleQueryHandler articleQueryHandler;
+    private final ArticleCommandHandler articleCommandHandler;
+    private final UserQueryHandler userQueryHandler;
     private final GroupHandler groupHandler;
+    private final UserGroupQueryHandler userGroupQueryHandler;
     private final ImageService imageService;
     private final CommentService commentService;
+    private final NoticeArticleCreatePolicy noticeArticleCreatePolicy;
+    private final ArticleUpdatePolicy articleUpdatePolicy;
 
     @Transactional
     public ArticleResponse.Create create(Long groupId, Long userId, ArticleRequest.Create request) {
-        User user = userHandler.findById(userId);
-        Group group = groupHandler.findById(groupId);
+        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
 
-        Article article = Article.builder()
-                .content(request.getContent())
-                .notice(request.isNotice())
-                .user(user)
-                .group(group)
-                .build();
-        articleJpaRepository.save(article);
-        imageService.create(article, request.getImages());
+        if (request.isNotice()) {
+            noticeArticleCreatePolicy.validate(userGroup);
+        }
+
+        Article article = userGroup.createArticle(request.getContent(), request.isNotice());
+
+        articleCommandHandler.save(article);
+        if (!request.getImages().isEmpty()) {
+            article.createAndAddAllArticleImages(request.getImages());
+        }
 
         return new ArticleResponse.Create(article.getId());
     }
 
     @Transactional
-    public Update update(Long articleId, Long userId, ArticleRequest.Update request) {
-        System.out.println("request = " + request.isNotice());
-        Article article = articleHandler.findById(articleId);
-        User user = userHandler.findById(userId);
-        checkWriter(article, user);
+    public void update(Long articleId, Long userId, ArticleRequest.Update request) {
+        Article article = articleQueryHandler.findById(articleId);
+        User user = userQueryHandler.findById(userId);
+
+        articleUpdatePolicy.validate(article, user);
 
         article.update(request.getContent(), request.isNotice());
-        Article updateArticle = articleJpaRepository.save(article);
-        imageService.delete(article);
-        imageService.create(article, request.getImages());
-
-        return new Update(
-                updateArticle.getContent(),
-                updateArticle.isNotice(),
-                imageService.get(article)
-        );
-    }
-
-    private void checkWriter(Article article, User user) {
-        if (!article.getUser().equals(user)) {
-            throw new ArticleBusinessException(ErrorCode.NO_ARTICLE_WRITER);
-        }
+        article.upsertArticleImages(request.getImages());
     }
 
     @Transactional
     public void delete(Long groupId, Long articleId, Long userId) {
         Group group = groupHandler.findById(groupId);
-        Article article = articleHandler.findById(articleId);
-        User user = userHandler.findById(userId);
+        Article article = articleQueryHandler.findById(articleId);
+        User user = userQueryHandler.findById(userId);
         checkPermission(group, article, user);
         articleJpaRepository.delete(article);
     }

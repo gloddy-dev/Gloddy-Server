@@ -1,7 +1,7 @@
 package com.gloddy.server.comment.application;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.handler.ArticleHandlerImpl;
+import com.gloddy.server.article.domain.handler.impl.ArticleQueryHandlerImpl;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.user.domain.handler.impl.UserQueryHandlerImpl;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
@@ -29,7 +29,7 @@ public class CommentService {
     private final CommentJpaRepository commentJpaRepository;
     private final CommentHandlerImpl commentHandlerImpl;
     private final UserQueryHandlerImpl userHandlerImpl;
-    private final ArticleHandlerImpl articleHandlerImpl;
+    private final ArticleQueryHandlerImpl articleHandlerImpl;
 
     @Transactional
     public Create create(Long userId, Long articleId, CommentRequest.Create request) {

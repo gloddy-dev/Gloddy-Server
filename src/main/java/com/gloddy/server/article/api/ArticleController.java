@@ -29,13 +29,13 @@ public class ArticleController {
     }
 
     @PatchMapping("/articles/{articleId}")
-    public ResponseEntity<Update> update(
+    public ResponseEntity<Void> update(
             @PathVariable Long articleId,
             @RequestBody @Valid ArticleRequest.Update request,
             @AuthenticationPrincipal Long userId
     ) {
-        Update response = articleService.update(articleId, userId, request);
-        return ApiResponse.ok(response);
+        articleService.update(articleId, userId, request);
+        return ApiResponse.noContent();
     }
 
     @DeleteMapping("/groups/{groupId}/articles/{articleId}")

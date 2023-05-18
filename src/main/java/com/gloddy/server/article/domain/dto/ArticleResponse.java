@@ -21,7 +21,6 @@ public class ArticleResponse {
     public static class Update {
         private String content;
         private boolean notice;
-        private List<ImageDto> images;
     }
 
     @NoArgsConstructor
