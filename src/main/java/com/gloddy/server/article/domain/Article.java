@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -53,7 +54,21 @@ public class Article extends BaseTimeEntity {
 
     public void update(String content, boolean notice) {
         this.content = content;
-        System.out.println("isNotice = " + notice);
         this.notice = notice;
+    }
+
+    public void createAndAddAllArticleImages(List<String> images) {
+        List<ArticleImage> articleImages = images.stream()
+                .map(image -> new ArticleImage(this, image))
+                .collect(Collectors.toList());
+        this.images.addAll(articleImages);
+    }
+
+    public void upsertArticleImages(List<String> images) {
+        List<ArticleImage> articleImages = images.stream()
+                .map(image -> new ArticleImage(this, image))
+                .collect(Collectors.toList());
+        this.images.clear();
+        this.images.addAll(articleImages);
     }
 }

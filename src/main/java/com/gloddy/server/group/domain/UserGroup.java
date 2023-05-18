@@ -1,5 +1,7 @@
 package com.gloddy.server.group.domain;
 
+import com.gloddy.server.article.domain.Article;
+import com.gloddy.server.article.domain.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategy;
@@ -10,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -84,5 +87,18 @@ public class UserGroup {
 
     public boolean isAbsence() {
         return this.isAbsence;
+    }
+
+    public Article createArticle(String content, boolean isNotice) {
+        return Article.builder()
+                .content(content)
+                .notice(isNotice)
+                .user(this.getUser())
+                .group(this.getGroup())
+                .build();
+    }
+
+    public boolean isCaptain() {
+        return this.user == this.getGroup().getCaptain();
     }
 }
