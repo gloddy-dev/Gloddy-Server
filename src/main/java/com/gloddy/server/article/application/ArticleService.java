@@ -6,11 +6,13 @@ import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleCommandHandler;
 import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
+import com.gloddy.server.article.domain.service.ArticleDeletePolicy;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
 import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.comment.application.CommentService;
@@ -39,12 +41,13 @@ public class ArticleService {
     private final ArticleQueryHandler articleQueryHandler;
     private final ArticleCommandHandler articleCommandHandler;
     private final UserQueryHandler userQueryHandler;
-    private final GroupHandler groupHandler;
+    private final GroupQueryHandler groupQueryHandler;
     private final UserGroupQueryHandler userGroupQueryHandler;
     private final ImageService imageService;
     private final CommentService commentService;
     private final NoticeArticleCreatePolicy noticeArticleCreatePolicy;
     private final ArticleUpdatePolicy articleUpdatePolicy;
+    private final ArticleDeletePolicy articleDeletePolicy;
 
     @Transactional
     public ArticleResponse.Create create(Long groupId, Long userId, ArticleRequest.Create request) {
@@ -77,22 +80,17 @@ public class ArticleService {
 
     @Transactional
     public void delete(Long groupId, Long articleId, Long userId) {
-        Group group = groupHandler.findById(groupId);
+        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
         Article article = articleQueryHandler.findById(articleId);
-        User user = userQueryHandler.findById(userId);
-        checkPermission(group, article, user);
-        articleJpaRepository.delete(article);
-    }
 
-    private void checkPermission(Group group, Article article, User user) {
-        if (!article.getUser().equals(user) && !group.getCaptain().equals(user)) {
-            throw new ArticleBusinessException(ErrorCode.NO_ARTICLE_DELETE_PERMISSION);
-        }
+        articleDeletePolicy.validate(article, userGroup);
+
+        articleCommandHandler.delete(article);
     }
 
     @Transactional(readOnly = true)
     public GetPreview getPreview(Long groupId, int page, int size) {
-        Group group = groupHandler.findById(groupId);
+        Group group = groupQueryHandler.findById(groupId);
         Pageable pageable = PageRequest.of(page, size);
         Page<GetArticle> articles = articleJpaRepository.findAllByGroup(group, pageable)
                 .map(this::getArticle);
