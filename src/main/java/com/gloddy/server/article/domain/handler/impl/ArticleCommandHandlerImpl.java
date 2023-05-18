@@ -16,4 +16,9 @@ public class ArticleCommandHandlerImpl implements ArticleCommandHandler {
     public Article save(Article article) {
         return articleJpaRepository.save(article);
     }
+
+    @Override
+    public void delete(Article article) {
+        articleJpaRepository.delete(article);
+    }
 }
