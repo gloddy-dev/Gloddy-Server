@@ -71,4 +71,8 @@ public class Article extends BaseTimeEntity {
         this.images.clear();
         this.images.addAll(articleImages);
     }
+
+    public boolean isWriter(User user) {
+        return user.equals(this.user);
+    }
 }
