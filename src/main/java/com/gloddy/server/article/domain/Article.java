@@ -75,4 +75,8 @@ public class Article extends BaseTimeEntity {
     public boolean isWriter(User user) {
         return user.equals(this.user);
     }
+
+    public int getCommentCount() {
+        return this.comments.size();
+    }
 }
