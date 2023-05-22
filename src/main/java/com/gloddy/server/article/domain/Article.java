@@ -79,4 +79,12 @@ public class Article extends BaseTimeEntity {
     public int getCommentCount() {
         return this.comments.size();
     }
+
+    public Comment createComment(User user, String content) {
+        return Comment.builder()
+                .article(this)
+                .user(user)
+                .content(content)
+                .build();
+    }
 }

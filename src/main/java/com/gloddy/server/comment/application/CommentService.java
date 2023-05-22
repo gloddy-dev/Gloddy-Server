@@ -1,12 +1,16 @@
 package com.gloddy.server.comment.application;
 
 import com.gloddy.server.article.domain.Article;
+import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
 import com.gloddy.server.article.domain.handler.impl.ArticleQueryHandlerImpl;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
+import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.domain.handler.impl.UserQueryHandlerImpl;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
 import com.gloddy.server.comment.domain.Comment;
-import com.gloddy.server.comment.domain.handler.CommentHandlerImpl;
+import com.gloddy.server.comment.domain.handler.impl.CommentQueryHandlerImpl;
 import com.gloddy.server.comment.infra.repository.CommentJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
@@ -26,31 +30,30 @@ import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 @RequiredArgsConstructor
 public class CommentService {
 
+    private final CommentCommandHandler commentCommandHandler;
+    private final CommentQueryHandler commentQueryHandler;
+    private final UserQueryHandler userQueryHandler;
+    private final ArticleQueryHandler articleQueryHandler;
     private final CommentJpaRepository commentJpaRepository;
-    private final CommentHandlerImpl commentHandlerImpl;
-    private final UserQueryHandlerImpl userHandlerImpl;
-    private final ArticleQueryHandlerImpl articleHandlerImpl;
 
     @Transactional
     public Create create(Long userId, Long articleId, CommentRequest.Create request) {
-        User user = userHandlerImpl.findById(userId);
-        Article article = articleHandlerImpl.findById(articleId);
-        Comment comment = commentJpaRepository.save(Comment.builder()
-                .user(user)
-                .article(article)
-                .content(request.getContent())
-                .build()
+        User user = userQueryHandler.findById(userId);
+        Article article = articleQueryHandler.findById(articleId);
+
+        Comment newComment = commentCommandHandler.save(
+                article.createComment(user, request.getContent())
         );
-        return new Create(comment.getId());
+        return new Create(newComment.getId());
     }
 
     @Transactional
     public void delete(Long commentId, Long userId, Long articleId) {
-        User user = userHandlerImpl.findById(userId);
-        Article article = articleHandlerImpl.findById(articleId);
+        User user = userQueryHandler.findById(userId);
+        Article article = articleQueryHandler.findById(articleId);
 
         Group group = article.getGroup();
-        Comment comment = commentHandlerImpl.findById(commentId);
+        Comment comment = commentQueryHandler.findById(commentId);
 
         if(checkCommentUser(comment, group, user)) {
             throw new UserBusinessException(ErrorCode.COMMENT_USER_MISMATCH);
@@ -64,8 +67,8 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public GetComments getComments(Long articleId, Long userId) {
-        Article article = articleHandlerImpl.findById(articleId);
-        User user = userHandlerImpl.findById(userId);
+        Article article = articleQueryHandler.findById(articleId);
+        User user = userQueryHandler.findById(userId);
         List<GetComment> comments = commentJpaRepository.findAllByArticle(article)
                 .stream()
                 .map(comment -> generateCommentDto(comment, user))
