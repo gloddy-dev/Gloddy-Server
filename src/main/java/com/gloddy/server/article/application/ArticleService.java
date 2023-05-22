@@ -7,6 +7,7 @@ import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleCommandHandler;
 import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
 import com.gloddy.server.article.domain.service.ArticleDeletePolicy;
+import com.gloddy.server.article.domain.service.ArticleDtoMapper;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
 import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
@@ -37,14 +38,11 @@ import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
-    private final ArticleJpaRepository articleJpaRepository;
     private final ArticleQueryHandler articleQueryHandler;
     private final ArticleCommandHandler articleCommandHandler;
     private final UserQueryHandler userQueryHandler;
     private final GroupQueryHandler groupQueryHandler;
     private final UserGroupQueryHandler userGroupQueryHandler;
-    private final ImageService imageService;
-    private final CommentService commentService;
     private final NoticeArticleCreatePolicy noticeArticleCreatePolicy;
     private final ArticleUpdatePolicy articleUpdatePolicy;
     private final ArticleDeletePolicy articleDeletePolicy;
@@ -89,37 +87,13 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public GetPreview getPreview(Long groupId, int page, int size) {
+    public PageResponse<GetArticle> getPreview(Long groupId, int page, int size) {
         Group group = groupQueryHandler.findById(groupId);
+
         Pageable pageable = PageRequest.of(page, size);
-        Page<GetArticle> articles = articleJpaRepository.findAllByGroup(group, pageable)
-                .map(this::getArticle);
+        Page<Article> articles = articleQueryHandler.findAllToGetArticlePreview(group, pageable);
 
-        return new GetPreview(
-            group.getFileUrl(),
-            group.getTitle(),
-            group.getContent(),
-            PageResponse.from(articles)
-        );
-    }
-
-    private GetArticle getArticle(Article article) {
-        User writer = article.getUser();
-        int commentCount = commentService.getCommentCount(article);
-        List<ImageDto> images = imageService.get(article);
-
-        return new GetArticle(
-                writer.getImageUrl(),
-                writer.getName(),
-                formatDate(article.getCreatedAt()),
-                article.getContent(),
-                article.isNotice(),
-                commentCount,
-                images
-        );
-    }
-
-    private String formatDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Page<GetArticle> getArticles = ArticleDtoMapper.mapToGetArticlePageFrom(articles);
+        return PageResponse.from(getArticles);
     }
 }

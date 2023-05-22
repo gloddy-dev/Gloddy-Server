@@ -3,6 +3,7 @@ package com.gloddy.server.article.api;
 import com.gloddy.server.article.domain.dto.ArticleRequest;
 import com.gloddy.server.article.application.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
+import com.gloddy.server.core.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -49,12 +50,12 @@ public class ArticleController {
     }
 
     @GetMapping("/groups/{groupId}/articles")
-    public ResponseEntity<GetPreview> getPreview(
+    public ResponseEntity<PageResponse<GetArticle>> getPreview(
         @PathVariable Long groupId,
         @RequestParam(required = false, defaultValue = "0") int page,
         @RequestParam(required = false, defaultValue = "10") int size
     ) {
-        GetPreview response = articleService.getPreview(groupId, page, size);
+        PageResponse<GetArticle> response = articleService.getPreview(groupId, page, size);
         return ApiResponse.ok(response);
     }
 }
