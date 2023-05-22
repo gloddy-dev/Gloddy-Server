@@ -16,6 +16,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        default_batch_fetch_size: 50
         format_sql: true
 
   mail:
