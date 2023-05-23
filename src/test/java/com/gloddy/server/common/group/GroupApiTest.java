@@ -28,14 +28,12 @@ abstract public class GroupApiTest extends BaseApiTest {
     protected UserGroup createUserGroup(User user, Group group) {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
-        group.addUserGroup(userGroup);
         return userGroupJpaRepository.save(userGroup);
     }
 
     protected UserGroup createCompletePraiseUserGroup(User user, Group group) {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
-        group.addUserGroup(userGroup);
         userGroup.completePraise();
         return userGroupJpaRepository.save(userGroup);
     }

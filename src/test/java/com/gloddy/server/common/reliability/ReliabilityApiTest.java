@@ -9,6 +9,7 @@ import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.estimate.infra.repository.MateJpaRepository;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.domain.vo.UserGroupVO;
 import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
@@ -46,6 +47,8 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
     protected UserGroup createUserGroup(User user, Group group) {
         UserGroup userGroup = UserGroup.empty();
         userGroup.init(user, group);
+        UserGroupVO userGroupVO = userGroup.createUserGroupVO();
+        group.addUserGroupVOs(userGroupVO);
         return userGroupJpaRepository.save(userGroup);
     }
 
