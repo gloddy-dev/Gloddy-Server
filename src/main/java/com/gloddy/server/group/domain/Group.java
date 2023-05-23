@@ -3,8 +3,8 @@ package com.gloddy.server.group.domain;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
-import com.gloddy.server.group.domain.vo.UserGroups;
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group.domain.vo.UserGroupVO;
+import com.gloddy.server.group.domain.vo.UserGroupVOs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -60,7 +60,7 @@ public class Group extends BaseTimeEntity {
     private int maxUser;
 
     @Embedded
-    private UserGroups userGroups = UserGroups.empty();
+    private UserGroupVOs userGroupVOs = UserGroupVOs.empty();
 
     @Builder
     public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
@@ -78,8 +78,8 @@ public class Group extends BaseTimeEntity {
         this.school = school;
     }
 
-    public void addUserGroup(UserGroup userGroup) {
-        this.userGroups.addUserGroups(userGroup);
+    public void addUserGroupVOs(UserGroupVO userGroupVO) {
+        this.userGroupVOs.addUserGroupVo(userGroupVO);
     }
 
     public LocalDate getMeetDate() {
@@ -87,7 +87,7 @@ public class Group extends BaseTimeEntity {
     }
 
     public int getMemberCount() {
-        return this.userGroups.getSize();
+        return this.userGroupVOs.getSize();
     }
 
     public Apply createApply(User applier, String introduce, String reason) {
