@@ -2,31 +2,21 @@ package com.gloddy.server.comment.application;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
-import com.gloddy.server.article.domain.handler.impl.ArticleQueryHandlerImpl;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
 import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
 import com.gloddy.server.comment.domain.service.CommentDeletePolicy;
 import com.gloddy.server.comment.domain.service.CommentDtoMapper;
-import com.gloddy.server.group.domain.UserGroup;
-import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
+import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
-import com.gloddy.server.user.domain.handler.impl.UserQueryHandlerImpl;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
 import com.gloddy.server.comment.domain.Comment;
-import com.gloddy.server.comment.domain.handler.impl.CommentQueryHandlerImpl;
-import com.gloddy.server.comment.infra.repository.CommentJpaRepository;
-import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
-import com.gloddy.server.core.error.handler.exception.UserBusinessException;
-import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 

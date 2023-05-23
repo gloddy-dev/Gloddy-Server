@@ -2,7 +2,6 @@ package com.gloddy.server.article.application;
 
 import com.gloddy.server.article.domain.dto.ArticleRequest;
 import com.gloddy.server.article.domain.dto.ArticleResponse;
-import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleCommandHandler;
 import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
@@ -10,28 +9,19 @@ import com.gloddy.server.article.domain.service.ArticleDeletePolicy;
 import com.gloddy.server.article.domain.service.ArticleDtoMapper;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
-import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
-import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
+import com.gloddy.server.user_group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
-import com.gloddy.server.comment.application.CommentService;
-import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
-import com.gloddy.server.core.error.handler.exception.ArticleBusinessException;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.handler.GroupHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 

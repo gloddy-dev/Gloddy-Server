@@ -1,7 +1,7 @@
-package com.gloddy.server.group.infra.repository;
+package com.gloddy.server.user_group.infra.repository;
 
-import com.gloddy.server.group.domain.UserGroup;
-import com.gloddy.server.group.infra.repository.custom.UserGroupJpaRepositoryCustom;
+import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.user_group.infra.repository.custom.UserGroupJpaRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

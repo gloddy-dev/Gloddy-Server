@@ -1,6 +1,6 @@
 package com.gloddy.server.estimate.domain.vo.strategy;
 
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 
 public class AbsencePraiseStrategy implements PraiseStrategy {
     @Override

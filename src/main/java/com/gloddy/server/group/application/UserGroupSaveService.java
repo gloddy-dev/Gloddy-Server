@@ -2,9 +2,9 @@ package com.gloddy.server.group.application;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
-import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
 import com.gloddy.server.user.application.UserFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

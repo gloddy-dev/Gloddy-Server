@@ -1,8 +1,8 @@
-package com.gloddy.server.group.api;
+package com.gloddy.server.user_group.api;
 
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupResponse;
-import com.gloddy.server.group.application.MyGroupService;
+import com.gloddy.server.user_group.application.UserGroupService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class UserGroupApi {
 
-    private final MyGroupService myGroupService;
+    private final UserGroupService userGroupService;
 
     @ApiOperation("내가 참여할 그룹 조회 - 나의 모임 윗부분 - paging처리 x")
     @GetMapping("/groups/my-expected")
     public GroupResponse.GetGroups getExpectedMyGroup(@AuthenticationPrincipal Long userId) {
-        return myGroupService.getExpectedMyGroup(userId);
+        return userGroupService.getExpectedMyGroup(userId);
     }
 
     @ApiOperation("내가 참여했던 그룹 조회 - 나의 모임 아랫 부분 - paging처리 o")
@@ -30,6 +30,6 @@ public class UserGroupApi {
             @AuthenticationPrincipal Long userId,
             @RequestParam int page,
             @RequestParam int size) {
-        return myGroupService.getParticipatedMyGroup(userId, page, size);
+        return userGroupService.getParticipatedMyGroup(userId, page, size);
     }
 }

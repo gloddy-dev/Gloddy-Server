@@ -4,7 +4,7 @@ import com.gloddy.server.UnitTest;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.estimate.domain.Praise;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 
 public abstract class UserGroupDomainTest extends UnitTest {
 

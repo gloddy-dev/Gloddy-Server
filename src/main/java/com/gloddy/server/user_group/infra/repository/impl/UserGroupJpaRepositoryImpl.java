@@ -1,9 +1,9 @@
-package com.gloddy.server.group.infra.repository.impl;
+package com.gloddy.server.user_group.infra.repository.impl;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
-import com.gloddy.server.group.infra.repository.custom.UserGroupJpaRepositoryCustom;
+import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.user_group.infra.repository.custom.UserGroupJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ import java.util.List;
 import static com.gloddy.server.auth.domain.QUser.*;
 import static com.gloddy.server.estimate.domain.QPraise.*;
 import static com.gloddy.server.group.domain.QGroup.group;
-import static com.gloddy.server.group.domain.QUserGroup.userGroup;
 import static com.gloddy.server.reliability.domain.QReliability.*;
+import static com.gloddy.server.user_group.domain.QUserGroup.userGroup;
 
 @Repository
 @RequiredArgsConstructor

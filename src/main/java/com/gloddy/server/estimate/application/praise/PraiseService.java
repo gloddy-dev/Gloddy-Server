@@ -6,7 +6,7 @@ import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.estimate.domain.Praise;
 import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.group.application.UserGroupFindService;
 import com.gloddy.server.estimate.domain.dto.PraiseDto;
 import lombok.RequiredArgsConstructor;

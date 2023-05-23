@@ -2,7 +2,7 @@ package com.gloddy.server.comment.domain.service;
 
 import com.gloddy.server.article.exception.NoAuthorizedArticleDeleteException;
 import com.gloddy.server.comment.domain.Comment;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import org.springframework.stereotype.Component;
 
 @Component

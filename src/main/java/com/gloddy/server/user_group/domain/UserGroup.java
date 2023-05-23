@@ -1,18 +1,17 @@
-package com.gloddy.server.group.domain;
+package com.gloddy.server.user_group.domain;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategy;
 import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategyFactory;
+import com.gloddy.server.group.domain.Group;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

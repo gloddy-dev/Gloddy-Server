@@ -5,7 +5,7 @@ import com.gloddy.server.common.userGroup.UserGroupDomainTest;
 import com.gloddy.server.estimate.domain.Praise;
 import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

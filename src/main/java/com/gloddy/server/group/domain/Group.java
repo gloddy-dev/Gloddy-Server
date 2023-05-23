@@ -4,6 +4,7 @@ import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.vo.UserGroups;
+import com.gloddy.server.user_group.domain.UserGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

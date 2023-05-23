@@ -1,6 +1,6 @@
 package com.gloddy.server.group.domain.vo;
 
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

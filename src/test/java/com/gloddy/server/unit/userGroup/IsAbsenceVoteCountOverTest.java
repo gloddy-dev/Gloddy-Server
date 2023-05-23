@@ -3,7 +3,7 @@ package com.gloddy.server.unit.userGroup;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.userGroup.UserGroupDomainTest;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

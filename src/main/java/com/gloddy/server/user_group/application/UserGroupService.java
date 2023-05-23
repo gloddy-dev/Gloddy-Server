@@ -1,10 +1,10 @@
-package com.gloddy.server.group.application;
+package com.gloddy.server.user_group.application;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupResponse;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
 import com.gloddy.server.user.application.UserFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MyGroupService {
+public class UserGroupService {
 
     private final UserFindService userFindService;
     private final UserGroupJpaRepository userGroupJpaRepository;

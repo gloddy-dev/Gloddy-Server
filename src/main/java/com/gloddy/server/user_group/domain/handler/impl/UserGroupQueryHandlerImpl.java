@@ -1,8 +1,8 @@
-package com.gloddy.server.group.domain.handler.impl;
+package com.gloddy.server.user_group.domain.handler.impl;
 
-import com.gloddy.server.group.domain.UserGroup;
-import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
-import com.gloddy.server.group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.handler.UserGroupQueryHandler;
+import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

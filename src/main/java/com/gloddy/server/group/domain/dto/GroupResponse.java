@@ -2,7 +2,7 @@ package com.gloddy.server.group.domain.dto;
 
 import com.gloddy.server.core.dto.UserInfoDto;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.user_group.domain.UserGroup;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
