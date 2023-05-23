@@ -7,6 +7,7 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
 import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
 import com.gloddy.server.comment.domain.service.CommentDeletePolicy;
+import com.gloddy.server.comment.domain.service.CommentDtoMapper;
 import com.gloddy.server.group.domain.UserGroup;
 import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
@@ -37,7 +38,6 @@ public class CommentService {
     private final CommentQueryHandler commentQueryHandler;
     private final UserQueryHandler userQueryHandler;
     private final ArticleQueryHandler articleQueryHandler;
-    private final CommentJpaRepository commentJpaRepository;
     private final UserGroupQueryHandler userGroupQueryHandler;
     private final CommentDeletePolicy commentDeletePolicy;
 
@@ -58,31 +58,15 @@ public class CommentService {
         Comment comment = commentQueryHandler.findById(commentId);
 
         commentDeletePolicy.validate(userGroup, comment);
-        commentJpaRepository.delete(comment);
+        commentCommandHandler.delete(comment);
     }
 
     @Transactional(readOnly = true)
     public GetComments getComments(Long articleId, Long userId) {
         Article article = articleQueryHandler.findById(articleId);
-        User user = userQueryHandler.findById(userId);
-        List<GetComment> comments = commentJpaRepository.findAllByArticle(article)
-                .stream()
-                .map(comment -> generateCommentDto(comment, user))
-                .collect(Collectors.toList());
-        return new GetComments(comments);
-    }
+        List<Comment> comments = commentQueryHandler.findAllByArticleFetchUser(article);
 
-    private GetComment generateCommentDto(Comment comment, User user) {
-        return new GetComment(
-                comment.getUser().getImageUrl(),
-                comment.getUser().getName(),
-                formatDate(comment.getCreatedAt()),
-                comment.getContent(),
-                comment.getUser().equals(user)
-        );
-    }
-
-    private String formatDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        List<GetComment> getComments = CommentDtoMapper.mapToGetCommentListFrom(comments, userId);
+        return new GetComments(getComments);
     }
 }

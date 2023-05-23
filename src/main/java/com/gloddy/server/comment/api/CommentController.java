@@ -30,7 +30,7 @@ public class CommentController {
         return ApiResponse.created(response);
     }
 
-    @GetMapping("/{articleId}/comments")
+    @GetMapping("/comments")
     public ResponseEntity<GetComments> getAll(
             @PathVariable("groupId") Long groupId,
             @PathVariable("articleId") Long articleId,
@@ -40,7 +40,7 @@ public class CommentController {
         return ApiResponse.ok(response);
     }
 
-    @DeleteMapping("/{articleId}/comments/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<Void> delete(
             @PathVariable("groupId") Long groupId,
             @PathVariable("articleId") Long articleId,
