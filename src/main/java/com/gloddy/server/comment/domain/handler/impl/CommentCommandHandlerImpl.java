@@ -15,4 +15,9 @@ public class CommentCommandHandlerImpl implements CommentCommandHandler {
     public Comment save(Comment comment) {
         return commentJpaRepository.save(comment);
     }
+
+    @Override
+    public void delete(Comment comment) {
+        commentJpaRepository.delete(comment);
+    }
 }
