@@ -6,6 +6,7 @@ import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategy;
 import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategyFactory;
 import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.domain.vo.UserGroupVO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,7 +57,6 @@ public class UserGroup {
         this.isPraised = false;
         this.absenceVoteCount = 0;
         this.isAbsence = false;
-        this.group.addUserGroup(this);
     }
 
     public void receivePraise(PraiseValue praiseValue) {
@@ -94,6 +94,12 @@ public class UserGroup {
                 .notice(isNotice)
                 .user(this.getUser())
                 .group(this.getGroup())
+                .build();
+    }
+
+    public UserGroupVO createUserGroupVO() {
+        return UserGroupVO.builder()
+                .userId(this.user.getId())
                 .build();
     }
 
