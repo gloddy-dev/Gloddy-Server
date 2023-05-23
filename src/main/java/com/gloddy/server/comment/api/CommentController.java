@@ -14,14 +14,15 @@ import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/articles")
+@RequestMapping("/api/v1/groups/{groupId}/articles/{articleId}")
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{articleId}/comment")
+    @PostMapping("/comment")
     public ResponseEntity<Create> create(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @RequestBody @Valid CommentRequest.Create request,
             @AuthenticationPrincipal Long userId
     ) {
@@ -31,7 +32,8 @@ public class CommentController {
 
     @GetMapping("/{articleId}/comments")
     public ResponseEntity<GetComments> getAll(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @AuthenticationPrincipal Long userId
     ) {
         GetComments response = commentService.getComments(articleId, userId);
@@ -40,11 +42,12 @@ public class CommentController {
 
     @DeleteMapping("/{articleId}/comments/{commentId}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @PathVariable Long commentId,
             @AuthenticationPrincipal Long userId
     ) {
-        commentService.delete(commentId, userId, articleId);
+        commentService.delete(groupId, articleId, commentId, userId);
         return ApiResponse.noContent();
     }
 }

@@ -6,6 +6,9 @@ import com.gloddy.server.article.domain.handler.impl.ArticleQueryHandlerImpl;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
 import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
+import com.gloddy.server.comment.domain.service.CommentDeletePolicy;
+import com.gloddy.server.group.domain.UserGroup;
+import com.gloddy.server.group.domain.handler.UserGroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.domain.handler.impl.UserQueryHandlerImpl;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
@@ -35,6 +38,8 @@ public class CommentService {
     private final UserQueryHandler userQueryHandler;
     private final ArticleQueryHandler articleQueryHandler;
     private final CommentJpaRepository commentJpaRepository;
+    private final UserGroupQueryHandler userGroupQueryHandler;
+    private final CommentDeletePolicy commentDeletePolicy;
 
     @Transactional
     public Create create(Long userId, Long articleId, CommentRequest.Create request) {
@@ -48,21 +53,12 @@ public class CommentService {
     }
 
     @Transactional
-    public void delete(Long commentId, Long userId, Long articleId) {
-        User user = userQueryHandler.findById(userId);
-        Article article = articleQueryHandler.findById(articleId);
-
-        Group group = article.getGroup();
+    public void delete(Long groupId, Long articleId, Long commentId, Long userId) {
+        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
         Comment comment = commentQueryHandler.findById(commentId);
 
-        if(checkCommentUser(comment, group, user)) {
-            throw new UserBusinessException(ErrorCode.COMMENT_USER_MISMATCH);
-        }
+        commentDeletePolicy.validate(userGroup, comment);
         commentJpaRepository.delete(comment);
-    }
-
-    private boolean checkCommentUser(Comment comment, Group group, User user) {
-        return comment.getUser().equals(user) || group.getCaptain().equals(user);
     }
 
     @Transactional(readOnly = true)
@@ -84,10 +80,6 @@ public class CommentService {
                 comment.getContent(),
                 comment.getUser().equals(user)
         );
-    }
-
-    public int getCommentCount(Article article) {
-        return commentJpaRepository.countAllByArticle(article);
     }
 
     private String formatDate(LocalDateTime date) {
