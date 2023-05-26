@@ -4,6 +4,8 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group.domain.vo.GroupDateTime;
+import com.gloddy.server.group.domain.vo.GroupPlace;
 import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 abstract public class GroupApiTest extends BaseApiTest {
 
@@ -20,8 +23,12 @@ abstract public class GroupApiTest extends BaseApiTest {
     @Autowired
     protected UserGroupJpaRepository userGroupJpaRepository;
 
+    private GroupPlace getGroupPlace() {
+        return new GroupPlace();
+    }
+
     protected Group createGroup() {
-        Group group = Group.builder().build();
+        Group group = Group.builder().place(getGroupPlace()).build();
         return groupJpaRepository.save(group);
     }
 
@@ -39,12 +46,14 @@ abstract public class GroupApiTest extends BaseApiTest {
     }
 
     protected Group createExpectedGroup() {
-        Group expectedGroup = Group.builder().startTime(LocalDateTime.now().plusDays(1L)).build();
+        GroupDateTime dateTime = GroupDateTime.createFrom(LocalDate.now().plusDays(1L), "11:00", "12:00");
+        Group expectedGroup = Group.builder().place(getGroupPlace()).dateTime(dateTime).build();
         return groupJpaRepository.save(expectedGroup);
     }
 
     protected Group createParticipatedGroup() {
-        Group participatedGroup = Group.builder().startTime(LocalDateTime.now().minusDays(1L)).build();
+        GroupDateTime dateTime = GroupDateTime.createFrom(LocalDate.now().minusDays(1L), LocalTime.now().toString(), LocalTime.now().toString());
+        Group participatedGroup = Group.builder().place(getGroupPlace()).dateTime(dateTime).build();
         return groupJpaRepository.save(participatedGroup);
     }
 

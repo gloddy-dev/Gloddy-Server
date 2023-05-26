@@ -29,7 +29,7 @@ public class FindAllByGroupFetchUserAndGroupAndCommendsTest extends QueryTest {
         User user = User.builder().personalities(List.of(Personality.KIND)).build();
         userJpaRepository.save(user);
 
-        Group group = Group.builder().user(user).build();
+        Group group = Group.builder().captain(user).build();
         return groupJpaRepository.save(group);
     }
 
