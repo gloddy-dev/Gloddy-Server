@@ -6,8 +6,11 @@ import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.group.domain.handler.GroupCommandHandler;
+import com.gloddy.server.group.domain.service.GroupFactory;
 import com.gloddy.server.reliability.domain.vo.ScoreType;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
@@ -37,10 +40,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class GroupService {
     private final GroupJpaRepository groupJpaRepository;
+    private final GroupCommandHandler groupCommandHandler;
     private final ApplyJpaRepository applyJpaRepository;
     private final UserJpaRepository userJpaRepository;
-    private final ReliabilityEventPublisher reliabilityEventPublisher;
+    private final UserQueryHandler userQueryHandler;
     private final ApplicationEventPublisher eventPublisher;
+    private final GroupFactory groupFactory;
 
     // 같은 학교의 소모임만 조회 -> 소모임 개최자와 해당 사용자의 학교가 같은 경우의 소모임만 조회
     // 참가 멤버 수 -> apply 엔티티에 상태값 추가해 가져오기
@@ -58,7 +63,7 @@ public class GroupService {
                                 group.getTitle(),
                                 group.getContent(),
                                 applyJpaRepository.countApplyByGroupIdAndStatus(group.getId(), Status.APPROVE),
-                                group.getPlace(),
+                                group.getPlace().getName(),
                                 group.getMeetDate()
                         )
                 );
@@ -67,43 +72,12 @@ public class GroupService {
     }
 
 
-    // TODO: school 컬럼 추가하셈
     @Transactional
     public GroupResponse.Create createGroup(Long captainId, GroupRequest.Create req) {
+        User captain = userQueryHandler.findById(captainId);
 
-        User captain = userJpaRepository.findById(captainId)
-                .orElseThrow(() -> new RuntimeException("해당 회원을 찾을 수 없습니다."));
-
-        Group buildGroup = Group.builder()
-                .user(captain)
-                .fileUrl(req.getFileUrl())
-                .title(req.getTitle())
-                .content(req.getContent())
-                .startTime(
-                        DateTimeUtils.concatDateAndTime(
-                                req.getMeetDate(),
-                                DateTimeUtils.StringToLocalTime(req.getStartTime())
-                        )
-                )
-                .endTime(
-                        DateTimeUtils.concatDateAndTime(
-                                req.getMeetDate(),
-                                DateTimeUtils.StringToLocalTime(req.getEndTime())
-                        )
-                )
-                .place(req.getPlace())
-                .placeLatitude(req.getPlace_latitude())
-                .placeLongitude(req.getPlace_longitude())
-                .maxUser(req.getMaxUser())
-                .school(captain.getSchool())
-                .build();
-
-        Group saveGroup = groupJpaRepository.save(buildGroup);
-
-        eventPublisher.publishEvent(new GroupParticipateEvent(captainId, saveGroup.getId()));
-        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(captainId, ScoreType.Created_Group));
-
-        return new GroupResponse.Create(saveGroup.getId());
+        Group newGroup = captain.saveGroup(groupFactory, eventPublisher, groupCommandHandler, req);
+        return new GroupResponse.Create(newGroup.getId());
     }
 
     @Transactional(readOnly = true)
@@ -136,11 +110,11 @@ public class GroupService {
                 groupUsers.getUserCount(),
                 groupUsers.getUserInfoDtos(),
                 dateTimeFormatter(groupUsers.getGroup().getMeetDate()),
-                groupUsers.getGroup().getStartTime().toLocalTime().toString(),
-                groupUsers.getGroup().getEndTime().toLocalTime().toString(),
-                groupUsers.getGroup().getPlace(),
-                groupUsers.getGroup().getPlaceLatitude(),
-                groupUsers.getGroup().getPlaceLongitude()
+                groupUsers.getGroup().getDateTime().getStartDateTime().toLocalTime().toString(),
+                groupUsers.getGroup().getDateTime().getEndDateTime().toLocalTime().toString(),
+                groupUsers.getGroup().getPlace().getName(),
+                groupUsers.getGroup().getPlace().getLatitude().toString(),
+                groupUsers.getGroup().getPlace().getLongitude().toString()
         );
     }
 
