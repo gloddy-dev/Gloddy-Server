@@ -33,7 +33,7 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
                 .from(userGroup)
                 .join(userGroup.group, group)
                 .where(userEq(user), startTimeAfter(LocalDateTime.now()))
-                .orderBy(group.startTime.desc())
+                .orderBy(group.dateTime.startDateTime.desc())
                 .fetch();
     }
 
@@ -45,7 +45,7 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
                 .where(userEq(user), startTimeBefore(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(group.startTime.desc())
+                .orderBy(group.dateTime.startDateTime.desc())
                 .fetch();
 
         Long total = query.select(group.count())
@@ -73,11 +73,11 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
     }
 
     private BooleanExpression startTimeAfter(LocalDateTime limit) {
-        return userGroup.group.startTime.after(limit);
+        return userGroup.group.dateTime.startDateTime.after(limit);
     }
 
     private BooleanExpression startTimeBefore(LocalDateTime limit) {
-        return userGroup.group.startTime.before(limit);
+        return userGroup.group.dateTime.startDateTime.before(limit);
     }
 
     private BooleanExpression userIdIn(List<Long> userIds) {

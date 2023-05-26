@@ -45,7 +45,7 @@ public class GroupResponse {
                     group.getTitle(),
                     group.getContent(),
                     group.getMemberCount(),
-                    group.getPlace(),
+                    group.getPlace().getName(),
                     group.getMeetDate()
             );
         }
@@ -91,7 +91,7 @@ public class GroupResponse {
                     userGroup.getGroup().getTitle(),
                     userGroup.getGroup().getContent(),
                     userGroup.getGroup().getMemberCount(),
-                    userGroup.getGroup().getPlace(),
+                    userGroup.getGroup().getPlace().getName(),
                     userGroup.getGroup().getMeetDate(),
                     userGroup.isPraised()
             );

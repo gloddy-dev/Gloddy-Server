@@ -47,7 +47,7 @@ public class ScrapService {
                 group.getTitle(),
                 group.getContent(),
                 Math.toIntExact(groupUserCountService.countUserInGroup(group.getId())),
-                group.getPlace(),
+                group.getPlace().getName(),
                 group.getMeetDate()
         );
     }
