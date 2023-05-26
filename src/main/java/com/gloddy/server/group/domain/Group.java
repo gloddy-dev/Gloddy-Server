@@ -3,6 +3,8 @@ package com.gloddy.server.group.domain;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import com.gloddy.server.group.domain.vo.GroupDateTime;
+import com.gloddy.server.group.domain.vo.GroupPlace;
 import com.gloddy.server.group.domain.vo.UserGroupVO;
 import com.gloddy.server.group.domain.vo.UserGroupVOs;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,20 +42,11 @@ public class Group extends BaseTimeEntity {
     @Column(name = "content", columnDefinition = "longtext")
     private String content;
 
-    @Column(name = "start_time")
-    private LocalDateTime startTime;
+    @Embedded
+    private GroupDateTime dateTime;
 
-    @Column(name = "end_time")
-    private LocalDateTime endTime;
-
-    @Column(name = "place")
-    private String place;
-
-    @Column(name = "place_latitude")
-    private String placeLatitude;
-
-    @Column(name = "place_longitude")
-    private String placeLongitude;
+    @Embedded
+    private GroupPlace place;
 
     @Column(name = "max_user")
     private int maxUser;
@@ -63,17 +55,14 @@ public class Group extends BaseTimeEntity {
     private UserGroupVOs userGroupVOs = UserGroupVOs.empty();
 
     @Builder
-    public Group(User user, String fileUrl, String title, String content, LocalDateTime startTime, LocalDateTime endTime,
-                 String place, String placeLatitude, String placeLongitude, int maxUser, String school) {
-        this.captain = user;
+    public Group(User captain, String fileUrl, String title, String content, GroupDateTime dateTime,
+                 GroupPlace place, int maxUser, String school) {
+        this.captain = captain;
         this.fileUrl = fileUrl;
         this.title = title;
         this.content = content;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.dateTime = dateTime;
         this.place = place;
-        this.placeLatitude = placeLatitude;
-        this.placeLongitude = placeLongitude;
         this.maxUser = maxUser;
         this.school = school;
     }
@@ -83,7 +72,7 @@ public class Group extends BaseTimeEntity {
     }
 
     public LocalDate getMeetDate() {
-        return this.getStartTime().toLocalDate();
+        return this.getDateTime().getStartDateTime().toLocalDate();
     }
 
     public int getMemberCount() {
