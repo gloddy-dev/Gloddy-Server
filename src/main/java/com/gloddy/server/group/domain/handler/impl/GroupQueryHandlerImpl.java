@@ -5,6 +5,8 @@ import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.*;
@@ -20,5 +22,10 @@ public class GroupQueryHandlerImpl implements GroupQueryHandler {
     public Group findById(Long id) {
         return groupJpaRepository.findById(id)
                 .orElseThrow(() -> new GroupBusinessException(GROUP_NOT_FOUND));
+    }
+
+    @Override
+    public Page<Group> findGroupPage(String school, Pageable pageable) {
+        return groupJpaRepository.findBySchoolOrderByIdDesc(pageable, school);
     }
 }

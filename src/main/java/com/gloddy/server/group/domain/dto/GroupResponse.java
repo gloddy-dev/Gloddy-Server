@@ -1,6 +1,7 @@
 package com.gloddy.server.group.domain.dto;
 
 import com.gloddy.server.core.dto.UserInfoDto;
+import com.gloddy.server.core.utils.DateTimeUtils;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.user_group.domain.UserGroup;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.gloddy.server.core.utils.DateTimeUtils.*;
 
 public class GroupResponse {
 
@@ -36,7 +39,7 @@ public class GroupResponse {
         // List<String> memberProfiles;
         int memberCount;
         String place;
-        LocalDate meetDate;
+        String meetDate;
 
         public static GetGroup from(Group group) {
             return new GetGroup(
@@ -46,9 +49,10 @@ public class GroupResponse {
                     group.getContent(),
                     group.getMemberCount(),
                     group.getPlace().getName(),
-                    group.getMeetDate()
+                    dateToStringForGroupPreview(group.getMeetDate())
             );
         }
+
     }
 
     @Getter
@@ -60,8 +64,7 @@ public class GroupResponse {
         private String title;
         private String fileUrl;
         private String content;
-        private int CountParticipants;
-        private List<UserInfoDto> userInfoDtos;
+        private int countParticipants;
         private String meetDate;
         private String startTime;
         private String endTime;

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -73,6 +74,14 @@ public class Group extends BaseTimeEntity {
 
     public LocalDate getMeetDate() {
         return this.getDateTime().getStartDateTime().toLocalDate();
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return this.dateTime.getStartDateTime();
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return this.dateTime.getEndDateTime();
     }
 
     public int getMemberCount() {

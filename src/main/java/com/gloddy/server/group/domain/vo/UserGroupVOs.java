@@ -32,4 +32,9 @@ public class UserGroupVOs {
     public int getSize() {
         return this.userGroupVOs.size();
     }
+
+    public boolean existByUserId(Long userId) {
+        return this.userGroupVOs.stream()
+                .anyMatch(userGroupVO -> userGroupVO.getUserId().equals(userId));
+    }
 }
