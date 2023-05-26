@@ -1,7 +1,7 @@
 package com.gloddy.server.unit.praise;
 
 import com.gloddy.server.common.praise.PraiseDomainTest;
-import com.gloddy.server.estimate.entity.Praise;
+import com.gloddy.server.estimate.domain.Praise;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

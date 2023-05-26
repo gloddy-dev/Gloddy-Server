@@ -1,16 +1,16 @@
 package com.gloddy.server.estimate.api;
 
 import com.gloddy.server.core.response.ApiResponse;
-import com.gloddy.server.estimate.dto.EstimateRequest;
-import com.gloddy.server.estimate.service.EstimateService;
-import com.gloddy.server.estimate.service.GetGroupMemberForEstimateService;
+import com.gloddy.server.estimate.domain.dto.EstimateRequest;
+import com.gloddy.server.estimate.application.EstimateService;
+import com.gloddy.server.estimate.application.GetGroupMemberForEstimateService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import static com.gloddy.server.estimate.dto.EstimateResponse.*;
+import static com.gloddy.server.estimate.domain.dto.EstimateResponse.*;
 import static java.util.stream.Collectors.*;
 
 @RestController

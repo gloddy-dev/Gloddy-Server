@@ -1,13 +1,13 @@
 package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.domain.Group;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static com.gloddy.server.core.utils.DateTimeUtils.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +39,7 @@ public class GetExpectedGroupTest extends GroupApiTest {
         test.andExpect(status().isOk());
         test.andExpect(jsonPath("groups.size()").value(1));
         test.andExpect(jsonPath("groups[0].groupId").value(expectedGroup.getId()));
-        test.andExpect(jsonPath("groups[0].meetDate").value(expectedGroup.getMeetDate().toString()));
+        test.andExpect(jsonPath("groups[0].meetDate").value(dateToStringForGroupPreview(expectedGroup.getMeetDate())));
     }
 
 }

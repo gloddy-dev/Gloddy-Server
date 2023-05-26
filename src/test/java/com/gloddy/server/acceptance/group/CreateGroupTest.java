@@ -2,9 +2,9 @@ package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.group.dto.GroupRequest;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.user_group.domain.UserGroup;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -76,6 +76,6 @@ public class CreateGroupTest extends GroupApiTest {
         userGroupJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

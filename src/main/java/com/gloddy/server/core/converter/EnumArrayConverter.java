@@ -1,7 +1,7 @@
 package com.gloddy.server.core.converter;
 
 
-import com.gloddy.server.auth.entity.kind.Personality;
+import com.gloddy.server.auth.domain.vo.kind.Personality;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.persistence.AttributeConverter;

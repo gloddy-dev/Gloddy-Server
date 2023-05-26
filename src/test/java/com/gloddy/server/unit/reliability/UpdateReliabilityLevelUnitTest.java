@@ -1,6 +1,6 @@
 package com.gloddy.server.unit.reliability;
 
-import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

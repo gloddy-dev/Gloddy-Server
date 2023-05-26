@@ -1,8 +1,9 @@
 package com.gloddy.server.article.api;
 
-import com.gloddy.server.article.dto.ArticleRequest;
-import com.gloddy.server.article.service.ArticleService;
+import com.gloddy.server.article.domain.dto.ArticleRequest;
+import com.gloddy.server.article.application.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
+import com.gloddy.server.core.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.gloddy.server.article.dto.ArticleResponse.*;
+import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,13 +30,13 @@ public class ArticleController {
     }
 
     @PatchMapping("/articles/{articleId}")
-    public ResponseEntity<Update> update(
+    public ResponseEntity<Void> update(
             @PathVariable Long articleId,
             @RequestBody @Valid ArticleRequest.Update request,
             @AuthenticationPrincipal Long userId
     ) {
-        Update response = articleService.update(articleId, userId, request);
-        return ApiResponse.ok(response);
+        articleService.update(articleId, userId, request);
+        return ApiResponse.noContent();
     }
 
     @DeleteMapping("/groups/{groupId}/articles/{articleId}")
@@ -49,12 +50,12 @@ public class ArticleController {
     }
 
     @GetMapping("/groups/{groupId}/articles")
-    public ResponseEntity<GetPreview> getPreview(
+    public ResponseEntity<PageResponse<GetArticle>> getPreview(
         @PathVariable Long groupId,
         @RequestParam(required = false, defaultValue = "0") int page,
         @RequestParam(required = false, defaultValue = "10") int size
     ) {
-        GetPreview response = articleService.getPreview(groupId, page, size);
+        PageResponse<GetArticle> response = articleService.getPreview(groupId, page, size);
         return ApiResponse.ok(response);
     }
 }

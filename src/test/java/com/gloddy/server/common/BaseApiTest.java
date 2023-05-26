@@ -1,15 +1,15 @@
 package com.gloddy.server.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.auth.entity.kind.Personality;
+import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
-import com.gloddy.server.estimate.entity.Praise;
-import com.gloddy.server.estimate.repository.PraiseJpaRepository;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.repository.ReliabilityRepository;
-import com.gloddy.server.user.repository.UserRepository;
+import com.gloddy.server.estimate.domain.Praise;
+import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
+import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
+import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,7 +33,7 @@ abstract public class BaseApiTest {
     protected JwtTokenBuilder jwtTokenBuilder;
 
     @Autowired
-    protected UserRepository userRepository;
+    protected UserJpaRepository userJpaRepository;
 
     @Autowired
     protected PraiseJpaRepository praiseJpaRepository;
@@ -64,7 +64,7 @@ abstract public class BaseApiTest {
     protected User createLoginUser() {
         User mockUser = User.builder().email(testUserEmail).
                 personalities(List.of(Personality.KIND)).build();
-        return userRepository.save(mockUser);
+        return userJpaRepository.save(mockUser);
     }
 
     private Reliability createReliability(User user) {
@@ -75,7 +75,7 @@ abstract public class BaseApiTest {
     protected User createUser() {
         User user = User.builder().email(UUID.randomUUID().toString() + "@soongsil.ac.kr")
                 .personalities(List.of(Personality.KIND)).build();
-        return userRepository.save(user);
+        return userJpaRepository.save(user);
     }
 
     protected String getTokenAfterLogin(User user) {

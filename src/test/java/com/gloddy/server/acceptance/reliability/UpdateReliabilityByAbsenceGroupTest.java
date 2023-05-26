@@ -1,17 +1,17 @@
 package com.gloddy.server.acceptance.reliability;
 
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.estimate.dto.EstimateRequest;
-import com.gloddy.server.estimate.entity.embedded.PraiseValue;
-import com.gloddy.server.estimate.service.mate.MateSaveService;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
-import com.gloddy.server.group.service.UserGroupUpdateService;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.entity.vo.ScoreMinusType;
+import com.gloddy.server.estimate.domain.dto.EstimateRequest;
+import com.gloddy.server.estimate.domain.vo.PraiseValue;
+import com.gloddy.server.estimate.application.mate.MateSaveService;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.user_group.application.UserGroupUpdateService;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.reliability.domain.vo.ScoreMinusType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -81,7 +81,7 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        User receivePraiseUser = userRepository.findFirstByOrderByIdDesc();
+        User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
         Reliability reliability = reliabilityQueryHandler.findByUserId(receivePraiseUser.getId());
 
         Assertions.assertThat(reliability.getScore()).isEqualTo(INIT_SCORE - ScoreMinusType.Absence_Group.getScore());
@@ -91,6 +91,6 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

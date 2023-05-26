@@ -1,8 +1,8 @@
 package com.gloddy.server.authEmail.api;
 
-import com.gloddy.server.authEmail.dto.request.AuthEmailRequest;
-import com.gloddy.server.authEmail.dto.response.AuthEmailResponse;
-import com.gloddy.server.authEmail.service.AuthEmailService;
+import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
+import com.gloddy.server.authEmail.domain.dto.response.AuthEmailResponse;
+import com.gloddy.server.authEmail.application.AuthEmailService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.gloddy.server.core.utils.event;
 
-import com.gloddy.server.group.service.UserGroupSaveService;
+import com.gloddy.server.user_group.application.UserGroupSaveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;

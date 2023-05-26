@@ -2,10 +2,10 @@ package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.group.dto.GroupRequest;
-import com.gloddy.server.reliability.entity.Reliability;
-import com.gloddy.server.reliability.entity.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.entity.vo.ScorePlusType;
+import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.reliability.domain.vo.ScorePlusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +66,6 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
-        userRepository.deleteAll();
+        userJpaRepository.deleteAll();
     }
 }

@@ -1,7 +1,7 @@
 package com.gloddy.server.common.praise;
 
 import com.gloddy.server.UnitTest;
-import com.gloddy.server.estimate.entity.Praise;
+import com.gloddy.server.estimate.domain.Praise;
 
 public abstract class PraiseDomainTest extends UnitTest {
 

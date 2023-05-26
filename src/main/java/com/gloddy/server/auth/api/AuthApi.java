@@ -1,8 +1,8 @@
 package com.gloddy.server.auth.api;
 
-import com.gloddy.server.auth.service.AuthService;
-import com.gloddy.server.auth.dto.AuthRequest;
-import com.gloddy.server.auth.dto.AuthResponse;
+import com.gloddy.server.auth.application.AuthService;
+import com.gloddy.server.auth.domain.dto.AuthRequest;
+import com.gloddy.server.auth.domain.dto.AuthResponse;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

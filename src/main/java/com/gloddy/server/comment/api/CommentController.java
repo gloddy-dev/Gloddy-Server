@@ -1,8 +1,7 @@
 package com.gloddy.server.comment.api;
 
-import com.gloddy.server.comment.dto.CommentRequest;
-import com.gloddy.server.comment.dto.CommentResponse;
-import com.gloddy.server.comment.service.CommentService;
+import com.gloddy.server.comment.domain.dto.CommentRequest;
+import com.gloddy.server.comment.application.CommentService;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.gloddy.server.comment.dto.CommentResponse.*;
+import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/articles")
+@RequestMapping("/api/v1/groups/{groupId}/articles/{articleId}")
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{articleId}/comment")
+    @PostMapping("/comment")
     public ResponseEntity<Create> create(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @RequestBody @Valid CommentRequest.Create request,
             @AuthenticationPrincipal Long userId
     ) {
@@ -30,22 +30,24 @@ public class CommentController {
         return ApiResponse.created(response);
     }
 
-    @GetMapping("/{articleId}/comments")
+    @GetMapping("/comments")
     public ResponseEntity<GetComments> getAll(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @AuthenticationPrincipal Long userId
     ) {
         GetComments response = commentService.getComments(articleId, userId);
         return ApiResponse.ok(response);
     }
 
-    @DeleteMapping("/{articleId}/comments/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long articleId,
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("articleId") Long articleId,
             @PathVariable Long commentId,
             @AuthenticationPrincipal Long userId
     ) {
-        commentService.delete(commentId, userId, articleId);
+        commentService.delete(groupId, articleId, commentId, userId);
         return ApiResponse.noContent();
     }
 }

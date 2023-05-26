@@ -2,9 +2,9 @@ package com.gloddy.server.scrap.api;
 
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.core.response.PageResponse;
-import com.gloddy.server.group.dto.GroupResponse.GetGroup;
-import com.gloddy.server.scrap.dto.ScrapResponse.CreateScrap;
-import com.gloddy.server.scrap.service.ScrapService;
+import com.gloddy.server.group.domain.dto.GroupResponse.GetGroup;
+import com.gloddy.server.scrap.domain.dto.ScrapResponse.CreateScrap;
+import com.gloddy.server.scrap.application.ScrapService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;

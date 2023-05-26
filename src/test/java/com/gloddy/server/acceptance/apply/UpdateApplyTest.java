@@ -1,13 +1,13 @@
 package com.gloddy.server.acceptance.apply;
 
-import com.gloddy.server.apply.entity.Apply;
-import com.gloddy.server.apply.entity.vo.Status;
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.apply.domain.Apply;
+import com.gloddy.server.apply.domain.vo.Status;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.apply.ApplyApiTest;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.group.entity.Group;
-import com.gloddy.server.group.entity.UserGroup;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.user_group.domain.UserGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -109,7 +109,7 @@ public class UpdateApplyTest extends ApplyApiTest {
         @Transactional
         @Commit
         void afterEvent() {
-            User user = userRepository.findFirstByOrderByIdDesc();
+            User user = userJpaRepository.findFirstByOrderByIdDesc();
             Group group = groupJpaRepository.findFirstByOrderByIdDesc();
             UserGroup userGroup = userGroupJpaRepository.findFirstByOrderByIdDesc();
 
@@ -126,7 +126,7 @@ public class UpdateApplyTest extends ApplyApiTest {
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
             praiseJpaRepository.deleteAll();
-            userRepository.deleteAll();
+            userJpaRepository.deleteAll();
         }
     }
 

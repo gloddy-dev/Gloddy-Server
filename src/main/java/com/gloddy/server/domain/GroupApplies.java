@@ -1,8 +1,8 @@
 package com.gloddy.server.domain;
 
-import com.gloddy.server.apply.entity.Apply;
-import com.gloddy.server.auth.entity.User;
-import com.gloddy.server.group.entity.Group;
+import com.gloddy.server.apply.domain.Apply;
+import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.group.domain.Group;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

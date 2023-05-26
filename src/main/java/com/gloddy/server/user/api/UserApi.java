@@ -1,18 +1,18 @@
 package com.gloddy.server.user.api;
 
 import com.gloddy.server.core.response.ApiResponse;
-import com.gloddy.server.estimate.service.mate.MateService;
-import com.gloddy.server.estimate.service.praise.PraiseService;
-import com.gloddy.server.user.dto.UserResponse;
-import com.gloddy.server.user.service.UserService;
+import com.gloddy.server.estimate.application.mate.MateService;
+import com.gloddy.server.estimate.application.praise.PraiseService;
+import com.gloddy.server.user.domain.dto.UserResponse;
+import com.gloddy.server.user.application.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import static com.gloddy.server.estimate.dto.MateResponse.*;
-import static com.gloddy.server.estimate.dto.PraiseResponse.*;
+import static com.gloddy.server.estimate.domain.dto.MateResponse.*;
+import static com.gloddy.server.estimate.domain.dto.PraiseResponse.*;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package com.gloddy.server.core.dto;
 
-import com.gloddy.server.auth.entity.User;
+import com.gloddy.server.auth.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
