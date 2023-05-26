@@ -7,7 +7,7 @@ import com.gloddy.server.estimate.domain.dto.EstimateRequest;
 import com.gloddy.server.estimate.domain.vo.PraiseValue;
 import com.gloddy.server.estimate.application.mate.MateSaveService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.application.UserGroupUpdateService;
+import com.gloddy.server.user_group.application.UserGroupUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;

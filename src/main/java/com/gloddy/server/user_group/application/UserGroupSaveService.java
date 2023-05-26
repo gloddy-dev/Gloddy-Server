@@ -1,4 +1,4 @@
-package com.gloddy.server.group.application;
+package com.gloddy.server.user_group.application;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
