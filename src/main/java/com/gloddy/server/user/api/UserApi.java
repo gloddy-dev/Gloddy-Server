@@ -1,8 +1,8 @@
 package com.gloddy.server.user.api;
 
 import com.gloddy.server.core.response.ApiResponse;
-import com.gloddy.server.estimate.application.mate.MateService;
-import com.gloddy.server.estimate.application.praise.PraiseService;
+import com.gloddy.server.mate.application.MateService;
+import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.user.domain.dto.UserResponse;
 import com.gloddy.server.user.application.UserService;
 import io.swagger.annotations.ApiOperation;

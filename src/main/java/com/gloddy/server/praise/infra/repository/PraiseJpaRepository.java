@@ -1,6 +1,6 @@
-package com.gloddy.server.estimate.infra.repository;
+package com.gloddy.server.praise.infra.repository;
 
-import com.gloddy.server.estimate.domain.Praise;
+import com.gloddy.server.praise.domain.Praise;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

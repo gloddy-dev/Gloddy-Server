@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.application.mate;
+package com.gloddy.server.mate.application;
 
 import com.gloddy.server.estimate.domain.dto.MateResponse;
 import lombok.RequiredArgsConstructor;

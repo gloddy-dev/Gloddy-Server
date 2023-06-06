@@ -1,6 +1,6 @@
-package com.gloddy.server.estimate.domain.vo.strategy;
+package com.gloddy.server.praise.domain.service;
 
-import com.gloddy.server.estimate.domain.vo.PraiseValue;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 
 public class PraiseStrategyFactory {
 

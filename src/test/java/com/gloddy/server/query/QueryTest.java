@@ -2,7 +2,7 @@ package com.gloddy.server.query;
 
 import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
 import com.gloddy.server.comment.infra.repository.CommentJpaRepository;
-import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
+import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;

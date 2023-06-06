@@ -1,11 +1,11 @@
-package com.gloddy.server.estimate.application.praise;
+package com.gloddy.server.praise.application;
 
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
 import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.estimate.domain.Praise;
-import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
+import com.gloddy.server.praise.domain.Praise;
+import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.user_group.application.UserGroupFindService;
 import com.gloddy.server.estimate.domain.dto.PraiseDto;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import static com.gloddy.server.estimate.domain.dto.PraiseResponse.*;
-import static com.gloddy.server.estimate.domain.vo.PraiseValue.*;
+import static com.gloddy.server.praise.domain.vo.PraiseValue.*;
 import static com.gloddy.server.reliability.domain.vo.ScoreType.*;
 
 @Service

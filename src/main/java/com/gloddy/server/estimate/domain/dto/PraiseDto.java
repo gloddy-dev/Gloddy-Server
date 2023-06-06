@@ -1,6 +1,6 @@
 package com.gloddy.server.estimate.domain.dto;
 
-import com.gloddy.server.estimate.domain.vo.PraiseValue;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

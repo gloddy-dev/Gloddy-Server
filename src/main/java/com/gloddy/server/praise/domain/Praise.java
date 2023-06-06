@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.domain;
+package com.gloddy.server.praise.domain;
 
 import com.gloddy.server.auth.domain.User;
 import lombok.AccessLevel;

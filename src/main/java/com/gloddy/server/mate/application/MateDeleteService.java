@@ -1,6 +1,6 @@
-package com.gloddy.server.estimate.application.mate;
+package com.gloddy.server.mate.application;
 
-import com.gloddy.server.estimate.infra.repository.MateJpaRepository;
+import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

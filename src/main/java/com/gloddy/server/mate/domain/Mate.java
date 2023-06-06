@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.domain;
+package com.gloddy.server.mate.domain;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;

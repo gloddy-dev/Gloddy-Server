@@ -1,8 +1,8 @@
-package com.gloddy.server.estimate.application.praise;
+package com.gloddy.server.praise.application;
 
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.estimate.domain.Praise;
-import com.gloddy.server.estimate.infra.repository.PraiseJpaRepository;
+import com.gloddy.server.praise.domain.Praise;
+import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

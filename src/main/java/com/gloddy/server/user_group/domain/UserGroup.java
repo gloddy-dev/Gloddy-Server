@@ -2,9 +2,9 @@ package com.gloddy.server.user_group.domain;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.estimate.domain.vo.PraiseValue;
-import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategy;
-import com.gloddy.server.estimate.domain.vo.strategy.PraiseStrategyFactory;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.praise.domain.service.PraiseStrategy;
+import com.gloddy.server.praise.domain.service.PraiseStrategyFactory;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.vo.UserGroupVO;
 import lombok.AccessLevel;

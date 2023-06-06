@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.application.mate;
+package com.gloddy.server.mate.application;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
@@ -6,8 +6,8 @@ import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.reliability.domain.vo.ScoreType;
 import com.gloddy.server.user.application.UserFindService;
 import com.gloddy.server.estimate.domain.dto.MateDto;
-import com.gloddy.server.estimate.domain.Mate;
-import com.gloddy.server.estimate.infra.repository.MateJpaRepository;
+import com.gloddy.server.mate.domain.Mate;
+import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -2,7 +2,7 @@ package com.gloddy.server.query.group;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
-import com.gloddy.server.estimate.domain.Praise;
+import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.user_group.domain.UserGroup;
 import com.gloddy.server.query.QueryTest;

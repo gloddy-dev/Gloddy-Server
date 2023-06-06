@@ -1,6 +1,6 @@
-package com.gloddy.server.estimate.infra.repository;
+package com.gloddy.server.mate.infra.repository;
 
-import com.gloddy.server.estimate.domain.Mate;
+import com.gloddy.server.mate.domain.Mate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
