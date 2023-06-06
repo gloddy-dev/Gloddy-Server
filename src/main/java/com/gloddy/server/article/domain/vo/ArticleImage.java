@@ -1,5 +1,6 @@
-package com.gloddy.server.article.domain;
+package com.gloddy.server.article.domain.vo;
 
+import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;

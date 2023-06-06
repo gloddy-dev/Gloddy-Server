@@ -2,7 +2,7 @@ package com.gloddy.server.article.application;
 
 import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.ArticleImage;
+import com.gloddy.server.article.domain.vo.ArticleImage;
 import com.gloddy.server.article.infra.repository.ArticleImageJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
