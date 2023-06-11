@@ -2,35 +2,30 @@ package com.gloddy.server.praise.application;
 
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
-import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.praise.domain.Praise;
+import com.gloddy.server.praise.domain.handler.PraiseQueryHandler;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
-import com.gloddy.server.user_group.domain.UserGroup;
-import com.gloddy.server.user_group.application.UserGroupFindService;
-import com.gloddy.server.estimate.domain.dto.PraiseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import static com.gloddy.server.estimate.domain.dto.PraiseResponse.*;
-import static com.gloddy.server.praise.domain.vo.PraiseValue.*;
-import static com.gloddy.server.reliability.domain.vo.ScoreType.*;
+import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
 
 @Service
 @RequiredArgsConstructor
 public class PraiseService {
 
-    private final UserGroupFindService userGroupFindService;
     private final PraiseJpaRepository praiseJpaRepository;
-    private final ReliabilityEventPublisher reliabilityEventPublisher;
+    private final PraiseQueryHandler praiseQueryHandler;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
-    public void praise(PraiseDto praiseDto, Long groupId) {
-        UserGroup findUserGroup = userGroupFindService.findByUserIdAndGroupId(praiseDto.getUserId(), groupId);
-        findUserGroup.receivePraise(praiseDto.getPraiseValue());
-        praiseEventPublish(findUserGroup, praiseDto);
+    public void updatePraisePoint(Long userId, PraiseValue praiseValue) {
+        Praise praise = praiseQueryHandler.findByUserId(userId);
+        praise.plusCount(praiseValue, eventPublisher);
     }
 
     @Transactional(readOnly = true)
@@ -45,16 +40,5 @@ public class PraiseService {
                 praise.getTotalHumorCount(),
                 praise.getTotalAbsenceCount()
         );
-    }
-
-    private void praiseEventPublish(UserGroup userGroup, PraiseDto praiseDto) {
-        if (ABSENCE.equals(praiseDto.getPraiseValue())) {
-            if (!(userGroup.isAlreadyAbsenceVoteCountOver())) {
-                reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(praiseDto.getUserId(), Absence_Group));
-                return;
-            }
-            return;
-        }
-        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(praiseDto.getUserId(), Praised));
     }
 }

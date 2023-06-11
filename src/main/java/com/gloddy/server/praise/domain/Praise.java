@@ -1,9 +1,12 @@
 package com.gloddy.server.praise.domain;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.core.event.praise.PraiseCountUpdateEvent;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
 
@@ -50,6 +53,25 @@ public class Praise {
         this.totalAbsenceCount = INIT;
         this.user = user;
         user.setPraise(this);
+    }
+
+    public void plusCount(PraiseValue praiseValue, ApplicationEventPublisher eventPublisher) {
+        if (praiseValue.isHumor()) {
+            plusHumorCount();
+            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+        } else if (praiseValue.isActive()) {
+            plusActiveCount();
+            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+        } else if (praiseValue.isCalm()) {
+            plusCalmCount();
+            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+        } else if (praiseValue.isKind()) {
+            plusKindCount();
+            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+        } else {
+            plusAbsenceCount();
+            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), true));
+        }
     }
 
     public void plusCalmCount() {
