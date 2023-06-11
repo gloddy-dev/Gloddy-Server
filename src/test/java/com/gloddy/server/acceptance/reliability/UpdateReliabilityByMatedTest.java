@@ -3,11 +3,10 @@ package com.gloddy.server.acceptance.reliability;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.estimate.domain.dto.EstimateRequest;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.user_group.application.UserGroupUpdateService;
+import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;
@@ -25,6 +24,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,7 +35,7 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     private PraiseService praiseService;
 
     @MockBean
-    private UserGroupUpdateService userGroupUpdateService;
+    private GroupMemberUpdateService groupMemberUpdateService;
 
     @Autowired
     private ApplicationEvents events;
@@ -49,11 +49,13 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
         User estimateUser = user;
         User receiveMateUser = createUser();
         createReliability(receiveMateUser);
-        EstimateRequest request = createEstimateRequest(receiveMateUser, PraiseValue.KIND);
+        Estimate request = createEstimateRequest(receiveMateUser, PraiseValue.KIND);
         Group group = createGroup();
+        createGroupMember(estimateUser, group);
+        createGroupMember(receiveMateUser, group);
 
         // when
-        String url = "/api/v1/groups/" + group.getId() + "/estimate";
+        String url = "/api/v1/groups/" + group.getId() + "/group_members" + "/estimate";
         ResultActions result = mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("X-AUTH-TOKEN", accessToken)
@@ -76,7 +78,7 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Mated.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        userGroupJpaRepository.deleteAll();
+        groupMemberJpaRepository.deleteAll();
         mateJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();

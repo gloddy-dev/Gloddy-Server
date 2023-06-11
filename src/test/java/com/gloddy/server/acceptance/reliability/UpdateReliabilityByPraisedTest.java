@@ -2,12 +2,13 @@ package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
+import com.gloddy.server.core.event.group_member.GroupMemberReceivePraiseEvent;
+import com.gloddy.server.core.event.praise.PraiseCountUpdateEvent;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.estimate.domain.dto.EstimateRequest;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.user_group.application.UserGroupUpdateService;
+import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;
@@ -25,6 +26,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
+
 
 @RecordApplicationEvents
 public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
@@ -33,7 +36,7 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
     private MateSaveService mateSaveService;
 
     @MockBean
-    private UserGroupUpdateService userGroupUpdateService;
+    private GroupMemberUpdateService groupMemberUpdateService;
 
     @Autowired
     private ApplicationEvents events;
@@ -49,12 +52,13 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
         createPraise(receivePraiseUser);
         createReliability(receivePraiseUser);
         Group group = createGroup();
-        createUserGroup(receivePraiseUser, group);
-        EstimateRequest request = createEstimateRequest(receivePraiseUser, PraiseValue.KIND);
+        createGroupMember(loginUser, group);
+        createGroupMember(receivePraiseUser, group);
+        Estimate request = createEstimateRequest(receivePraiseUser, PraiseValue.KIND);
 
 
         // when
-        String url = "/api/v1/groups/" + group.getId() + "/estimate";
+        String url = "/api/v1/groups/" + group.getId() + "/group_members" + "/estimate";
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("X-AUTH-TOKEN", accessToken)
@@ -62,8 +66,11 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
         );
 
         // then
-        long eventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
-        Assertions.assertThat(eventCount).isEqualTo(2);
+        long groupMemberReceivePraiseEventCount = events.stream(GroupMemberReceivePraiseEvent.class).count();
+        long reliabilityScoreUpdateEventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
+        Assertions.assertThat(groupMemberReceivePraiseEventCount).isEqualTo(1);
+        // 평가 참여로 인한 신뢰도 업데이트 이벤트
+        Assertions.assertThat(reliabilityScoreUpdateEventCount).isEqualTo(1);
     }
 
     @AfterTransaction
@@ -73,10 +80,14 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
         User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
         Reliability reliability = reliabilityQueryHandler.findByUserId(receivePraiseUser.getId());
 
+        long praiseCountUpdateEventCount = events.stream(PraiseCountUpdateEvent.class).count();
+        // 칭찬 데이터 덥데이트로 인한 이벤트
+        Assertions.assertThat(praiseCountUpdateEventCount).isEqualTo(1);
+
         Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Praised.getScore());
         Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        userGroupJpaRepository.deleteAll();
+        groupMemberJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();

@@ -6,7 +6,7 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
-import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class ApplyApiTest extends BaseApiTest {
@@ -18,7 +18,7 @@ public abstract class ApplyApiTest extends BaseApiTest {
     protected ApplyJpaRepository applyJpaRepository;
 
     @Autowired
-    protected UserGroupJpaRepository userGroupJpaRepository;
+    protected GroupMemberJpaRepository groupMemberJpaRepository;
 
     protected Group createMyGroup() {
         Group group = Group.builder().captain(user).build();

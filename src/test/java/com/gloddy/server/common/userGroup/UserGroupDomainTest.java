@@ -4,7 +4,7 @@ import com.gloddy.server.UnitTest;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group_member.domain.GroupMember;
 
 public abstract class UserGroupDomainTest extends UnitTest {
 
@@ -14,9 +14,9 @@ public abstract class UserGroupDomainTest extends UnitTest {
         return praise;
     }
 
-    protected UserGroup getInitUserGroup(User user, Group group) {
-        UserGroup userGroup = UserGroup.empty();
-        userGroup.init(user, group);
-        return userGroup;
+    protected GroupMember getInitUserGroup(User user, Group group) {
+        GroupMember groupMember = GroupMember.empty();
+        groupMember.init(user, group);
+        return groupMember;
     }
 }
