@@ -1,6 +1,7 @@
 package com.gloddy.server.reliability.event.consumer;
 
 import com.gloddy.server.core.event.GroupParticipateEvent;
+import com.gloddy.server.group.event.GroupCreateEvent;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.mate.event.MateCreateEvent;
 import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
@@ -36,7 +37,7 @@ public class ReliabilityEventConsumer {
     }
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-    public void consume(GroupParticipateEvent event) {
+    public void consume(GroupCreateEvent event) {
         reliabilityService.update(event.getUserId(), ScoreType.Created_Group);
     }
 

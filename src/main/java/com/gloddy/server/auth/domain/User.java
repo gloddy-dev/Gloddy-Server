@@ -6,6 +6,7 @@ import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
+import com.gloddy.server.group.event.GroupCreateEvent;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
@@ -113,6 +114,7 @@ public class User extends BaseTimeEntity {
                            GroupCommandHandler groupCommandHandler, GroupRequest.Create groupInfo) {
         Group group = groupCommandHandler.save(groupFactory.getGroupFrom(this, groupInfo));
 
+        eventPublisher.publishEvent(new GroupCreateEvent(this.getId()));
         eventPublisher.publishEvent(new GroupParticipateEvent(this.getId(), group.getId()));
         return group;
     }
