@@ -2,11 +2,9 @@ package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
-import com.gloddy.server.core.event.group_member.GroupMemberReceivePraiseEvent;
-import com.gloddy.server.core.event.group_member.GroupMemberSelectBestMateEvent;
-import com.gloddy.server.core.event.praise.PraiseCountUpdateEvent;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
+import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
+import com.gloddy.server.group_member.event.GroupMemberReceivePraiseEvent;
+import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.group.domain.Group;
@@ -77,10 +75,9 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
 
         // when
         long groupMemberReceivePraiseEventCount = events.stream(GroupMemberReceivePraiseEvent.class).count();
-        long reliabilityScoreUpdateEventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
+        long groupMemberEstimateCompleteEventCount = events.stream(GroupMemberEstimateCompleteEvent.class).count();
         Assertions.assertThat(groupMemberReceivePraiseEventCount).isEqualTo(1);
-        // 평가 참여로 인한 신뢰도 업데이트 이벤트
-        Assertions.assertThat(reliabilityScoreUpdateEventCount).isEqualTo(1);
+        Assertions.assertThat(groupMemberEstimateCompleteEventCount).isEqualTo(1);
     }
 
     @AfterTransaction

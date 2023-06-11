@@ -2,14 +2,13 @@ package com.gloddy.server.group_member.domain;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.core.event.group_member.GroupMemberSelectBestMateEvent;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
+import com.gloddy.server.group_member.event.GroupMemberSelectBestMateEvent;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.group_member.domain.service.GroupMemberPraisePolicy;
 import com.gloddy.server.group_member.domain.service.GroupMemberPraiser;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
-import com.gloddy.server.reliability.domain.vo.ScoreType;
 import lombok.*;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -73,7 +72,7 @@ public class GroupMember {
                                      GroupMemberPraiser groupMemberPraiser, ApplicationEventPublisher eventPublisher) {
         praiseGroupMembers(estimateInfo.getPraiseInfos(), groupMemberPraisePolicy, groupMemberPraiser);
         selectBestMate(estimateInfo.getMateInfo(), eventPublisher);
-        eventPublisher.publishEvent(new ReliabilityScoreUpdateEvent(this.getUser().getId(), ScoreType.Estimated));
+        eventPublisher.publishEvent(new GroupMemberEstimateCompleteEvent(this.getUser().getId()));
     }
 
     private void praiseGroupMembers(List<PraiseInfo> praiseInfos, GroupMemberPraisePolicy groupMemberPraisePolicy,

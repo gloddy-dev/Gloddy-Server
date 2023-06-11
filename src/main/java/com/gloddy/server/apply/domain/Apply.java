@@ -3,7 +3,7 @@ package com.gloddy.server.apply.domain;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
-import com.gloddy.server.core.utils.event.GroupParticipateEvent;
+import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -2,7 +2,8 @@ package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
+import com.gloddy.server.mate.event.MateCreateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.group.domain.Group;
@@ -64,8 +65,10 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
 
         // then
         result.andExpect(status().isNoContent());
-        long eventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
-        Assertions.assertThat(eventCount).isEqualTo(2);
+        long mateCreateEventCount = events.stream(MateCreateEvent.class).count();
+        long groupMemberEstimateCompleteEvent = events.stream(GroupMemberEstimateCompleteEvent.class).count();
+        Assertions.assertThat(mateCreateEventCount).isEqualTo(1);
+        Assertions.assertThat(groupMemberEstimateCompleteEvent).isEqualTo(1);
     }
 
     @AfterTransaction

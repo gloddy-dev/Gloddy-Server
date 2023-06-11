@@ -1,7 +1,7 @@
 package com.gloddy.server.praise.domain;
 
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.core.event.praise.PraiseCountUpdateEvent;
+import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import lombok.AccessLevel;
 import lombok.Getter;
