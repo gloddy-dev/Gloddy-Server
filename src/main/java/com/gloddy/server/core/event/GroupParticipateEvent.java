@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class GroupParticipateEvent {
+public class GroupParticipateEvent implements Event {
     private Long userId;
     private Long groupId;
 }

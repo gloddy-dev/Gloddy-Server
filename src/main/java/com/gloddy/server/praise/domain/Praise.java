@@ -3,10 +3,10 @@ package com.gloddy.server.praise.domain;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.praise.event.producer.PraiseEventProducer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
 
@@ -55,22 +55,22 @@ public class Praise {
         user.setPraise(this);
     }
 
-    public void plusCount(PraiseValue praiseValue, ApplicationEventPublisher eventPublisher) {
+    public void plusCount(PraiseValue praiseValue, PraiseEventProducer praiseEventProducer) {
         if (praiseValue.isHumor()) {
             plusHumorCount();
-            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
         } else if (praiseValue.isActive()) {
             plusActiveCount();
-            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
         } else if (praiseValue.isCalm()) {
             plusCalmCount();
-            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
         } else if (praiseValue.isKind()) {
             plusKindCount();
-            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
         } else {
             plusAbsenceCount();
-            eventPublisher.publishEvent(new PraiseCountUpdateEvent(this.user.getId(), true));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), true));
         }
     }
 

@@ -7,6 +7,7 @@ import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.event.GroupCreateEvent;
+import com.gloddy.server.group.event.producer.GroupEventProducer;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
@@ -18,7 +19,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
-import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -110,12 +110,12 @@ public class User extends BaseTimeEntity {
         this.praise = praise;
     }
 
-    public Group saveGroup(GroupFactory groupFactory, ApplicationEventPublisher eventPublisher,
+    public Group saveGroup(GroupFactory groupFactory, GroupEventProducer groupEventProducer,
                            GroupCommandHandler groupCommandHandler, GroupRequest.Create groupInfo) {
         Group group = groupCommandHandler.save(groupFactory.getGroupFrom(this, groupInfo));
 
-        eventPublisher.publishEvent(new GroupCreateEvent(this.getId()));
-        eventPublisher.publishEvent(new GroupParticipateEvent(this.getId(), group.getId()));
+        groupEventProducer.produceEvent(new GroupCreateEvent(this.getId()));
+        groupEventProducer.produceEvent(new GroupParticipateEvent(this.getId(), group.getId()));
         return group;
     }
 }

@@ -3,6 +3,7 @@ package com.gloddy.server.auth.application;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
+import com.gloddy.server.user.event.producer.UserEventProducer;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.auth.domain.dto.AuthRequest;
 import com.gloddy.server.auth.domain.dto.AuthResponse;
@@ -10,7 +11,6 @@ import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import com.gloddy.server.user.event.UserCreateEvent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +24,7 @@ public class AuthService {
 
     private final UserJpaRepository userJpaRepository;
     private final JwtTokenBuilder jwtTokenBuilder;
-    private final ApplicationEventPublisher applicationEventPublisher;
+    private final UserEventProducer userEventProducer;
 
     @Transactional
     public AuthResponse.SignUp signUp(AuthRequest.SignUp req) {
@@ -41,7 +41,7 @@ public class AuthService {
                 .personalities(personalities)
                 .build();
 
-        applicationEventPublisher.publishEvent(new UserCreateEvent(created));
+        userEventProducer.produceEvent(new UserCreateEvent(created));
 
         User user = userJpaRepository.save(created);
 

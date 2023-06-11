@@ -5,9 +5,9 @@ import com.gloddy.server.core.error.handler.exception.PraiseBusinessException;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.praise.domain.handler.PraiseQueryHandler;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.praise.event.producer.PraiseEventProducer;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +20,12 @@ public class PraiseService {
 
     private final PraiseJpaRepository praiseJpaRepository;
     private final PraiseQueryHandler praiseQueryHandler;
-    private final ApplicationEventPublisher eventPublisher;
+    private final PraiseEventProducer praiseEventProducer;
 
     @Transactional
     public void updatePraisePoint(Long userId, PraiseValue praiseValue) {
         Praise praise = praiseQueryHandler.findByUserId(userId);
-        praise.plusCount(praiseValue, eventPublisher);
+        praise.plusCount(praiseValue, praiseEventProducer);
     }
 
     @Transactional(readOnly = true)
