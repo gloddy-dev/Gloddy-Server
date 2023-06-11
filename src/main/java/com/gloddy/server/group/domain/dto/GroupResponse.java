@@ -1,9 +1,7 @@
 package com.gloddy.server.group.domain.dto;
 
-import com.gloddy.server.core.dto.UserInfoDto;
-import com.gloddy.server.core.utils.DateTimeUtils;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group_member.domain.GroupMember;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -87,16 +85,16 @@ public class GroupResponse {
         private LocalDate meetDate;
         private boolean isPraised;
 
-        public static GetParticipatedGroup from(UserGroup userGroup) {
+        public static GetParticipatedGroup from(GroupMember groupMember) {
             return new GetParticipatedGroup(
-                    userGroup.getGroup().getId(),
-                    userGroup.getGroup().getFileUrl(),
-                    userGroup.getGroup().getTitle(),
-                    userGroup.getGroup().getContent(),
-                    userGroup.getGroup().getMemberCount(),
-                    userGroup.getGroup().getPlace().getName(),
-                    userGroup.getGroup().getMeetDate(),
-                    userGroup.isPraised()
+                    groupMember.getGroup().getId(),
+                    groupMember.getGroup().getFileUrl(),
+                    groupMember.getGroup().getTitle(),
+                    groupMember.getGroup().getContent(),
+                    groupMember.getGroup().getMemberCount(),
+                    groupMember.getGroup().getPlace().getName(),
+                    groupMember.getGroup().getMeetDate(),
+                    groupMember.isPraised()
             );
         }
     }

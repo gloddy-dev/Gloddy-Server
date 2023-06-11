@@ -7,7 +7,7 @@ import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
 import com.gloddy.server.core.utils.event.GroupParticipateEvent;
-import com.gloddy.server.estimate.domain.Praise;
+import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;

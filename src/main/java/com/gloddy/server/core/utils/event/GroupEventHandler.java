@@ -1,6 +1,6 @@
 package com.gloddy.server.core.utils.event;
 
-import com.gloddy.server.user_group.application.UserGroupSaveService;
+import com.gloddy.server.group_member.application.GroupMemberSaveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +10,11 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 @RequiredArgsConstructor
 public class GroupEventHandler {
-    private final UserGroupSaveService userGroupSaveService;
+    private final GroupMemberSaveService groupMemberSaveService;
 
     @Transactional
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void groupParticipateListener(GroupParticipateEvent event) {
-        userGroupSaveService.saveUserGroup(event.getUserId(), event.getGroupId());
+        groupMemberSaveService.saveUserGroup(event.getUserId(), event.getGroupId());
     }
 }

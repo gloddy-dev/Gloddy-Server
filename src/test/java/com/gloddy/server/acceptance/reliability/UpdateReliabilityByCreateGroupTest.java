@@ -62,7 +62,7 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
         assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        userGroupJpaRepository.deleteAll();
+        groupMemberJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();

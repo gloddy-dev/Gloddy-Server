@@ -2,17 +2,14 @@ package com.gloddy.server.common.reliability;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.BaseApiTest;
-import com.gloddy.server.estimate.domain.dto.EstimateRequest;
-import com.gloddy.server.estimate.domain.dto.MateDto;
-import com.gloddy.server.estimate.domain.dto.PraiseDto;
-import com.gloddy.server.estimate.domain.vo.PraiseValue;
-import com.gloddy.server.estimate.infra.repository.MateJpaRepository;
+import com.gloddy.server.group.domain.vo.GroupMemberVO;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.vo.UserGroupVO;
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
-import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
@@ -20,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
+import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estimate.*;
 
 public abstract class ReliabilityApiTest extends BaseApiTest {
 
@@ -33,7 +33,7 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
     protected GroupJpaRepository groupJpaRepository;
 
     @Autowired
-    protected UserGroupJpaRepository userGroupJpaRepository;
+    protected GroupMemberJpaRepository groupMemberJpaRepository;
 
     @Autowired
     protected MateJpaRepository mateJpaRepository;
@@ -44,12 +44,12 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
         return groupJpaRepository.save(group);
     }
 
-    protected UserGroup createUserGroup(User user, Group group) {
-        UserGroup userGroup = UserGroup.empty();
-        userGroup.init(user, group);
-        UserGroupVO userGroupVO = userGroup.createUserGroupVO();
-        group.addUserGroupVOs(userGroupVO);
-        return userGroupJpaRepository.save(userGroup);
+    protected GroupMember createGroupMember(User user, Group group) {
+        GroupMember groupMember = GroupMember.empty();
+        groupMember.init(user, group);
+        GroupMemberVO groupMemberVO = groupMember.createUserGroupVO();
+        group.addUserGroupVOs(groupMemberVO);
+        return groupMemberJpaRepository.save(groupMember);
     }
 
     protected Reliability createReliability(User user) {
@@ -73,11 +73,11 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
         );
     }
 
-    protected EstimateRequest createEstimateRequest(User user, PraiseValue praiseValue) {
-        PraiseDto praiseDto = new PraiseDto(user.getId(), praiseValue);
-        MateDto mateDto = new MateDto(user.getId(), "test");
+    protected Estimate createEstimateRequest(User user, PraiseValue praiseValue) {
+        PraiseInfo praiseDto = new PraiseInfo(user.getId(), praiseValue);
+        MateInfo mateDto = new MateInfo(user.getId(), "test");
 
-        return new EstimateRequest(
+        return new Estimate(
                 List.of(praiseDto),
                 mateDto
         );

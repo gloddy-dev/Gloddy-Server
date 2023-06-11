@@ -8,6 +8,7 @@ import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class ReliabilityService {
 
     private final ReliabilityQueryHandler reliabilityQueryHandler;
 
+    @Transactional
     public void update(Long userId, ScoreType type) {
         Reliability reliability = reliabilityQueryHandler.findByUserId(userId);
         Long score = updateScore(reliability.getScore(), type);

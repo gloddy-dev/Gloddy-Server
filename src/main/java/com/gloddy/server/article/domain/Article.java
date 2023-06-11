@@ -1,5 +1,6 @@
 package com.gloddy.server.article.domain;
 
+import com.gloddy.server.article.domain.vo.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;

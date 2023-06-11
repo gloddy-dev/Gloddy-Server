@@ -1,7 +1,7 @@
 package com.gloddy.server.article.infra.repository;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.ArticleImage;
+import com.gloddy.server.article.domain.vo.ArticleImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
