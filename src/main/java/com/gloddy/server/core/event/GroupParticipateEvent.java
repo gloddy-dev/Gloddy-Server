@@ -1,4 +1,4 @@
-package com.gloddy.server.core.utils.event;
+package com.gloddy.server.core.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

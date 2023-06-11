@@ -1,4 +1,4 @@
-package com.gloddy.server.core.event.group_member;
+package com.gloddy.server.group_member.event;
 
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import lombok.AccessLevel;

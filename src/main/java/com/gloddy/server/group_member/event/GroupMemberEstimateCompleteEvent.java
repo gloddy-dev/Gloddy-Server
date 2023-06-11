@@ -1,4 +1,4 @@
-package com.gloddy.server.praise.event;
+package com.gloddy.server.group_member.event;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PraiseCountUpdateEvent {
+public class GroupMemberEstimateCompleteEvent {
     private Long userId;
-    private boolean isAbsenceCountUpdate;
 }

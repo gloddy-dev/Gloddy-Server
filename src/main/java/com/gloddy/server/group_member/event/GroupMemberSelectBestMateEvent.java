@@ -1,4 +1,4 @@
-package com.gloddy.server.core.event.group_member;
+package com.gloddy.server.group_member.event;
 
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import lombok.AccessLevel;
