@@ -1,6 +1,6 @@
 package com.gloddy.server.mate.application;
 
-import com.gloddy.server.estimate.domain.dto.MateResponse;
+import com.gloddy.server.mate.domain.dto.MateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

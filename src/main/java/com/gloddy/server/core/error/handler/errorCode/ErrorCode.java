@@ -39,6 +39,7 @@ public enum ErrorCode {
     GROUP_NOT_FOUND(404, "존재하지 않는 그룹입니다."),
     GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
     APPLY_NOT_FOUND(404, "존재하지 않는 지원서입니다."),
+    NO_TOTAL_GROUP_MEMBER_PRAISE(400, "모든 그룹 참여자에 대해 칭찬 하지 않았습니다"),
     ;
 
     private int status;

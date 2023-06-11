@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class GroupChecker {
 
     public boolean isMyGroup(User user, Group group) {
-        return group.getUserGroupVOs().existByUserId(user.getId());
+        return group.getGroupMemberVOs().existByUserId(user.getId());
     }
 
     public boolean isGroupCaptain(User user, Group group) {

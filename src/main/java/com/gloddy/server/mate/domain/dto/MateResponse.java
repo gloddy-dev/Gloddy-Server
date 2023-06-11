@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.domain.dto;
+package com.gloddy.server.mate.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

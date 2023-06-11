@@ -7,8 +7,8 @@ import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
 import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
 import com.gloddy.server.comment.domain.service.CommentDeletePolicy;
 import com.gloddy.server.comment.domain.service.CommentDtoMapper;
-import com.gloddy.server.user_group.domain.UserGroup;
-import com.gloddy.server.user_group.domain.handler.UserGroupQueryHandler;
+import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
 import com.gloddy.server.comment.domain.Comment;
@@ -28,7 +28,7 @@ public class CommentService {
     private final CommentQueryHandler commentQueryHandler;
     private final UserQueryHandler userQueryHandler;
     private final ArticleQueryHandler articleQueryHandler;
-    private final UserGroupQueryHandler userGroupQueryHandler;
+    private final GroupMemberQueryHandler groupMemberQueryHandler;
     private final CommentDeletePolicy commentDeletePolicy;
 
     @Transactional
@@ -44,10 +44,10 @@ public class CommentService {
 
     @Transactional
     public void delete(Long groupId, Long articleId, Long commentId, Long userId) {
-        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
+        GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
         Comment comment = commentQueryHandler.findById(commentId);
 
-        commentDeletePolicy.validate(userGroup, comment);
+        commentDeletePolicy.validate(groupMember, comment);
         commentCommandHandler.delete(comment);
     }
 

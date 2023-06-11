@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "user_group_vo")
-public class UserGroupVO {
+@Table(name = "group_member_vo")
+public class GroupMemberVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +20,7 @@ public class UserGroupVO {
     private Long userId;
 
     @Builder
-    public UserGroupVO(Long userId) {
+    public GroupMemberVO(Long userId) {
         this.userId = userId;
     }
 }

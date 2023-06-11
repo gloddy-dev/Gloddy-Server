@@ -10,9 +10,9 @@ import com.gloddy.server.article.domain.service.ArticleDtoMapper;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
-import com.gloddy.server.user_group.domain.handler.UserGroupQueryHandler;
+import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.Group;
@@ -32,20 +32,20 @@ public class ArticleService {
     private final ArticleCommandHandler articleCommandHandler;
     private final UserQueryHandler userQueryHandler;
     private final GroupQueryHandler groupQueryHandler;
-    private final UserGroupQueryHandler userGroupQueryHandler;
+    private final GroupMemberQueryHandler groupMemberQueryHandler;
     private final NoticeArticleCreatePolicy noticeArticleCreatePolicy;
     private final ArticleUpdatePolicy articleUpdatePolicy;
     private final ArticleDeletePolicy articleDeletePolicy;
 
     @Transactional
     public ArticleResponse.Create create(Long groupId, Long userId, ArticleRequest.Create request) {
-        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
+        GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
 
         if (request.isNotice()) {
-            noticeArticleCreatePolicy.validate(userGroup);
+            noticeArticleCreatePolicy.validate(groupMember);
         }
 
-        Article article = userGroup.createArticle(request.getContent(), request.isNotice());
+        Article article = groupMember.createArticle(request.getContent(), request.isNotice());
 
         articleCommandHandler.save(article);
         if (!request.getImages().isEmpty()) {
@@ -68,10 +68,10 @@ public class ArticleService {
 
     @Transactional
     public void delete(Long groupId, Long articleId, Long userId) {
-        UserGroup userGroup = userGroupQueryHandler.findByUserIdAndGroupId(userId, groupId);
+        GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
         Article article = articleQueryHandler.findById(articleId);
 
-        articleDeletePolicy.validate(article, userGroup);
+        articleDeletePolicy.validate(article, groupMember);
 
         articleCommandHandler.delete(article);
     }

@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Embeddable
-public class UserGroupVOs {
+public class GroupMemberVOs {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
@@ -19,22 +19,22 @@ public class UserGroupVOs {
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_user_group_vo_to_group")
     )
-    private List<UserGroupVO> userGroupVOs = new ArrayList<>();
+    private List<GroupMemberVO> groupMemberVOS = new ArrayList<>();
 
-    public static UserGroupVOs empty() {
-        return new UserGroupVOs();
+    public static GroupMemberVOs empty() {
+        return new GroupMemberVOs();
     }
 
-    public void addUserGroupVo(UserGroupVO userGroupVO) {
-        this.userGroupVOs.add(userGroupVO);
+    public void addUserGroupVo(GroupMemberVO groupMemberVO) {
+        this.groupMemberVOS.add(groupMemberVO);
     }
 
     public int getSize() {
-        return this.userGroupVOs.size();
+        return this.groupMemberVOS.size();
     }
 
     public boolean existByUserId(Long userId) {
-        return this.userGroupVOs.stream()
+        return this.groupMemberVOS.stream()
                 .anyMatch(userGroupVO -> userGroupVO.getUserId().equals(userId));
     }
 }

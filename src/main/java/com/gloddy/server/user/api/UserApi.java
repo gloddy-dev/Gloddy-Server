@@ -11,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import static com.gloddy.server.estimate.domain.dto.MateResponse.*;
-import static com.gloddy.server.estimate.domain.dto.PraiseResponse.*;
+import static com.gloddy.server.mate.domain.dto.MateResponse.*;
+import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
 
 @RestController
 @RequiredArgsConstructor

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gloddy.server.estimate.domain.dto.MateResponse.*;
+import static com.gloddy.server.mate.domain.dto.MateResponse.*;
 
 @Service
 @Transactional(readOnly = true)
