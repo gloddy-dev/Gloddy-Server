@@ -1,9 +1,9 @@
-package com.gloddy.server.user_group.infra.repository.impl;
+package com.gloddy.server.group_member.infra.repository.impl;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.user_group.domain.UserGroup;
-import com.gloddy.server.user_group.infra.repository.custom.UserGroupJpaRepositoryCustom;
+import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.group_member.infra.repository.custom.GroupMemberJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,32 +16,32 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.gloddy.server.auth.domain.QUser.*;
-import static com.gloddy.server.estimate.domain.QPraise.*;
 import static com.gloddy.server.group.domain.QGroup.group;
+import static com.gloddy.server.group_member.domain.QGroupMember.*;
+import static com.gloddy.server.praise.domain.QPraise.praise;
 import static com.gloddy.server.reliability.domain.QReliability.*;
-import static com.gloddy.server.user_group.domain.QUserGroup.userGroup;
 
 @Repository
 @RequiredArgsConstructor
-public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom {
+public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCustom {
 
     private final JPAQueryFactory query;
 
     @Override
     public List<Group> findExpectedGroupsByUser(User user) {
         return query.select(group)
-                .from(userGroup)
-                .join(userGroup.group, group)
+                .from(groupMember)
+                .join(groupMember.group, group)
                 .where(userEq(user), startTimeAfter(LocalDateTime.now()))
                 .orderBy(group.dateTime.startDateTime.desc())
                 .fetch();
     }
 
     @Override
-    public Page<UserGroup> findParticipatedGroupsByUser(User user, Pageable pageable) {
-        List<UserGroup> groups = query.select(userGroup)
-                .from(userGroup)
-                .join(userGroup.group, group)
+    public Page<GroupMember> findParticipatedGroupsByUser(User user, Pageable pageable) {
+        List<GroupMember> groups = query.select(groupMember)
+                .from(groupMember)
+                .join(groupMember.group, group)
                 .where(userEq(user), startTimeBefore(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -49,8 +49,8 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
                 .fetch();
 
         Long total = query.select(group.count())
-                .from(userGroup)
-                .join(userGroup.group, group)
+                .from(groupMember)
+                .join(groupMember.group, group)
                 .where(userEq(user), startTimeBefore(LocalDateTime.now()))
                 .fetchOne();
 
@@ -58,10 +58,10 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
     }
 
     @Override
-    public List<UserGroup> findUserGroupsToPraiseByUserIdInAndGroupId(List<Long> userIds, Long groupId) {
-        return query.selectFrom(userGroup)
-                .join(userGroup.user, user).fetchJoin()
-                .join(userGroup.group, group).fetchJoin()
+    public List<GroupMember> findUserGroupsToPraiseByUserIdInAndGroupId(List<Long> userIds, Long groupId) {
+        return query.selectFrom(groupMember)
+                .join(groupMember.user, user).fetchJoin()
+                .join(groupMember.group, group).fetchJoin()
                 .join(user.praise, praise).fetchJoin()
                 .join(user.reliability, reliability).fetchJoin()
                 .where(userIdIn(userIds), groupIdEq(groupId))
@@ -69,22 +69,22 @@ public class UserGroupJpaRepositoryImpl implements UserGroupJpaRepositoryCustom 
     }
 
     private BooleanExpression userEq(User user) {
-        return userGroup.user.eq(user);
+        return groupMember.user.eq(user);
     }
 
     private BooleanExpression startTimeAfter(LocalDateTime limit) {
-        return userGroup.group.dateTime.startDateTime.after(limit);
+        return groupMember.group.dateTime.startDateTime.after(limit);
     }
 
     private BooleanExpression startTimeBefore(LocalDateTime limit) {
-        return userGroup.group.dateTime.startDateTime.before(limit);
+        return groupMember.group.dateTime.startDateTime.before(limit);
     }
 
     private BooleanExpression userIdIn(List<Long> userIds) {
-        return userGroup.user.id.in(userIds);
+        return groupMember.user.id.in(userIds);
     }
 
     private BooleanExpression groupIdEq(Long groupId) {
-        return userGroup.group.id.eq(groupId);
+        return groupMember.group.id.eq(groupId);
     }
 }

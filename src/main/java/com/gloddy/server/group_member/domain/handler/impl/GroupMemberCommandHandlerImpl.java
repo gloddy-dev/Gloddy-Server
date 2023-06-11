@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class GroupMemberMemberCommandHandlerImpl implements GroupMemberCommandHandler {
+public class GroupMemberCommandHandlerImpl implements GroupMemberCommandHandler {
     private final GroupMemberJpaRepository userGroupJpaRepository;
 
 

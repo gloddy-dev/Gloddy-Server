@@ -1,4 +1,4 @@
-package com.gloddy.server.praise.domain.service;
+package com.gloddy.server.group_member.domain.service.strategy.praise;
 
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 

@@ -2,6 +2,7 @@ package com.gloddy.server.group_member.domain.service;
 
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
+import com.gloddy.server.group_member.exception.InvalidRequestGroupMemberPraiseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,26 +18,30 @@ public class GroupMemberPraisePolicy {
     private final GroupMemberQueryHandler groupMemberQueryHandler;
 
     public void validate(Long groupId, Long estimatorUserId, List<PraiseInfo> praiseInfos) {
-        List<GroupMember> allMembersInGroup = groupMemberQueryHandler.findAllByGroupId(groupId);
 
-        List<Long> allUserIdsFromPraiseInfos = getAllUserIds(praiseInfos);
-        List<Long> allUserIds = merge(estimatorUserId, allUserIdsFromPraiseInfos);
+        List<GroupMember> allGroupMembers = groupMemberQueryHandler.findAllByGroupId(groupId);
 
-        List<GroupMember> members = groupMemberQueryHandler.findAllByUserIdInAndGroupId(allUserIds, groupId);
+        List<Long> userIds = getUserIdsFromRequest(praiseInfos, estimatorUserId);
+        List<GroupMember> findGroupMembers = groupMemberQueryHandler.findAllByUserIdInAndGroupId(userIds, groupId);
 
-        if (allMembersInGroup.equals(members)) {
-            throw new RuntimeException();
+        validateIsAllGroupMemberPraised(allGroupMembers, findGroupMembers);
+    }
+
+    private void validateIsAllGroupMemberPraised(List<GroupMember> allGroupMembers, List<GroupMember> findGroupMembers) {
+        if (!allGroupMembers.equals(findGroupMembers)) {
+            throw new InvalidRequestGroupMemberPraiseException();
         }
     }
 
-    private List<Long> merge(Long estimatorUserId, List<Long> allUserIdsFromPraiseInfos) {
-        allUserIdsFromPraiseInfos.add(estimatorUserId);
-        return allUserIdsFromPraiseInfos;
+    private List<Long> getUserIdsFromRequest(List<PraiseInfo> praiseInfos, Long estimatorUserId) {
+        List<Long> userIds = getUserIdsFromPraiseInfos(praiseInfos);
+        userIds.add(estimatorUserId);
+        return userIds;
     }
 
-    private List<Long> getAllUserIds(List<PraiseInfo> praiseInfos) {
+    private List<Long> getUserIdsFromPraiseInfos(List<PraiseInfo> praiseInfos) {
         return praiseInfos.stream()
                 .map(PraiseInfo::getUserId)
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
     }
 }

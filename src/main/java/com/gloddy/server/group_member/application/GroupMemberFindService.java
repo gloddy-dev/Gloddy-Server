@@ -1,7 +1,7 @@
-package com.gloddy.server.user_group.application;
+package com.gloddy.server.group_member.application;
 
-import com.gloddy.server.user_group.domain.UserGroup;
-import com.gloddy.server.user_group.infra.repository.UserGroupJpaRepository;
+import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,15 +9,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserGroupFindService {
-    private final UserGroupJpaRepository userGroupJpaRepository;
+public class GroupMemberFindService {
+    private final GroupMemberJpaRepository userGroupJpaRepository;
 
-    public UserGroup findByUserIdAndGroupId(Long userId, Long groupId) {
+    public GroupMember findByUserIdAndGroupId(Long userId, Long groupId) {
         return userGroupJpaRepository.findByUserIdAndGroupId(userId, groupId)
                 .orElseThrow(() -> new RuntimeException("not found usergroup"));
     }
 
-    public List<UserGroup> getUserGroupsToPraise(List<Long> userIds, Long groupId) {
+    public List<GroupMember> getUserGroupsToPraise(List<Long> userIds, Long groupId) {
         return userGroupJpaRepository.findUserGroupsToPraiseByUserIdInAndGroupId(userIds, groupId);
     }
 }

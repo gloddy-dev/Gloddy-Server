@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class GroupMemberMemberQueryHandlerImpl implements GroupMemberQueryHandler {
+public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
 
     private final GroupMemberJpaRepository groupMemberJpaRepository;
 
@@ -21,9 +21,12 @@ public class GroupMemberMemberQueryHandlerImpl implements GroupMemberQueryHandle
     }
 
     @Override
-    public List<GroupMember> findAllByGroupIdExceptOne(Long groupId, GroupMember groupMember) {
-        List<GroupMember> allMembersInGroup = groupMemberJpaRepository.findByGroupId(groupId);
-        allMembersInGroup.remove(groupMember);
+    public List<GroupMember> findAllByGroupId(Long groupId) {
+        return groupMemberJpaRepository.findAllByGroupId(groupId);
+    }
 
+    @Override
+    public List<GroupMember> findAllByUserIdInAndGroupId(List<Long> userIds, Long groupId) {
+        return groupMemberJpaRepository.findByUserIdInAndGroupId(userIds, groupId);
     }
 }

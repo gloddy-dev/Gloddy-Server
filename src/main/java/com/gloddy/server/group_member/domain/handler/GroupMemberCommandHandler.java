@@ -1,7 +1,7 @@
-package com.gloddy.server.user_group.domain.handler;
+package com.gloddy.server.group_member.domain.handler;
 
-import com.gloddy.server.user_group.domain.UserGroup;
+import com.gloddy.server.group_member.domain.GroupMember;
 
-public interface UserGroupCommandHandler {
-    UserGroup save(UserGroup userGroup);
+public interface GroupMemberCommandHandler {
+    GroupMember save(GroupMember groupMember);
 }

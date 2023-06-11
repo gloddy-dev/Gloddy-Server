@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.domain.dto;
+package com.gloddy.server.group_member.domain.dto;
 
 import com.gloddy.server.auth.domain.User;
 import lombok.AllArgsConstructor;

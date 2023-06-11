@@ -1,4 +1,4 @@
-package com.gloddy.server.estimate.application;
+package com.gloddy.server.group_member.application;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;

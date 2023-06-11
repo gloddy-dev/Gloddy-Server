@@ -1,25 +1,31 @@
-package com.gloddy.server.user_group.domain;
+package com.gloddy.server.group_member.domain;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
-import com.gloddy.server.praise.domain.service.PraiseStrategy;
-import com.gloddy.server.praise.domain.service.PraiseStrategyFactory;
+import com.gloddy.server.core.event.group_member.GroupMemberSelectBestMateEvent;
+import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
+import com.gloddy.server.group_member.domain.service.GroupMemberPraisePolicy;
+import com.gloddy.server.group_member.domain.service.GroupMemberPraiser;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group.domain.vo.UserGroupVO;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.gloddy.server.group.domain.vo.GroupMemberVO;
+import com.gloddy.server.reliability.domain.vo.ScoreType;
+import lombok.*;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
+
+import java.util.List;
+
+import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estimate.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
 @Getter
-@Table(name = "user_group")
-public class UserGroup {
+@Table(name = "group_member")
+@EqualsAndHashCode(of = {"id"})
+public class GroupMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +52,8 @@ public class UserGroup {
     @Column(name = "is_praised")
     private boolean isPraised;
 
-    public static UserGroup empty() {
-        return new UserGroup();
+    public static GroupMember empty() {
+        return new GroupMember();
     }
 
     public void init(User user, Group group) {
@@ -59,17 +65,25 @@ public class UserGroup {
         this.isAbsence = false;
     }
 
-    public void receivePraise(PraiseValue praiseValue) {
-        PraiseStrategy praiseStrategy = PraiseStrategyFactory.getStrategy(praiseValue);
-        praiseStrategy.praise(this);
-    }
-
     public boolean isAbsenceVoteCountOver() {
         return this.absenceVoteCount > (this.group.getMemberCount() / 2);
     }
 
-    public boolean isAlreadyAbsenceVoteCountOver() {
-        return (this.absenceVoteCount - 1) > (this.group.getMemberCount() / 2);
+    public void estimateGroupMembers(GroupMemberRequest.Estimate estimateInfo, GroupMemberPraisePolicy groupMemberPraisePolicy,
+                                     GroupMemberPraiser groupMemberPraiser, ApplicationEventPublisher eventPublisher) {
+        praiseGroupMembers(estimateInfo.getPraiseInfos(), groupMemberPraisePolicy, groupMemberPraiser);
+        selectBestMate(estimateInfo.getMateInfo(), eventPublisher);
+        eventPublisher.publishEvent(new ReliabilityScoreUpdateEvent(this.getUser().getId(), ScoreType.Estimated));
+    }
+
+    private void praiseGroupMembers(List<PraiseInfo> praiseInfos, GroupMemberPraisePolicy groupMemberPraisePolicy,
+                                   GroupMemberPraiser groupMemberPraiser) {
+        groupMemberPraisePolicy.validate(this.getGroup().getId(), this.getUser().getId(), praiseInfos);
+        groupMemberPraiser.praise(this.getGroup().getId(), praiseInfos);
+    }
+
+    private void selectBestMate(MateInfo mateInfo, ApplicationEventPublisher eventPublisher) {
+        eventPublisher.publishEvent(new GroupMemberSelectBestMateEvent(mateInfo, this.user.getId()));
     }
 
     public void completePraise() {
@@ -97,8 +111,8 @@ public class UserGroup {
                 .build();
     }
 
-    public UserGroupVO createUserGroupVO() {
-        return UserGroupVO.builder()
+    public GroupMemberVO createUserGroupVO() {
+        return GroupMemberVO.builder()
                 .userId(this.user.getId())
                 .build();
     }

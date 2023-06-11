@@ -1,11 +1,13 @@
-package com.gloddy.server.praise.domain.service;
+package com.gloddy.server.group_member.domain.service.strategy.praise;
 
+import com.gloddy.server.core.event.group_member.GroupMemberReceivePraiseEvent;
 import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 import org.springframework.context.ApplicationEventPublisher;
 
 public class KindPraiseStrategy implements PraiseStrategy {
     @Override
     public void praise(GroupMember groupMember, ApplicationEventPublisher eventPublisher) {
-        groupMember.getUser().getPraise().plusKindCount();
+        eventPublisher.publishEvent(new GroupMemberReceivePraiseEvent(groupMember.getUser().getId(), PraiseValue.KIND));
     }
 }
