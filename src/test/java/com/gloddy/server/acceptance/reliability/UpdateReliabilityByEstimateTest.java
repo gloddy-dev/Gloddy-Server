@@ -2,12 +2,11 @@ package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
@@ -66,7 +65,7 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
         );
 
         // then
-        long eventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
+        long eventCount = events.stream(GroupMemberEstimateCompleteEvent.class).count();
         Assertions.assertThat(eventCount).isEqualTo(1);
     }
 

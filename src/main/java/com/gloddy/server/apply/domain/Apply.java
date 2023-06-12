@@ -1,9 +1,10 @@
 package com.gloddy.server.apply.domain;
 
 import com.gloddy.server.apply.domain.vo.Status;
+import com.gloddy.server.apply.event.producer.ApplyEventProducer;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
-import com.gloddy.server.core.utils.event.GroupParticipateEvent;
+import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.Group;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,9 +52,9 @@ public class Apply extends BaseTimeEntity {
         this.status = Status.WAIT;
     }
 
-    public void approveApply(ApplicationEventPublisher applicationEventPublisher) {
+    public void approveApply(ApplyEventProducer applyEventProducer) {
         this.status = Status.APPROVE;
-        applicationEventPublisher.publishEvent(new GroupParticipateEvent(this.user.getId(), this.group.getId()));
+        applyEventProducer.produceEvent(new GroupParticipateEvent(this.user.getId(), this.group.getId()));
     }
 
     public void refuseApply() {

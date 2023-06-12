@@ -5,7 +5,7 @@ import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.common.apply.ApplyApiTest;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
-import com.gloddy.server.core.utils.event.GroupParticipateEvent;
+import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import org.junit.jupiter.api.DisplayName;

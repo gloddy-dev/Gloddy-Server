@@ -7,7 +7,9 @@ import com.gloddy.server.apply.domain.handler.ApplyCommandHandler;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
 import com.gloddy.server.apply.domain.service.ApplyStatusUpdatePolicy;
 import com.gloddy.server.apply.domain.vo.Status;
+import com.gloddy.server.apply.event.producer.ApplyEventProducer;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.group.domain.Group;
@@ -25,7 +27,7 @@ public class ApplyService {
     private final UserQueryHandler userQueryHandler;
     private final GroupQueryHandler groupQueryHandler;
     private final ApplyStatusUpdatePolicy applyStatusUpdatePolicy;
-    private final ApplicationEventPublisher applicationEventPublisher;
+    private final ApplyEventProducer applyEventProducer;
 
     @Transactional
     public ApplyResponse.Create createApply(Long userId, Long groupId, ApplyRequest.Create request) {
@@ -54,7 +56,7 @@ public class ApplyService {
         applyStatusUpdatePolicy.validate(user, apply.getGroup());
 
         if (status.isApprove()) {
-            apply.approveApply(applicationEventPublisher);
+            apply.approveApply(applyEventProducer);
             return;
         }
         apply.refuseApply();

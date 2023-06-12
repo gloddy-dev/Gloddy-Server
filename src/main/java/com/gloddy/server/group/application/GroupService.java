@@ -6,6 +6,7 @@ import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group.domain.service.GroupChecker;
 import com.gloddy.server.group.domain.service.GroupDtoMapper;
 import com.gloddy.server.group.domain.service.GroupFactory;
+import com.gloddy.server.group.event.producer.GroupEventProducer;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupRequest;
@@ -26,7 +27,7 @@ public class GroupService {
     private final GroupQueryHandler groupQueryHandler;
     private final GroupCommandHandler groupCommandHandler;
     private final UserQueryHandler userQueryHandler;
-    private final ApplicationEventPublisher eventPublisher;
+    private final GroupEventProducer groupEventProducer;
     private final GroupFactory groupFactory;
     private final GroupChecker groupChecker;
 
@@ -45,7 +46,7 @@ public class GroupService {
     public GroupResponse.Create createGroup(Long captainId, GroupRequest.Create req) {
         User captain = userQueryHandler.findById(captainId);
 
-        Group newGroup = captain.saveGroup(groupFactory, eventPublisher, groupCommandHandler, req);
+        Group newGroup = captain.saveGroup(groupFactory, groupEventProducer, groupCommandHandler, req);
         return new GroupResponse.Create(newGroup.getId());
     }
 

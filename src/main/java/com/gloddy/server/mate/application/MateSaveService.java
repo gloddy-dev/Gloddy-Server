@@ -1,9 +1,8 @@
 package com.gloddy.server.mate.application;
 
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.core.event.reliability.ReliabilityEventPublisher;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.reliability.domain.vo.ScoreType;
+import com.gloddy.server.mate.event.MateCreateEvent;
+import com.gloddy.server.mate.event.producer.MateEventProducer;
 import com.gloddy.server.user.application.UserFindService;
 import com.gloddy.server.mate.domain.Mate;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
@@ -18,13 +17,12 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 public class MateSaveService {
     private final MateJpaRepository mateJpaRepository;
     private final UserFindService userFindService;
-    private final ReliabilityEventPublisher reliabilityEventPublisher;
-
+    private final MateEventProducer mateEventProducer;
 
     @Transactional
     public Mate save(MateInfo mateInfo, Long mateId) {
         User user = userFindService.findById(mateInfo.getUserId());
-        reliabilityEventPublisher.publish(new ReliabilityScoreUpdateEvent(mateInfo.getUserId(), ScoreType.Mated));
+        mateEventProducer.produceEvent(new MateCreateEvent(mateInfo.getUserId()));
         return mateJpaRepository.save(
                 Mate.builder()
                    .mateId(mateId)

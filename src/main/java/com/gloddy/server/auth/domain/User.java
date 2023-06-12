@@ -5,21 +5,20 @@ import com.gloddy.server.auth.domain.vo.kind.Gender;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
-import com.gloddy.server.core.utils.event.GroupParticipateEvent;
+import com.gloddy.server.core.event.GroupParticipateEvent;
+import com.gloddy.server.group.event.GroupCreateEvent;
+import com.gloddy.server.group.event.producer.GroupEventProducer;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
 import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ScoreType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
-import org.springframework.context.ApplicationEventPublisher;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -111,12 +110,12 @@ public class User extends BaseTimeEntity {
         this.praise = praise;
     }
 
-    public Group saveGroup(GroupFactory groupFactory, ApplicationEventPublisher eventPublisher,
+    public Group saveGroup(GroupFactory groupFactory, GroupEventProducer groupEventProducer,
                            GroupCommandHandler groupCommandHandler, GroupRequest.Create groupInfo) {
         Group group = groupCommandHandler.save(groupFactory.getGroupFrom(this, groupInfo));
 
-        eventPublisher.publishEvent(new GroupParticipateEvent(this.getId(), group.getId()));
-        eventPublisher.publishEvent(new ReliabilityScoreUpdateEvent(this.getId(), ScoreType.Created_Group));
+        groupEventProducer.produceEvent(new GroupCreateEvent(this.getId()));
+        groupEventProducer.produceEvent(new GroupParticipateEvent(this.getId(), group.getId()));
         return group;
     }
 }

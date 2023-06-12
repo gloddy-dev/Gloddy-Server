@@ -1,7 +1,7 @@
 package com.gloddy.server.acceptance.reliability;
 
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
-import com.gloddy.server.core.event.reliability.ReliabilityScoreUpdateEvent;
+import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
@@ -49,7 +49,7 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         assertThat(reliability.getScore()).isEqualTo(0);
         assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
-        long eventCount = events.stream(ReliabilityScoreUpdateEvent.class).count();
+        long eventCount = events.stream(GroupParticipateEvent.class).count();
         assertThat(eventCount).isEqualTo(1);
     }
 
