@@ -18,7 +18,7 @@ public class Reliability {
     private static final Long INIT_SCORE = 0L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
