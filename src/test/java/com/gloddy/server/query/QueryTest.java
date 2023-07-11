@@ -7,11 +7,11 @@ import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import javax.persistence.EntityManager;
 
 @DataJpaTest
 @Import(TestConfig.class)

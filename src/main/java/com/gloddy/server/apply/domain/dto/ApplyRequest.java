@@ -1,9 +1,9 @@
 package com.gloddy.server.apply.domain.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
 
 public class ApplyRequest {
 

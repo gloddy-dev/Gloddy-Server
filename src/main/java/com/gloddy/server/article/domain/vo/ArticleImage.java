@@ -2,11 +2,10 @@ package com.gloddy.server.article.domain.vo;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Getter

@@ -3,12 +3,11 @@ package com.gloddy.server.comment.api;
 import com.gloddy.server.comment.domain.dto.CommentRequest;
 import com.gloddy.server.comment.application.CommentService;
 import com.gloddy.server.core.response.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 import static com.gloddy.server.comment.domain.dto.CommentResponse.*;
 

@@ -9,7 +9,6 @@ import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,6 @@ public class UserService {
     private final PraiseJpaRepository praiseJpaRepository;
     private final MateJpaRepository mateJpaRepository;
 
-    @ApiOperation("마이페이지 조회")
     @Transactional(readOnly = true)
     public MyPage getMyPage(Long userId) {
         User user = userQueryHandler.findById(userId);

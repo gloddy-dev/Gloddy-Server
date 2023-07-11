@@ -1,9 +1,9 @@
 package com.gloddy.server.auth.jwt;
 
 import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtTokenExtractor {

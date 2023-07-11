@@ -4,6 +4,7 @@ import com.gloddy.server.auth.application.AuthService;
 import com.gloddy.server.auth.domain.dto.AuthRequest;
 import com.gloddy.server.auth.domain.dto.AuthResponse;
 import com.gloddy.server.core.response.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ public class AuthApi {
 
     private final AuthService userService;
 
+    @Operation(security = {})
     @PostMapping("/auth/email/check")
     public ResponseEntity<AuthResponse.Whether> emailCheck(@RequestBody AuthRequest.EmailCheck req) {
         AuthResponse.Whether response = userService.emailCheck(req.getEmail());
@@ -25,6 +27,7 @@ public class AuthApi {
         return ApiResponse.ok(response);
     }
 
+    @Operation(security = {})
     @PostMapping("/auth/sign-up")
     public ResponseEntity<AuthResponse.SignUp> signUp(@RequestBody AuthRequest.SignUp req) {
         AuthResponse.SignUp response = userService.signUp(req);
@@ -32,6 +35,7 @@ public class AuthApi {
         return ApiResponse.ok(response);
     }
 
+    @Operation(security = {})
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponse.Login> login(@RequestBody AuthRequest.Login req) {
         AuthResponse.Login response = userService.login(req);

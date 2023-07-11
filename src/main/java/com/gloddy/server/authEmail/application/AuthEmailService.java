@@ -5,6 +5,8 @@ import com.gloddy.server.authEmail.exception.InvalidEmailException;
 import com.gloddy.server.authEmail.exception.InvalidVerificationCodeException;
 import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
 import com.gloddy.server.core.utils.RedisUtil;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,8 +14,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Random;
 

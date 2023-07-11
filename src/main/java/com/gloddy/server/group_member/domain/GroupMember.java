@@ -12,7 +12,7 @@ import com.gloddy.server.group.domain.vo.GroupMemberVO;
 import com.gloddy.server.group_member.event.producer.GroupMemberEventProducer;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.util.List;
 
