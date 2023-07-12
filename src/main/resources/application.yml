@@ -56,3 +56,8 @@ aws:
   s3:
     bucket: ${AWS_S3_BUCKET}
 
+springdoc:
+  swagger-ui:
+    url: /v3/api-docs
+    urls-primary-name: Gloddy
+
