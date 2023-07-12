@@ -4,12 +4,11 @@ import com.gloddy.server.article.domain.dto.ArticleRequest;
 import com.gloddy.server.article.application.ArticleService;
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.core.response.PageResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 

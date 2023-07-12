@@ -5,7 +5,7 @@ import com.gloddy.server.group.domain.Group;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @NoArgsConstructor

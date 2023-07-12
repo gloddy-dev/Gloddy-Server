@@ -1,13 +1,12 @@
 package com.gloddy.server.group.domain.vo;
 
-import com.gloddy.server.core.utils.DateTimeUtils;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

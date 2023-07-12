@@ -2,10 +2,10 @@ package com.gloddy.server.core.converter;
 
 
 import com.gloddy.server.auth.domain.vo.kind.Personality;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import org.apache.logging.log4j.util.Strings;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

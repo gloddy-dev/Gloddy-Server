@@ -3,12 +3,11 @@ package com.gloddy.server.comment.domain;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

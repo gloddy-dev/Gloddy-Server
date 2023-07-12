@@ -4,14 +4,13 @@ import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
 import com.gloddy.server.authEmail.domain.dto.response.AuthEmailResponse;
 import com.gloddy.server.authEmail.application.AuthEmailService;
 import com.gloddy.server.core.response.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/api/v1")

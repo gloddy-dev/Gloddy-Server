@@ -1,9 +1,13 @@
 package com.gloddy.server.auth.jwt;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+
 
 @Component
 public class JwtTokenExtractor {
@@ -13,10 +17,16 @@ public class JwtTokenExtractor {
     }
 
     public String extractEmailFromToken(String token, String key) {
-        return Jwts.parser()
-                .setSigningKey(key)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey(key))
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    private Key getSigningKey(String secretKey) {
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

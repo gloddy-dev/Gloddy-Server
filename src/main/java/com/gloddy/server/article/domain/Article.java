@@ -5,12 +5,12 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.Group;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
