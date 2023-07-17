@@ -1,7 +1,9 @@
 package com.gloddy.server.auth.domain.dto;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.jwt.JwtToken;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
+import com.gloddy.server.auth.jwt.JwtTokenIssuer;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import lombok.*;
 
@@ -19,13 +21,11 @@ public class AuthResponse {
     public static class SignUp extends AuthResponse {
         private Long userId;
         private String authority;
-        private String accessToken;
-        private String refreshToken;
+        private JwtToken token;
 
-        public static SignUp from(User user, JwtTokenBuilder jwtTokenBuilder) {
+        public static SignUp from(User user, JwtTokenIssuer jwtTokenIssuer) {
             return new SignUp(user.getId(), user.getAuthority().getRole(),
-                    jwtTokenBuilder.createAccessToken(user.getPhone().getPhoneNumber()),
-                    jwtTokenBuilder.createRefreshToken(user.getPhone().getPhoneNumber()));
+                    jwtTokenIssuer.issueToken(user.getPhone().getPhoneNumber()));
         }
     }
 
@@ -36,17 +36,15 @@ public class AuthResponse {
         private boolean isExistUser;
         private Long userId;
         private String authority;
-        private String accessToken;
-        private String refreshToken;
+        private JwtToken token;
 
         public static Login fail() {
-            return new Login(false, null, null, null, null);
+            return new Login(false, null, null, null);
         }
 
-        public static Login from(User user, JwtTokenBuilder jwtTokenBuilder) {
+        public static Login from(User user, JwtTokenIssuer jwtTokenIssuer) {
             return new Login(true, user.getId(), user.getAuthority().getRole(),
-                    jwtTokenBuilder.createAccessToken(user.getPhone().getPhoneNumber()),
-                    jwtTokenBuilder.createRefreshToken(user.getPhone().getPhoneNumber()));
+                    jwtTokenIssuer.issueToken(user.getPhone().getPhoneNumber()));
         }
     }
 
@@ -55,5 +53,13 @@ public class AuthResponse {
     @AllArgsConstructor
     public static class Whether extends AuthResponse {
         private Boolean aBoolean;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Token extends AuthResponse {
+        private JwtToken token;
     }
 }

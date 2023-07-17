@@ -6,6 +6,7 @@ import com.gloddy.server.auth.domain.vo.Phone;
 import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
+import com.gloddy.server.auth.jwt.payload.AccessPayload;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.reliability.domain.Reliability;
@@ -92,7 +93,8 @@ abstract public class BaseApiTest {
     }
 
     protected String getTokenAfterLogin(User user) {
-        return jwtTokenBuilder.createAccessToken(user.getPhone().toString());
+        AccessPayload accessPayload = AccessPayload.of(user.getPhone().toString());
+        return jwtTokenBuilder.createToken(accessPayload);
     }
 
     @BeforeEach

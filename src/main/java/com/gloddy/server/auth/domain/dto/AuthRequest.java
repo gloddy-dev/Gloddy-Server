@@ -54,4 +54,13 @@ public class AuthRequest {
     public static class EmailCheck {
         private String email;
     }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReIssueToken {
+        private String accessToken;
+        private String refreshToken;
+    }
 }

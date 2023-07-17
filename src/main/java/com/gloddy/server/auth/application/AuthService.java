@@ -3,8 +3,11 @@ package com.gloddy.server.auth.application;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.service.UserFactory;
 import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.jwt.JwtToken;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
+import com.gloddy.server.auth.jwt.JwtTokenIssuer;
 import com.gloddy.server.user.domain.handler.UserCommandHandler;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.event.producer.UserEventProducer;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.auth.domain.dto.AuthRequest;
@@ -22,7 +25,7 @@ public class AuthService {
 
     private final UserJpaRepository userJpaRepository;
     private final UserCommandHandler userCommandHandler;
-    private final JwtTokenBuilder jwtTokenBuilder;
+    private final JwtTokenIssuer jwtTokenIssuer;
     private final UserEventProducer userEventProducer;
     private final UserFactory userFactory;
 
@@ -33,13 +36,13 @@ public class AuthService {
         User user = userCommandHandler.save(created);
 
         userEventProducer.produceEvent(new UserCreateEvent(created));
-        return AuthResponse.SignUp.from(user, jwtTokenBuilder);
+        return AuthResponse.SignUp.from(user, jwtTokenIssuer);
     }
 
     @Transactional(readOnly = true)
     public AuthResponse.Login login(AuthRequest.Login req) {
         Optional<User> findUser = userJpaRepository.findByPhone(new Phone(req.getPhoneNumber()));
-        return findUser.map(user -> AuthResponse.Login.from(user, jwtTokenBuilder))
+        return findUser.map(user -> AuthResponse.Login.from(user, jwtTokenIssuer))
                 .orElseGet(AuthResponse.Login::fail);
     }
 
@@ -53,5 +56,11 @@ public class AuthService {
         } else {
             return new AuthResponse.Whether(true);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public AuthResponse.Token reissueToken(String accessToken, String refreshToken) {
+        JwtToken token = jwtTokenIssuer.reIssueToken(accessToken, refreshToken);
+        return new AuthResponse.Token(token);
     }
 }
