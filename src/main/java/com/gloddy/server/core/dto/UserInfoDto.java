@@ -15,6 +15,6 @@ public class UserInfoDto {
     private String imageUrl;
 
     public static UserInfoDto from(User user) {
-        return new UserInfoDto(user.getName(), user.getImageUrl());
+        return new UserInfoDto(user.getNickname(), user.getImageUrl());
     }
 }

@@ -2,6 +2,8 @@ package com.gloddy.server.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
 import com.gloddy.server.praise.domain.Praise;
@@ -19,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -51,9 +53,18 @@ abstract public class BaseApiTest {
     protected EntityManager em;
 
     protected String testUserEmail = "testEmail@soogsil.ac.kr";
+    protected String school = "숭실대학교";
+    protected String testPhoneNumber = "010-0000-0000";
     protected String accessToken;
     protected User user;
     protected Reliability loginUserReliability;
+
+    private String getPhoneNumber() {
+        Random rand = new Random();
+        int number2 = rand.nextInt((9999 - 1000) + 1) + 1000;
+        int number3 = rand.nextInt((9999 - 1000) + 1) + 1000;
+        return "010" + "-" + number2 + "-" + number3;
+    }
 
     protected Praise createPraise(User user) {
         Praise mockPraise = Praise.empty();
@@ -62,8 +73,9 @@ abstract public class BaseApiTest {
     }
 
     protected User createLoginUser() {
-        User mockUser = User.builder().email(testUserEmail).
-                personalities(List.of(Personality.KIND)).build();
+        User mockUser = User.builder().phone(new Phone(testPhoneNumber))
+                .school(School.createNoCertified(school))
+                .personalities(List.of(Personality.KIND)).build();
         return userJpaRepository.save(mockUser);
     }
 
@@ -73,13 +85,14 @@ abstract public class BaseApiTest {
     }
 
     protected User createUser() {
-        User user = User.builder().email(UUID.randomUUID().toString() + "@soongsil.ac.kr")
+        User mockUser = User.builder().phone(new Phone(getPhoneNumber()))
+                .school(School.createNoCertified(school))
                 .personalities(List.of(Personality.KIND)).build();
-        return userJpaRepository.save(user);
+        return userJpaRepository.save(mockUser);
     }
 
     protected String getTokenAfterLogin(User user) {
-        return jwtTokenBuilder.createToken(user.getEmail());
+        return jwtTokenBuilder.createAccessToken(user.getPhone().toString());
     }
 
     @BeforeEach

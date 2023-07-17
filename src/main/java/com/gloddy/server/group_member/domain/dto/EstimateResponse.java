@@ -23,7 +23,7 @@ public class EstimateResponse {
             private String name;
 
             public static GetGroupMember from(User user) {
-                return new GetGroupMember(user.getImageUrl(), user.getName());
+                return new GetGroupMember(user.getImageUrl(), user.getNickname());
             }
         }
     }
