@@ -1,10 +1,12 @@
-package com.gloddy.server.authSms.infra.ncloud;
+package com.gloddy.server.authSms.infra;
 
 
+import lombok.Getter;
 import lombok.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Getter
 public class NcloudProperties {
     @Value("${ncloud.credentials.access-key}")
     private String accessKey;
