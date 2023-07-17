@@ -15,10 +15,10 @@ import java.util.Collection;
 public class JwtAuthentication implements Authentication {
 
     private final JwtUserAdapter userDetails;
-    private final String email;
+    private final String phoneNumber;
 
-    public static Authentication of(JwtUserAdapter userDetails, String email) {
-        return new JwtAuthentication(userDetails, email);
+    public static Authentication of(JwtUserAdapter userDetails, String phoneNumber) {
+        return new JwtAuthentication(userDetails, phoneNumber);
     }
 
 
@@ -54,7 +54,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return email;
+        return phoneNumber;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class JwtTokenExtractor {
         return request.getHeader(headerKey);
     }
 
-    public String extractEmailFromToken(String token, String key) {
+    public String extractPhoneNumberFromToken(String token, String key) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey(key))
                 .build()

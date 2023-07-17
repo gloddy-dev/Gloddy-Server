@@ -51,8 +51,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 throw new UserBusinessException(ErrorCode.TOKEN_BLANK);
             }
 
-            String email = jwtTokenExtractor.extractEmailFromToken(token, KEY);
-            Authentication authentication = JwtAuthentication.of(null, email);
+            String phoneNumber = jwtTokenExtractor.extractPhoneNumberFromToken(token, KEY);
+            Authentication authentication = JwtAuthentication.of(null, phoneNumber);
 
             Authentication authenticated = authenticationProvider.authenticate(authentication);
 

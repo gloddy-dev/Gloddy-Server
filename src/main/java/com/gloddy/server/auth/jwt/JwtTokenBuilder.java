@@ -15,20 +15,37 @@ import java.util.Date;
 public class JwtTokenBuilder {
 
     private final String key;
-    private final Long validTime;
+    private final Long accessTokenValidTime;
+    private final Long refreshTokenValidTime;
 
     public JwtTokenBuilder(@Value("${jwt.secret}") String key,
-                           @Value("${jwt.validTime}") Long validTime) {
+                           @Value("${jwt.access-token-validTime}") Long accessTokenValidTime,
+                           @Value("${jwt.access-token-validTime}") Long refreshTokenValidTime) {
         this.key = key;
-        this.validTime = validTime;
+        this.accessTokenValidTime = accessTokenValidTime;
+        this.refreshTokenValidTime = refreshTokenValidTime;
     }
 
-    public String createToken(String email) {
+    public String createAccessToken(String phoneNumber) {
 
-        long vaildTimeMilli = validTime * 1000L;
+        long vaildTimeMilli = accessTokenValidTime * 1000L;
         Date now = new Date();
 
-        Claims claims = Jwts.claims().setSubject(email);
+        Claims claims = Jwts.claims().setSubject(phoneNumber);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime()+ vaildTimeMilli))
+                .signWith(getSigningKey(key), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String createRefreshToken(String phoneNumber) {
+        long vaildTimeMilli = refreshTokenValidTime * 1000L;
+        Date now = new Date();
+
+        Claims claims = Jwts.claims().setSubject(phoneNumber);
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -40,7 +40,8 @@ spring:
 jwt:
   header: ${JWT_HEADER}
   secret: ${JWT_SECRET}
-  validTime: ${JWT_VALID_TIME}
+  access-token-validTime: ${JWT_ACCESS_TOKEN_VALID_TIME}
+  refresh-token-validTime: ${JWT_REFRESH_TOKEN_VALID_TIME}
 
 cloud:
   aws:

@@ -1,6 +1,7 @@
 package com.gloddy.server.auth.domain.dto;
 
 import com.gloddy.server.auth.domain.vo.kind.Gender;
+import com.gloddy.server.auth.domain.vo.kind.Personality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,26 @@ public class AuthRequest {
 
     @Getter
     @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class SignUp{
-        private String email;
-        private String password;
-        private String name;
-        private String school;
+        private String phoneNumber;
+        private String imageUrl;
+        private School schoolInfo;
+        private String nickname;
         private LocalDate birth;
         private Gender gender;
-        private List<String> personalities;
+        private List<Personality> personalities;
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class School {
+            private boolean isCertifiedStudent;
+            private String school;
+            private String email;
+        }
     }
 
     @Getter
@@ -32,8 +44,7 @@ public class AuthRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Login{
-        private String email;
-        private String password;
+        private String phoneNumber;
     }
 
     @Setter

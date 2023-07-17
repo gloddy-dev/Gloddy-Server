@@ -7,14 +7,25 @@ import java.util.stream.Collectors;
 
 @Getter
 public enum Personality {
-    KIND("상냥한"),
-    TEST("테스트1"),
-    TEST1("테스트2")
+    OUTGOING("외향적인"),
+    INTROVERTED("내향적인"),
+    CAREFUL("신중한"),
+    KIND("친절한"),
+    HUMOROUS("유머러스한"),
+    OPTIMISTIC("낙천적인"),
+    SOCIAL("사교적인"),
+    CANDID("솔직한"),
+    RESPONSIBLE("책임감있는"),
+    TRANQUIL("차분한"),
+    ACTIVE("활동적인"),
+    SENSIBLE("센스있는"),
+    WACKY("엉뚱한"),
+    LEADERSHIP("리더십있는")
     ;
 
     private String value;
 
-    private Personality(String value) {
+    Personality(String value) {
         this.value = value;
     }
 
