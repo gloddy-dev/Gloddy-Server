@@ -40,6 +40,9 @@ public enum ErrorCode {
     GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
     APPLY_NOT_FOUND(404, "존재하지 않는 지원서입니다."),
     NO_TOTAL_GROUP_MEMBER_PRAISE(400, "모든 그룹 참여자에 대해 칭찬 하지 않았습니다"),
+
+    SMS_BAD_REQUEST(400, "잘못된 형식의 SMS 요청입니다."),
+    SMS_UNAUTHORIZED(401, "유효하지 않은 SMS 요청 헤더값입니다.")
     ;
 
     private int status;

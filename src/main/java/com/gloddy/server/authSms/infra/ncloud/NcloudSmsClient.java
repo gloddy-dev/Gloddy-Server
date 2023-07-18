@@ -1,8 +1,8 @@
 package com.gloddy.server.authSms.infra.ncloud;
 
-import com.gloddy.server.authSms.infra.SmsClient;
-import com.gloddy.server.authSms.infra.VerificationCodeService;
-import com.gloddy.server.authSms.infra.dto.SmsRequest;
+import com.gloddy.server.authSms.domain.SmsClient;
+import com.gloddy.server.authSms.utils.VerificationCodeUtil;
+import com.gloddy.server.authSms.domain.dto.SmsRequest;
 import com.gloddy.server.authSms.infra.ncloud.dto.NcloudSmsRequest;
 import com.gloddy.server.authSms.infra.ncloud.dto.NcloudSmsRequest.Message;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class NcloudSmsClient implements SmsClient {
     private final NcloudSmsFeignClient ncloudSmsFeignClient;
     private final NcloudSignatureMaker ncloudSignatureMaker;
     private final NcloudProperties ncloudProperties;
-    private final VerificationCodeService verificationCodeService;
+    private final VerificationCodeUtil verificationCodeUtil;
 
     @Override
     public void send(SmsRequest.Send dto) {
@@ -53,7 +53,7 @@ public class NcloudSmsClient implements SmsClient {
     }
 
     private String generateVerificationCode(SmsRequest.Send dto) {
-        return verificationCodeService.generate(
+        return verificationCodeUtil.generate(
                 dto.getReceivingNumber(),
                 60 * 3L
         );
