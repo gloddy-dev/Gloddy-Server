@@ -49,12 +49,12 @@ public class NcloudSmsClient implements SmsClient {
     }
 
     private List<Message> getMessages(SmsRequest.Send dto) {
-        return List.of(new Message(dto.getReceivingNumber()));
+        return List.of(new Message(dto.getNumber()));
     }
 
     private String generateVerificationCode(SmsRequest.Send dto) {
         return verificationCodeUtil.generate(
-                dto.getReceivingNumber(),
+                dto.getNumber(),
                 60 * 3L
         );
     }

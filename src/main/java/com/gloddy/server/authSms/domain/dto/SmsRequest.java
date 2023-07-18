@@ -11,7 +11,7 @@ public class SmsRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Send {
-        private String receivingNumber;
+        private String number;
     }
 
     @Getter
