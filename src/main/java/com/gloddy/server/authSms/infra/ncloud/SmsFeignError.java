@@ -11,10 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 public class SmsFeignError implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
-        switch (response.status()) {
-            case 400 -> throw new SmsBadRequestException(ErrorCode.SMS_BAD_REQUEST);
-            case 401 -> throw new SmsUnauthorizedException(ErrorCode.SMS_UNAUTHORIZED);
-            default -> throw new RuntimeException(response.reason());
-        }
+        return switch (response.status()) {
+            case 400 -> new SmsBadRequestException(ErrorCode.SMS_BAD_REQUEST);
+            case 401 -> new SmsUnauthorizedException(ErrorCode.SMS_UNAUTHORIZED);
+            default -> new RuntimeException(response.reason());
+        };
     }
 }
