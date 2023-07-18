@@ -1,4 +1,4 @@
-package com.gloddy.server.authSms.infra.utils;
+package com.gloddy.server.authSms.utils;
 
 import org.springframework.stereotype.Component;
 

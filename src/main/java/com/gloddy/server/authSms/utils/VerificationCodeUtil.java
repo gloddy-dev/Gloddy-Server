@@ -1,15 +1,14 @@
-package com.gloddy.server.authSms;
+package com.gloddy.server.authSms.utils;
 
 import com.gloddy.server.authEmail.exception.InvalidVerificationCodeException;
 import com.gloddy.server.authSms.domain.dto.SmsResponse;
-import com.gloddy.server.authSms.utils.VerificationCodeGenerator;
 import com.gloddy.server.core.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class VerificationCodeService {
+public class VerificationCodeUtil {
 
     private final RedisUtil redisUtil;
     private final VerificationCodeGenerator verificationCodeGenerator;
@@ -20,11 +19,11 @@ public class VerificationCodeService {
         return code;
     }
 
-    public SmsResponse.VerifyCode verify(String key, String inputCode) {
+    public Boolean verify(String key, String inputCode) {
         String code = redisUtil.getData(key);
         if(!code.equals(inputCode)) {
             throw new InvalidVerificationCodeException();
         }
-        return new SmsResponse.VerifyCode(true);
+        return true;
     }
 }
