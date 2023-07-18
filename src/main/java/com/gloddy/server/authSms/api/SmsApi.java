@@ -1,11 +1,12 @@
-package com.gloddy.server.authSms.infra.api;
+package com.gloddy.server.authSms.api;
 
-import com.gloddy.server.authSms.infra.VerificationCodeService;
-import com.gloddy.server.authSms.infra.application.SmsService;
-import com.gloddy.server.authSms.infra.dto.SmsRequest;
-import com.gloddy.server.authSms.infra.dto.SmsResponse;
+import com.gloddy.server.authSms.utils.VerificationCodeUtil;
+import com.gloddy.server.authSms.domain.dto.SmsResponse;
+import com.gloddy.server.authSms.application.SmsService;
+import com.gloddy.server.authSms.domain.dto.SmsRequest;
 import com.gloddy.server.core.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SmsApi {
     private final SmsService smsService;
-    private final VerificationCodeService verificationCodeService;
 
     @PostMapping("/auth/sms")
     public ResponseEntity<Void> send(@RequestBody SmsRequest.Send request) {
@@ -26,11 +26,8 @@ public class SmsApi {
     }
 
     @PostMapping("/auth/sms/verify-code")
-    public ResponseEntity<SmsResponse.VerifyCode> verifyCode(SmsRequest.VerifyCode request) {
-        SmsResponse.VerifyCode response = verificationCodeService.verify(
-                request.getNumber(),
-                request.getCode()
-        );
+    public ResponseEntity<SmsResponse.VerifyCode> verifyCode(@RequestBody SmsRequest.VerifyCode request) {
+        SmsResponse.VerifyCode response = smsService.verifyCode(request);
         return ApiResponse.ok(response);
     }
 }
