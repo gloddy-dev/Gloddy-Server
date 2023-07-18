@@ -44,7 +44,17 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+  ncloud:
+    credentials:
+      access-key: dummy-key
+      secret-key: dummy-key
 
 aws:
   s3:
     bucket: dummy-bucket
+
+ncloud:
+  sms:
+    base-url: dummy-url
+    service-id: dummy-id
+    calling-number: dummy-number
