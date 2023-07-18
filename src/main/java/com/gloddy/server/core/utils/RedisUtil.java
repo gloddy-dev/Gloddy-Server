@@ -18,6 +18,11 @@ public class RedisUtil {
         return valueOperations.get(key);
     }
 
+    public Boolean hasKey(String key) {
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        return valueOperations.getOperations().hasKey(key);
+    }
+
     public void setData(String key, String value) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
