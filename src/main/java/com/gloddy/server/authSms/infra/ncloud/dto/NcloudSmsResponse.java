@@ -1,4 +1,4 @@
-package com.gloddy.server.authSms.infra.ncloud;
+package com.gloddy.server.authSms.infra.ncloud.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

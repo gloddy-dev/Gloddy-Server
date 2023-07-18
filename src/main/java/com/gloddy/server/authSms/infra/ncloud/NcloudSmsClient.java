@@ -2,15 +2,15 @@ package com.gloddy.server.authSms.infra.ncloud;
 
 import com.gloddy.server.authSms.infra.SmsClient;
 import com.gloddy.server.authSms.infra.VerificationCodeService;
-import com.gloddy.server.authSms.infra.dto.SmsNumberRequest;
-import com.gloddy.server.authSms.infra.ncloud.NcloudSmsRequest.Message;
+import com.gloddy.server.authSms.infra.dto.SmsRequest;
+import com.gloddy.server.authSms.infra.ncloud.dto.NcloudSmsRequest;
+import com.gloddy.server.authSms.infra.ncloud.dto.NcloudSmsRequest.Message;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,15 +22,14 @@ public class NcloudSmsClient implements SmsClient {
     private final VerificationCodeService verificationCodeService;
 
     @Override
-    public void send(SmsNumberRequest dto) {
+    public void send(SmsRequest.Send dto) {
         ncloudSmsFeignClient.send(
-                ncloudProperties.getServiceId(),
                 makeHeaders(),
                 makeRequest(dto)
         );
     }
 
-    private NcloudSmsRequest makeRequest(SmsNumberRequest dto) {
+    private NcloudSmsRequest makeRequest(SmsRequest.Send dto) {
         return NcloudSmsRequest.builder()
                 .type("SMS")
                 .from(ncloudProperties.getCallingNumber())
@@ -39,21 +38,21 @@ public class NcloudSmsClient implements SmsClient {
                 .build();
     }
 
-    private Map<String, String> makeHeaders() {
+    private HttpHeaders makeHeaders() {
         Long timestamp = System.currentTimeMillis();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        headers.put("x-ncp-apigw-timestamp", timestamp.toString());
-        headers.put("x-ncp-iam-access-key", ncloudProperties.getAccessKey());
-        headers.put("x-ncp-apigw-signature-v2", ncloudSignatureMaker.makeSignature(timestamp));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-ncp-apigw-timestamp", timestamp.toString());
+        headers.set("x-ncp-iam-access-key", ncloudProperties.getAccessKey());
+        headers.set("x-ncp-apigw-signature-v2", ncloudSignatureMaker.makeSignature(timestamp));
         return headers;
     }
 
-    private List<Message> getMessages(SmsNumberRequest dto) {
+    private List<Message> getMessages(SmsRequest.Send dto) {
         return List.of(new Message(dto.getReceivingNumber()));
     }
 
-    private String generateVerificationCode(SmsNumberRequest dto) {
+    private String generateVerificationCode(SmsRequest.Send dto) {
         return verificationCodeService.generate(
                 dto.getReceivingNumber(),
                 60 * 3L

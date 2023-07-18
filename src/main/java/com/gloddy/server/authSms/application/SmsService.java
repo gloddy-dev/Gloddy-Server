@@ -1,8 +1,7 @@
 package com.gloddy.server.authSms.infra.application;
 
 import com.gloddy.server.authSms.infra.SmsClient;
-import com.gloddy.server.authSms.infra.VerificationCodeService;
-import com.gloddy.server.authSms.infra.dto.SmsNumberRequest;
+import com.gloddy.server.authSms.infra.dto.SmsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ public class SmsService {
 
     private final SmsClient smsClient;
 
-    public void send(SmsNumberRequest request) {
+    public void send(SmsRequest.Send request) {
         smsClient.send(request);
     }
 }
