@@ -69,3 +69,9 @@ ncloud:
     base-url: ${NCLOUD_SMS_BASE_URL}
     service-id: ${NCLOUD_SMS_SERVICE_ID}
     calling-number: ${NCLOUD_SMS_CALLING_NUMBER}
+
+springdoc:
+  swagger-ui:
+    url: /v3/api-docs
+    urls-primary-name: Gloddy
+
