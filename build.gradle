@@ -18,6 +18,16 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2022.0.3")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
 dependencies {
 
 	//jpa
@@ -46,6 +56,7 @@ dependencies {
 	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	//DB
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -55,6 +66,9 @@ dependencies {
 
 	//swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	//feignClient
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
