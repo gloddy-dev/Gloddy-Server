@@ -37,6 +37,10 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+logging:
+  level:
+    com.gloddy.server.authSms.infra: debug
+
 jwt:
   header: ${JWT_HEADER}
   secret: ${JWT_SECRET}
@@ -51,10 +55,20 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+  ncloud:
+    credentials:
+      access-key: ${NCLOUD_ACCESS_KEY}
+      secret-key: ${NCLOUD_SECRET_KEY}
 
 aws:
   s3:
     bucket: ${AWS_S3_BUCKET}
+
+ncloud:
+  sms:
+    base-url: ${NCLOUD_SMS_BASE_URL}
+    service-id: ${NCLOUD_SMS_SERVICE_ID}
+    calling-number: ${NCLOUD_SMS_CALLING_NUMBER}
 
 springdoc:
   swagger-ui:

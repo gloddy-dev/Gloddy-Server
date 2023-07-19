@@ -1,6 +1,7 @@
 package com.gloddy.server.core.utils;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,11 @@ public class RedisUtil {
     public String getData(String key) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         return valueOperations.get(key);
+    }
+
+    public Boolean hasKey(String key) {
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        return valueOperations.getOperations().hasKey(key);
     }
 
     public void setData(String key, String value) {

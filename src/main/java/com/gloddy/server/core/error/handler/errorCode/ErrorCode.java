@@ -24,7 +24,9 @@ public enum ErrorCode {
     NOT_EXIST_RELIABILITY_LEVEL(404, "존재하지 않는 신뢰도 레벨입니다."),
 
     EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
-    CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
+    PHONE_NUMBER_INVALID(400, "유효하지 않은 휴대폰 번호입니다."),
+    VERIFICATION_CODE_INVALID(400, "올바르지 않은 인증코드입니다."),
+    VERIFICATION_CODE_EXPIRED(400, "인증 코드가 만료되었습니다."),
 
     ARTICLE_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
     NO_ARTICLE_WRITER(400, "게시글 작성자가 아닙니다."),
@@ -40,6 +42,9 @@ public enum ErrorCode {
     GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
     APPLY_NOT_FOUND(404, "존재하지 않는 지원서입니다."),
     NO_TOTAL_GROUP_MEMBER_PRAISE(400, "모든 그룹 참여자에 대해 칭찬 하지 않았습니다"),
+
+    SMS_BAD_REQUEST(400, "잘못된 형식의 SMS 요청입니다."),
+    SMS_UNAUTHORIZED(401, "유효하지 않은 SMS 요청 헤더값입니다.")
     ;
 
     private int status;
