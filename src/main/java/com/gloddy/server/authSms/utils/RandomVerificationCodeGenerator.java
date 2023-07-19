@@ -1,15 +1,13 @@
 package com.gloddy.server.authSms.utils;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
-
-import java.util.Random;
 
 @Component
 public class RandomVerificationCodeGenerator implements VerificationCodeGenerator {
 
     @Override
     public String generate() {
-        Random random = new Random();
-        return String.valueOf(random.nextInt(999999));
+        return RandomStringUtils.randomNumeric(6);
     }
 }
