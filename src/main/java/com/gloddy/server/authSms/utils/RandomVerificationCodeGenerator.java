@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RandomVerificationCodeGenerator implements VerificationCodeGenerator {
 
+    public final static int CODE_LENGTH = 6;
+
     @Override
     public String generate() {
-        return RandomStringUtils.randomNumeric(6);
+        return RandomStringUtils.randomNumeric(CODE_LENGTH);
     }
 }
