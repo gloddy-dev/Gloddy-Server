@@ -32,7 +32,7 @@ public class JwtTokenExtractor extends JwtTokenKeyUsable {
     public Payload extractPayload(String token, String key) {
         Claims claims = getClaims(token, key);
 
-        TokenType type = claims.get(TYPE, TokenType.class);
+        TokenType type = TokenType.valueOf(claims.get(TYPE, String.class));
         PayloadFactory payloadFactory = getPayloadFactory(type);
         return payloadFactory.createPayload(claims);
     }
