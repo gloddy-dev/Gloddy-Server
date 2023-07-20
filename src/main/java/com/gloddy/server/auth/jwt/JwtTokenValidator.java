@@ -10,4 +10,6 @@ public class JwtTokenValidator {
     public boolean validateToken(String token) {
         return Optional.ofNullable(token).isEmpty() || token.equals("null") || token.equals("undefined");
     }
+
+
 }

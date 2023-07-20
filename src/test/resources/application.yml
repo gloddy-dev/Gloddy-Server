@@ -33,7 +33,6 @@ spring:
 jwt:
   header: X-AUTH-TOKEN
   secret: testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret
-  validTime: 3600000
 
 cloud:
   aws:

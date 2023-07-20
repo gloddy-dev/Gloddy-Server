@@ -44,7 +44,6 @@ logging:
 jwt:
   header: ${JWT_HEADER}
   secret: ${JWT_SECRET}
-  validTime: ${JWT_VALID_TIME}
 
 cloud:
   aws:

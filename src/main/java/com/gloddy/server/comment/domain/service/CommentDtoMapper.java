@@ -15,7 +15,7 @@ public class CommentDtoMapper {
         return comments.stream()
                 .map(comment -> new GetComment(
                         comment.getUser().getImageUrl(),
-                        comment.getUser().getName(),
+                        comment.getUser().getNickname(),
                         dateTimeToString(comment.getCreatedAt()),
                         comment.getContent(),
                         comment.getUser().getId().equals(userId)

@@ -31,7 +31,7 @@ public class UserService {
 
         return new MyPage(
                 user.getImageUrl(),
-                user.getName(),
+                user.getNickname(),
                 user.getGender().toString(),
                 TimeUtil.calculateAge(user.getBirth()),
                 user.getSchool(),

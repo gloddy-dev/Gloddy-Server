@@ -33,7 +33,7 @@ public class MateGetService {
         User mateUser = userQueryHandler.findById(mate.getMateId());
         return new getMateForUser(
                 mateUser.getImageUrl(),
-                mateUser.getName(),
+                mateUser.getNickname(),
                 mateUser.getSchool(),
                 mate.getCreatedAt(),
                 mate.getSelectionReason()

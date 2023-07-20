@@ -1,5 +1,7 @@
 package com.gloddy.server.auth.domain;
 
+import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Authority;
 import com.gloddy.server.auth.domain.vo.kind.Gender;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
@@ -37,27 +39,30 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    @Embedded
+    private Phone phone;
+
+    @Embedded
+    private School school;
 
     @Column(name = "image_url", columnDefinition = "longtext")
     private String imageUrl;
 
-    @Column(name = "password", columnDefinition = "longtext")
-    private String password;
+    @Column(name = "nickname")
+    private String nickname;
 
-    private String name;
-
-    @Column(name = "school")
-    private String school;
-
+    @Column(name = "birth")
     private LocalDate birth;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+
+    @Column(name = "introduce")
     private String introduce;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    @Enumerated(EnumType.STRING)
+    @Column(name = "authority")
     private Authority authority;
 
     @Convert(converter = EnumArrayConverter.class)
@@ -71,11 +76,12 @@ public class User extends BaseTimeEntity {
     private Praise praise;
 
     @Builder
-    public User(String email, String password, String name, String school, LocalDate birth, Gender gender, List<Personality> personalities) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
+    public User(Phone phone, School school, String imageUrl, String nickname,
+                LocalDate birth, Gender gender, List<Personality> personalities) {
+        this.phone = phone;
         this.school = school;
+        this.imageUrl = imageUrl;
+        this.nickname = nickname;
         this.birth = birth;
         this.gender = gender;
         this.personalities = personalities;
@@ -117,5 +123,9 @@ public class User extends BaseTimeEntity {
         groupEventProducer.produceEvent(new GroupCreateEvent(this.getId()));
         groupEventProducer.produceEvent(new GroupParticipateEvent(this.getId(), group.getId()));
         return group;
+    }
+
+    public String getSchool() {
+        return this.school.getSchool();
     }
 }

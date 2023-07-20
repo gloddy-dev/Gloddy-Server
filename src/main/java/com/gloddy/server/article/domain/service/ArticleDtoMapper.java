@@ -18,7 +18,7 @@ public class ArticleDtoMapper {
         return articles.map(
                 article -> new ArticleResponse.GetArticle(
                         article.getUser().getImageUrl(),
-                        article.getUser().getName(),
+                        article.getUser().getNickname(),
                         DateTimeUtils.dateTimeToString(article.getCreatedAt()),
                         article.getContent(),
                         article.isNotice(),

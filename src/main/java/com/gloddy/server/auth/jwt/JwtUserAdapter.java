@@ -32,7 +32,7 @@ public class JwtUserAdapter implements UserDetails{
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getPhone().getPhoneNumber();
     }
 
     @Override
