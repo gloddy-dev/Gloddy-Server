@@ -22,9 +22,10 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
-  redis:
-    host: dummy-host
-    port: 9999
+  data:
+    redis:
+      host: dummy-host
+      port: 9999
 
   mvc:
     pathmatch:
