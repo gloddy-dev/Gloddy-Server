@@ -29,9 +29,10 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
-  redis:
-    host: ${REDISHOST}
-    port: ${REDISPORT}
+  data:
+    redis:
+      host: ${REDISHOST}
+      port: ${REDISPORT}
 
   mvc:
     pathmatch:
