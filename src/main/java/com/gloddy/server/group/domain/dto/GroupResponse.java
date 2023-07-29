@@ -30,14 +30,15 @@ public class GroupResponse {
     @Getter
     @AllArgsConstructor
     public static class GetGroup {
-        Long groupId;
-        String imageUrl;
-        String title;
-        String content;
+        private Long groupId;
+        private String imageUrl;
+        private String title;
+        private String content;
         // List<String> memberProfiles;
-        int memberCount;
-        String place;
-        String meetDate;
+        private int memberCount;
+        private int maxUser;
+        private String place;
+        private String meetDate;
 
         public static GetGroup from(Group group) {
             return new GetGroup(
@@ -46,6 +47,7 @@ public class GroupResponse {
                     group.getTitle(),
                     group.getContent(),
                     group.getMemberCount(),
+                    group.getMaxUser(),
                     group.getPlace().getName(),
                     dateToStringForGroupPreview(group.getMeetDate())
             );
