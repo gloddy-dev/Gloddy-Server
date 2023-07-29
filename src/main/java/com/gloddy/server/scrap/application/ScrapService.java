@@ -43,10 +43,11 @@ public class ScrapService {
         Group group = scrap.getGroup();
         return new GetGroup(
                 group.getId(),
-                group.getFileUrl(),
+                group.getImageUrl(),
                 group.getTitle(),
                 group.getContent(),
-                Math.toIntExact(groupUserCountService.countUserInGroup(group.getId())),
+                group.getMemberCount(),
+                group.getMaxUser(),
                 group.getPlace().getName(),
                 group.getMeetDate().toString()
         );

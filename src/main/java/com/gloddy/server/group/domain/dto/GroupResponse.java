@@ -43,7 +43,7 @@ public class GroupResponse {
         public static GetGroup from(Group group) {
             return new GetGroup(
                     group.getId(),
-                    group.getFileUrl(),
+                    group.getImageUrl(),
                     group.getTitle(),
                     group.getContent(),
                     group.getMemberCount(),
@@ -90,7 +90,7 @@ public class GroupResponse {
         public static GetParticipatedGroup from(GroupMember groupMember) {
             return new GetParticipatedGroup(
                     groupMember.getGroup().getId(),
-                    groupMember.getGroup().getFileUrl(),
+                    groupMember.getGroup().getImageUrl(),
                     groupMember.getGroup().getTitle(),
                     groupMember.getGroup().getContent(),
                     groupMember.getGroup().getMemberCount(),

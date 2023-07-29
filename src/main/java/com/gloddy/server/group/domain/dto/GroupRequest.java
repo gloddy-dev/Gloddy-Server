@@ -14,7 +14,7 @@ public class GroupRequest {
     @Getter
     @Setter
     public static class Create {
-        private String fileUrl;
+        private String imageUrl;
         private String title;
         private String content;
         private LocalDate meetDate;

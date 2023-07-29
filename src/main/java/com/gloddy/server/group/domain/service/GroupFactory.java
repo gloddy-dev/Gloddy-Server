@@ -18,7 +18,7 @@ public class GroupFactory {
         GroupPlace place = getGroupPlace(request.getPlace(), request.getPlace_latitude(), request.getPlace_longitude());
         return Group.builder()
                 .captain(captain)
-                .fileUrl(request.getFileUrl())
+                .imageUrl(request.getImageUrl())
                 .title(request.getTitle())
                 .content(request.getContent())
                 .dateTime(dateTime)
