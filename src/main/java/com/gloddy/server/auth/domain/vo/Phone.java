@@ -18,7 +18,7 @@ public class Phone {
 
     private static final String DELIMITER = "-";
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
     public Phone(String phone) {
