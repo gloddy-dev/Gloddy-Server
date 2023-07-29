@@ -34,8 +34,8 @@ public class Group extends BaseTimeEntity {
     @Column(name = "school")
     private String school;
 
-    @Column(name = "file_url")
-    private String fileUrl;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "title")
     private String title;
@@ -56,10 +56,10 @@ public class Group extends BaseTimeEntity {
     private GroupMemberVOs groupMemberVOs = GroupMemberVOs.empty();
 
     @Builder
-    public Group(User captain, String fileUrl, String title, String content, GroupDateTime dateTime,
+    public Group(User captain, String imageUrl, String title, String content, GroupDateTime dateTime,
                  GroupPlace place, int maxUser, String school) {
         this.captain = captain;
-        this.fileUrl = fileUrl;
+        this.imageUrl = imageUrl;
         this.title = title;
         this.content = content;
         this.dateTime = dateTime;

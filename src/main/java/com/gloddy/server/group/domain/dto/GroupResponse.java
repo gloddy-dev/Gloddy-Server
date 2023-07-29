@@ -30,22 +30,24 @@ public class GroupResponse {
     @Getter
     @AllArgsConstructor
     public static class GetGroup {
-        Long groupId;
-        String imageUrl;
-        String title;
-        String content;
+        private Long groupId;
+        private String imageUrl;
+        private String title;
+        private String content;
         // List<String> memberProfiles;
-        int memberCount;
-        String place;
-        String meetDate;
+        private int memberCount;
+        private int maxUser;
+        private String place;
+        private String meetDate;
 
         public static GetGroup from(Group group) {
             return new GetGroup(
                     group.getId(),
-                    group.getFileUrl(),
+                    group.getImageUrl(),
                     group.getTitle(),
                     group.getContent(),
                     group.getMemberCount(),
+                    group.getMaxUser(),
                     group.getPlace().getName(),
                     dateToStringForGroupPreview(group.getMeetDate())
             );
@@ -62,7 +64,7 @@ public class GroupResponse {
         private String title;
         private String fileUrl;
         private String content;
-        private int countParticipants;
+        private int memberCount;
         private String meetDate;
         private String startTime;
         private String endTime;
@@ -88,7 +90,7 @@ public class GroupResponse {
         public static GetParticipatedGroup from(GroupMember groupMember) {
             return new GetParticipatedGroup(
                     groupMember.getGroup().getId(),
-                    groupMember.getGroup().getFileUrl(),
+                    groupMember.getGroup().getImageUrl(),
                     groupMember.getGroup().getTitle(),
                     groupMember.getGroup().getContent(),
                     groupMember.getGroup().getMemberCount(),
