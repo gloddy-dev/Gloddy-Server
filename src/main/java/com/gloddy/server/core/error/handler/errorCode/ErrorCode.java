@@ -16,6 +16,7 @@ public enum ErrorCode {
     TOKEN_EXPIRED(412, "토큰이 만료되었습니다."),
 
     USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
+    ALREADY_USER_SIGN_UP(400, "이미 가입된 유저입니다."),
     INVALID_PHONE_NUMBER(400, "유효하지 않은 전화번호 입니다."),
     PASSWORD_DISCORD(404, "패스워드가 일치하지 않습니다."),
 
