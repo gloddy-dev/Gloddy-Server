@@ -3,6 +3,7 @@ package com.gloddy.server.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
@@ -74,9 +75,13 @@ abstract public class BaseApiTest {
     }
 
     protected User createLoginUser() {
+        Profile profile = Profile.builder()
+                .personalities(List.of(Personality.KIND))
+                .build();
         User mockUser = User.builder().phone(new Phone(testPhoneNumber))
                 .school(School.createNoCertified(school))
-                .personalities(List.of(Personality.KIND)).build();
+                .profile(profile)
+                .build();
         return userJpaRepository.save(mockUser);
     }
 
@@ -86,9 +91,13 @@ abstract public class BaseApiTest {
     }
 
     protected User createUser() {
+        Profile profile = Profile.builder()
+                .personalities(List.of(Personality.KIND))
+                .build();
         User mockUser = User.builder().phone(new Phone(getPhoneNumber()))
                 .school(School.createNoCertified(school))
-                .personalities(List.of(Personality.KIND)).build();
+                .profile(profile)
+                .build();
         return userJpaRepository.save(mockUser);
     }
 

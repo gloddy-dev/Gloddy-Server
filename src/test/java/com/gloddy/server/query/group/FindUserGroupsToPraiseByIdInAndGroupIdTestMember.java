@@ -1,6 +1,7 @@
 package com.gloddy.server.query.group;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.praise.domain.Praise;
 import com.gloddy.server.group.domain.Group;
@@ -20,7 +21,11 @@ public class FindUserGroupsToPraiseByIdInAndGroupIdTestMember extends QueryTest 
     }
 
     private User getUser() {
-        return userJpaRepository.save(User.builder().personalities(List.of(Personality.KIND)).build());
+        Profile profile = Profile.builder()
+                .personalities(List.of(Personality.KIND))
+                .build();
+        User user = User.builder().profile(profile).build();
+        return userJpaRepository.save(user);
     }
 
     private Praise getPraise(User user) {

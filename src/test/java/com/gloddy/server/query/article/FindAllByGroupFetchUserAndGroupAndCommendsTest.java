@@ -3,6 +3,7 @@ package com.gloddy.server.query.article;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.group.domain.Group;
@@ -21,12 +22,18 @@ import static org.assertj.core.api.Assertions.*;
 public class FindAllByGroupFetchUserAndGroupAndCommendsTest extends QueryTest {
 
     private User getUser() {
-        User user = User.builder().personalities(List.of(Personality.KIND)).build();
+        Profile profile = Profile.builder()
+                .personalities(List.of(Personality.KIND))
+                .build();
+        User user = User.builder().profile(profile).build();
         return userJpaRepository.save(user);
     }
 
     private Group getGroup() {
-        User user = User.builder().personalities(List.of(Personality.KIND)).build();
+        Profile profile = Profile.builder()
+                .personalities(List.of(Personality.KIND))
+                .build();
+        User user = User.builder().profile(profile).build();
         userJpaRepository.save(user);
 
         Group group = Group.builder().captain(user).build();

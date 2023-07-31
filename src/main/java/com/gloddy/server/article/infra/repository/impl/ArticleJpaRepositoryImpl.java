@@ -1,10 +1,7 @@
 package com.gloddy.server.article.infra.repository.impl;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.QArticle;
 import com.gloddy.server.article.infra.repository.custom.ArticleJpaRepositoryCustom;
-import com.gloddy.server.auth.domain.QUser;
-import com.gloddy.server.comment.domain.QComment;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.QGroup;
 import com.querydsl.core.types.dsl.BooleanExpression;
