@@ -1,6 +1,7 @@
 package com.gloddy.server.core.dto;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class UserInfoDto {
     private String imageUrl;
 
     public static UserInfoDto from(User user) {
-        return new UserInfoDto(user.getNickname(), user.getImageUrl());
+        Profile profile = user.getProfile();
+        return new UserInfoDto(profile.getNickname(), profile.getImageUrl());
     }
 }

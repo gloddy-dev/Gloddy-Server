@@ -1,6 +1,7 @@
 package com.gloddy.server.group_member.domain.dto;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,8 @@ public class EstimateResponse {
             private String name;
 
             public static GetGroupMember from(User user) {
-                return new GetGroupMember(user.getImageUrl(), user.getNickname());
+                Profile profile = user.getProfile();
+                return new GetGroupMember(profile.getImageUrl(), profile.getNickname());
             }
         }
     }
