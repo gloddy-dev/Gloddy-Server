@@ -14,11 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.gloddy.server.user.domain.dto.UserGetResponse.*;
-
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserGetService {
     private final UserQueryHandler userQueryHandler;
     private final PraiseJpaRepository praiseJpaRepository;
     private final MateJpaRepository mateJpaRepository;
@@ -34,6 +32,7 @@ public class UserService {
 
         return UserGetResponse.of(
                 user,
+                user.getProfile(),
                 reliability,
                 sumPraiseCount(praise),
                 reviewCount
