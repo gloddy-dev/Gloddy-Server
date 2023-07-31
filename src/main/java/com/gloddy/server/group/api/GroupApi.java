@@ -18,7 +18,7 @@ public class GroupApi {
     private final GroupService groupService;
 
     @PostMapping("/group-create")
-    public ResponseEntity createGroup(@AuthenticationPrincipal Long captainId,
+    public ResponseEntity<GroupResponse.Create> createGroup(@AuthenticationPrincipal Long captainId,
                                       @RequestBody GroupRequest.Create req) {
         GroupResponse.Create response = groupService.createGroup(captainId, req);
         return ApiResponse.ok(response);
@@ -34,7 +34,7 @@ public class GroupApi {
     }
 
     @GetMapping("/groups/{groupId}")
-    public ResponseEntity getGroupDetail(
+    public ResponseEntity<GroupResponse.GetGroupDetail> getGroupDetail(
             @AuthenticationPrincipal Long userId,
             @PathVariable Long groupId
     ) {
