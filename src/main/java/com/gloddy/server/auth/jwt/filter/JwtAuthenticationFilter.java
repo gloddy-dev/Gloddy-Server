@@ -3,7 +3,6 @@ package com.gloddy.server.auth.jwt.filter;
 import com.gloddy.server.auth.jwt.JwtAuthentication;
 import com.gloddy.server.auth.jwt.JwtTokenExtractor;
 import com.gloddy.server.auth.jwt.JwtTokenValidator;
-import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -20,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.*;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String token = jwtTokenExtractor.extractToken(request, TOKEN_HEADER);
             if (jwtTokenValidator.validateToken(token)) {
-                throw new UserBusinessException(ErrorCode.TOKEN_BLANK);
+                throw new UserBusinessException(TOKEN_BLANK);
             }
 
             String phoneNumber = jwtTokenExtractor.extractPhoneNumberFromToken(token, KEY);
@@ -61,11 +61,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         } catch (UnsupportedJwtException | MalformedJwtException e) {
-            throw new UserBusinessException(ErrorCode.TOKEN_INVALID);
+            throw new UserBusinessException(TOKEN_INVALID);
         } catch (ExpiredJwtException e) {
-            throw new UserBusinessException(ErrorCode.TOKEN_EXPIRED);
+            throw new UserBusinessException(TOKEN_EXPIRED);
         } catch (ServletException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
 
     }
