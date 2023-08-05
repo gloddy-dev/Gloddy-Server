@@ -15,6 +15,7 @@ import static lombok.Builder.*;
 @Getter
 @Builder
 @Embeddable
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Profile {
@@ -39,16 +40,4 @@ public class Profile {
     @Default
     @Column(name = "personality")
     private List<Personality> personalities = new ArrayList<>();
-
-
-    public void setProfile(String imageUrl, String nickname, LocalDate birth,
-                       Gender gender, String introduce, List<Personality> personality
-    ) {
-        this.imageUrl = imageUrl;
-        this.nickname = nickname;
-        this.birth = birth;
-        this.gender = gender;
-        this.introduce = introduce;
-        this.personalities = personality;
-    }
 }

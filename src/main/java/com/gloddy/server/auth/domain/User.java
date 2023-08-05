@@ -1,9 +1,13 @@
 package com.gloddy.server.auth.domain;
 
+import com.gloddy.server.auth.domain.service.UserProfileFactory;
 import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.Phone;
 import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Authority;
+import com.gloddy.server.auth.domain.vo.kind.Gender;
+import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.core.converter.EnumArrayConverter;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.event.GroupCreateEvent;
@@ -16,6 +20,11 @@ import com.gloddy.server.group.domain.service.GroupFactory;
 import com.gloddy.server.reliability.domain.Reliability;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -75,5 +84,18 @@ public class User extends BaseTimeEntity {
 
     public String getSchool() {
         return this.school.getSchool();
+    }
+
+    public void updateProfile(String imageUrl, String nickname, LocalDate birth,
+                              Gender gender, String introduce, List<Personality> personalities
+    ) {
+        this.profile = Profile.builder()
+                .imageUrl(imageUrl)
+                .nickname(nickname)
+                .birth(birth)
+                .gender(gender)
+                .introduce(introduce)
+                .personalities(personalities)
+                .build();
     }
 }

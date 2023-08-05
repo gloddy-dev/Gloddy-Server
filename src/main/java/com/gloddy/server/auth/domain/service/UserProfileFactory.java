@@ -1,10 +1,7 @@
 package com.gloddy.server.auth.domain.service;
 
 import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 import static com.gloddy.server.auth.domain.dto.AuthRequest.*;
 
