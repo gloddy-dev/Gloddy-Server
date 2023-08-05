@@ -3,6 +3,7 @@ package com.gloddy.server.auth.security.config;
 import com.gloddy.server.auth.jwt.JwtTokenExtractor;
 import com.gloddy.server.auth.jwt.JwtTokenValidator;
 import com.gloddy.server.auth.jwt.filter.JwtAuthenticationFilter;
+import com.gloddy.server.auth.jwt.filter.JwtExceptionHandleFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -55,7 +56,8 @@ public class SecurityConfig {
                         jwtTokenValidator,
                         authenticationProvider,
                         secretHeader,
-                        key), UsernamePasswordAuthenticationFilter.class);
+                        key), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtExceptionHandleFilter(), JwtAuthenticationFilter.class);
         return http.build();
     }
 

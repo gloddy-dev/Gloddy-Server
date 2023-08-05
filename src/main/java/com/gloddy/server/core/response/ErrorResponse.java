@@ -7,20 +7,20 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ErrorResponse {
-    private final LocalDateTime timestamp;
+    private final String timestamp;
     private final int status;
     private final String message;
     private final String reason;
 
     public ErrorResponse(ErrorCode errorCode) {
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now().toString();
         this.status = errorCode.getStatus();
         this.message = errorCode.name();
         this.reason = errorCode.getErrorMessage();
     }
 
     private ErrorResponse(int status, String message, String reason){
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now().toString();
         this.status = status;
         this.message = message;
         this.reason = reason;
