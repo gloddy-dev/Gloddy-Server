@@ -5,6 +5,7 @@ import com.gloddy.server.user.application.UserUpdateService;
 import com.gloddy.server.user.domain.dto.UserUpdateRequest;
 import com.gloddy.server.user.domain.dto.UserUpdateResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +24,7 @@ public class UserUpdateApi {
     @PatchMapping("/me/info")
     public ResponseEntity<UserUpdateResponse> updateInfo(
             @AuthenticationPrincipal Long userId,
-            @RequestBody UserUpdateRequest.Info request
+            @RequestBody @Valid UserUpdateRequest.Info request
     ) {
         UserUpdateResponse response = userUpdateService.update(userId, request);
         return ApiResponse.ok(response);
