@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,7 +31,6 @@ public class SecurityConfig {
     private final JwtTokenExtractor jwtTokenExtractor;
     private final JwtTokenValidator jwtTokenValidator;
     private final AuthenticationProvider authenticationProvider;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
     @Value("${jwt.secret}")
     private String key;
     @Value("${jwt.header}")
