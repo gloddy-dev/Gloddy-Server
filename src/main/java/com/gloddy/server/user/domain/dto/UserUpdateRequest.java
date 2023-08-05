@@ -2,9 +2,8 @@ package com.gloddy.server.user.domain.dto;
 
 import com.gloddy.server.auth.domain.vo.kind.Gender;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +29,7 @@ public class UserUpdateRequest {
         @NotBlank
         private String introduce;
 
-        @NotNull
-        @Min(3)
+        @Size(min = 3)
         private List<Personality> personalities;
     }
 }
