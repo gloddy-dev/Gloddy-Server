@@ -3,6 +3,7 @@ package com.gloddy.server.auth.security.config;
 import com.gloddy.server.auth.jwt.JwtTokenExtractor;
 import com.gloddy.server.auth.jwt.JwtTokenValidator;
 import com.gloddy.server.auth.jwt.filter.JwtAuthenticationFilter;
+import com.gloddy.server.auth.jwt.filter.JwtExceptionHandleFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,6 +32,7 @@ public class SecurityConfig {
     private final JwtTokenExtractor jwtTokenExtractor;
     private final JwtTokenValidator jwtTokenValidator;
     private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
     @Value("${jwt.secret}")
     private String key;
     @Value("${jwt.header}")
@@ -55,7 +58,8 @@ public class SecurityConfig {
                         jwtTokenValidator,
                         authenticationProvider,
                         secretHeader,
-                        key), UsernamePasswordAuthenticationFilter.class);
+                        key), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtExceptionHandleFilter(), JwtAuthenticationFilter.class);
         return http.build();
     }
 
