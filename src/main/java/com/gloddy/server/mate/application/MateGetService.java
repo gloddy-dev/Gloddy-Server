@@ -1,6 +1,7 @@
 package com.gloddy.server.mate.application;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.mate.domain.Mate;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
@@ -31,9 +32,10 @@ public class MateGetService {
 
     private getMateForUser toGetMateForUserDto(Mate mate) {
         User mateUser = userQueryHandler.findById(mate.getMateId());
+        Profile mateUserProfile = mateUser.getProfile();
         return new getMateForUser(
-                mateUser.getImageUrl(),
-                mateUser.getNickname(),
+                mateUserProfile.getImageUrl(),
+                mateUserProfile.getNickname(),
                 mateUser.getSchool(),
                 mate.getCreatedAt(),
                 mate.getSelectionReason()

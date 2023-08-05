@@ -2,6 +2,7 @@ package com.gloddy.server.auth.domain.service;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.School;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,20 +14,18 @@ import static com.gloddy.server.auth.domain.dto.AuthRequest.*;
 public class UserFactory {
 
     private final UserSignUpPolicy userSignUpPolicy;
+    private final UserProfileFactory userProfileFactory;
 
     public User getUser(SignUp request) {
         userSignUpPolicy.validate(request.getPhoneNumber());
 
         Phone phone = getPhone(request.getPhoneNumber());
         School school = getSchool(request.getSchoolInfo());
+        Profile profile = userProfileFactory.getProfile(request);
         return User.builder()
                 .phone(phone)
                 .school(school)
-                .imageUrl(request.getImageUrl())
-                .nickname(request.getNickname())
-                .birth(request.getBirth())
-                .gender(request.getGender())
-                .personalities(request.getPersonalities())
+                .profile(profile)
                 .build();
     }
 
