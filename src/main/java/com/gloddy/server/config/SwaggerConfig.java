@@ -8,6 +8,8 @@ import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class SwaggerConfig {
 
@@ -20,16 +22,14 @@ public class SwaggerConfig {
                 .addServersItem(serversItem());
     }
 
-    @Bean
-    public SecurityScheme securityScheme() {
+    private SecurityScheme securityScheme() {
         return new SecurityScheme()
                 .type(SecurityScheme.Type.APIKEY)
                 .in(SecurityScheme.In.HEADER)
                 .name("X-AUTH-TOKEN");
     }
 
-    @Bean
-    public Server serversItem() {
+    private Server serversItem() {
         return new Server().url("/");
     }
 }
