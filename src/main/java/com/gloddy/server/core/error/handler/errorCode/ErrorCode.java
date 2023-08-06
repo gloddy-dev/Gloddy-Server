@@ -46,7 +46,9 @@ public enum ErrorCode {
     NO_TOTAL_GROUP_MEMBER_PRAISE(400, "모든 그룹 참여자에 대해 칭찬 하지 않았습니다"),
 
     SMS_BAD_REQUEST(400, "잘못된 형식의 SMS 요청입니다."),
-    SMS_UNAUTHORIZED(401, "유효하지 않은 SMS 요청 헤더값입니다.")
+    SMS_UNAUTHORIZED(401, "유효하지 않은 SMS 요청 헤더값입니다."),
+
+    DATABASE_CONNECTION_FAILED(500, "데이터베이스 연결에 실패했습니다."),
     ;
 
     private int status;

@@ -1,5 +1,7 @@
 package com.gloddy.server.core.api;
 
+import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import com.gloddy.server.core.error.handler.exception.DatabaseConnectionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class HealthCheckController {
             Connection conn = dataSource.getConnection();
             log.info("connection: {}", conn.toString());
         } catch (SQLException e) {
-            log.error("Health check database connection error", e);
+            throw new DatabaseConnectionException(ErrorCode.DATABASE_CONNECTION_FAILED);
         }
     }
 }
