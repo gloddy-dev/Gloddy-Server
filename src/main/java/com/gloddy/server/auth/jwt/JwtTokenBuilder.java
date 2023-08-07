@@ -34,7 +34,7 @@ public class JwtTokenBuilder extends JwtTokenKeyUsable {
 
     private Date getExpiration(TokenType type) {
         Date now = new Date();
-        long vaildTimeMilli = type.getValidTimeSeconds() + 1000L;
+        long vaildTimeMilli = type.getValidTimeSeconds() * 1000L;
         return new Date(now.getTime() + vaildTimeMilli);
     }
 }
