@@ -1,21 +1,18 @@
 package com.gloddy.server.query.article;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.dto.ImageDto;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.query.QueryTest;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
