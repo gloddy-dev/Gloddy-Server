@@ -95,6 +95,9 @@ public class Group extends BaseTimeEntity {
                 .content(introduce)
                 .reason(reason)
                 .build();
+    }
 
+    public boolean isCaptain(User user) {
+        return this.captain.equals(user);
     }
 }
