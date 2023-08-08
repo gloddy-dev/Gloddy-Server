@@ -82,6 +82,10 @@ public class User extends BaseTimeEntity {
         return this.school.getSchool();
     }
 
+    public boolean isCertifiedStudent() {
+        return this.school.isCertifiedStudent();
+    }
+
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
                               Gender gender, String introduce, List<Personality> personalities
     ) {
