@@ -93,4 +93,9 @@ public class ArticleService {
 
         return ArticleDtoMapper.getArticleDto(article);
     }
+
+    @Transactional(readOnly = true)
+    public GetNotice getNotice(Long groupId) {
+
+    }
 }
