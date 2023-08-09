@@ -93,7 +93,7 @@ public class User extends BaseTimeEntity {
     public String getImageUrl() {
         return this.profile.getImageUrl();
     }
-    
+
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
                               Gender gender, String introduce, List<Personality> personalities
     ) {
