@@ -2,7 +2,7 @@ package com.gloddy.server.article.domain.service;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.dto.ArticleResponse;
-import com.gloddy.server.article.domain.dto.ImageDto;
+import com.gloddy.server.article.domain.vo.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.core.utils.DateTimeUtils;
@@ -15,29 +15,31 @@ import java.util.stream.Collectors;
 public class ArticleDtoMapper {
 
     public static Page<ArticleResponse.GetArticle> mapToGetArticlePageFrom(Page<Article> articles) {
-        return articles.map(ArticleDtoMapper::getArticle);
+        return articles.map(ArticleDtoMapper::getArticleDto);
     }
 
-    private static ArticleResponse.GetArticle getArticle(Article article) {
+    public static ArticleResponse.GetArticle getArticleDto(Article article) {
         User user = article.getUser();
         Profile profile = user.getProfile();
 
         return new ArticleResponse.GetArticle(
+                article.getId(),
                 profile.getImageUrl(),
                 profile.getNickname(),
                 DateTimeUtils.dateTimeToString(article.getCreatedAt()),
                 article.getContent(),
                 article.isNotice(),
                 article.getCommentCount(),
+                article.isWriterGroupCaptain(),
+                article.isWriterCertifiedStudent(),
                 getImageDtos(article)
         );
     }
 
-    private static List<ImageDto> getImageDtos(Article article) {
+    private static List<String> getImageDtos(Article article) {
         return article.getImages()
                 .stream()
-                .map(image -> new ImageDto(image.getUrl()))
+                .map(ArticleImage::getUrl)
                 .collect(Collectors.toUnmodifiableList());
     }
-
 }

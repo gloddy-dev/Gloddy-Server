@@ -88,4 +88,12 @@ public class Article extends BaseTimeEntity {
                 .content(content)
                 .build();
     }
+
+    public boolean isWriterGroupCaptain() {
+        return group.isCaptain(this.user);
+    }
+
+    public boolean isWriterCertifiedStudent() {
+        return user.isCertifiedStudent();
+    }
 }

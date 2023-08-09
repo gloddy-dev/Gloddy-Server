@@ -57,4 +57,13 @@ public class ArticleController {
         PageResponse<GetArticle> response = articleService.getPreview(groupId, page, size);
         return ApiResponse.ok(response);
     }
+
+    @GetMapping("/groups/{groupId}/articles/{articleId}")
+    public ResponseEntity<GetArticle> getOne(
+            @PathVariable Long groupId,
+            @PathVariable Long articleId
+    ) {
+        GetArticle response = articleService.getOne(articleId);
+        return ApiResponse.ok(response);
+    }
 }

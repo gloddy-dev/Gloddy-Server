@@ -26,23 +26,16 @@ public class ArticleResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
-    public static class GetPreview {
-        private String groupFileUrl;
-        private String groupTitle;
-        private String groupContent;
-        PageResponse<GetArticle> previews;
-    }
-
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
     public static class GetArticle {
+        private Long articleId;
         private String userImageUrl;
         private String name;
         private String date;
         private String content;
         private boolean notice;
         private int commentCount;
-        private List<ImageDto> images;
+        private Boolean isCaptain;
+        private Boolean isCertifiedStudent;
+        private List<String> images;
     }
 }

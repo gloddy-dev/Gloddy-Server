@@ -86,4 +86,11 @@ public class ArticleService {
         Page<GetArticle> getArticles = ArticleDtoMapper.mapToGetArticlePageFrom(articles);
         return PageResponse.from(getArticles);
     }
+
+    @Transactional(readOnly = true)
+    public GetArticle getOne(Long articleId) {
+        Article article = articleQueryHandler.findById(articleId);
+
+        return ArticleDtoMapper.getArticleDto(article);
+    }
 }
