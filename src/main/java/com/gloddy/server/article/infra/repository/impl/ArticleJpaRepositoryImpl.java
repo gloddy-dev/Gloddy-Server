@@ -30,6 +30,7 @@ public class ArticleJpaRepositoryImpl implements ArticleJpaRepositoryCustom {
                 .join(article.user, user).fetchJoin()
                 .join(article.group, QGroup.group).fetchJoin()
                 .where(groupEq(group))
+                .where(noticeEq(false))
                 .orderBy(article.createdAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -46,5 +47,9 @@ public class ArticleJpaRepositoryImpl implements ArticleJpaRepositoryCustom {
 
     private BooleanExpression groupEq(Group group) {
         return article.group.eq(group);
+    }
+
+    private BooleanExpression noticeEq(boolean isNotice) {
+        return article.notice.eq(isNotice);
     }
 }
