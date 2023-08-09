@@ -22,7 +22,7 @@ public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
 
     @Override
     public List<GroupMember> findAllByGroupId(Long groupId) {
-        return groupMemberJpaRepository.findAllByGroupId(groupId);
+        return groupMemberJpaRepository.findAllByGroupIdFetchUserAndGroup(groupId);
     }
 
     @Override

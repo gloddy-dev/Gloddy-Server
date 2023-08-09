@@ -9,7 +9,6 @@ import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
-import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScoreMinusType;
@@ -27,6 +26,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Optional;
+
 import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -38,8 +39,6 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
     @MockBean
     private MateSaveService mateSaveService;
 
-    @MockBean
-    private GroupMemberUpdateService groupMemberUpdateService;
     @Autowired
     private ApplicationEvents events;
 
@@ -55,15 +54,20 @@ public class UpdateReliabilityByAbsenceGroupTest extends ReliabilityApiTest {
         // 모임 불참 투표 과반수 이상
         User loginUser = user;
         User receivePraiseUser = createUser();
-        createPraise(receivePraiseUser);
-        Reliability reliability = createReliability(receivePraiseUser);
-        reliability.updateScore(INIT_SCORE);
+
+        em.flush();
+        em.clear();
+
+        User findReceivePraiseUser = userJpaRepository.findById(receivePraiseUser.getId()).orElseThrow();
+        findReceivePraiseUser.getReliability().updateScore(INIT_SCORE);
         Group group = createGroup();
         GroupMember loginGroupMember = createGroupMember(loginUser, group);
         GroupMember receivePraiseGroupMember = createGroupMember(receivePraiseUser, group);
         receivePraiseGroupMember.plusAbsenceVoteCount();
         Estimate request = createEstimateRequest(receivePraiseUser, PraiseValue.ABSENCE);
 
+        em.flush();
+        em.clear();
 
         // then
         String url = "/api/v1/groups/" + group.getId() + "/group_members" + "/estimate";

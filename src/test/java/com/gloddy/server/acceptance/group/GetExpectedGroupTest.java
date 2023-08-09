@@ -19,13 +19,13 @@ public class GetExpectedGroupTest extends GroupApiTest {
     void successGetExpectedGroup() throws Exception {
         //given
         //로그인된 사용자이다.
-        Group mockGroup = createGroup();
+        Group mockGroup = createGroup(user);
         Group expectedGroup = createExpectedGroup();
         Group participatedGroup = createParticipatedGroup();
 
-        createUserGroup(user, mockGroup);
-        createUserGroup(user, expectedGroup);
-        createUserGroup(user, participatedGroup);
+        createGroupMember(user, mockGroup);
+        createGroupMember(user, expectedGroup);
+        createGroupMember(user, participatedGroup);
 
         //when
         //참여할 그룹 조회 API를 날린다.

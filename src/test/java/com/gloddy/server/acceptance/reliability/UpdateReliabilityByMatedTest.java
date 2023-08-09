@@ -7,7 +7,6 @@ import com.gloddy.server.mate.event.MateCreateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;
@@ -35,9 +34,6 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
     @MockBean
     private PraiseService praiseService;
 
-    @MockBean
-    private GroupMemberUpdateService groupMemberUpdateService;
-
     @Autowired
     private ApplicationEvents events;
 
@@ -49,7 +45,6 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
         // given
         User estimateUser = user;
         User receiveMateUser = createUser();
-        createReliability(receiveMateUser);
         Estimate request = createEstimateRequest(receiveMateUser, PraiseValue.KIND);
         Group group = createGroup();
         createGroupMember(estimateUser, group);
