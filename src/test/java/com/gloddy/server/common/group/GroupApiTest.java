@@ -26,12 +26,12 @@ abstract public class GroupApiTest extends BaseApiTest {
         return new GroupPlace();
     }
 
-    protected Group createGroup() {
-        Group group = Group.builder().place(getGroupPlace()).build();
+    protected Group createGroup(User captain) {
+        Group group = Group.builder().captain(captain).place(getGroupPlace()).build();
         return groupJpaRepository.save(group);
     }
 
-    protected GroupMember createUserGroup(User user, Group group) {
+    protected GroupMember createGroupMember(User user, Group group) {
         GroupMember groupMember = GroupMember.empty();
         groupMember.init(user, group);
         return groupMemberJpaRepository.save(groupMember);

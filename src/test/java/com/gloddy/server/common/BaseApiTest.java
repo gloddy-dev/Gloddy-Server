@@ -98,7 +98,14 @@ abstract public class BaseApiTest {
                 .school(School.createNoCertified(school))
                 .profile(profile)
                 .build();
-        return userJpaRepository.save(mockUser);
+        User saveUser = userJpaRepository.save(mockUser);
+
+        Praise praise = Praise.empty();
+        praise.init(saveUser);
+        createPraise(saveUser);
+        createReliability(saveUser);
+
+        return saveUser;
     }
 
     protected String getTokenAfterLogin(User user) {

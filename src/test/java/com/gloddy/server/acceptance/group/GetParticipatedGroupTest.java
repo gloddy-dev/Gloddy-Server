@@ -16,14 +16,14 @@ public class GetParticipatedGroupTest extends GroupApiTest {
     void successGeParticipatedGroup() throws Exception {
         //given
         //로그인 된 사용자이다.
-        Group mockGroup = createGroup();
+        Group mockGroup = createGroup(user);
         Group expectedGroup = createExpectedGroup();
         Group participatedGroup1 = createParticipatedGroup();
         Group participatedGroup2 = createParticipatedGroup();
 
-        createUserGroup(user, mockGroup);
-        createUserGroup(user, expectedGroup);
-        createUserGroup(user, participatedGroup1);
+        createGroupMember(user, mockGroup);
+        createGroupMember(user, expectedGroup);
+        createGroupMember(user, participatedGroup1);
         createCompletePraiseUserGroup(user, participatedGroup2);
 
         //when
