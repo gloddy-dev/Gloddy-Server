@@ -8,7 +8,6 @@ import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.group_member.application.GroupMemberUpdateService;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import com.gloddy.server.reliability.domain.vo.ScorePlusType;
@@ -34,9 +33,6 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
 
     @MockBean
     private MateSaveService mateSaveService;
-
-    @MockBean
-    private GroupMemberUpdateService groupMemberUpdateService;
 
     @Autowired
     private ApplicationEvents events;
