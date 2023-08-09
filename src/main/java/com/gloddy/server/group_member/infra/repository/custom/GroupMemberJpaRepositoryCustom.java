@@ -15,4 +15,6 @@ public interface GroupMemberJpaRepositoryCustom {
     Page<GroupMember> findParticipatedGroupsByUser(User user, Pageable pageable);
 
     List<GroupMember> findUserGroupsToPraiseByUserIdInAndGroupId(List<Long> userIds, Long groupId);
+
+    List<GroupMember> findAllByGroupIdFetchUserAndGroup(Long groupId);
 }
