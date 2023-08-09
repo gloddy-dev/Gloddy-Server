@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ArticleQueryHandlerImpl implements ArticleQueryHandler {
@@ -26,5 +28,10 @@ public class ArticleQueryHandlerImpl implements ArticleQueryHandler {
     @Override
     public Page<Article> findAllToGetArticlePreview(Group group, Pageable pageable) {
         return articleJpaRepository.findAllByGroupFetchUserAndGroup(group, pageable);
+    }
+
+    @Override
+    public List<Article> findAllByGroupAndNotice(Group group, boolean isNotice) {
+        return articleJpaRepository.findAllByGroupAndNotice(group, isNotice);
     }
 }

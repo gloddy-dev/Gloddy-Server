@@ -42,7 +42,6 @@ public class ArticleJpaRepositoryImpl implements ArticleJpaRepositoryCustom {
                 .fetch()
                 .size();
         return new PageImpl<>(articles, pageable, total);
-
     }
 
     private BooleanExpression groupEq(Group group) {
