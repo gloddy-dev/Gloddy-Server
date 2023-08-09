@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 
 @RestController
@@ -66,4 +68,13 @@ public class ArticleController {
         GetArticle response = articleService.getOne(articleId);
         return ApiResponse.ok(response);
     }
+
+    @GetMapping("/groups/{groupId}/articles/notice")
+    public ResponseEntity<List<GetNotice>> getNotice(
+            @PathVariable Long groupId
+    ) {
+        List<GetNotice> response = articleService.getNotice(groupId);
+        return ApiResponse.ok(response);
+    }
+
 }
