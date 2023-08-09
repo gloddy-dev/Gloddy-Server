@@ -117,6 +117,6 @@ public class GroupMember {
     }
 
     public boolean isCaptain() {
-        return this.user == this.getGroup().getCaptain();
+        return this.user.equals(this.getGroup().getCaptain());
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Getter
 @Table(name = "users")
 public class User extends BaseTimeEntity {
@@ -86,6 +86,14 @@ public class User extends BaseTimeEntity {
         return this.school.isCertifiedStudent();
     }
 
+    public String getNickName() {
+        return this.profile.getNickname();
+    }
+
+    public String getImageUrl() {
+        return this.profile.getImageUrl();
+    }
+    
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
                               Gender gender, String introduce, List<Personality> personalities
     ) {
