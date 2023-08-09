@@ -45,8 +45,6 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
         // given
         User loginUser = user;
         User receivePraiseUser = createUser();
-        createPraise(receivePraiseUser);
-        createReliability(receivePraiseUser);
         Group group = createGroup();
         createGroupMember(loginUser, group);
         createGroupMember(receivePraiseUser, group);

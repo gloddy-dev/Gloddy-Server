@@ -45,7 +45,6 @@ public class UpdateReliabilityByMatedTest extends ReliabilityApiTest {
         // given
         User estimateUser = user;
         User receiveMateUser = createUser();
-        createReliability(receiveMateUser);
         Estimate request = createEstimateRequest(receiveMateUser, PraiseValue.KIND);
         Group group = createGroup();
         createGroupMember(estimateUser, group);
