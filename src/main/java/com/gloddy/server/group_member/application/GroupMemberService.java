@@ -4,9 +4,11 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupResponse;
 import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.group_member.api.dto.GroupMemberResponse;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
+import com.gloddy.server.group_member.domain.service.GroupMemberDtoMapper;
 import com.gloddy.server.group_member.domain.service.GroupMemberPraisePolicy;
 import com.gloddy.server.group_member.domain.service.GroupMemberPraiser;
 import com.gloddy.server.group_member.event.producer.GroupMemberEventProducer;
@@ -15,6 +17,7 @@ import com.gloddy.server.user.application.UserFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,5 +52,11 @@ public class GroupMemberService {
     public void estimateGroupMembers(GroupMemberRequest.Estimate request, Long userId, Long groupId) {
         GroupMember estimator = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
         estimator.estimateGroupMembers(request, groupMemberPraisePolicy, groupMemberPraiser, groupMemberEventProducer);
+    }
+
+    @Transactional(readOnly = true)
+    public GroupMemberResponse.GetAll getGroupMembers(Long groupId) {
+        List<GroupMember> groupMembers = groupMemberQueryHandler.findAllByGroupId(groupId);
+        return GroupMemberDtoMapper.mapToGetAllFrom(groupMembers);
     }
 }
