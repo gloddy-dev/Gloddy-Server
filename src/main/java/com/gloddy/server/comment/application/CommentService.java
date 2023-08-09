@@ -55,8 +55,9 @@ public class CommentService {
     public GetComments getComments(Long articleId, Long userId) {
         Article article = articleQueryHandler.findById(articleId);
         List<Comment> comments = commentQueryHandler.findAllByArticleFetchUser(article);
+        User user = userQueryHandler.findById(userId);
 
-        List<GetComment> getComments = CommentDtoMapper.mapToGetCommentListFrom(comments, userId);
+        List<GetComment> getComments = CommentDtoMapper.mapToGetCommentListFrom(comments, user);
         return new GetComments(getComments);
     }
 }
