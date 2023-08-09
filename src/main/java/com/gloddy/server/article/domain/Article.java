@@ -93,7 +93,7 @@ public class Article extends BaseTimeEntity {
         return group.isCaptain(this.user);
     }
 
-    public boolean isCertifiedStudent() {
+    public boolean isWriterCertifiedStudent() {
         return user.isCertifiedStudent();
     }
 }

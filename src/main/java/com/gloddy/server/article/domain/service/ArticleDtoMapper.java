@@ -31,7 +31,7 @@ public class ArticleDtoMapper {
                 article.isNotice(),
                 article.getCommentCount(),
                 article.isWriterGroupCaptain(),
-                article.isCertifiedStudent(),
+                article.isWriterCertifiedStudent(),
                 getImageDtos(article)
         );
     }
