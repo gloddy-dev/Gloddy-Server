@@ -27,6 +27,7 @@ public class CommentResponse {
     @NoArgsConstructor
     @Getter
     public static class GetComment {
+        private Long commentId;
         private String userImageUrl;
         private String name;
         private String date;
