@@ -5,6 +5,7 @@ import com.gloddy.server.auth.jwt.JwtToken;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
 import com.gloddy.server.auth.jwt.JwtTokenIssuer;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
@@ -18,6 +19,7 @@ public class AuthResponse {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Schema(name = "SignUpResponse")
     public static class SignUp extends AuthResponse {
         private Long userId;
         private String authority;
@@ -32,6 +34,7 @@ public class AuthResponse {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Schema(name = "LoginResponse")
     public static class Login extends AuthResponse {
         private boolean isExistUser;
         private Long userId;

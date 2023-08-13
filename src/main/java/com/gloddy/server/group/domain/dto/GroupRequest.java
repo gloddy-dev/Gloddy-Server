@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class GroupRequest {
     @NoArgsConstructor
     @Getter
     @Setter
+    @Schema(name = "GroupCreateRequest")
     public static class Create {
         private String imageUrl;
         private String title;

@@ -1,5 +1,6 @@
 package com.gloddy.server.article.domain.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class ArticleRequest {
     @AllArgsConstructor
     @Getter
     @Setter
+    @Schema(name = "ArticleCreateRequest")
     public static class Create {
         @NotBlank
         private String content;

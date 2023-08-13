@@ -1,5 +1,6 @@
 package com.gloddy.server.comment.domain.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ public class CommentResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
+    @Schema(name = "CommentCreateResponse")
     public static class Create {
         Long commentId;
     }
