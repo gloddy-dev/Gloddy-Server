@@ -1,8 +1,6 @@
 package com.gloddy.server.comment.domain.service;
 
-
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.comment.domain.Comment;
 
 import java.util.List;
@@ -13,22 +11,20 @@ import static com.gloddy.server.core.utils.DateTimeUtils.*;
 
 public class CommentDtoMapper {
 
-    public static List<GetComment> mapToGetCommentListFrom(List<Comment> comments, Long userId) {
+    public static List<GetComment> mapToGetCommentListFrom(List<Comment> comments, User user) {
         return comments.stream()
-                .map(comment -> getComment(comment, userId))
+                .map(comment -> getComment(comment, user))
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    private static GetComment getComment(Comment comment, Long userId) {
-        User user = comment.getUser();
-        Profile profile = user.getProfile();
-
+    private static GetComment getComment(Comment comment, User user) {
         return new GetComment(
-                profile.getImageUrl(),
-                profile.getNickname(),
+                comment.getId(),
+                comment.getWriterImageUrl(),
+                comment.getWriterNickName(),
                 dateTimeToString(comment.getCreatedAt()),
                 comment.getContent(),
-                user.getId().equals(userId)
+                comment.isWriter(user)
         );
     }
 }

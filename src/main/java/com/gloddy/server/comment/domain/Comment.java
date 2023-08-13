@@ -41,4 +41,12 @@ public class Comment extends BaseTimeEntity {
     public boolean isWriter(User user) {
         return this.user.equals(user);
     }
+
+    public String getWriterImageUrl() {
+        return this.user.getImageUrl();
+    }
+
+    public String getWriterNickName() {
+        return this.user.getNickName();
+    }
 }

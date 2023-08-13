@@ -38,4 +38,12 @@ public class ArticleResponse {
         private Boolean isCertifiedStudent;
         private List<String> images;
     }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class GetNotice {
+        private Long noticeId;
+        private String content;
+    }
 }

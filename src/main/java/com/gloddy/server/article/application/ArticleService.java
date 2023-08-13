@@ -23,6 +23,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 
 @Service
@@ -92,5 +94,13 @@ public class ArticleService {
         Article article = articleQueryHandler.findById(articleId);
 
         return ArticleDtoMapper.getArticleDto(article);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetNotice> getNotice(Long groupId) {
+        Group group = groupQueryHandler.findById(groupId);
+        List<Article> noticeArticles = articleQueryHandler.findAllByGroupAndNotice(group, true);
+
+        return ArticleDtoMapper.getNoticeDto(noticeArticles);
     }
 }
