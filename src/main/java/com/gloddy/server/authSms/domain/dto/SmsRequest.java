@@ -1,5 +1,6 @@
 package com.gloddy.server.authSms.domain.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class SmsRequest {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @Schema(name = "AuthSmsVerifyCodeRequest")
     public static class VerifyCode {
         @Size(min = PHONE_NUMBER_LENGTH, max = PHONE_NUMBER_LENGTH, message = "휴대폰 번호 길이는 11입니다.")
         @Pattern(regexp = "^[0-9]*$", message = "휴대폰 번호는 숫자만 입력 가능합니다.")

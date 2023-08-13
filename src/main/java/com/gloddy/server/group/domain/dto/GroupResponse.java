@@ -2,6 +2,7 @@ package com.gloddy.server.group.domain.dto;
 
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class GroupResponse {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Schema(name = "GroupCreateResponse")
     public static class Create {
         private Long groupId;
     }

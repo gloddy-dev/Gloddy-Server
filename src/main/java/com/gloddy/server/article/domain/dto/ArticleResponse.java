@@ -1,5 +1,6 @@
 package com.gloddy.server.article.domain.dto;
 import com.gloddy.server.core.response.PageResponse;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ public class ArticleResponse {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Schema(name = "ArticleCreateResponse")
     public static class Create {
         private Long articleId;
     }
