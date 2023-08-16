@@ -40,6 +40,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/*/**")
+                .requestMatchers("/api/v1/search/**")
                 .requestMatchers(HttpMethod.POST, "/api/v1/files/**")
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/*/**")
                 .requestMatchers("/health");
