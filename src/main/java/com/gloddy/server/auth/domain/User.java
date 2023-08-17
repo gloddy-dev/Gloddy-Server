@@ -16,6 +16,7 @@ import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
 import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -105,5 +106,9 @@ public class User extends BaseTimeEntity {
                 .introduce(introduce)
                 .personalities(personalities)
                 .build();
+    }
+
+    public ReliabilityLevel getReliabilityLevel() {
+        return this.reliability.getLevel();
     }
 }
