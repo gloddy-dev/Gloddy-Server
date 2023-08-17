@@ -19,6 +19,7 @@ public class GroupDtoMapper {
                 group.getTitle(),
                 group.getImageUrl(),
                 group.getContent(),
+                group.getMaxUser(),
                 group.getMemberCount(),
                 group.getMeetDate().toString(),
                 group.getStartDateTime().toLocalTime().toString(),
