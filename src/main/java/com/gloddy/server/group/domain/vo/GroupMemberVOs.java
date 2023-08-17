@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Embeddable
 public class GroupMemberVOs {
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(
             name = "group_id",
             nullable = false,
@@ -27,6 +28,11 @@ public class GroupMemberVOs {
 
     public void addUserGroupVo(GroupMemberVO groupMemberVO) {
         this.groupMemberVOS.add(groupMemberVO);
+    }
+
+    public void updateGroupMemberVo(List<GroupMemberVO> groupMemberVOs) {
+        this.groupMemberVOS.clear();
+        this.groupMemberVOS.addAll(groupMemberVOs);
     }
 
     public int getSize() {
