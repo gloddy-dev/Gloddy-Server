@@ -39,15 +39,6 @@ public class ApplyService {
         return new ApplyResponse.Create(apply.getId());
     }
 
-    // TODO: exception 처리
-    // TODO: 모임 나갔는데, Apply 삭제? -> 다시 설계할 필요가 있을 듯
-//    @Transactional
-//    public void deleteApply(Long userId, Long groupId) {
-//        Apply apply = applyJpaRepository.findByUserIdAndGroupId(userId, groupId)
-//                .orElseThrow(() -> new RuntimeException("존재하지 않는 지원서"));
-//        applyJpaRepository.delete(apply);
-//    }
-
     @Transactional
     public void updateStatusApply(Long userId, Long groupId, Long applyId, Status status) {
         User user = userQueryHandler.findById(userId);
