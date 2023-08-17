@@ -2,30 +2,26 @@ package com.gloddy.server.group.domain.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Embeddable
+@Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class GroupPlace {
 
     @Column(name = "place_name")
-    public String name;
+    private String name;
+
+    @Column(name = "place_address")
+    private String address;
 
     @Column(name = "place_latitude")
-    public BigDecimal latitude;
+    private BigDecimal latitude;
 
     @Column(name = "place_longitude")
-    public BigDecimal longitude;
-
-    public GroupPlace(String name, BigDecimal latitude, BigDecimal longitude) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
+    private BigDecimal longitude;
 }
