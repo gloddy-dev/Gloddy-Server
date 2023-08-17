@@ -67,6 +67,7 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
                 "12:00",
                 "15:00",
                 "숭실대학교",
+                "동작구 상도로",
                 "150",
                 "150",
                 10
