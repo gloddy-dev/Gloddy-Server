@@ -3,7 +3,6 @@ package com.gloddy.server.group_member.application;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
-import com.gloddy.server.group.domain.vo.GroupMemberVOs;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.handler.GroupMemberCommandHandler;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
@@ -27,16 +26,10 @@ public class GroupMemberDeleteService {
 
     @Transactional
     public void delete(Long userId, Long groupId) {
-        deleteGroupMemberVo(userId, groupId);
         deleteGroupMember(userId, groupId);
+        deleteGroupMemberVo(groupId);
 
         groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(userId));
-    }
-
-    private void deleteGroupMemberVo(Long userId, Long groupId) {
-        Group group = groupQueryHandler.findById(groupId);
-        List<GroupMemberVO> groupMemberVOs = getGroupMemberVo(userId, groupId);
-        group.updateGroupVOs(groupMemberVOs);
     }
 
     private void deleteGroupMember(Long userId, Long groupId) {
@@ -44,14 +37,15 @@ public class GroupMemberDeleteService {
         groupMemberCommandHandler.delete(groupMember);
     }
 
-    private List<GroupMemberVO> getGroupMemberVo(Long userId, Long groupId) {
-        return groupMemberQueryHandler.findAllByGroupId(groupId).stream()
-                .filter(groupMember -> isMember(groupMember, userId))
-                .map(GroupMember::createUserGroupVO)
-                .collect(Collectors.toList());
+    private void deleteGroupMemberVo(Long groupId) {
+        Group group = groupQueryHandler.findById(groupId);
+        List<GroupMemberVO> groupMemberVOs = getGroupMemberVo(groupId);
+        group.updateGroupVOs(groupMemberVOs);
     }
 
-    private boolean isMember(GroupMember groupMember, Long userId) {
-        return !groupMember.getUser().getId().equals(userId);
+    private List<GroupMemberVO> getGroupMemberVo(Long groupId) {
+        return groupMemberQueryHandler.findAllByGroupId(groupId).stream()
+                .map(GroupMember::createUserGroupVO)
+                .collect(Collectors.toList());
     }
 }
