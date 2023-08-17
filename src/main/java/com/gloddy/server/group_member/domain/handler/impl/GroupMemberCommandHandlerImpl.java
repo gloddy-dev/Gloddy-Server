@@ -9,11 +9,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class GroupMemberCommandHandlerImpl implements GroupMemberCommandHandler {
-    private final GroupMemberJpaRepository userGroupJpaRepository;
+    private final GroupMemberJpaRepository GroupMemberJpaRepository;
 
 
     @Override
     public GroupMember save(GroupMember groupMember) {
-        return userGroupJpaRepository.save(groupMember);
+        return GroupMemberJpaRepository.save(groupMember);
     }
+
+    @Override
+    public void delete(GroupMember groupMember) {
+        GroupMemberJpaRepository.delete(groupMember);
+    }
+
+
 }
