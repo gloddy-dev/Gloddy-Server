@@ -36,7 +36,6 @@ public class GroupResponse {
         private String imageUrl;
         private String title;
         private String content;
-        // List<String> memberProfiles;
         private int memberCount;
         private int maxUser;
         private String place;
@@ -50,11 +49,10 @@ public class GroupResponse {
                     group.getContent(),
                     group.getMemberCount(),
                     group.getMaxUser(),
-                    group.getPlace().getName(),
+                    group.getPlace().getAddress(),
                     dateToStringForGroupPreview(group.getMeetDate())
             );
         }
-
     }
 
     @Getter
@@ -70,7 +68,8 @@ public class GroupResponse {
         private String meetDate;
         private String startTime;
         private String endTime;
-        private String place;
+        private String placeName;
+        private String placeAddress;
         private String place_latitude;
         private String place_longitude;
     }
@@ -83,7 +82,6 @@ public class GroupResponse {
         private String imageUrl;
         private String title;
         private String content;
-        // List<String> memberProfiles;
         private int memberCount;
         private String place;
         private LocalDate meetDate;
