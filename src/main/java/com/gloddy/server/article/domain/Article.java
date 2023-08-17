@@ -5,6 +5,8 @@ import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -95,5 +97,9 @@ public class Article extends BaseTimeEntity {
 
     public boolean isWriterCertifiedStudent() {
         return user.isCertifiedStudent();
+    }
+
+    public ReliabilityLevel getWriterReliabilityLevel() {
+        return user.getReliabilityLevel();
     }
 }
