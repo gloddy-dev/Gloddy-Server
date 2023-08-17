@@ -36,8 +36,10 @@ public class ArticleResponse {
         private String content;
         private boolean notice;
         private int commentCount;
-        private Boolean isCaptain;
-        private Boolean isCertifiedStudent;
+        private Boolean isWriter;
+        private Boolean isWriterCaptain;
+        private Boolean isWriterCertifiedStudent;
+        private String writerReliabilityLevel;
         private List<String> images;
     }
 
