@@ -79,21 +79,23 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public PageResponse<GetArticle> getPreview(Long groupId, int page, int size) {
+    public PageResponse<GetArticle> getPreview(Long userId, Long groupId, int page, int size) {
         Group group = groupQueryHandler.findById(groupId);
+        User user = userQueryHandler.findById(userId);
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Article> articles = articleQueryHandler.findAllToGetArticlePreview(group, pageable);
 
-        Page<GetArticle> getArticles = ArticleDtoMapper.mapToGetArticlePageFrom(articles);
+        Page<GetArticle> getArticles = ArticleDtoMapper.mapToGetArticlePageFrom(articles, user);
         return PageResponse.from(getArticles);
     }
 
     @Transactional(readOnly = true)
-    public GetArticle getOne(Long articleId) {
+    public GetArticle getOne(Long userId, Long articleId) {
         Article article = articleQueryHandler.findById(articleId);
+        User user = userQueryHandler.findById(userId);
 
-        return ArticleDtoMapper.getArticleDto(article);
+        return ArticleDtoMapper.getArticleDto(article, user);
     }
 
     @Transactional(readOnly = true)

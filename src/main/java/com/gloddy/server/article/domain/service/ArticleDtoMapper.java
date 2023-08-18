@@ -1,7 +1,6 @@
 package com.gloddy.server.article.domain.service;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.article.domain.dto.ArticleResponse;
 import com.gloddy.server.article.domain.vo.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Profile;
@@ -16,11 +15,11 @@ import static com.gloddy.server.article.domain.dto.ArticleResponse.*;
 
 public class ArticleDtoMapper {
 
-    public static Page<GetArticle> mapToGetArticlePageFrom(Page<Article> articles) {
-        return articles.map(ArticleDtoMapper::getArticleDto);
+    public static Page<GetArticle> mapToGetArticlePageFrom(Page<Article> articles, User currentUser) {
+        return articles.map(article -> getArticleDto(article,  currentUser));
     }
 
-    public static GetArticle getArticleDto(Article article) {
+    public static GetArticle getArticleDto(Article article, User currentUser) {
         User user = article.getUser();
         Profile profile = user.getProfile();
 
@@ -32,8 +31,10 @@ public class ArticleDtoMapper {
                 article.getContent(),
                 article.isNotice(),
                 article.getCommentCount(),
+                article.isWriter(currentUser),
                 article.isWriterGroupCaptain(),
                 article.isWriterCertifiedStudent(),
+                article.getWriterReliabilityLevel().name(),
                 getImageDtos(article)
         );
     }

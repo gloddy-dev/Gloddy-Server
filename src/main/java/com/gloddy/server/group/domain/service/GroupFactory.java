@@ -14,8 +14,19 @@ import java.time.LocalDate;
 public class GroupFactory {
 
     public Group getGroupFrom(User captain, GroupRequest.Create request) {
-        GroupDateTime dateTime = getGroupDateTime(request.getMeetDate(), request.getStartTime(), request.getEndTime());
-        GroupPlace place = getGroupPlace(request.getPlace(), request.getPlace_latitude(), request.getPlace_longitude());
+        GroupDateTime dateTime = getGroupDateTime(
+                request.getMeetDate(),
+                request.getStartTime(),
+                request.getEndTime()
+        );
+
+        GroupPlace place = getGroupPlace(
+                request.getPlaceName(),
+                request.getPlaceAddress(),
+                request.getPlace_latitude(),
+                request.getPlace_longitude()
+        );
+
         return Group.builder()
                 .captain(captain)
                 .imageUrl(request.getImageUrl())
@@ -26,14 +37,18 @@ public class GroupFactory {
                 .maxUser(request.getMaxUser())
                 .school(captain.getSchool())
                 .build();
-
     }
 
     private GroupDateTime getGroupDateTime(LocalDate meetDate, String startTime, String endTime) {
         return GroupDateTime.createFrom(meetDate, startTime, endTime);
     }
 
-    private GroupPlace getGroupPlace(String name, String latitude, String longitude) {
-        return new GroupPlace(name, new BigDecimal(latitude), new BigDecimal(longitude));
+    private GroupPlace getGroupPlace(String name, String address, String latitude, String longitude) {
+        return GroupPlace.builder()
+                .name(name)
+                .address(address)
+                .latitude(new BigDecimal(latitude))
+                .longitude(new BigDecimal(longitude))
+                .build();
     }
 }

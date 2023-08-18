@@ -52,20 +52,22 @@ public class ArticleController {
 
     @GetMapping("/groups/{groupId}/articles")
     public ResponseEntity<PageResponse<GetArticle>> getPreview(
+        @AuthenticationPrincipal Long userId,
         @PathVariable Long groupId,
         @RequestParam(required = false, defaultValue = "0") int page,
         @RequestParam(required = false, defaultValue = "10") int size
     ) {
-        PageResponse<GetArticle> response = articleService.getPreview(groupId, page, size);
+        PageResponse<GetArticle> response = articleService.getPreview(userId, groupId, page, size);
         return ApiResponse.ok(response);
     }
 
     @GetMapping("/groups/{groupId}/articles/{articleId}")
     public ResponseEntity<GetArticle> getOne(
+            @AuthenticationPrincipal Long userId,
             @PathVariable Long groupId,
             @PathVariable Long articleId
     ) {
-        GetArticle response = articleService.getOne(articleId);
+        GetArticle response = articleService.getOne(userId, articleId);
         return ApiResponse.ok(response);
     }
 
