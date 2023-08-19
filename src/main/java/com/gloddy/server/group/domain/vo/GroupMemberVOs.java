@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.vo;
 
+import com.gloddy.server.group_member.domain.GroupMember;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -30,9 +32,15 @@ public class GroupMemberVOs {
         this.groupMemberVOS.add(groupMemberVO);
     }
 
-    public void updateGroupMemberVo(List<GroupMemberVO> groupMemberVOs) {
+    public void updateGroupMemberVo(Long userId) {
         this.groupMemberVOS.clear();
-        this.groupMemberVOS.addAll(groupMemberVOs);
+        this.groupMemberVOS.addAll(getGroupMemberVos(userId));
+    }
+
+    private List<GroupMemberVO> getGroupMemberVos(Long userId) {
+        return this.groupMemberVOS.stream()
+                .filter(vo -> !vo.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     public int getSize() {

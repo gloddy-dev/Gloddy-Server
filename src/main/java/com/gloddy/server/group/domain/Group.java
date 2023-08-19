@@ -77,8 +77,8 @@ public class Group extends BaseTimeEntity {
         this.groupMemberVOs.addUserGroupVo(groupMemberVO);
     }
 
-    public void updateGroupVOs(List<GroupMemberVO> groupMemberVOs) {
-        this.groupMemberVOs.updateGroupMemberVo(groupMemberVOs);
+    public void updateGroupVOs(Long userId) {
+        this.groupMemberVOs.updateGroupMemberVo(userId);
     }
 
     public LocalDate getMeetDate() {
