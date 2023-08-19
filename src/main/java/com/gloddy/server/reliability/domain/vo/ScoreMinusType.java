@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public enum ScoreMinusType {
     Absence_Group("모임 불참", 10L),
+    Leaved_Group("모임 나가기", 5L)
     ;
 
     private final String description;

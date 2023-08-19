@@ -5,6 +5,7 @@ import com.gloddy.server.apply.domain.dto.ApplyResponse;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.application.ApplyService;
 import com.gloddy.server.core.response.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,18 +28,7 @@ public class ApplyApi {
         return ApiResponse.ok(response);
     }
 
-    // 모임 나가기 api
-    // TODO: 모임 나가기 다시 설계합시다~
-//    @DeleteMapping("/groups/{groupId}/apply")
-//    public ResponseEntity<Void> delete(
-//         @AuthenticationPrincipal Long userId,
-//         @PathVariable Long groupId
-//    ) {
-//        applyService.deleteApply(userId, groupId);
-//        return ApiResponse.noContent();
-//    }
-
-    // 지원서 승인/거절 api
+    @Operation(description = "지원서 승인/거절")
     @PatchMapping("/groups/{groupId}/applys/{applyId}")
     public ResponseEntity<Void> updateStatus(
          @AuthenticationPrincipal Long userId,

@@ -64,6 +64,7 @@ public class GroupResponse {
         private String title;
         private String fileUrl;
         private String content;
+        private int maxMemberCount;
         private int memberCount;
         private String meetDate;
         private String startTime;

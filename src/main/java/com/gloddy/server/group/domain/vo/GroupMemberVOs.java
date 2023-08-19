@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.vo;
 
+import com.gloddy.server.group_member.domain.GroupMember;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,13 +8,15 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Embeddable
 public class GroupMemberVOs {
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(
             name = "group_id",
             nullable = false,
@@ -27,6 +30,17 @@ public class GroupMemberVOs {
 
     public void addUserGroupVo(GroupMemberVO groupMemberVO) {
         this.groupMemberVOS.add(groupMemberVO);
+    }
+
+    public void updateGroupMemberVo(Long userId) {
+        this.groupMemberVOS.clear();
+        this.groupMemberVOS.addAll(getGroupMemberVos(userId));
+    }
+
+    private List<GroupMemberVO> getGroupMemberVos(Long userId) {
+        return this.groupMemberVOS.stream()
+                .filter(vo -> !vo.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     public int getSize() {

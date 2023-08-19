@@ -7,6 +7,9 @@ import com.gloddy.server.group.domain.vo.GroupDateTime;
 import com.gloddy.server.group.domain.vo.GroupMemberVOs;
 import com.gloddy.server.group.domain.vo.GroupPlace;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
+import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.group_member.event.GroupMemberLeaveEvent;
+import com.gloddy.server.group_member.event.producer.GroupMemberEventProducer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +18,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -70,6 +75,10 @@ public class Group extends BaseTimeEntity {
 
     public void addUserGroupVOs(GroupMemberVO groupMemberVO) {
         this.groupMemberVOs.addUserGroupVo(groupMemberVO);
+    }
+
+    public void updateGroupVOs(Long userId) {
+        this.groupMemberVOs.updateGroupMemberVo(userId);
     }
 
     public LocalDate getMeetDate() {
