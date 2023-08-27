@@ -20,6 +20,7 @@ public class MateResponse {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class getMateForUser {
+        private Long mateId;
         private String mateImageUrl;
         private String mateName;
         private String school;

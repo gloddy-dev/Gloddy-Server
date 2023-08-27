@@ -34,6 +34,7 @@ public class MateGetService {
         User mateUser = userQueryHandler.findById(mate.getMateId());
         Profile mateUserProfile = mateUser.getProfile();
         return new getMateForUser(
+                mateUser.getId(),
                 mateUserProfile.getImageUrl(),
                 mateUserProfile.getNickname(),
                 mateUser.getSchool(),
