@@ -30,5 +30,4 @@ public class GroupDtoMapper {
                 group.getPlace().getLongitude().toString()
         );
     }
-
 }
