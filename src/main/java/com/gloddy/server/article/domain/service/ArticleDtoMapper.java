@@ -4,6 +4,7 @@ import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.vo.ArticleImage;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Profile;
+import com.gloddy.server.core.utils.DateTimePatternConstants;
 import com.gloddy.server.core.utils.DateTimeUtils;
 import org.springframework.data.domain.Page;
 
@@ -27,7 +28,7 @@ public class ArticleDtoMapper {
                 article.getId(),
                 profile.getImageUrl(),
                 profile.getNickname(),
-                DateTimeUtils.dateTimeToString(article.getCreatedAt()),
+                toStringDateTime(article),
                 article.getContent(),
                 article.isNotice(),
                 article.getCommentCount(),
@@ -56,6 +57,13 @@ public class ArticleDtoMapper {
         return new GetNotice(
                 article.getId(),
                 article.getContent()
+        );
+    }
+
+    private static String toStringDateTime(Article article) {
+        return DateTimeUtils.dateTimeToString(
+                article.getCreatedAt(),
+                DateTimePatternConstants.ARTICLE
         );
     }
 }

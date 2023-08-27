@@ -2,6 +2,7 @@ package com.gloddy.server.comment.domain.service;
 
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.comment.domain.Comment;
+import com.gloddy.server.core.utils.DateTimePatternConstants;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +23,16 @@ public class CommentDtoMapper {
                 comment.getId(),
                 comment.getWriterImageUrl(),
                 comment.getWriterNickName(),
-                dateTimeToString(comment.getCreatedAt()),
+                toStringDateTime(comment),
                 comment.getContent(),
                 comment.isWriter(user)
+        );
+    }
+
+    private static String toStringDateTime(Comment comment) {
+        return dateTimeToString(
+                comment.getCreatedAt(),
+                DateTimePatternConstants.COMMENT
         );
     }
 }

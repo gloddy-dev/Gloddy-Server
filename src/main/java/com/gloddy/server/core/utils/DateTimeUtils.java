@@ -21,18 +21,27 @@ public class DateTimeUtils {
         return of(date, time);
     }
 
-    public static String dateTimeToString(LocalDateTime date) {
+    public static String dateTimeToString(LocalDateTime date, String pattern) {
         return Optional.ofNullable(date)
                 .orElse(now())
-                .format(ofPattern("yyyy-MM-dd HH:mm"));
+                .format(ofPattern(pattern));
     }
 
-    public static String dateToStringForGroupPreview(LocalDate date) {
-        LocalDate localDate = Optional.ofNullable(date)
-                .orElse(LocalDate.now());
+    public static String dateToString(LocalDate date, String pattern) {
+        return Optional.ofNullable(date)
+                .orElse(LocalDate.now())
+                .format(ofPattern(pattern));
+    }
 
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+    public static String dateToStringForGroupPreview(LocalDateTime dateTime) {
+        String timePattern = "hh:mma";
+        String time = dateTime.format(ofPattern(timePattern).withLocale(Locale.US));
+
+        String datePattern = "yyyy.MM.dd";
+        String date = dateTime.format(ofPattern(datePattern));
+
+        DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
         String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
-        return localDate + " " + day;
+        return date + " " + day + " " + time;
     }
 }

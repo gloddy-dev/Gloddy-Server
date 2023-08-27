@@ -26,11 +26,10 @@ public class GroupApi {
 
     @GetMapping("/groups")
     public PageResponse<GroupResponse.GetGroup> getGroups(
-            @AuthenticationPrincipal Long userId,
             @RequestParam int size,
             @RequestParam int page
     ) {
-        return groupService.getGroups(userId, size, page);
+        return groupService.getGroups(size, page);
     }
 
     @GetMapping("/groups/{groupId}")

@@ -50,7 +50,7 @@ public class GroupResponse {
                     group.getMemberCount(),
                     group.getMaxUser(),
                     group.getPlace().getAddress(),
-                    dateToStringForGroupPreview(group.getMeetDate())
+                    dateToStringForGroupPreview(group.getStartDateTime())
             );
         }
     }

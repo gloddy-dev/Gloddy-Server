@@ -25,7 +25,7 @@ public class GroupQueryHandlerImpl implements GroupQueryHandler {
     }
 
     @Override
-    public Page<Group> findGroupPage(String school, Pageable pageable) {
-        return groupJpaRepository.findBySchoolOrderByIdDesc(pageable, school);
+    public Page<Group> findGroupPage(Pageable pageable) {
+        return groupJpaRepository.findAllByOrderByIdDesc(pageable);
     }
 }

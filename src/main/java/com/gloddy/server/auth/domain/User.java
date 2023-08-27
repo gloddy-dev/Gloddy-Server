@@ -111,4 +111,8 @@ public class User extends BaseTimeEntity {
     public ReliabilityLevel getReliabilityLevel() {
         return this.reliability.getLevel();
     }
+
+    public LocalDate getBirth() {
+        return this.profile.getBirth();
+    }
 }
