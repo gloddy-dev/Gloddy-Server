@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Optional;
@@ -22,10 +21,16 @@ public class DateTimeUtils {
         return of(date, time);
     }
 
-    public static String dateTimeToString(LocalDateTime date) {
+    public static String dateTimeToString(LocalDateTime date, String pattern) {
         return Optional.ofNullable(date)
                 .orElse(now())
-                .format(ofPattern("yyyy-MM-dd HH:mm"));
+                .format(ofPattern(pattern));
+    }
+
+    public static String dateToString(LocalDate date, String pattern) {
+        return Optional.ofNullable(date)
+                .orElse(LocalDate.now())
+                .format(ofPattern(pattern));
     }
 
     public static String dateToStringForGroupPreview(LocalDateTime dateTime) {
