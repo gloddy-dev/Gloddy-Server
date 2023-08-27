@@ -32,11 +32,9 @@ public class GroupService {
     private final GroupChecker groupChecker;
 
     @Transactional(readOnly = true)
-    public PageResponse<GroupResponse.GetGroup> getGroups(Long userId, int size, int page) {
-        User user = userQueryHandler.findById(userId);
-
+    public PageResponse<GroupResponse.GetGroup> getGroups(int size, int page) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Group> groupPage = groupQueryHandler.findGroupPage(user.getSchool(), pageable);
+        Page<Group> groupPage = groupQueryHandler.findGroupPage(pageable);
         Page<GroupResponse.GetGroup> getGroupPage = GroupDtoMapper.mapToGetGroupPageFrom(groupPage);
         return PageResponse.from(getGroupPage);
     }
