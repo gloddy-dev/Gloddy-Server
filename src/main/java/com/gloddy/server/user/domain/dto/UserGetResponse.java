@@ -3,12 +3,15 @@ package com.gloddy.server.user.domain.dto;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Profile;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.core.utils.DateTimePatternConstants;
+import com.gloddy.server.core.utils.DateTimeUtils;
 import com.gloddy.server.core.utils.TimeUtil;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class UserGetResponse {
     private String name;
     private String gender;
     private int age;
+    private String birth;
     private String school;
     private ReliabilityLevel reliability;
     private int praiseCount;
@@ -33,12 +37,20 @@ public class UserGetResponse {
             profile.getNickname(),
             profile.getGender().toString(),
             TimeUtil.calculateAge(profile.getBirth()),
+            toStringBirth(user),
             user.getSchool(),
             reliability.getLevel(),
             praiseCount,
             reviewCount,
             profile.getIntroduce(),
             Personality.of(profile.getPersonalities())
+        );
+    }
+
+    private static String toStringBirth(User user) {
+        return DateTimeUtils.dateToString(
+                user.getBirth(),
+                DateTimePatternConstants.BIRTH
         );
     }
 }
