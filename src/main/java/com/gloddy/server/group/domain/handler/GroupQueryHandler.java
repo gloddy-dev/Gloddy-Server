@@ -8,5 +8,5 @@ public interface GroupQueryHandler {
 
     Group findById(Long id);
 
-    Page<Group> findGroupPage(String school, Pageable pageable);
+    Page<Group> findGroupPage(Pageable pageable);
 }
