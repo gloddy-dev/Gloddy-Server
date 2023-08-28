@@ -25,7 +25,10 @@ public class CommentDtoMapper {
                 comment.getWriterNickName(),
                 toStringDateTime(comment),
                 comment.getContent(),
-                comment.isWriter(user)
+                comment.isWriter(user),
+                comment.isWriterGroupCaptain(),
+                comment.isWriterCertifiedStudent(),
+                comment.getWriterReliabilityLevel().name()
         );
     }
 
