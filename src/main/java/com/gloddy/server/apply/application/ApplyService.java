@@ -5,6 +5,8 @@ import com.gloddy.server.apply.domain.dto.ApplyResponse;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.handler.ApplyCommandHandler;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
+import com.gloddy.server.apply.domain.service.ApplyDtoMapper;
+import com.gloddy.server.apply.domain.service.ApplyGetExecutor;
 import com.gloddy.server.apply.domain.service.ApplyStatusUpdatePolicy;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.event.producer.ApplyEventProducer;
@@ -18,10 +20,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ApplyService {
 
+    private final ApplyGetExecutor applyGetExecutor;
     private final ApplyCommandHandler applyCommandHandler;
     private final ApplyQueryHandler applyQueryHandler;
     private final UserQueryHandler userQueryHandler;
@@ -51,5 +56,10 @@ public class ApplyService {
             return;
         }
         apply.refuseApply();
+    }
+
+    public ApplyResponse.GetAll getAll(Long userId, Long groupId) {
+        List<Apply> applies = applyGetExecutor.getAllWaitApply(userId, groupId);
+        return ApplyDtoMapper.mapToGetAll(applies);
     }
 }
