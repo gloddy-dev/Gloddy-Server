@@ -34,6 +34,9 @@ public class CommentResponse {
         private String name;
         private String date;
         private String content;
-        private boolean isWriter;
+        private Boolean isWriter;
+        private Boolean isWriterCaptain;
+        private Boolean isWriterCertifiedStudent;
+        private String writerReliabilityLevel;
     }
 }
