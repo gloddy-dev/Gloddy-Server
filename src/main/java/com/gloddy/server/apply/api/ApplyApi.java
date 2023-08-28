@@ -29,7 +29,7 @@ public class ApplyApi {
     }
 
     @Operation(description = "지원서 승인/거절")
-    @PatchMapping("/groups/{groupId}/applys/{applyId}")
+    @PatchMapping("/groups/{groupId}/applies/{applyId}")
     public ResponseEntity<Void> updateStatus(
          @AuthenticationPrincipal Long userId,
          @PathVariable Long groupId,
@@ -38,5 +38,15 @@ public class ApplyApi {
     ) {
         applyService.updateStatusApply(userId, groupId, applyId, status);
         return ApiResponse.noContent();
+    }
+
+    @Operation(description = "지원서 전체 조회 - 방장 지원서 확인")
+    @GetMapping("/groups/{groupId}/applies")
+    public ResponseEntity<ApplyResponse.GetAll> getAll(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable("groupId") Long groupId
+    ) {
+        ApplyResponse.GetAll response = applyService.getAll(userId, groupId);
+        return ApiResponse.ok(response);
     }
 }

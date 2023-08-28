@@ -44,7 +44,7 @@ public class UpdateApplyTest extends ApplyApiTest {
 
         //then
         //지원서를 거절한다.
-        String url = "/api/v1/groups/" + myGroup.getId() + "/applys/" + apply.getId() + "?status=REFUSE";
+        String url = "/api/v1/groups/" + myGroup.getId() + "/applies/" + apply.getId() + "?status=REFUSE";
         ResultActions test = mockMvc.perform(
                 patch(url)
                 .header("X-AUTH-TOKEN", accessToken)
@@ -83,7 +83,7 @@ public class UpdateApplyTest extends ApplyApiTest {
 
             //then
             //지원서를 승인한다.
-            String url = "/api/v1/groups/" + myGroup.getId() + "/applys/" + apply.getId() + "?status=APPROVE";
+            String url = "/api/v1/groups/" + myGroup.getId() + "/applies/" + apply.getId() + "?status=APPROVE";
             ResultActions test = mockMvc.perform(
                     patch(url)
                     .header("X-AUTH-TOKEN", accessToken)
@@ -144,7 +144,7 @@ public class UpdateApplyTest extends ApplyApiTest {
 
         //when
         //자신이 방장이 아닌 그룹에서 지원서 승인 or 거절 요청을 한다.
-        String url = "/api/v1/groups/" + group.getId() + "/applys/" + apply.getId() + "?status=APPROVE";
+        String url = "/api/v1/groups/" + group.getId() + "/applies/" + apply.getId() + "?status=APPROVE";
         ResultActions test = mockMvc.perform(
                 patch(url)
                 .header("X-AUTH-TOKEN", accessToken)
