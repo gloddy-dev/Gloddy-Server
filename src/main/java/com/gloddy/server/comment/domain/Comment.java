@@ -3,6 +3,7 @@ package com.gloddy.server.comment.domain;
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
+import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,18 @@ public class Comment extends BaseTimeEntity {
 
     public boolean isWriter(User user) {
         return this.user.equals(user);
+    }
+
+    public boolean isWriterGroupCaptain() {
+        return this.article.getGroup().isCaptain(this.user);
+    }
+
+    public boolean isWriterCertifiedStudent() {
+        return user.isCertifiedStudent();
+    }
+
+    public ReliabilityLevel getWriterReliabilityLevel() {
+        return user.getReliabilityLevel();
     }
 
     public String getWriterImageUrl() {
