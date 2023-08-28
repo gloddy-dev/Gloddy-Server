@@ -32,4 +32,9 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
         return applyJpaRepository.findByIdFetchGroupAndCaptain(id)
                 .orElseThrow(NotFoundApplyException::new);
     }
+
+    @Override
+    public List<Apply> findAllByGroupIdAndStatus(Long groupId, Status status) {
+        return applyJpaRepository.findAllByGroupIdAndStatus(groupId, status);
+    }
 }
