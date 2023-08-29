@@ -49,7 +49,10 @@ public class ScrapService {
                 group.getMemberCount(),
                 group.getMaxUser(),
                 group.getPlace().getName(),
-                group.getMeetDate().toString()
+                group.getPlace().getAddress(),
+                group.getMeetDate().toString(),
+                group.getStartDateTime().toLocalTime().toString(),
+                group.getEndDateTime().toLocalTime().toString()
         );
     }
 
