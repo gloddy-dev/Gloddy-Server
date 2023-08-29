@@ -2,6 +2,7 @@ package com.gloddy.server.group_member.domain;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.group_member.event.GroupMemberSelectBestMateEvent;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
@@ -23,8 +24,8 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 @Entity
 @Getter
 @Table(name = "group_member")
-@EqualsAndHashCode(of = {"id"})
-public class GroupMember {
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+public class GroupMember extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
