@@ -23,8 +23,8 @@ public class GroupFactory {
         GroupPlace place = getGroupPlace(
                 request.getPlaceName(),
                 request.getPlaceAddress(),
-                request.getPlace_latitude(),
-                request.getPlace_longitude()
+                request.getPlaceLatitude(),
+                request.getPlaceLongitude()
         );
 
         return Group.builder()

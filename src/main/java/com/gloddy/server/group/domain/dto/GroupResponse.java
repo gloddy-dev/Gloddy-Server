@@ -37,9 +37,12 @@ public class GroupResponse {
         private String title;
         private String content;
         private int memberCount;
-        private int maxUser;
-        private String place;
+        private int maxMemberCount;
+        private String placeName;
+        private String placeAddress;
         private String meetDate;
+        private String startTime;
+        private String endTime;
 
         public static GetGroup from(Group group) {
             return new GetGroup(
@@ -49,8 +52,11 @@ public class GroupResponse {
                     group.getContent(),
                     group.getMemberCount(),
                     group.getMaxUser(),
+                    group.getPlace().getName(),
                     group.getPlace().getAddress(),
-                    dateToStringForGroupPreview(group.getStartDateTime())
+                    group.getMeetDate().toString(),
+                    group.getStartDateTime().toLocalTime().toString(),
+                    group.getEndDateTime().toLocalTime().toString()
             );
         }
     }
@@ -61,6 +67,7 @@ public class GroupResponse {
     public static class GetGroupDetail {
         private Boolean myGroup;
         private Boolean isCaptain;
+        private Long groupId;
         private String title;
         private String fileUrl;
         private String content;
@@ -71,8 +78,8 @@ public class GroupResponse {
         private String endTime;
         private String placeName;
         private String placeAddress;
-        private String place_latitude;
-        private String place_longitude;
+        private String placeLatitude;
+        private String placeLongitude;
     }
 
     @Getter
