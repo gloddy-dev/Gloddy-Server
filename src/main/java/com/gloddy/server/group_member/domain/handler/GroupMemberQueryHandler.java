@@ -10,4 +10,6 @@ public interface GroupMemberQueryHandler {
     List<GroupMember> findAllByGroupId(Long groupId);
 
     List<GroupMember> findAllByUserIdInAndGroupId(List<Long> userIds, Long groupId);
+
+    List<GroupMember> findAllByUserId(Long userId);
 }

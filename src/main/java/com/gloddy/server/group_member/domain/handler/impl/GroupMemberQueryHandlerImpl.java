@@ -29,4 +29,9 @@ public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
     public List<GroupMember> findAllByUserIdInAndGroupId(List<Long> userIds, Long groupId) {
         return groupMemberJpaRepository.findByUserIdInAndGroupId(userIds, groupId);
     }
+
+    @Override
+    public List<GroupMember> findAllByUserId(Long userId) {
+        return groupMemberJpaRepository.findByUserIdFetchGroupAndUser(userId);
+    }
 }
