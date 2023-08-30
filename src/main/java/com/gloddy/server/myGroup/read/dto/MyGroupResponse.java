@@ -83,4 +83,19 @@ public class MyGroupResponse {
             private GroupInfo group;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class NotEstimated {
+        private List<One> groups;
+
+        @Getter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class One {
+            private Boolean isCaptain;
+            private GroupInfo group;
+        }
+    }
 }

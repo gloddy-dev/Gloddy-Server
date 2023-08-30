@@ -39,4 +39,10 @@ public class MyGroupReadController {
         MyGroupResponse.Rejected response = myGroupReadService.getRejectedGroups(userId);
         return ApiResponse.ok(response);
     }
+
+    @GetMapping("/users/groups/notEstimated")
+    public ResponseEntity<MyGroupResponse.NotEstimated> getNotEstimatedGroups(@AuthenticationPrincipal Long userId) {
+        MyGroupResponse.NotEstimated response = myGroupReadService.getNotEstimatedGroups(userId);
+        return ApiResponse.ok(response);
+    }
 }
