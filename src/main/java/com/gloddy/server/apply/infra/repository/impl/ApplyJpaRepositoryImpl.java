@@ -45,6 +45,15 @@ public class ApplyJpaRepositoryImpl implements ApplyJpaRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public List<Apply> findAllByUserIdAndStatus(Long userId, Status status) {
+        return query.selectFrom(apply)
+                .join(apply.user, user).fetchJoin()
+                .join(apply.group, group).fetchJoin()
+                .where(userIdEq(userId), statusEq(status))
+                .fetch();
+    }
+
     private BooleanExpression idEq(Long id) {
         return apply.id.eq(id);
     }
@@ -55,5 +64,9 @@ public class ApplyJpaRepositoryImpl implements ApplyJpaRepositoryCustom {
 
     private BooleanExpression statusEq(Status status) {
         return apply.status.eq(status);
+    }
+
+    private BooleanExpression userIdEq(Long userId) {
+        return apply.user.id.eq(userId);
     }
 }
