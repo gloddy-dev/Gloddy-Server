@@ -12,6 +12,13 @@ public class MyGroupDtoMapper {
         );
     }
 
+    public static MyGroupResponse.Hosting.One matToHostingOne(boolean isExistNewApply, Group group) {
+        return new MyGroupResponse.Hosting.One(
+                isExistNewApply,
+                mapToGroupInfo(group)
+        );
+    }
+
     private static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
         return new MyGroupResponse.GroupInfo(
                 group.getId(),
