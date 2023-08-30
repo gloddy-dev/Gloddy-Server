@@ -1,6 +1,7 @@
 package com.gloddy.server.myGroup.read;
 
 import com.gloddy.server.myGroup.read.domainService.ParticipatingGroupGetExecutor;
+import com.gloddy.server.myGroup.read.domainService.RejectedGroupGetExecutor;
 import com.gloddy.server.myGroup.read.domainService.WaitingGroupGetExecutor;
 import com.gloddy.server.myGroup.read.domainService.facade.HostingGroupGetFacade;
 import com.gloddy.server.myGroup.read.dto.MyGroupResponse;
@@ -15,6 +16,7 @@ public class MyGroupReadService {
     private final ParticipatingGroupGetExecutor participatingGroupGetExecutor;
     private final HostingGroupGetFacade hostingGroupGetFacade;
     private final WaitingGroupGetExecutor waitingGroupGetExecutor;
+    private final RejectedGroupGetExecutor rejectedGroupGetExecutor;
 
     @Transactional(readOnly = true)
     public MyGroupResponse.Participating getParticipatingGroups(Long userId) {
@@ -29,5 +31,10 @@ public class MyGroupReadService {
     @Transactional(readOnly = true)
     public MyGroupResponse.Waiting getWaitingGroups(Long userId) {
         return waitingGroupGetExecutor.getWaitingGroups(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public MyGroupResponse.Rejected getRejectedGroups(Long userId) {
+        return rejectedGroupGetExecutor.getRejectedGroups(userId);
     }
 }
