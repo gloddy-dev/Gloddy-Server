@@ -23,8 +23,9 @@ public class MyGroupReadController {
     }
 
     @GetMapping("/users/groups/hosting")
-    public void getHostingGroups(@AuthenticationPrincipal Long userId) {
-
+    public ResponseEntity<MyGroupResponse.Hosting> getHostingGroups(@AuthenticationPrincipal Long userId) {
+        MyGroupResponse.Hosting response = myGroupReadService.getHostingGroups(userId);
+        return ApiResponse.ok(response);
     }
 
     @GetMapping("/users/groups/waiting")

@@ -40,4 +40,19 @@ public class MyGroupResponse {
             private GroupInfo group;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Hosting {
+        private List<One> groups;
+
+        @Getter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class One {
+            private Boolean isExistNewApply;
+            private GroupInfo group;
+        }
+    }
 }
