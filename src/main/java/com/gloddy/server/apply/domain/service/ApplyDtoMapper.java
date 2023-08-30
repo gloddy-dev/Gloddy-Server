@@ -21,12 +21,13 @@ public class ApplyDtoMapper {
         User applyUser = apply.getUser();
         return new ApplyResponse.GetOne(
                 applyUser.getId(),
+                applyUser.isCertifiedStudent(),
                 applyUser.getNickName(),
                 applyUser.getImageUrl(),
                 applyUser.getReliabilityLevel(),
+                apply.getId(),
                 apply.getContent(),
                 apply.getReason()
         );
     }
-
 }

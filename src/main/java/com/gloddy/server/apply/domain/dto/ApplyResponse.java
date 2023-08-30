@@ -34,9 +34,11 @@ public class ApplyResponse {
     @Schema(name = "ApplyGetOneResponse")
     public static class GetOne {
         private Long userId;
+        private Boolean isCertifiedStudent;
         private String userNickname;
         private String userImageUrl;
         private ReliabilityLevel reliabilityLevel;
+        private Long applyId;
         private String introduce;
         private String reason;
     }
