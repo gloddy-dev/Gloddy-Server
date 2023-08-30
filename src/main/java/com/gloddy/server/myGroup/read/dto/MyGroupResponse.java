@@ -68,4 +68,19 @@ public class MyGroupResponse {
             private GroupInfo group;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Rejected {
+        private List<One> groups;
+
+        @Getter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class One {
+            private Long applyId;
+            private GroupInfo group;
+        }
+    }
 }

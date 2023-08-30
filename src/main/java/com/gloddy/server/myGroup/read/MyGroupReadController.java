@@ -35,7 +35,8 @@ public class MyGroupReadController {
     }
 
     @GetMapping("/users/groups/rejected")
-    public void getRejectedGroups(@AuthenticationPrincipal Long userId) {
-
+    public ResponseEntity<MyGroupResponse.Rejected> getRejectedGroups(@AuthenticationPrincipal Long userId) {
+        MyGroupResponse.Rejected response = myGroupReadService.getRejectedGroups(userId);
+        return ApiResponse.ok(response);
     }
 }
