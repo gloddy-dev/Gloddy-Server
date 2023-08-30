@@ -25,6 +25,13 @@ public class MyGroupDtoMapper {
         );
     }
 
+    public static MyGroupResponse.Rejected.One mapToRejectedOne(Long applyId, Group group) {
+        return new MyGroupResponse.Rejected.One(
+                applyId,
+                mapToGroupInfo(group)
+        );
+    }
+
     private static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
         return new MyGroupResponse.GroupInfo(
                 group.getId(),
