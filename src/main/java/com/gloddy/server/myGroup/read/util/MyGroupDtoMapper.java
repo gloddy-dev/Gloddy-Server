@@ -32,6 +32,13 @@ public class MyGroupDtoMapper {
         );
     }
 
+    public static MyGroupResponse.NotEstimated.One mapToNotEstimatedOne(Long userId, Group group) {
+        return new MyGroupResponse.NotEstimated.One(
+                group.getCaptain().getId().equals(userId),
+                mapToGroupInfo(group)
+        );
+    }
+
     private static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
         return new MyGroupResponse.GroupInfo(
                 group.getId(),
