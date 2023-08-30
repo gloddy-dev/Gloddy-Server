@@ -19,6 +19,12 @@ public class MyGroupDtoMapper {
         );
     }
 
+    public static MyGroupResponse.Waiting.One mapToWaitingOne(Group group) {
+        return new MyGroupResponse.Waiting.One(
+                mapToGroupInfo(group)
+        );
+    }
+
     private static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
         return new MyGroupResponse.GroupInfo(
                 group.getId(),
