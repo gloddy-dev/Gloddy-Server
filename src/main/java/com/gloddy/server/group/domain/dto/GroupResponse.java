@@ -104,7 +104,7 @@ public class GroupResponse {
                     groupMember.getGroup().getMemberCount(),
                     groupMember.getGroup().getPlace().getName(),
                     groupMember.getGroup().getMeetDate(),
-                    groupMember.isPraised()
+                    groupMember.isEndEstimate()
             );
         }
     }
