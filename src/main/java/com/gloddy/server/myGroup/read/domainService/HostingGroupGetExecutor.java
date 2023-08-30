@@ -5,9 +5,10 @@ import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Comparator.*;
 
 @Component
 @RequiredArgsConstructor
@@ -20,15 +21,15 @@ public class HostingGroupGetExecutor {
 
         return groups.stream()
                 .filter(this::isNotEndGroup)
-                .sorted(Comparator.comparing(this::getGroupCreatedAt).reversed())
+                .sorted(groupCreatedAtDesc())
                 .toList();
     }
 
     private boolean isNotEndGroup(Group group) {
-        return group.getDateTime().getStartDateTime().isAfter(LocalDateTime.now());
+        return !group.isEndGroup();
     }
 
-    private LocalDateTime getGroupCreatedAt(Group group) {
-        return group.getCreatedAt();
+    private Comparator<? super Group> groupCreatedAtDesc() {
+        return comparing(Group::getCreatedAt).reversed();
     }
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Comparator.*;
@@ -26,7 +27,7 @@ public class ParticipatingGroupGetExecutor {
         return groupMembers.stream()
                 .filter(groupMember -> isNotCaptain(groupMember.getGroup(), userId))
                 .filter(groupMember -> isNotEndGroup(groupMember.getGroup()))
-                .sorted(comparing(this::getGroupMemberCreatedAt).reversed())
+                .sorted(groupMemberCreatedAtDesc())
                 .map(groupMember -> MyGroupDtoMapper.mapToParticipatingOne(isNewGroupMember(groupMember), groupMember.getGroup()))
                 .collect(collectingAndThen(toList(), MyGroupResponse.Participating::new));
     }
@@ -36,14 +37,14 @@ public class ParticipatingGroupGetExecutor {
     }
 
     private boolean isNotEndGroup(Group group) {
-        return group.getDateTime().getStartDateTime().isAfter(LocalDateTime.now());
+        return !group.isEndGroup();
     }
 
-    private LocalDateTime getGroupMemberCreatedAt(GroupMember groupMember) {
-        return groupMember.getCreatedAt();
+    private Comparator<? super GroupMember> groupMemberCreatedAtDesc() {
+        return comparing(GroupMember::getCreatedAt).reversed();
     }
 
     private boolean isNewGroupMember(GroupMember groupMember) {
-        return groupMember.getCreatedAt().isAfter(LocalDateTime.now().minusHours(1));
+        return groupMember.isNewGroupMember();
     }
 }

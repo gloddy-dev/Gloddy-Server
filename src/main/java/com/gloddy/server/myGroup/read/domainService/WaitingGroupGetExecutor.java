@@ -34,7 +34,7 @@ public class WaitingGroupGetExecutor {
     }
 
     private boolean isNotEndGroup(Group group) {
-        return group.getDateTime().getStartDateTime().isAfter(LocalDateTime.now());
+        return !group.isEndGroup();
     }
 
     private Comparator<? super Apply> applyCreatedAtDesc() {

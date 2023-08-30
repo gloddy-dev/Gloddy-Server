@@ -30,6 +30,6 @@ public class NotEstimatedGroupGetExecutor {
     }
 
     private boolean isEndGroup(Group group) {
-        return group.getStartDateTime().isBefore(LocalDateTime.now());
+        return group.isEndGroup();
     }
 }

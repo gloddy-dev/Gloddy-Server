@@ -15,6 +15,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estimate.*;
@@ -120,5 +121,9 @@ public class GroupMember extends BaseTimeEntity {
 
     public boolean isCaptain() {
         return this.user.equals(this.getGroup().getCaptain());
+    }
+
+    public boolean isNewGroupMember() {
+        return this.getCreatedAt().isAfter(LocalDateTime.now().minusHours(1));
     }
 }

@@ -109,4 +109,8 @@ public class Group extends BaseTimeEntity {
     public boolean isCaptain(User user) {
         return this.captain.equals(user);
     }
+
+    public boolean isEndGroup() {
+        return this.getEndDateTime().isBefore(LocalDateTime.now());
+    }
 }
