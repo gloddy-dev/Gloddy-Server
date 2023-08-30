@@ -49,8 +49,8 @@ public class GroupMember extends BaseTimeEntity {
     @Column(name = "is_end")
     private boolean isEnd;
 
-    @Column(name = "is_praised")
-    private boolean isPraised;
+    @Column(name = "is_end_estimate")
+    private boolean isEndEstimate;
 
     public static GroupMember empty() {
         return new GroupMember();
@@ -60,7 +60,7 @@ public class GroupMember extends BaseTimeEntity {
         this.user = user;
         this.group = group;
         this.isEnd = false;
-        this.isPraised = false;
+        this.isEndEstimate = false;
         this.absenceVoteCount = 0;
         this.isAbsence = false;
     }
@@ -73,6 +73,7 @@ public class GroupMember extends BaseTimeEntity {
                                      GroupMemberPraiser groupMemberPraiser, GroupMemberEventProducer groupMemberEventProducer) {
         praiseGroupMembers(estimateInfo.getPraiseInfos(), groupMemberPraisePolicy, groupMemberPraiser);
         selectBestMate(estimateInfo.getMateInfo(), groupMemberEventProducer);
+        completeEstimate();
         groupMemberEventProducer.produceEvent(new GroupMemberEstimateCompleteEvent(this.getUser().getId()));
     }
 
@@ -86,8 +87,8 @@ public class GroupMember extends BaseTimeEntity {
         groupMemberEventProducer.produceEvent(new GroupMemberSelectBestMateEvent(mateInfo, this.user.getId()));
     }
 
-    public void completePraise() {
-        this.isPraised = true;
+    public void completeEstimate() {
+        this.isEndEstimate = true;
     }
 
     public void plusAbsenceVoteCount() {
