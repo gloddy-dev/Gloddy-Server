@@ -7,6 +7,7 @@ import com.gloddy.server.auth.domain.vo.kind.Gender;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
+import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
@@ -32,9 +33,11 @@ public abstract class BaseServiceTest {
     @Autowired
     private ApplyJpaRepository applyJpaRepository;
     @Autowired
-    private GroupJpaRepository groupJpaRepository;
+    protected GroupJpaRepository groupJpaRepository;
     @Autowired
-    private GroupMemberJpaRepository groupMemberJpaRepository;
+    protected GroupMemberJpaRepository groupMemberJpaRepository;
+    @Autowired
+    private MateJpaRepository mateJpaRepository;
 
     @Autowired
     private AuthService authService;
@@ -71,6 +74,7 @@ public abstract class BaseServiceTest {
         groupJpaRepository.deleteAll();
         praiseJpaRepository.deleteAll();
         reliabilityRepository.deleteAll();
+        mateJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }
 }
