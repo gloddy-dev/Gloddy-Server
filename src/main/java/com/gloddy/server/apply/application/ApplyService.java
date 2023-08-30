@@ -8,6 +8,7 @@ import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
 import com.gloddy.server.apply.domain.service.ApplyDtoMapper;
 import com.gloddy.server.apply.domain.service.ApplyGetExecutor;
 import com.gloddy.server.apply.domain.service.ApplyStatusUpdatePolicy;
+import com.gloddy.server.apply.domain.service.RejectedApplyCheckExecutor;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.event.producer.ApplyEventProducer;
 import com.gloddy.server.auth.domain.User;
@@ -33,6 +34,7 @@ public class ApplyService {
     private final GroupQueryHandler groupQueryHandler;
     private final ApplyStatusUpdatePolicy applyStatusUpdatePolicy;
     private final ApplyEventProducer applyEventProducer;
+    private final RejectedApplyCheckExecutor rejectedApplyCheckExecutor;
 
     @Transactional
     public ApplyResponse.Create createApply(Long userId, Long groupId, ApplyRequest.Create request) {
@@ -61,5 +63,10 @@ public class ApplyService {
     public ApplyResponse.GetAll getAll(Long userId, Long groupId) {
         List<Apply> applies = applyGetExecutor.getAllWaitApply(userId, groupId);
         return ApplyDtoMapper.mapToGetAll(applies);
+    }
+
+    @Transactional
+    public void checkRejectedApply(Long userId, Long applyId) {
+        rejectedApplyCheckExecutor.check(userId, applyId);
     }
 }

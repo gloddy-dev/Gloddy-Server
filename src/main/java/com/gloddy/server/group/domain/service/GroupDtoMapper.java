@@ -16,6 +16,7 @@ public class GroupDtoMapper {
         return new GetGroupDetail(
                 groupChecker.isMyGroup(user, group),
                 groupChecker.isGroupCaptain(user, group),
+                group.getId(),
                 group.getTitle(),
                 group.getImageUrl(),
                 group.getContent(),

@@ -32,7 +32,7 @@ public class Group extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "captain_id")
     private User captain;
 
@@ -108,5 +108,9 @@ public class Group extends BaseTimeEntity {
 
     public boolean isCaptain(User user) {
         return this.captain.equals(user);
+    }
+
+    public boolean isEndGroup() {
+        return this.getEndDateTime().isBefore(LocalDateTime.now());
     }
 }

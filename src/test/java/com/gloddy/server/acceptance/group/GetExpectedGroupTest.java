@@ -39,7 +39,7 @@ public class GetExpectedGroupTest extends GroupApiTest {
         test.andExpect(status().isOk());
         test.andExpect(jsonPath("groups.size()").value(1));
         test.andExpect(jsonPath("groups[0].groupId").value(expectedGroup.getId()));
-        test.andExpect(jsonPath("groups[0].meetDate").value(dateToStringForGroupPreview(expectedGroup.getStartDateTime())));
+        test.andExpect(jsonPath("groups[0].meetDate").value(expectedGroup.getMeetDate().toString()));
     }
 
 }

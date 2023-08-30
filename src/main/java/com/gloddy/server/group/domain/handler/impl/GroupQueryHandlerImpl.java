@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.*;
 
 @Repository
@@ -27,5 +29,10 @@ public class GroupQueryHandlerImpl implements GroupQueryHandler {
     @Override
     public Page<Group> findGroupPage(Pageable pageable) {
         return groupJpaRepository.findAllByOrderByIdDesc(pageable);
+    }
+
+    @Override
+    public List<Group> findAllByCaptainId(Long captainId) {
+        return groupJpaRepository.findAllByCaptainId(captainId);
     }
 }

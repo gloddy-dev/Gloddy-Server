@@ -49,6 +49,7 @@ public class GroupMemberService {
         );
     }
 
+    @Transactional
     public void estimateGroupMembers(GroupMemberRequest.Estimate request, Long userId, Long groupId) {
         GroupMember estimator = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
         estimator.estimateGroupMembers(request, groupMemberPraisePolicy, groupMemberPraiser, groupMemberEventProducer);

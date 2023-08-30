@@ -40,7 +40,7 @@ abstract public class GroupApiTest extends BaseApiTest {
     protected GroupMember createCompletePraiseUserGroup(User user, Group group) {
         GroupMember groupMember = GroupMember.empty();
         groupMember.init(user, group);
-        groupMember.completePraise();
+        groupMember.completeEstimate();
         return groupMemberJpaRepository.save(groupMember);
     }
 

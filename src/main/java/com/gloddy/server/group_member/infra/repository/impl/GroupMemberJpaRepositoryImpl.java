@@ -78,6 +78,16 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
                 .fetch();
     }
 
+    @Override
+    public List<GroupMember> findByUserIdFetchGroupAndUser(Long userId) {
+        return query.select(groupMember)
+                .from(groupMember)
+                .join(groupMember.group, group).fetchJoin()
+                .join(groupMember.user, user).fetchJoin()
+                .where(userIdEq(userId))
+                .fetch();
+    }
+
     private BooleanExpression userEq(User user) {
         return groupMember.user.eq(user);
     }
@@ -96,5 +106,9 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
 
     private BooleanExpression groupIdEq(Long groupId) {
         return groupMember.group.id.eq(groupId);
+    }
+
+    private BooleanExpression userIdEq(Long userId) {
+        return groupMember.user.id.eq(userId);
     }
 }

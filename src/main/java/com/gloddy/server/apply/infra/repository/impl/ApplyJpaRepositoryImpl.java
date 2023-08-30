@@ -45,6 +45,26 @@ public class ApplyJpaRepositoryImpl implements ApplyJpaRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public List<Apply> findAllByUserIdAndStatus(Long userId, Status status) {
+        return query.selectFrom(apply)
+                .join(apply.user, user).fetchJoin()
+                .join(apply.group, group).fetchJoin()
+                .where(userIdEq(userId), statusEq(status))
+                .fetch();
+    }
+
+    @Override
+    public Optional<Apply> findByIdFetchUserAndGroup(Long id) {
+        Apply apply = query.selectFrom(QApply.apply)
+                .join(QApply.apply.group, group).fetchJoin()
+                .join(QApply.apply.user, user).fetchJoin()
+                .where(idEq(id))
+                .fetchOne();
+
+        return Optional.ofNullable(apply);
+    }
+
     private BooleanExpression idEq(Long id) {
         return apply.id.eq(id);
     }
@@ -55,5 +75,9 @@ public class ApplyJpaRepositoryImpl implements ApplyJpaRepositoryCustom {
 
     private BooleanExpression statusEq(Status status) {
         return apply.status.eq(status);
+    }
+
+    private BooleanExpression userIdEq(Long userId) {
+        return apply.user.id.eq(userId);
     }
 }

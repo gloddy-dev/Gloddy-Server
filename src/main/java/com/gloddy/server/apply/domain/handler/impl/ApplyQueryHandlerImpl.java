@@ -37,4 +37,20 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     public List<Apply> findAllByGroupIdAndStatus(Long groupId, Status status) {
         return applyJpaRepository.findAllByGroupIdAndStatus(groupId, status);
     }
+
+    @Override
+    public Long countAppliesByGroupIdAndStatus(Long groupId, Status status) {
+        return applyJpaRepository.countByGroupIdAndStatus(groupId, status);
+    }
+
+    @Override
+    public List<Apply> findAllByUserIdAndStatus(Long userId, Status status) {
+        return applyJpaRepository.findAllByUserIdAndStatus(userId, status);
+    }
+
+    @Override
+    public Apply findById(Long applyId) {
+        return applyJpaRepository.findByIdFetchUserAndGroup(applyId)
+                .orElseThrow(NotFoundApplyException::new);
+    }
 }

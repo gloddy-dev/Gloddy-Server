@@ -2,6 +2,7 @@ package com.gloddy.server.group_member.domain;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.group_member.event.GroupMemberSelectBestMateEvent;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
@@ -14,6 +15,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estimate.*;
@@ -23,8 +25,8 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 @Entity
 @Getter
 @Table(name = "group_member")
-@EqualsAndHashCode(of = {"id"})
-public class GroupMember {
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+public class GroupMember extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +50,8 @@ public class GroupMember {
     @Column(name = "is_end")
     private boolean isEnd;
 
-    @Column(name = "is_praised")
-    private boolean isPraised;
+    @Column(name = "is_end_estimate")
+    private boolean isEndEstimate;
 
     public static GroupMember empty() {
         return new GroupMember();
@@ -59,7 +61,7 @@ public class GroupMember {
         this.user = user;
         this.group = group;
         this.isEnd = false;
-        this.isPraised = false;
+        this.isEndEstimate = false;
         this.absenceVoteCount = 0;
         this.isAbsence = false;
     }
@@ -72,6 +74,7 @@ public class GroupMember {
                                      GroupMemberPraiser groupMemberPraiser, GroupMemberEventProducer groupMemberEventProducer) {
         praiseGroupMembers(estimateInfo.getPraiseInfos(), groupMemberPraisePolicy, groupMemberPraiser);
         selectBestMate(estimateInfo.getMateInfo(), groupMemberEventProducer);
+        completeEstimate();
         groupMemberEventProducer.produceEvent(new GroupMemberEstimateCompleteEvent(this.getUser().getId()));
     }
 
@@ -85,8 +88,8 @@ public class GroupMember {
         groupMemberEventProducer.produceEvent(new GroupMemberSelectBestMateEvent(mateInfo, this.user.getId()));
     }
 
-    public void completePraise() {
-        this.isPraised = true;
+    public void completeEstimate() {
+        this.isEndEstimate = true;
     }
 
     public void plusAbsenceVoteCount() {
@@ -118,5 +121,9 @@ public class GroupMember {
 
     public boolean isCaptain() {
         return this.user.equals(this.getGroup().getCaptain());
+    }
+
+    public boolean isNewGroupMember() {
+        return this.getCreatedAt().isAfter(LocalDateTime.now().minusHours(1));
     }
 }

@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 @NoArgsConstructor
@@ -42,6 +44,9 @@ public class Apply extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name = "is_check_rejected")
+    private boolean isCheckRejected;
+
     @Builder
     public Apply(User user, Group group, String content, String reason) {
         this.user = user;
@@ -49,6 +54,7 @@ public class Apply extends BaseTimeEntity {
         this.content = content;
         this.reason = reason;
         this.status = Status.WAIT;
+        this.isCheckRejected = false;
     }
 
     public void approveApply(ApplyEventProducer applyEventProducer) {
@@ -62,5 +68,13 @@ public class Apply extends BaseTimeEntity {
 
     public boolean isApproved() {
         return this.status.isApprove();
+    }
+
+    public void checkRejected() {
+        if (this.status.equals(Status.REFUSE)) {
+            this.isCheckRejected = true;
+        } else {
+            throw new RuntimeException("cant check Rejected");
+        }
     }
 }

@@ -49,4 +49,14 @@ public class ApplyApi {
         ApplyResponse.GetAll response = applyService.getAll(userId, groupId);
         return ApiResponse.ok(response);
     }
+
+    @Operation(description = "거절된 지원서 확인")
+    @PostMapping("/applies/{applyId}")
+    public ResponseEntity<Void> checkRejectedApply(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable("applyId") Long applyId
+    ) {
+        applyService.checkRejectedApply(userId, applyId);
+        return ApiResponse.noContent();
+    }
 }

@@ -24,8 +24,8 @@ public class GroupRequest {
         private String endTime;
         private String placeName;
         private String placeAddress;
-        private String place_latitude;
-        private String place_longitude;
+        private String placeLatitude;
+        private String placeLongitude;
         private int maxUser;
     }
 
