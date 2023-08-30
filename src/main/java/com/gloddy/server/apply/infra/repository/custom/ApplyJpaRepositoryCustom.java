@@ -13,4 +13,6 @@ public interface ApplyJpaRepositoryCustom {
     List<Apply> findAllByGroupIdAndStatus(Long groupId, Status status);
 
     List<Apply> findAllByUserIdAndStatus(Long userId, Status status);
+
+    Optional<Apply> findByIdFetchUserAndGroup(Long id);
 }

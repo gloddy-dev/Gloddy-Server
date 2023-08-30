@@ -20,4 +20,6 @@ public interface ApplyQueryHandler {
     Long countAppliesByGroupIdAndStatus(Long groupId, Status status);
 
     List<Apply> findAllByUserIdAndStatus(Long userId, Status status);
+
+    Apply findById(Long applyId);
 }

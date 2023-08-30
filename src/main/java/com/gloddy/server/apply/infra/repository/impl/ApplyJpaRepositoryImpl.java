@@ -54,6 +54,17 @@ public class ApplyJpaRepositoryImpl implements ApplyJpaRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public Optional<Apply> findByIdFetchUserAndGroup(Long id) {
+        Apply apply = query.selectFrom(QApply.apply)
+                .join(QApply.apply.group, group).fetchJoin()
+                .join(QApply.apply.user, user).fetchJoin()
+                .where(idEq(id))
+                .fetchOne();
+
+        return Optional.ofNullable(apply);
+    }
+
     private BooleanExpression idEq(Long id) {
         return apply.id.eq(id);
     }
