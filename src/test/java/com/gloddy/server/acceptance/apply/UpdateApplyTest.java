@@ -116,7 +116,7 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(groupMember.getGroup().getId()).isEqualTo(group.getId());
             assertThat(groupMember.getUser().getId()).isEqualTo(user.getId());
             assertThat(groupMember.isEnd()).isEqualTo(false);
-            assertThat(groupMember.isPraised()).isEqualTo(false);
+            assertThat(groupMember.isEndEstimate()).isEqualTo(false);
             assertThat(groupMember.getAbsenceVoteCount()).isEqualTo(0);
             assertThat(groupMember.isAbsence()).isFalse();
 
