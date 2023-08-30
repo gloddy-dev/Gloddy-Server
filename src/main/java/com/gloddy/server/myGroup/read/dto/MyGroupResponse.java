@@ -55,4 +55,17 @@ public class MyGroupResponse {
             private GroupInfo group;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Waiting {
+        private List<One> groups;
+        @Getter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class One {
+            private GroupInfo group;
+        }
+    }
 }

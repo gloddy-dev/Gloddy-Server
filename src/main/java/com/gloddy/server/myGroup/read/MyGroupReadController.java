@@ -29,8 +29,9 @@ public class MyGroupReadController {
     }
 
     @GetMapping("/users/groups/waiting")
-    public void getWaitingGroups(@AuthenticationPrincipal Long userId) {
-
+    public ResponseEntity<MyGroupResponse.Waiting> getWaitingGroups(@AuthenticationPrincipal Long userId) {
+        MyGroupResponse.Waiting response = myGroupReadService.getWaitingGroups(userId);
+        return ApiResponse.ok(response);
     }
 
     @GetMapping("/users/groups/rejected")
