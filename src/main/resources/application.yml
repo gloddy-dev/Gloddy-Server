@@ -13,7 +13,7 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    show-sql: ${SHOW_SQL}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
