@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -40,22 +41,14 @@ public class Apply extends BaseTimeEntity {
     @Column(name = "reason", columnDefinition = "longtext")
     private String reason;
 
+    @Builder.Default
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.WAIT;
 
+    @Builder.Default
     @Column(name = "is_check_rejected")
-    private boolean isCheckRejected;
-
-    @Builder
-    public Apply(User user, Group group, String content, String reason) {
-        this.user = user;
-        this.group = group;
-        this.content = content;
-        this.reason = reason;
-        this.status = Status.WAIT;
-        this.isCheckRejected = false;
-    }
+    private boolean isCheckRejected = false;
 
     public void approveApply(ApplyEventProducer applyEventProducer) {
         this.status = Status.APPROVE;
