@@ -13,7 +13,7 @@ public class GroupDtoMapper {
         return groupPage.map(GetGroup::from);
     }
 
-    public static GetGroupDetail mapToGetGroupDetailFrom(User user, Group group, Status applyStatus, GroupChecker groupChecker) {
+    public static GetGroupDetail mapToGetGroupDetailFrom(User user, Group group, Boolean isApplyWatied, GroupChecker groupChecker) {
         return new GetGroupDetail(
                 groupChecker.isMyGroup(user, group),
                 groupChecker.isGroupCaptain(user, group),
@@ -31,7 +31,7 @@ public class GroupDtoMapper {
                 group.getPlace().getLatitude().toString(),
                 group.getPlace().getLongitude().toString(),
                 groupChecker.isScraped(user, group),
-                applyStatus
+                isApplyWatied
         );
     }
 }

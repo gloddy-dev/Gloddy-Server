@@ -81,7 +81,7 @@ public class GroupResponse {
         private String placeLatitude;
         private String placeLongitude;
         private Boolean isScraped;
-        private Status applyStatus;
+        private Boolean isApplyWaited;
     }
 
     @Getter

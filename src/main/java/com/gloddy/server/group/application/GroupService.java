@@ -30,7 +30,7 @@ public class GroupService {
     private final GroupCommandHandler groupCommandHandler;
     private final UserQueryHandler userQueryHandler;
     private final GroupEventProducer groupEventProducer;
-    private final ApplyGetExecutor applyGetExecutor;
+    private final ApplyQueryHandler applyQueryHandler;
     private final GroupFactory groupFactory;
     private final GroupChecker groupChecker;
 
@@ -55,10 +55,10 @@ public class GroupService {
         User user = userQueryHandler.findById(userId);
         Group group = groupQueryHandler.findById(groupId);
 
-        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, getApplyStatus(userId, groupId), groupChecker);
+        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, isApplyWaited(userId, groupId), groupChecker);
     }
 
-    private Status getApplyStatus(Long userId, Long groupId) {
-        return applyGetExecutor.getStatusByGroupAndUser(groupId, userId);
+    private Boolean isApplyWaited(Long userId, Long groupId) {
+        return applyQueryHandler.existsByUserIdAndGroupIdAndStatus(userId, groupId, Status.WAIT);
     }
 }
