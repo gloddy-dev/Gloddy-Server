@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.dto;
 
+import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -80,6 +81,7 @@ public class GroupResponse {
         private String placeLatitude;
         private String placeLongitude;
         private Boolean isScraped;
+        private Status applyStatus;
     }
 
     @Getter
