@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.service;
 
+import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,7 @@ public class GroupDtoMapper {
         return groupPage.map(GetGroup::from);
     }
 
-    public static GetGroupDetail mapToGetGroupDetailFrom(User user, Group group, GroupChecker groupChecker) {
+    public static GetGroupDetail mapToGetGroupDetailFrom(User user, Group group, Boolean isApplyWatied, GroupChecker groupChecker) {
         return new GetGroupDetail(
                 groupChecker.isMyGroup(user, group),
                 groupChecker.isGroupCaptain(user, group),
@@ -29,7 +30,8 @@ public class GroupDtoMapper {
                 group.getPlace().getAddress(),
                 group.getPlace().getLatitude().toString(),
                 group.getPlace().getLongitude().toString(),
-                groupChecker.isScraped(user, group)
+                groupChecker.isScraped(user, group),
+                isApplyWatied
         );
     }
 }

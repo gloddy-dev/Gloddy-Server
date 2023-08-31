@@ -23,4 +23,6 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long>, ApplyJpa
     Long countByGroupIdAndStatus(Long groupId, Status status);
 
     Apply findFirstByOrderByIdDesc();
+
+    Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
 }

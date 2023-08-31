@@ -93,4 +93,9 @@ public class Praise {
     public void plusAbsenceCount() {
         totalAbsenceCount++;
     }
+
+    public int sumPraiseCount() {
+        return this.totalCalmCount + this.totalKindCount + this.totalActiveCount
+                + this.totalHumorCount + this.totalAbsenceCount;
+    }
 }
