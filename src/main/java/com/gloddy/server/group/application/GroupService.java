@@ -1,5 +1,8 @@
 package com.gloddy.server.group.application;
 
+import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
+import com.gloddy.server.apply.domain.service.ApplyGetExecutor;
+import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
@@ -13,7 +16,6 @@ import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.dto.GroupResponse;
 import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,7 @@ public class GroupService {
     private final GroupCommandHandler groupCommandHandler;
     private final UserQueryHandler userQueryHandler;
     private final GroupEventProducer groupEventProducer;
+    private final ApplyGetExecutor applyGetExecutor;
     private final GroupFactory groupFactory;
     private final GroupChecker groupChecker;
 
@@ -38,7 +41,6 @@ public class GroupService {
         Page<GroupResponse.GetGroup> getGroupPage = GroupDtoMapper.mapToGetGroupPageFrom(groupPage);
         return PageResponse.from(getGroupPage);
     }
-
 
     @Transactional
     public GroupResponse.Create createGroup(Long captainId, GroupRequest.Create req) {
@@ -53,6 +55,10 @@ public class GroupService {
         User user = userQueryHandler.findById(userId);
         Group group = groupQueryHandler.findById(groupId);
 
-        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, groupChecker);
+        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, getApplyStatus(userId, groupId), groupChecker);
+    }
+
+    private Status getApplyStatus(Long userId, Long groupId) {
+        return applyGetExecutor.getStatusByGroupAndUser(groupId, userId);
     }
 }
