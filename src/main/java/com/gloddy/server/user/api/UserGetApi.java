@@ -25,7 +25,16 @@ public class UserGetApi {
     @Operation(summary = "마이페이지 조회")
     @GetMapping("/me/page")
     public ResponseEntity<UserGetResponse> getMyPage(@AuthenticationPrincipal Long userId) {
-        UserGetResponse response = userService.getMyPage(userId);
+        UserGetResponse response = userService.getUserPage(userId);
+        return ApiResponse.ok(response);
+    }
+
+    @Operation(summary = "프로필 조회")
+    @GetMapping("/users/{userId}/me/page")
+    public ResponseEntity<UserGetResponse> getProfile(
+            @PathVariable Long userId
+    ) {
+        UserGetResponse response = userService.getUserPage(userId);
         return ApiResponse.ok(response);
     }
 
