@@ -28,7 +28,6 @@ public class GroupResponse {
         List<GroupResponse.GetGroup> groups;
     }
 
-    // TODO: 참가 멤버 수, 멤버 프로필
     @Getter
     @AllArgsConstructor
     public static class GetGroup {
@@ -80,6 +79,7 @@ public class GroupResponse {
         private String placeAddress;
         private String placeLatitude;
         private String placeLongitude;
+        private Boolean isScraped;
     }
 
     @Getter

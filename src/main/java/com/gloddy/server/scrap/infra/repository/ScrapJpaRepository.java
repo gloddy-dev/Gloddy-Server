@@ -9,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScrapJpaRepository extends JpaRepository<Scrap, Long> {
     Page<Scrap> findByUser(User user, Pageable pageable);
+    Boolean existsByUserAndGroup(User user, Group group);
+
     void deleteByUserAndGroup(User user, Group group);
 }
