@@ -5,6 +5,7 @@ import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.group.domain.Group;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ApplyQueryHandler {
@@ -22,4 +23,6 @@ public interface ApplyQueryHandler {
     List<Apply> findAllByUserIdAndStatus(Long userId, Status status);
 
     Apply findById(Long applyId);
+
+    Optional<Apply> findOptionalByUserIdAndGroupId(Long userId, Long groupId);
 }

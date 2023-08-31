@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -52,5 +53,10 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     public Apply findById(Long applyId) {
         return applyJpaRepository.findByIdFetchUserAndGroup(applyId)
                 .orElseThrow(NotFoundApplyException::new);
+    }
+
+    @Override
+    public Optional<Apply> findOptionalByUserIdAndGroupId(Long userId, Long groupId) {
+        return applyJpaRepository.findByUserIdAndGroupId(userId, groupId);
     }
 }
