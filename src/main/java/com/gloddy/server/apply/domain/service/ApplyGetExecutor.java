@@ -30,4 +30,10 @@ public class ApplyGetExecutor {
             throw new UnAuthorizedApplyGetException();
         }
     }
+
+    public Status getStatusByGroupAndUser(Long groupId, Long userId) {
+        Apply apply = applyQueryHandler.findOptionalByUserIdAndGroupId(userId, groupId)
+                .orElseGet(() -> Apply.builder().status(Status.NONE).build());
+        return apply.getStatus();
+    }
 }
