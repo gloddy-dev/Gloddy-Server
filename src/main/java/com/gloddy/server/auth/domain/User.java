@@ -95,6 +95,18 @@ public class User extends BaseTimeEntity {
         return this.profile.getImageUrl();
     }
 
+    public Gender getGender() {
+        return this.profile.getGender();
+    }
+
+    public String getIntroduce() {
+        return this.profile.getIntroduce();
+    }
+
+    public List<Personality> getPersonalities() {
+        return this.profile.getPersonalities();
+    }
+
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
                               Gender gender, String introduce, List<Personality> personalities
     ) {
