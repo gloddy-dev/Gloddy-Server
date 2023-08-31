@@ -28,7 +28,8 @@ public class GroupDtoMapper {
                 group.getPlace().getName(),
                 group.getPlace().getAddress(),
                 group.getPlace().getLatitude().toString(),
-                group.getPlace().getLongitude().toString()
+                group.getPlace().getLongitude().toString(),
+                groupChecker.isScraped(user, group)
         );
     }
 }
