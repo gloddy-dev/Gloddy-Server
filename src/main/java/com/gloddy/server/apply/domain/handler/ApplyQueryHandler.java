@@ -24,5 +24,5 @@ public interface ApplyQueryHandler {
 
     Apply findById(Long applyId);
 
-    Optional<Apply> findOptionalByUserIdAndGroupId(Long userId, Long groupId);
+    Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
 }
