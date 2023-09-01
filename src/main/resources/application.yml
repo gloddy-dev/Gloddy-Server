@@ -35,8 +35,13 @@ spring:
       port: ${REDISPORT}
 
   mvc:
-    pathmatch:
+    path match:
       matching-strategy: ant_path_matcher
+
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_SIZE}
+      max-request-size: ${MAX_REQUEST_SIZE}
 
 logging:
   level:
