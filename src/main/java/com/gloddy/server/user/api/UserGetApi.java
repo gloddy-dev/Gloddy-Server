@@ -3,6 +3,8 @@ package com.gloddy.server.user.api;
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.mate.application.MateService;
 import com.gloddy.server.praise.application.PraiseService;
+import com.gloddy.server.user.api.dto.UserResponse;
+import com.gloddy.server.user.application.UserService;
 import com.gloddy.server.user.domain.dto.UserGetResponse;
 import com.gloddy.server.user.application.UserGetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,14 +20,15 @@ import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
 public class UserGetApi {
-    private final UserGetService userService;
+    private final UserGetService userGetService;
     private final PraiseService praiseService;
     private final MateService mateService;
+    private final UserService userService;
 
     @Operation(summary = "마이페이지 조회")
     @GetMapping("/me/page")
     public ResponseEntity<UserGetResponse> getMyPage(@AuthenticationPrincipal Long userId) {
-        UserGetResponse response = userService.getUserPage(userId);
+        UserGetResponse response = userGetService.getUserPage(userId);
         return ApiResponse.ok(response);
     }
 
@@ -34,7 +37,7 @@ public class UserGetApi {
     public ResponseEntity<UserGetResponse> getProfile(
             @PathVariable Long userId
     ) {
-        UserGetResponse response = userService.getUserPage(userId);
+        UserGetResponse response = userGetService.getUserPage(userId);
         return ApiResponse.ok(response);
     }
 
@@ -64,5 +67,14 @@ public class UserGetApi {
     ) {
         mateService.deleteMateForUser(mateId, userId);
         return ApiResponse.noContent();
+    }
+
+    @Operation(summary = "닉네임 중복 검사")
+    @GetMapping("/users/duplicate")
+    public ResponseEntity<UserResponse.ExistNickname> existsNickName(
+            @RequestParam("nickname") String nickname
+    ) {
+        UserResponse.ExistNickname response = userService.existNickname(nickname);
+        return ApiResponse.ok(response);
     }
 }
