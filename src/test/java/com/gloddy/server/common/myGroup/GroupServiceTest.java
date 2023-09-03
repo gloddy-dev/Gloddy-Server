@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class MyGroupServiceTest extends BaseServiceTest {
+public abstract class GroupServiceTest extends BaseServiceTest {
 
     @Autowired
     protected GroupService groupService;

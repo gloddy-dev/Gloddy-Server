@@ -1,7 +1,7 @@
 package com.gloddy.server.service.myGroup;
 
 import com.gloddy.server.apply.domain.dto.ApplyRequest;
-import com.gloddy.server.common.myGroup.MyGroupServiceTest;
+import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.myGroup.read.MyGroupReadService;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
+public class GetNotEstimatedGroupTest extends GroupServiceTest {
 
     @Autowired
     private MyGroupReadService myGroupReadService;
