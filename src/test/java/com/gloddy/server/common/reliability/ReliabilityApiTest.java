@@ -65,7 +65,6 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
                 "test_Content",
                 LocalDate.of(now.getYear(), 4, 26),
                 "12:00",
-                "15:00",
                 "숭실대학교",
                 "동작구 상도로",
                 "150",

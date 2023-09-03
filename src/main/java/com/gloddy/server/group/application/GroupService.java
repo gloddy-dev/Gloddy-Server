@@ -1,7 +1,6 @@
 package com.gloddy.server.group.application;
 
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
-import com.gloddy.server.apply.domain.service.ApplyGetExecutor;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;

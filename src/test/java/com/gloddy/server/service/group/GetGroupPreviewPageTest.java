@@ -33,7 +33,7 @@ public class GetGroupPreviewPageTest extends GroupServiceTest {
             //given
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand =
-                    createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
+                    createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
             groupId = createGroup(captainId, groupCreateCommand);
         }
 

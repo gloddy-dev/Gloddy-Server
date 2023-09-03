@@ -33,8 +33,8 @@ public class GetHostingGroupTest extends GroupServiceTest {
         void getHostingGroups_returns_all() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00");
             groupId1 = createGroup(captainId, groupCreateCommand1);
             groupId2 = createGroup(captainId, groupCreateCommand2);
 
@@ -70,7 +70,7 @@ public class GetHostingGroupTest extends GroupServiceTest {
         void getHostingGroups_returns_empty_list_when_no_hostingGroups() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
             Long groupId1 = createGroup(captainId, groupCreateCommand1);
 
             targetUserId = createUser();
@@ -106,7 +106,7 @@ public class GetHostingGroupTest extends GroupServiceTest {
         void getHostingGroups_returns_all_with_new_apply() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
             groupId = createGroup(captainId, groupCreateCommand1);
 
             Long applierId = createUser();

@@ -25,6 +25,8 @@ public enum ErrorCode {
     RELIABILITY_NOT_FOUND(404, "존재하지 않는 신뢰도 지표입니다."),
     NOT_EXIST_RELIABILITY_LEVEL(404, "존재하지 않는 신뢰도 레벨입니다."),
 
+    GROUP_TIME_INVALID(400, "올바르지 않은 그룹 시작 시간입니다."),
+
     EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
     PHONE_NUMBER_INVALID(400, "유효하지 않은 휴대폰 번호입니다."),
     VERIFICATION_CODE_INVALID(400, "올바르지 않은 인증코드입니다."),

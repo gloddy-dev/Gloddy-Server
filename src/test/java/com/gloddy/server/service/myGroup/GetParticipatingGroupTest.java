@@ -32,8 +32,8 @@ public class GetParticipatingGroupTest extends GroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00");
             groupId1 = createGroup(captainId, groupCreateCommand1);
             groupId2 = createGroup(captainId, groupCreateCommand2);
 
@@ -75,7 +75,7 @@ public class GetParticipatingGroupTest extends GroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
             createGroup(captainId, groupCreateCommand1);
 
             targetUserId = captainId;
@@ -107,8 +107,8 @@ public class GetParticipatingGroupTest extends GroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().minusDays(1), "12:00", "13:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().minusDays(2), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().minusDays(1), "12:00");
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().minusDays(2), "12:00");
             Long groupId1 = createGroup(captainId, groupCreateCommand1);
             Long groupId2 = createGroup(captainId, groupCreateCommand2);
 

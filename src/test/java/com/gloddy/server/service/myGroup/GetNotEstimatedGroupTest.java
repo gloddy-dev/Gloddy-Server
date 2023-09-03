@@ -9,6 +9,7 @@ import com.gloddy.server.myGroup.read.dto.MyGroupResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.transaction.AfterTransaction;
@@ -16,9 +17,11 @@ import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.mockStatic;
 
 public class GetNotEstimatedGroupTest extends GroupServiceTest {
 
@@ -38,8 +41,7 @@ public class GetNotEstimatedGroupTest extends GroupServiceTest {
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand = createGroupCreateCommand(
                     LocalDate.now().minusDays(1),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             groupId = createGroup(captainId, groupCreateCommand);
 
             Long applierId = createUser();
@@ -57,6 +59,7 @@ public class GetNotEstimatedGroupTest extends GroupServiceTest {
         void when_and_then() {
             //when
             MyGroupResponse.NotEstimated notEstimatedGroups = myGroupReadService.getNotEstimatedGroups(targetUserId);
+
 
             //then
             assertThat(notEstimatedGroups.getGroups()).hasSize(1);
@@ -79,11 +82,13 @@ public class GetNotEstimatedGroupTest extends GroupServiceTest {
         void given() {
             //given...
             captainId = createUser();
+
             GroupRequest.Create groupCreateCommand = createGroupCreateCommand(
-                    LocalDate.now().minusDays(1),
-                    "12:00",
-                    "13:00");
+                    LocalDate.now().plusDays(1),
+                    "12:00");
             groupId = createGroup(captainId, groupCreateCommand);
+
+            mockLocalDateTimeToTwoDayAfterGroupStartDateTime();
 
             Long applierId = createUser();
             ApplyRequest.Create applyCreateCommand = createApplyCreateCommand();

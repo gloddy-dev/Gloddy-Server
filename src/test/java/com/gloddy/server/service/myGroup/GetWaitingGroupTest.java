@@ -35,12 +35,10 @@ public class GetWaitingGroupTest extends GroupServiceTest {
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(
                     LocalDate.now().plusDays(1),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(
                     LocalDate.now().plusDays(1),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             groupId1 = createGroup(captainId, groupCreateCommand1);
             groupId2 = createGroup(captainId, groupCreateCommand2);
 
