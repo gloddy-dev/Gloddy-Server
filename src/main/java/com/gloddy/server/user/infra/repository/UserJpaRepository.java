@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface UserJpaRepository extends JpaRepository<User, Long>, UserJpaRepositoryCustom {
     User findFirstByOrderByIdDesc();
+
+    boolean existsByProfile_Nickname(String nickName);
 }
