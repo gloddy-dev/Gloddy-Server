@@ -37,7 +37,7 @@ public class GroupService {
     @Transactional(readOnly = true)
     public PageResponse<GroupResponse.GetGroup> getGroups(int size, int page) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Group> groupPage = groupQueryHandler.findGroupPage(pageable);
+        Page<Group> groupPage = groupQueryHandler.findGroupPreviewPage(pageable);
         Page<GroupResponse.GetGroup> getGroupPage = GroupDtoMapper.mapToGetGroupPageFrom(groupPage);
         return PageResponse.from(getGroupPage);
     }
