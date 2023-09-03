@@ -35,7 +35,7 @@ public class GroupJpaRepositoryImpl implements GroupJpaRepositoryCustom {
     @Override
     public Page<Group> findAllByEndDateTimeAfterOrderByCreatedAtDesc(LocalDateTime time, Pageable pageable) {
         List<Group> groups = query.selectFrom(group)
-                .where(endDateTimeAfter(time))
+                .where(startDateTimeAfter(time))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(group.createdAt.desc())
@@ -43,7 +43,7 @@ public class GroupJpaRepositoryImpl implements GroupJpaRepositoryCustom {
 
         Long total = query.select(group.count())
                 .from(group)
-                .where(endDateTimeAfter(time))
+                .where(startDateTimeAfter(time))
                 .fetchOne();
 
         return new PageImpl<>(groups, pageable, total);
@@ -53,7 +53,7 @@ public class GroupJpaRepositoryImpl implements GroupJpaRepositoryCustom {
         return group.captain.id.eq(captainId);
     }
 
-    private BooleanExpression endDateTimeAfter(LocalDateTime time) {
-        return group.dateTime.endDateTime.after(time);
+    private BooleanExpression startDateTimeAfter(LocalDateTime time) {
+        return group.dateTime.startDateTime.after(time);
     }
 }
