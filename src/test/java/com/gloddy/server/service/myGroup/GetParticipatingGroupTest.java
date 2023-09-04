@@ -13,6 +13,7 @@ import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -107,8 +108,12 @@ public class GetParticipatingGroupTest extends GroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().minusDays(1), "12:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().minusDays(2), "12:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(
+                    LocalDate.now().minusDays(1),
+                    LocalTime.now().toString());
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(
+                    LocalDate.now().minusDays(2),
+                    "12:00");
             Long groupId1 = createGroup(captainId, groupCreateCommand1);
             Long groupId2 = createGroup(captainId, groupCreateCommand2);
 

@@ -9,14 +9,10 @@ import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group_member.application.GroupMemberService;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
-import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.mockito.Mockito.mockStatic;
 
 public abstract class GroupServiceTest extends BaseServiceTest {
 
@@ -80,21 +76,4 @@ public abstract class GroupServiceTest extends BaseServiceTest {
 
         return new GroupMemberRequest.Estimate(praiseInfos, mateInfo);
     }
-
-    protected void mockLocalDateTimeToOneDayAfterGroupStartDateTime() {
-        LocalDateTime twoDaysLater = LocalDateTime.now().plusDays(2);
-        try (MockedStatic<LocalDateTime> localDateTimeMock = mockStatic(LocalDateTime.class)) {
-            // 2일 뒤의 시간을 mock
-            localDateTimeMock.when(LocalDateTime::now).thenReturn(twoDaysLater);
-        }
-    }
-
-    protected void mockLocalDateTimeToTwoDayAfterGroupStartDateTime() {
-        LocalDateTime threeDaysLater = LocalDateTime.now().plusDays(3);
-        try (MockedStatic<LocalDateTime> localDateTimeMock = mockStatic(LocalDateTime.class)) {
-            // 3일 뒤의 시간을 mock
-            localDateTimeMock.when(LocalDateTime::now).thenReturn(threeDaysLater);
-        }
-    }
-
 }
