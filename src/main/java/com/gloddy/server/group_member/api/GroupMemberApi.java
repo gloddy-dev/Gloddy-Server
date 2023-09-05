@@ -43,10 +43,7 @@ public class GroupMemberApi {
     @GetMapping("/groups/{groupId}/estimate")
     public EstimateResponse.GetGroupMembers getGroupMembersForEstimate(@PathVariable("groupId") Long groupId,
                                                                        @AuthenticationPrincipal Long userId) {
-        return getGroupMemberForEstimateService.getGroupMembers(userId, groupId)
-                .stream()
-                .map(EstimateResponse.GetGroupMembers.GetGroupMember::from)
-                .collect(collectingAndThen(toList(), EstimateResponse.GetGroupMembers::new));
+        return getGroupMemberForEstimateService.getGroupMembers(userId, groupId);
     }
 
     @Operation(summary = "팀원 평가 - 칭찬 + 최고의 짝꿍")
