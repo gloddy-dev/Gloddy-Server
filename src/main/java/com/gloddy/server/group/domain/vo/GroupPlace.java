@@ -19,6 +19,9 @@ public class GroupPlace {
     @Column(name = "place_address")
     private String address;
 
+    @Column(name = "place_url")
+    private String url;
+
     @Column(name = "place_latitude")
     private BigDecimal latitude;
 

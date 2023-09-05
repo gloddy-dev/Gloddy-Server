@@ -34,6 +34,7 @@ public abstract class GroupServiceTest extends BaseServiceTest {
                 startTime,
                 "placeName",
                 "placeAddress",
+                "placeUrl",
                 "130",
                 "25",
                 10
