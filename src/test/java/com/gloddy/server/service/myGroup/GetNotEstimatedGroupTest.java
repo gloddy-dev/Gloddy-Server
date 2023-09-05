@@ -1,7 +1,7 @@
 package com.gloddy.server.service.myGroup;
 
 import com.gloddy.server.apply.domain.dto.ApplyRequest;
-import com.gloddy.server.common.myGroup.MyGroupServiceTest;
+import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.myGroup.read.MyGroupReadService;
@@ -16,11 +16,12 @@ import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
+public class GetNotEstimatedGroupTest extends GroupServiceTest {
 
     @Autowired
     private MyGroupReadService myGroupReadService;
@@ -38,8 +39,7 @@ public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand = createGroupCreateCommand(
                     LocalDate.now().minusDays(1),
-                    "12:00",
-                    "13:00");
+                    LocalTime.now().toString());
             groupId = createGroup(captainId, groupCreateCommand);
 
             Long applierId = createUser();
@@ -57,6 +57,7 @@ public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
         void when_and_then() {
             //when
             MyGroupResponse.NotEstimated notEstimatedGroups = myGroupReadService.getNotEstimatedGroups(targetUserId);
+
 
             //then
             assertThat(notEstimatedGroups.getGroups()).hasSize(1);
@@ -79,10 +80,10 @@ public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
         void given() {
             //given...
             captainId = createUser();
+
             GroupRequest.Create groupCreateCommand = createGroupCreateCommand(
-                    LocalDate.now().minusDays(1),
-                    "12:00",
-                    "13:00");
+                    LocalDate.now().plusDays(1),
+                    LocalTime.now().toString());
             groupId = createGroup(captainId, groupCreateCommand);
 
             Long applierId = createUser();
@@ -103,7 +104,6 @@ public class GetNotEstimatedGroupTest extends MyGroupServiceTest {
             //after_event_given
             GroupMemberRequest.Estimate estimateCommand = createEstimateCommand(List.of(captainId), captainId);
             groupMemberService.estimateGroupMembers(estimateCommand, targetUserId, groupId);
-
         }
 
         @AfterTransaction

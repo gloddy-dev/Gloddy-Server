@@ -1,7 +1,7 @@
 package com.gloddy.server.service.myGroup;
 
 import com.gloddy.server.apply.domain.dto.ApplyRequest;
-import com.gloddy.server.common.myGroup.MyGroupServiceTest;
+import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.myGroup.read.MyGroupReadService;
 import com.gloddy.server.myGroup.read.dto.MyGroupResponse;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class GetRejectedGroupTest extends MyGroupServiceTest {
+public class GetRejectedGroupTest extends GroupServiceTest {
 
     @Autowired
     private MyGroupReadService myGroupReadService;
@@ -37,12 +37,10 @@ public class GetRejectedGroupTest extends MyGroupServiceTest {
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(
                     LocalDate.now().plusDays(1),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(
                     LocalDate.now().plusDays(2),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             groupId1 = createGroup(captainId, groupCreateCommand1);
             groupId2 = createGroup(captainId, groupCreateCommand2);
 
@@ -88,8 +86,7 @@ public class GetRejectedGroupTest extends MyGroupServiceTest {
             Long captainId = createUser();
             GroupRequest.Create groupCreateCommand = createGroupCreateCommand(
                     LocalDate.now().plusDays(1),
-                    "12:00",
-                    "13:00");
+                    "12:00");
             Long groupId = createGroup(captainId, groupCreateCommand);
 
             Long applierId = createUser();

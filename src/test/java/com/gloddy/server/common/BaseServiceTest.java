@@ -25,7 +25,7 @@ import java.util.Random;
 public abstract class BaseServiceTest {
 
     @Autowired
-    private UserJpaRepository userJpaRepository;
+    protected UserJpaRepository userJpaRepository;
     @Autowired
     private PraiseJpaRepository praiseJpaRepository;
     @Autowired

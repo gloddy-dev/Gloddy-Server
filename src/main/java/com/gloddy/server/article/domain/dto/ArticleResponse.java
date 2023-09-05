@@ -29,6 +29,7 @@ public class ArticleResponse {
     @AllArgsConstructor
     @Getter
     public static class GetArticle {
+        private Long userId;
         private Long articleId;
         private String userImageUrl;
         private String name;

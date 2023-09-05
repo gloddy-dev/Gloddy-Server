@@ -26,5 +26,8 @@ public class UserQueryHandlerImpl implements UserQueryHandler {
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
-
+    @Override
+    public boolean existsByNickname(String nickname) {
+        return userJpaRepository.existsByProfile_Nickname(nickname);
+    }
 }

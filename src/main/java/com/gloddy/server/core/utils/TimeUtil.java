@@ -7,10 +7,9 @@ public class TimeUtil {
 
     public static int calculateAge(LocalDate birth) {
         // 생년월일과 현재 날짜를 LocalDate 객체로 생성
-        LocalDate birthDate = LocalDate.of(1995, 3, 15);
         LocalDate currentDate = LocalDate.now();
 
         // 두 날짜 사이의 차이를 계산하여 나이를 계산
-        return Period.between(birthDate, currentDate).getYears();
+        return Period.between(birth, currentDate).getYears();
     }
 }

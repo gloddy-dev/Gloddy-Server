@@ -12,6 +12,7 @@ import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 abstract public class GroupApiTest extends BaseApiTest {
@@ -45,13 +46,13 @@ abstract public class GroupApiTest extends BaseApiTest {
     }
 
     protected Group createExpectedGroup() {
-        GroupDateTime dateTime = GroupDateTime.createFrom(LocalDate.now().plusDays(1L), "11:00", "12:00");
+        GroupDateTime dateTime = new GroupDateTime(LocalDateTime.now().plusDays(1));
         Group expectedGroup = Group.builder().place(getGroupPlace()).dateTime(dateTime).build();
         return groupJpaRepository.save(expectedGroup);
     }
 
     protected Group createParticipatedGroup() {
-        GroupDateTime dateTime = GroupDateTime.createFrom(LocalDate.now().minusDays(1L), LocalTime.now().toString(), LocalTime.now().toString());
+        GroupDateTime dateTime = new GroupDateTime(LocalDateTime.now().minusDays(1));
         Group participatedGroup = Group.builder().place(getGroupPlace()).dateTime(dateTime).build();
         return groupJpaRepository.save(participatedGroup);
     }
@@ -64,9 +65,9 @@ abstract public class GroupApiTest extends BaseApiTest {
                 "test_Content",
                 LocalDate.of(now.getYear(), 4, 26),
                 "12:00",
-                "15:00",
                 "숭실대학교",
                 "동작구 상도로",
+                "placeUrl",
                 "150",
                 "150",
                 10

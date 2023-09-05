@@ -1,5 +1,6 @@
 package com.gloddy.server.group.domain.vo;
 
+import com.gloddy.server.group.exception.GroupTimeInvalidException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -28,5 +29,10 @@ public class GroupDateTime {
         LocalDateTime startDateTime = concatDateAndTime(meetDate, stringToLocalTime(startTime));
         LocalDateTime endDateTime = concatDateAndTime(meetDate, stringToLocalTime(endTime));
         return new GroupDateTime(startDateTime, endDateTime);
+    }
+
+    public GroupDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+        this.endDateTime = startDateTime.plusDays(1);
     }
 }

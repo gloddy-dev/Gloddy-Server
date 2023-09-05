@@ -20,6 +20,7 @@ public class CommentDtoMapper {
 
     private static GetComment getComment(Comment comment, User user) {
         return new GetComment(
+                user.getId(),
                 comment.getId(),
                 comment.getWriterImageUrl(),
                 comment.getWriterNickName(),

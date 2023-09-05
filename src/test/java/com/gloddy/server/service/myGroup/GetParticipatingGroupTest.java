@@ -1,7 +1,7 @@
 package com.gloddy.server.service.myGroup;
 
 import com.gloddy.server.apply.domain.dto.ApplyRequest;
-import com.gloddy.server.common.myGroup.MyGroupServiceTest;
+import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.myGroup.read.MyGroupReadService;
 import com.gloddy.server.myGroup.read.dto.MyGroupResponse;
@@ -13,10 +13,11 @@ import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class GetParticipatingGroupTest extends MyGroupServiceTest {
+public class GetParticipatingGroupTest extends GroupServiceTest {
 
     @Autowired
     private MyGroupReadService myGroupReadService;
@@ -32,8 +33,8 @@ public class GetParticipatingGroupTest extends MyGroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().plusDays(2), "12:00");
             groupId1 = createGroup(captainId, groupCreateCommand1);
             groupId2 = createGroup(captainId, groupCreateCommand2);
 
@@ -75,7 +76,7 @@ public class GetParticipatingGroupTest extends MyGroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().plusDays(1), "12:00");
             createGroup(captainId, groupCreateCommand1);
 
             targetUserId = captainId;
@@ -107,8 +108,12 @@ public class GetParticipatingGroupTest extends MyGroupServiceTest {
         void start() {
             //given
             Long captainId = createUser();
-            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(LocalDate.now().minusDays(1), "12:00", "13:00");
-            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(LocalDate.now().minusDays(2), "12:00", "13:00");
+            GroupRequest.Create groupCreateCommand1 = createGroupCreateCommand(
+                    LocalDate.now().minusDays(1),
+                    LocalTime.now().toString());
+            GroupRequest.Create groupCreateCommand2 = createGroupCreateCommand(
+                    LocalDate.now().minusDays(2),
+                    "12:00");
             Long groupId1 = createGroup(captainId, groupCreateCommand1);
             Long groupId2 = createGroup(captainId, groupCreateCommand2);
 

@@ -10,7 +10,7 @@ public interface GroupQueryHandler {
 
     Group findById(Long id);
 
-    Page<Group> findGroupPage(Pageable pageable);
+    Page<Group> findGroupPreviewPage(Pageable pageable);
 
     List<Group> findAllByCaptainId(Long captainId);
 }

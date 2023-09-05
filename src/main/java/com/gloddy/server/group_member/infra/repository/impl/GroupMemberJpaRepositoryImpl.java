@@ -88,6 +88,15 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
                 .fetch();
     }
 
+    @Override
+    public Long countByUserIdAndIsAbsenceAndEndDateTimeBeforeJoinGroup(Long userId, boolean isAbsence, LocalDateTime time) {
+        return query.select(groupMember.count())
+                .from(groupMember)
+                .join(groupMember.group, group)
+                .where(userIdEq(userId), isAbsenceEq(isAbsence), endTimeBefore(time))
+                .fetchOne();
+    }
+
     private BooleanExpression userEq(User user) {
         return groupMember.user.eq(user);
     }
@@ -110,5 +119,13 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
 
     private BooleanExpression userIdEq(Long userId) {
         return groupMember.user.id.eq(userId);
+    }
+
+    private BooleanExpression endTimeBefore(LocalDateTime time) {
+        return groupMember.group.dateTime.endDateTime.before(time);
+    }
+
+    private BooleanExpression isAbsenceEq(boolean isAbsence) {
+        return groupMember.isAbsence.eq(isAbsence);
     }
 }

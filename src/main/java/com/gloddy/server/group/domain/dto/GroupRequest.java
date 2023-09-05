@@ -21,9 +21,9 @@ public class GroupRequest {
         private String content;
         private LocalDate meetDate;
         private String startTime;
-        private String endTime;
         private String placeName;
         private String placeAddress;
+        private String placeUrl;
         private String placeLatitude;
         private String placeLongitude;
         private int maxUser;

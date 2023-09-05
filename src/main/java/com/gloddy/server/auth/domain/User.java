@@ -127,4 +127,8 @@ public class User extends BaseTimeEntity {
     public LocalDate getBirth() {
         return this.profile.getBirth();
     }
+
+    public LocalDate getJoinAt() {
+        return this.getCreatedAt().toLocalDate();
+    }
 }

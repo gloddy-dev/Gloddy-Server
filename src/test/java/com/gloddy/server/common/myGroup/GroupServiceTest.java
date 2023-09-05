@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class MyGroupServiceTest extends BaseServiceTest {
+public abstract class GroupServiceTest extends BaseServiceTest {
 
     @Autowired
     protected GroupService groupService;
@@ -25,16 +25,16 @@ public abstract class MyGroupServiceTest extends BaseServiceTest {
     @Autowired
     protected GroupMemberService groupMemberService;
 
-    protected GroupRequest.Create createGroupCreateCommand(LocalDate meetDate, String startTime, String endTime) {
+    protected GroupRequest.Create createGroupCreateCommand(LocalDate meetDate, String startTime) {
         return new GroupRequest.Create(
                 "imageUrl",
                 "title",
                 "content",
                 meetDate,
                 startTime,
-                endTime,
                 "placeName",
                 "placeAddress",
+                "placeUrl",
                 "130",
                 "25",
                 10

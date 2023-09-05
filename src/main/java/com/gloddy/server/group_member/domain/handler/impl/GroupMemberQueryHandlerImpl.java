@@ -6,6 +6,7 @@ import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -34,4 +35,14 @@ public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
     public List<GroupMember> findAllByUserId(Long userId) {
         return groupMemberJpaRepository.findByUserIdFetchGroupAndUser(userId);
     }
+
+    @Override
+    public Long countParticipatedGroup(Long userId) {
+        return groupMemberJpaRepository.countByUserIdAndIsAbsenceAndEndDateTimeBeforeJoinGroup(
+                userId,
+                false,
+                LocalDateTime.now()
+        );
+    }
+
 }
