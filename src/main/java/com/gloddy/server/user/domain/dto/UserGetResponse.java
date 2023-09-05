@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class UserGetResponse {
+    private Boolean isCertifiedStudent;
     private String imageUrl;
     private String name;
     private String gender;
@@ -28,11 +29,13 @@ public class UserGetResponse {
     private int reviewCount;
     private String introduce;
     private List<String> personalities;
+    private LocalDate joinAt;
 
     public static UserGetResponse of(User user, Profile profile, Reliability reliability,
                                      int praiseCount, int reviewCount
     ) {
         return new UserGetResponse(
+            user.isCertifiedStudent(),
             profile.getImageUrl(),
             profile.getNickname(),
             profile.getGender().toString(),
@@ -43,7 +46,8 @@ public class UserGetResponse {
             praiseCount,
             reviewCount,
             profile.getIntroduce(),
-            Personality.of(profile.getPersonalities())
+            Personality.of(profile.getPersonalities()),
+            user.getJoinAt()
         );
     }
 

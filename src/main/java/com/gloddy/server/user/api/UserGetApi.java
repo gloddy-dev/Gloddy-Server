@@ -5,7 +5,7 @@ import com.gloddy.server.mate.application.MateService;
 import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.user.api.dto.UserResponse;
 import com.gloddy.server.user.application.UserService;
-import com.gloddy.server.user.domain.dto.UserGetResponse;
+import com.gloddy.server.user.application.facade.UserGetFacade;
 import com.gloddy.server.user.application.UserGetService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,24 +20,24 @@ import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
 public class UserGetApi {
-    private final UserGetService userGetService;
     private final PraiseService praiseService;
     private final MateService mateService;
     private final UserService userService;
+    private final UserGetFacade userGetFacade;
 
     @Operation(summary = "마이페이지 조회")
     @GetMapping("/me/page")
-    public ResponseEntity<UserGetResponse> getMyPage(@AuthenticationPrincipal Long userId) {
-        UserGetResponse response = userGetService.getUserPage(userId);
+    public ResponseEntity<UserResponse.FacadeGet> getMyPage(@AuthenticationPrincipal Long userId) {
+        UserResponse.FacadeGet response = userGetFacade.getUserFacade(userId);
         return ApiResponse.ok(response);
     }
 
     @Operation(summary = "프로필 조회")
     @GetMapping("/users/{userId}/me/page")
-    public ResponseEntity<UserGetResponse> getProfile(
+    public ResponseEntity<UserResponse.FacadeGet> getProfile(
             @PathVariable Long userId
     ) {
-        UserGetResponse response = userGetService.getUserPage(userId);
+        UserResponse.FacadeGet response = userGetFacade.getUserFacade(userId);
         return ApiResponse.ok(response);
     }
 
