@@ -22,4 +22,6 @@ public interface GroupMemberJpaRepositoryCustom {
     List<GroupMember> findByUserIdFetchGroupAndUser(Long userId);
 
     Long countByUserIdAndIsAbsenceAndEndDateTimeBeforeJoinGroup(Long userId, boolean isAbsence, LocalDateTime time);
+
+    boolean existsByUserAndGroupEndTimeBefore(User user);
 }
