@@ -23,4 +23,8 @@ public class GroupMemberVO {
     public GroupMemberVO(Long userId) {
         this.userId = userId;
     }
+
+    public boolean userIdEq(Long userId) {
+        return this.userId.equals(userId);
+    }
 }

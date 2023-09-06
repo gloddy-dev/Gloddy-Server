@@ -28,4 +28,6 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long>, ApplyJpa
     Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
 
     Boolean existsByUserAndStatus(User user, Status status);
+
+    Boolean existsByGroupIdAndStatus(Long groupId, Status status);
 }

@@ -110,4 +110,12 @@ public class MyGroupResponse {
             private GroupInfo group;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(name = "MyGroupGetScrappedResponse")
+    public static class Scrapped {
+        private List<GroupInfo> groups;
+    }
 }

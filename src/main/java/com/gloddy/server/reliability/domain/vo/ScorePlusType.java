@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum ScorePlusType {
     Estimated("평가 참여", 5L),
-    Praised("칭찬 스티커 (지목 받은 사용자)", 2L),
-    Mated("최고의 짝꿍 (지목 받은 인원 사용자)", 1L),
+    Praised("칭찬 스티커 (지목 받은 사용자)", 1L),
+    Mated("최고의 짝꿍 (지목 받은 인원 사용자)", 2L),
     Created_Group("모임 생성", 2L),
     ;
 

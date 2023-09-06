@@ -39,7 +39,7 @@ public class MyGroupDtoMapper {
         );
     }
 
-    private static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
+    public static MyGroupResponse.GroupInfo mapToGroupInfo(Group group) {
         return new MyGroupResponse.GroupInfo(
                 group.getId(),
                 group.getImageUrl(),

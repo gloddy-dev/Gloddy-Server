@@ -28,4 +28,5 @@ public interface ApplyQueryHandler {
     Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
 
     Boolean existsByUserAndStatus(User user, Status status);
+    Boolean existsWaitApplyByGroupId(Long groupId);
 }
