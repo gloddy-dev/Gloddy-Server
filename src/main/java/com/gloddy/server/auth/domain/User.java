@@ -6,6 +6,7 @@ import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Authority;
 import com.gloddy.server.auth.domain.vo.kind.Gender;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.auth.domain.vo.kind.Status;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.event.GroupCreateEvent;
@@ -39,6 +40,10 @@ public class User extends BaseTimeEntity {
     @Column(name = "authority")
     private Authority authority;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
     @Embedded
     private Phone phone;
 
@@ -59,6 +64,7 @@ public class User extends BaseTimeEntity {
         this.phone = phone;
         this.school = school;
         this.profile = profile;
+        this.status = Status.ACTIVE;
         authorityDefault();
     }
 
@@ -130,5 +136,9 @@ public class User extends BaseTimeEntity {
 
     public LocalDate getJoinAt() {
         return this.getCreatedAt().toLocalDate();
+    }
+
+    public void withDraw() {
+        this.status = Status.WITHDRAW;
     }
 }
