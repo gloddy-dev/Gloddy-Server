@@ -22,7 +22,7 @@ public class GroupApplies {
     public List<User> getAllUsers() {
         return applies.stream()
                 .map(Apply::getUser)
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
     }
 
     public User getCaptain() {
