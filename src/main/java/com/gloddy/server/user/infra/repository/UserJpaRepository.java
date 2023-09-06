@@ -1,6 +1,7 @@
 package com.gloddy.server.user.infra.repository;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.vo.kind.Status;
 import com.gloddy.server.user.infra.repository.custom.UserJpaRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,6 @@ public interface UserJpaRepository extends JpaRepository<User, Long>, UserJpaRep
     User findFirstByOrderByIdDesc();
 
     boolean existsByProfile_Nickname(String nickName);
+
+    Optional<User> findByIdAndStatus(Long userId, Status status);
 }

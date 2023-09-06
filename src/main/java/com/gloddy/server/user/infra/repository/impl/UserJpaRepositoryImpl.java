@@ -1,8 +1,8 @@
 package com.gloddy.server.user.infra.repository.impl;
 
-import com.gloddy.server.auth.domain.QUser;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.auth.domain.vo.kind.Status;
 import com.gloddy.server.user.infra.repository.custom.UserJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,14 +21,14 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
     @Override
     public Optional<User> findByPhone(Phone phone) {
         return Optional.ofNullable(query.selectFrom(user)
-                .where(eqPhone(phone))
+                .where(eqPhone(phone), isActive())
                 .fetchOne());
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(query.selectFrom(user)
-                .where(eqEmail(email))
+                .where(eqEmail(email), isActive())
                 .fetchOne());
     }
 
@@ -38,5 +38,9 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
 
     private BooleanExpression eqEmail(String email) {
         return user.school.email.eq(email);
+    }
+
+    private BooleanExpression isActive() {
+        return user.status.eq(Status.ACTIVE);
     }
 }
