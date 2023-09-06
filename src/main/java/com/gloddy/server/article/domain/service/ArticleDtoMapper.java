@@ -25,7 +25,7 @@ public class ArticleDtoMapper {
         Profile profile = user.getProfile();
 
         return new GetArticle(
-                currentUser.getId(),
+                user.getId(),
                 article.getId(),
                 profile.getImageUrl(),
                 profile.getNickname(),
