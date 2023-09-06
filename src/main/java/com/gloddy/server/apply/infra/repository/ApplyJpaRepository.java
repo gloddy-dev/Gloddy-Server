@@ -3,6 +3,7 @@ package com.gloddy.server.apply.infra.repository;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.infra.repository.custom.ApplyJpaRepositoryCustom;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,6 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long>, ApplyJpa
     Apply findFirstByOrderByIdDesc();
 
     Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
+
+    Boolean existsByUserAndStatus(User user, Status status);
 }
