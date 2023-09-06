@@ -16,7 +16,7 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 @RequiredArgsConstructor
 public class MateSaveService {
     private final MateJpaRepository mateJpaRepository;
-    private final UserQueryHandler userQueryHandler
+    private final UserQueryHandler userQueryHandler;
     private final MateEventProducer mateEventProducer;
 
     @Transactional
