@@ -65,4 +65,8 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     public Boolean existsByUserAndStatus(User user, Status status) {
         return applyJpaRepository.existsByUserAndStatus(user, status);
     }
+
+    public Boolean existsWaitApplyByGroupId(Long groupId) {
+        return applyJpaRepository.existsByGroupIdAndStatus(groupId, Status.WAIT);
+    }
 }

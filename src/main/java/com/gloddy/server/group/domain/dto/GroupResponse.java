@@ -82,6 +82,7 @@ public class GroupResponse {
         private String placeLongitude;
         private Boolean isScraped;
         private Boolean isApplyWaited;
+        private Boolean isExistNewApply;
     }
 
     @Getter
