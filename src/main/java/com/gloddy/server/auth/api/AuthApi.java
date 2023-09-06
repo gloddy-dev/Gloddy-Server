@@ -8,20 +8,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/auth")
 public class AuthApi {
 
     private final AuthService authService;
 
     @Operation(security = {})
-    @PostMapping("/auth/email/check")
+    @PostMapping("/email/check")
     public ResponseEntity<AuthResponse.Whether> emailCheck(@RequestBody AuthRequest.EmailCheck req) {
         AuthResponse.Whether response = authService.emailCheck(req.getEmail());
 
@@ -29,7 +26,7 @@ public class AuthApi {
     }
 
     @Operation(security = {})
-    @PostMapping("/auth/sign-up")
+    @PostMapping("/sign-up")
     public ResponseEntity<AuthResponse.SignUp> signUp(@RequestBody AuthRequest.SignUp req) {
         AuthResponse.SignUp response = authService.signUp(req);
 
@@ -37,7 +34,7 @@ public class AuthApi {
     }
 
     @Operation(security = {})
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse.Login> login(@RequestBody AuthRequest.Login req) {
         AuthResponse.Login response = authService.login(req);
 
@@ -45,10 +42,17 @@ public class AuthApi {
     }
 
     @Operation(security = {})
-    @PostMapping("/auth/token-reissue")
+    @PostMapping("/token-reissue")
     public ResponseEntity<AuthResponse.Token> tokenReissue(@RequestBody AuthRequest.ReIssueToken req) {
         AuthResponse.Token response = authService.reissueToken(req.getAccessToken(), req.getRefreshToken());
         return ApiResponse.ok(response);
     }
 
+    @PatchMapping("/sign-out")
+    public ResponseEntity<Void> signOut(
+            @AuthenticationPrincipal Long userId
+    ) {
+        authService.signOut(userId);
+        return ApiResponse.noContent();
+    }
 }
