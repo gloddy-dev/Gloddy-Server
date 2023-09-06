@@ -13,4 +13,6 @@ public interface GroupQueryHandler {
     Page<Group> findGroupPreviewPage(Pageable pageable);
 
     List<Group> findAllByCaptainId(Long captainId);
+
+    List<Group> findAllScrappedGroups(Long userId);
 }

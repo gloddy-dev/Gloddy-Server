@@ -1,10 +1,7 @@
 package com.gloddy.server.myGroup.read;
 
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.myGroup.read.domainService.NotEstimatedGroupGetExecutor;
-import com.gloddy.server.myGroup.read.domainService.ParticipatingGroupGetExecutor;
-import com.gloddy.server.myGroup.read.domainService.RejectedGroupGetExecutor;
-import com.gloddy.server.myGroup.read.domainService.WaitingGroupGetExecutor;
+import com.gloddy.server.myGroup.read.domainService.*;
 import com.gloddy.server.myGroup.read.domainService.facade.HostingGroupGetFacade;
 import com.gloddy.server.myGroup.read.dto.MyGroupResponse;
 import com.gloddy.server.myGroup.read.util.MyGroupDtoMapper;
@@ -13,7 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +22,7 @@ public class MyGroupReadService {
     private final WaitingGroupGetExecutor waitingGroupGetExecutor;
     private final RejectedGroupGetExecutor rejectedGroupGetExecutor;
     private final NotEstimatedGroupGetExecutor notEstimatedGroupGetExecutor;
+    private final ScrappedGroupGetExecutor scrappedGroupGetExecutor;
 
     @Transactional(readOnly = true)
     public MyGroupResponse.Participating getParticipatingGroups(Long userId) {
@@ -50,6 +49,15 @@ public class MyGroupReadService {
         List<Group> groups = notEstimatedGroupGetExecutor.getNotEstimatedGroups(userId);
         return groups.stream()
                 .map(it -> MyGroupDtoMapper.mapToNotEstimatedOne(userId, it))
-                .collect(Collectors.collectingAndThen(Collectors.toList(), MyGroupResponse.NotEstimated::new));
+                .collect(collectingAndThen(toList(), MyGroupResponse.NotEstimated::new));
     }
+
+    @Transactional(readOnly = true)
+    public MyGroupResponse.Scrapped getScrappedGroups(Long userId) {
+        return scrappedGroupGetExecutor.getScrappedGroups(userId)
+                .stream()
+                .map(MyGroupDtoMapper::mapToGroupInfo)
+                .collect(collectingAndThen(toList(), MyGroupResponse.Scrapped::new));
+    }
+
 }

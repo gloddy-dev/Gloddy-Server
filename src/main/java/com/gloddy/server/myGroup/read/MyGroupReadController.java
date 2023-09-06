@@ -45,4 +45,10 @@ public class MyGroupReadController {
         MyGroupResponse.NotEstimated response = myGroupReadService.getNotEstimatedGroups(userId);
         return ApiResponse.ok(response);
     }
+
+    @GetMapping("/users/groups/scrapped")
+    public ResponseEntity<MyGroupResponse.Scrapped> getScrappedGroups(@AuthenticationPrincipal Long userId) {
+        MyGroupResponse.Scrapped response = myGroupReadService.getScrappedGroups(userId);
+        return ApiResponse.ok(response);
+    }
 }
