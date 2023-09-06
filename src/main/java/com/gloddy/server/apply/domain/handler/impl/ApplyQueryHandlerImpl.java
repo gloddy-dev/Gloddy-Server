@@ -5,6 +5,7 @@ import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
 import com.gloddy.server.apply.exception.NotFoundApplyException;
 import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -58,5 +59,10 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     @Override
     public Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status) {
         return applyJpaRepository.existsByUserIdAndGroupIdAndStatus(userId, groupId, status);
+    }
+
+    @Override
+    public Boolean existsByUserAndStatus(User user, Status status) {
+        return applyJpaRepository.existsByUserAndStatus(user, status);
     }
 }

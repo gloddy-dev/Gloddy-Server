@@ -1,5 +1,6 @@
 package com.gloddy.server.group_member.domain.handler;
 
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface GroupMemberQueryHandler {
     List<GroupMember> findAllByUserId(Long userId);
 
     Long countParticipatedGroup(Long userId);
+
+    boolean existsByUserAndGroupEndTimeBefore(User user);
 }

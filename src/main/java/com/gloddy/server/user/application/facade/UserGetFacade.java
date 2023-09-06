@@ -1,12 +1,10 @@
 package com.gloddy.server.user.application.facade;
 
 import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.group_member.api.dto.GroupMemberResponse;
+import com.gloddy.server.auth.domain.vo.kind.Status;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
-import com.gloddy.server.mate.domain.dto.MateResponse;
 import com.gloddy.server.mate.domain.handler.MateQueryHandler;
 import com.gloddy.server.praise.domain.Praise;
-import com.gloddy.server.praise.domain.dto.PraiseResponse;
 import com.gloddy.server.praise.domain.handler.PraiseQueryHandler;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
@@ -29,7 +27,7 @@ public class UserGetFacade {
 
     @Transactional(readOnly = true)
     public UserResponse.FacadeGet getUserFacade(Long userId) {
-        User user = userQueryHandler.findById(userId);
+        User user = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
         Praise praise = praiseQueryHandler.findByUserId(userId);
         Reliability reliability = reliabilityQueryHandler.findByUserId(userId);
         Long countParticipatedGroup = groupMemberQueryHandler.countParticipatedGroup(userId);

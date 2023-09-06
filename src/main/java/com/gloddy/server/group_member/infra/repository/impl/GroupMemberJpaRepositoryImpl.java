@@ -1,5 +1,6 @@
 package com.gloddy.server.group_member.infra.repository.impl;
 
+import com.gloddy.server.auth.domain.QUser;
 import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
@@ -97,6 +98,20 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
                 .fetchOne();
     }
 
+    @Override
+    public boolean existsByUserAndGroupEndTimeBefore(User user) {
+        Long fetchFirst = query.select(group.id)
+                .from(groupMember)
+                .innerJoin(groupMember.group, group)
+                .innerJoin(groupMember.user, QUser.user)
+                .where(
+                        userEq(user),
+                        endTimeAfter(LocalDateTime.now())
+                ).fetchFirst();
+
+        return fetchFirst != null;
+    }
+
     private BooleanExpression userEq(User user) {
         return groupMember.user.eq(user);
     }
@@ -123,6 +138,10 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
 
     private BooleanExpression endTimeBefore(LocalDateTime time) {
         return groupMember.group.dateTime.endDateTime.before(time);
+    }
+
+    private BooleanExpression endTimeAfter(LocalDateTime time) {
+        return groupMember.group.dateTime.endDateTime.after(time);
     }
 
     private BooleanExpression isAbsenceEq(boolean isAbsence) {

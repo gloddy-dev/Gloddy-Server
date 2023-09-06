@@ -2,6 +2,7 @@ package com.gloddy.server.apply.domain.handler;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.vo.Status;
+import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.group.domain.Group;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface ApplyQueryHandler {
     Apply findById(Long applyId);
 
     Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
+
+    Boolean existsByUserAndStatus(User user, Status status);
 }
