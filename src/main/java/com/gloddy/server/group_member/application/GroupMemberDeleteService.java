@@ -2,6 +2,7 @@ package com.gloddy.server.group_member.application;
 
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
+import com.gloddy.server.group.domain.vo.GroupMemberVO;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.handler.GroupMemberCommandHandler;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
@@ -10,6 +11,8 @@ import com.gloddy.server.group_member.event.producer.GroupMemberEventProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +33,7 @@ public class GroupMemberDeleteService {
 
     private void deleteGroupMemberVo(Long userId, Long groupId) {
         Group group = groupQueryHandler.findById(groupId);
-        group.updateGroupVOs(userId);
+        group.deleteGroupMemberVoByUserId(userId);
     }
 
     private void deleteGroupMember(Long userId, Long groupId) {

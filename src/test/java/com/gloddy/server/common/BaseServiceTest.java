@@ -15,6 +15,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,6 +45,8 @@ public abstract class BaseServiceTest {
 
     @Autowired
     protected EntityManager em;
+    @Autowired
+    protected TransactionTemplate transactionTemplate;
 
     public Long createUser() {
 

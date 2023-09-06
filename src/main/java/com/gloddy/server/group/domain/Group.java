@@ -77,8 +77,9 @@ public class Group extends BaseTimeEntity {
         this.groupMemberVOs.addUserGroupVo(groupMemberVO);
     }
 
-    public void updateGroupVOs(Long userId) {
-        this.groupMemberVOs.updateGroupMemberVo(userId);
+    public void deleteGroupMemberVoByUserId(Long userId) {
+        List<GroupMemberVO> newGroupMemberVos = this.groupMemberVOs.getGroupMemberVosWithOut(userId);
+        upsertGroupMemberVos(newGroupMemberVos);
     }
 
     public LocalDate getMeetDate() {
@@ -112,5 +113,14 @@ public class Group extends BaseTimeEntity {
 
     public boolean isEndGroup() {
         return this.getEndDateTime().isBefore(LocalDateTime.now());
+    }
+
+    public List<GroupMemberVO> getGroupMembers() {
+        return this.getGroupMemberVOs().getGroupMemberVOS();
+    }
+
+    public void upsertGroupMemberVos(List<GroupMemberVO> groupMemberVOS) {
+        this.getGroupMembers().clear();
+        this.getGroupMembers().addAll(groupMemberVOS);
     }
 }
