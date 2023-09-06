@@ -6,7 +6,6 @@ import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.user.api.dto.UserResponse;
 import com.gloddy.server.user.application.UserService;
 import com.gloddy.server.user.application.facade.UserGetFacade;
-import com.gloddy.server.user.application.UserGetService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
