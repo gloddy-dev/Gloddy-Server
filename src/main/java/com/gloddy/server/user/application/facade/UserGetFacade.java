@@ -31,7 +31,7 @@ public class UserGetFacade {
         Praise praise = praiseQueryHandler.findByUserId(userId);
         Reliability reliability = reliabilityQueryHandler.findByUserId(userId);
         Long countParticipatedGroup = groupMemberQueryHandler.countParticipatedGroup(userId);
-        Long reviewCount = mateQueryHandler.countByMateId(userId);
+        Long reviewCount = mateQueryHandler.countByUserId(userId);
 
         return UserDtoMapper.toUserGet(
                 user, praise, reliability, countParticipatedGroup, reviewCount

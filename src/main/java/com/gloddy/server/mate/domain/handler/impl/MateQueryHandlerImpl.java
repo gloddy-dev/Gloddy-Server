@@ -12,7 +12,7 @@ public class MateQueryHandlerImpl implements MateQueryHandler {
     private final MateJpaRepository mateJpaRepository;
 
     @Override
-    public Long countByMateId(Long mateId) {
-        return mateJpaRepository.countByMateId(mateId);
+    public Long countByUserId(Long userId) {
+        return mateJpaRepository.countByUserId(userId);
     }
 }
