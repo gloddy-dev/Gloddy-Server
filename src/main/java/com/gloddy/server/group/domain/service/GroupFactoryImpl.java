@@ -28,7 +28,7 @@ public class GroupFactoryImpl implements GroupFactory {
         GroupPlace place = getGroupPlace(
                 request.getPlaceName(),
                 request.getPlaceAddress(),
-                request.getPlaceUrl(),
+                request.getPlaceId(),
                 request.getPlaceLatitude(),
                 request.getPlaceLongitude()
         );
@@ -51,11 +51,11 @@ public class GroupFactoryImpl implements GroupFactory {
         return new GroupDateTime(startDateTime);
     }
 
-    private GroupPlace getGroupPlace(String name, String address, String url, String latitude, String longitude) {
+    private GroupPlace getGroupPlace(String name, String address, String id, String latitude, String longitude) {
         return GroupPlace.builder()
                 .name(name)
                 .address(address)
-                .url(url)
+                .id(id)
                 .latitude(new BigDecimal(latitude))
                 .longitude(new BigDecimal(longitude))
                 .build();

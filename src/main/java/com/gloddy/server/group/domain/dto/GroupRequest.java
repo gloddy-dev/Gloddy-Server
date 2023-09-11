@@ -23,7 +23,7 @@ public class GroupRequest {
         private String startTime;
         private String placeName;
         private String placeAddress;
-        private String placeUrl;
+        private String placeId;
         private String placeLatitude;
         private String placeLongitude;
         private int maxUser;
