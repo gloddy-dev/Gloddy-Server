@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MateJpaRepository extends JpaRepository<Mate, Long> {
-    Long countByMateId(Long mateId);
+    Long countByUserId(Long userId);
     List<Mate> findAllByUserId(Long userId);
     void deleteByMateIdAndUserId(Long mateId, Long userId);
 }
