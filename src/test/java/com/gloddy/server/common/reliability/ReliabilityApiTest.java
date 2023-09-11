@@ -15,6 +15,7 @@ import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
 import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -68,8 +69,8 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
                 "숭실대학교",
                 "동작구 상도로",
                 "placeId",
-                "150",
-                "150",
+                new BigDecimal(150),
+                new BigDecimal(150),
                 10
         );
     }

@@ -51,13 +51,13 @@ public class GroupFactoryImpl implements GroupFactory {
         return new GroupDateTime(startDateTime);
     }
 
-    private GroupPlace getGroupPlace(String name, String address, String id, String latitude, String longitude) {
+    private GroupPlace getGroupPlace(String name, String address, String id, BigDecimal latitude, BigDecimal longitude) {
         return GroupPlace.builder()
                 .name(name)
                 .address(address)
                 .id(id)
-                .latitude(new BigDecimal(latitude))
-                .longitude(new BigDecimal(longitude))
+                .latitude(latitude)
+                .longitude(longitude)
                 .build();
     }
 

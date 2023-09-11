@@ -11,6 +11,7 @@ import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,8 +36,8 @@ public abstract class GroupServiceTest extends BaseServiceTest {
                 "placeName",
                 "placeAddress",
                 "placeId",
-                "130",
-                "25",
+                new BigDecimal(130),
+                new BigDecimal(25),
                 10
         );
     }

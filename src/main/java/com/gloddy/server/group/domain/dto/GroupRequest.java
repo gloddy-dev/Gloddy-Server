@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class GroupRequest {
@@ -24,8 +25,8 @@ public class GroupRequest {
         private String placeName;
         private String placeAddress;
         private String placeId;
-        private String placeLatitude;
-        private String placeLongitude;
+        private BigDecimal placeLatitude;
+        private BigDecimal placeLongitude;
         private int maxUser;
     }
 

@@ -11,6 +11,7 @@ import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -68,8 +69,8 @@ abstract public class GroupApiTest extends BaseApiTest {
                 "숭실대학교",
                 "동작구 상도로",
                 "placeId",
-                "150",
-                "150",
+                new BigDecimal(150),
+                new BigDecimal(150),
                 10
         );
     }
