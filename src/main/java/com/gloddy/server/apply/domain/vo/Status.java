@@ -16,4 +16,8 @@ public enum Status {
     public boolean isApprove() {
         return this == APPROVE;
     }
+
+    public boolean isRefuse() {
+        return this == REFUSE;
+    }
 }
