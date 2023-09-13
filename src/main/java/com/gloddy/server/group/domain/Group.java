@@ -123,4 +123,8 @@ public class Group extends BaseTimeEntity {
         this.getGroupMembers().clear();
         this.getGroupMembers().addAll(groupMemberVOS);
     }
+
+    public boolean canAcceptMoreMembers() {
+        return this.getMemberCount() < this.maxUser;
+    }
 }

@@ -5,10 +5,7 @@ import com.gloddy.server.apply.domain.dto.ApplyResponse;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.handler.ApplyCommandHandler;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
-import com.gloddy.server.apply.domain.service.ApplyDtoMapper;
-import com.gloddy.server.apply.domain.service.ApplyGetExecutor;
-import com.gloddy.server.apply.domain.service.ApplyStatusUpdatePolicy;
-import com.gloddy.server.apply.domain.service.RejectedApplyCheckExecutor;
+import com.gloddy.server.apply.domain.service.*;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.event.producer.ApplyEventProducer;
 import com.gloddy.server.auth.domain.User;
@@ -29,12 +26,10 @@ public class ApplyService {
 
     private final ApplyGetExecutor applyGetExecutor;
     private final ApplyCommandHandler applyCommandHandler;
-    private final ApplyQueryHandler applyQueryHandler;
     private final UserQueryHandler userQueryHandler;
     private final GroupQueryHandler groupQueryHandler;
-    private final ApplyStatusUpdatePolicy applyStatusUpdatePolicy;
-    private final ApplyEventProducer applyEventProducer;
     private final RejectedApplyCheckExecutor rejectedApplyCheckExecutor;
+    private final ApplyStatusUpdateExecutor applyStatusUpdateExecutor;
 
     @Transactional
     public ApplyResponse.Create createApply(Long userId, Long groupId, ApplyRequest.Create request) {
@@ -47,17 +42,8 @@ public class ApplyService {
     }
 
     @Transactional
-    public void updateStatusApply(Long userId, Long groupId, Long applyId, Status status) {
-        User user = userQueryHandler.findById(userId);
-        Apply apply = applyQueryHandler.findApplyToUpdateStatus(applyId);
-
-        applyStatusUpdatePolicy.validate(user, apply.getGroup());
-
-        if (status.isApprove()) {
-            apply.approveApply(applyEventProducer);
-            return;
-        }
-        apply.refuseApply();
+    public void updateStatusApply(Long userId, Long applyId, Status status) {
+        applyStatusUpdateExecutor.execute(userId, applyId, status);
     }
 
     public ApplyResponse.GetAll getAll(Long userId, Long groupId) {

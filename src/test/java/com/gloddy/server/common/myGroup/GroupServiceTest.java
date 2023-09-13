@@ -58,11 +58,11 @@ public abstract class GroupServiceTest extends BaseServiceTest {
     }
 
     protected void approveApply(Long captainId, Long applyId) {
-        applyService.updateStatusApply(captainId, null, applyId, Status.APPROVE);
+        applyService.updateStatusApply(captainId, applyId, Status.APPROVE);
     }
 
     protected void refuseApply(Long captainId, Long applyId) {
-        applyService.updateStatusApply(captainId, null, applyId, Status.REFUSE);
+        applyService.updateStatusApply(captainId, applyId, Status.REFUSE);
     }
 
     protected void checkRejectedApply(Long userId, Long applyId) {

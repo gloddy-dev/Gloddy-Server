@@ -21,12 +21,12 @@ public abstract class ApplyApiTest extends BaseApiTest {
     protected GroupMemberJpaRepository groupMemberJpaRepository;
 
     protected Group createMyGroup() {
-        Group group = Group.builder().captain(user).build();
+        Group group = Group.builder().captain(user).maxUser(10).build();
         return groupJpaRepository.save(group);
     }
 
     protected Group createGroup(User user) {
-        Group group = Group.builder().captain(user).build();
+        Group group = Group.builder().captain(user).maxUser(10).build();
         return groupJpaRepository.save(group);
     }
 
