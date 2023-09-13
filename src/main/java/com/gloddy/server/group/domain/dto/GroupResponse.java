@@ -38,6 +38,7 @@ public class GroupResponse {
         private String content;
         private int memberCount;
         private int maxMemberCount;
+        private String placeId;
         private String placeName;
         private String placeAddress;
         private String meetDate;
@@ -52,6 +53,7 @@ public class GroupResponse {
                     group.getContent(),
                     group.getMemberCount(),
                     group.getMaxUser(),
+                    group.getPlace().getId(),
                     group.getPlace().getName(),
                     group.getPlace().getAddress(),
                     group.getMeetDate().toString(),
@@ -76,6 +78,7 @@ public class GroupResponse {
         private String meetDate;
         private String startTime;
         private String endTime;
+        private String placeId;
         private String placeName;
         private String placeAddress;
         private String placeLatitude;

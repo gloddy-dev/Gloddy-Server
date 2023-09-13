@@ -47,6 +47,7 @@ public class MyGroupDtoMapper {
                 group.getContent(),
                 group.getMemberCount(),
                 group.getMaxUser(),
+                group.getPlace().getId(),
                 group.getPlace().getName(),
                 group.getPlace().getAddress(),
                 group.getMeetDate().toString(),

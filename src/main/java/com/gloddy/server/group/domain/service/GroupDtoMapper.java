@@ -27,6 +27,7 @@ public class GroupDtoMapper {
                 group.getMeetDate().toString(),
                 group.getStartDateTime().toLocalTime().toString(),
                 group.getEndDateTime().toLocalTime().toString(),
+                group.getPlace().getId(),
                 group.getPlace().getName(),
                 group.getPlace().getAddress(),
                 group.getPlace().getLatitude().toString(),
