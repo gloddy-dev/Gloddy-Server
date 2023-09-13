@@ -36,7 +36,7 @@ public class ApplyApi {
          @PathVariable Long applyId,
          @RequestParam Status status
     ) {
-        applyService.updateStatusApply(userId, groupId, applyId, status);
+        applyService.updateStatusApply(userId, applyId, status);
         return ApiResponse.noContent();
     }
 
