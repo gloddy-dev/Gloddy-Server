@@ -1,8 +1,9 @@
 name: Deploy on PRD Server (Amazon ECS)
 
 on:
-  push:
-    branches: [ "release" ]
+  pull_request:
+    types: [closed]
+    branches: [release]
 
 env:
   AWS_REGION: ap-northeast-2
