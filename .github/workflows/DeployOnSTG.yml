@@ -1,9 +1,8 @@
 name: Deploy on STG Server
 
 on:
-  pull_request:
-    types: [closed]
-    branches: [dev]
+  push:
+    branches: [ "dev" ]
 
 jobs:
   build:
