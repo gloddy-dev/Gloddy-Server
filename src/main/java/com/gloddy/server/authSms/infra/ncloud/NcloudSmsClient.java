@@ -33,7 +33,7 @@ public class NcloudSmsClient implements SmsClient {
         return NcloudSmsRequest.builder()
                 .type("SMS")
                 .from(ncloudProperties.getCallingNumber())
-                .content(generateVerificationCode(dto))
+                .content(generateContent(dto.getNumber()))
                 .messages(getMessages(dto))
                 .build();
     }
@@ -52,10 +52,15 @@ public class NcloudSmsClient implements SmsClient {
         return List.of(new Message(dto.getNumber()));
     }
 
-    private String generateVerificationCode(SmsRequest.Send dto) {
+    private String generateVerificationCode(String number) {
         return verificationCodeUtil.generate(
-                dto.getNumber(),
+                number,
                 60 * 3L
         );
+    }
+
+    private String generateContent(String number) {
+        String code = generateVerificationCode(number);
+        return String.format("인증번호 [%s]를 입력해 주세요", code);
     }
 }

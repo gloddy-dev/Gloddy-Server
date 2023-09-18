@@ -11,6 +11,7 @@ import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,9 +35,9 @@ public abstract class GroupServiceTest extends BaseServiceTest {
                 startTime,
                 "placeName",
                 "placeAddress",
-                "placeUrl",
-                "130",
-                "25",
+                "placeId",
+                new BigDecimal(130),
+                new BigDecimal(25),
                 10
         );
     }
@@ -57,11 +58,11 @@ public abstract class GroupServiceTest extends BaseServiceTest {
     }
 
     protected void approveApply(Long captainId, Long applyId) {
-        applyService.updateStatusApply(captainId, null, applyId, Status.APPROVE);
+        applyService.updateStatusApply(captainId, applyId, Status.APPROVE);
     }
 
     protected void refuseApply(Long captainId, Long applyId) {
-        applyService.updateStatusApply(captainId, null, applyId, Status.REFUSE);
+        applyService.updateStatusApply(captainId, applyId, Status.REFUSE);
     }
 
     protected void checkRejectedApply(Long userId, Long applyId) {

@@ -2,6 +2,7 @@ package com.gloddy.server.authEmail.domain.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -15,6 +16,7 @@ public class AuthEmailRequest {
     }
 
     @Getter
+    @AllArgsConstructor
     public static class AuthCode {
         @Email
         private String email;

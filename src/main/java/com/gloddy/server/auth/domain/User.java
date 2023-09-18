@@ -89,6 +89,10 @@ public class User extends BaseTimeEntity {
         return this.school.getSchool();
     }
 
+    public String getEmail() {
+        return this.school.getEmail();
+    }
+
     public boolean isCertifiedStudent() {
         return this.school.isCertifiedStudent();
     }
@@ -140,5 +144,12 @@ public class User extends BaseTimeEntity {
 
     public void withDraw() {
         this.status = Status.WITHDRAW;
+    }
+
+    public void verifyStudent(String email) {
+        var school = this.school;
+        this.school = School.createCertified(
+                school.getSchool(), email
+        );
     }
 }

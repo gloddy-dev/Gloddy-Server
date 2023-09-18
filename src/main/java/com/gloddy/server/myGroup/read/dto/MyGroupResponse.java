@@ -20,6 +20,7 @@ public class MyGroupResponse {
         private String content;
         private int memberCount;
         private int maxMemberCount;
+        private String placeId;
         private String placeName;
         private String placeAddress;
         private String meetDate;

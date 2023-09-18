@@ -1,6 +1,7 @@
 package com.gloddy.server.authEmail.application;
 
 import com.gloddy.server.authEmail.domain.dto.response.AuthEmailResponse;
+import com.gloddy.server.authEmail.domain.service.LoginUserVerifyEmailCodeExecutor;
 import com.gloddy.server.authEmail.exception.InvalidEmailException;
 import com.gloddy.server.authEmail.exception.InvalidVerificationCodeException;
 import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
@@ -23,6 +24,7 @@ import java.util.Random;
 public class AuthEmailService {
     private final JavaMailSender mailSender;
     private final RedisUtil redisUtil;
+    private final LoginUserVerifyEmailCodeExecutor loginUserVerifyEmailCodeExecutor;
 
     @Transactional
     public void authEmail(AuthEmailRequest.AuthEmail request) {
@@ -77,5 +79,10 @@ public class AuthEmailService {
         //String school = request.getEmail().split("@")[1].split("\\.")[0];
         //log.info("school: {}", school);
         return new AuthEmailResponse.VerifyCode(true);
+    }
+
+    @Transactional
+    public void verifyEmailCodeAfterSignUp(Long userId, AuthEmailRequest.AuthCode request) {
+        loginUserVerifyEmailCodeExecutor.execute(userId, request.getEmail(), request.getAuthCode());
     }
 }
