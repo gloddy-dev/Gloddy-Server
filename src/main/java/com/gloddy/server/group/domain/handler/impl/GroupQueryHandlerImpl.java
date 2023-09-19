@@ -31,7 +31,7 @@ public class GroupQueryHandlerImpl implements GroupQueryHandler {
 
     @Override
     public Page<Group> findGroupPreviewPage(Pageable pageable) {
-        return groupJpaRepository.findAllByEndDateTimeAfterOrderByCreatedAtDesc(LocalDateTime.now(), pageable);
+        return groupJpaRepository.findAllByStartDateTimeAfterOrderByCreatedAtDesc(LocalDateTime.now(), pageable);
     }
 
     @Override

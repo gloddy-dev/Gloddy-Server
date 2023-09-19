@@ -11,5 +11,5 @@ public interface GroupJpaRepositoryCustom {
 
     List<Group> findAllByCaptainId(Long captainId);
 
-    Page<Group> findAllByEndDateTimeAfterOrderByCreatedAtDesc(LocalDateTime time, Pageable pageable);
+    Page<Group> findAllByStartDateTimeAfterOrderByCreatedAtDesc(LocalDateTime time, Pageable pageable);
 }
