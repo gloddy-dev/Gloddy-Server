@@ -33,7 +33,7 @@ public class GroupJpaRepositoryImpl implements GroupJpaRepositoryCustom {
     }
 
     @Override
-    public Page<Group> findAllByEndDateTimeAfterOrderByCreatedAtDesc(LocalDateTime time, Pageable pageable) {
+    public Page<Group> findAllByStartDateTimeAfterOrderByCreatedAtDesc(LocalDateTime time, Pageable pageable) {
         List<Group> groups = query.selectFrom(group)
                 .where(startDateTimeAfter(time))
                 .offset(pageable.getOffset())
