@@ -1,6 +1,8 @@
 package com.gloddy.server.service.auth;
 
 import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.auth.domain.VerifyCode;
+import com.gloddy.server.auth.domain.handler.VerifyCodeRepository;
 import com.gloddy.server.authEmail.application.AuthEmailService;
 import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
 import com.gloddy.server.common.users.UserServiceTest;
@@ -21,8 +23,8 @@ public class VerifyEmailCodeAfterSignUpTest extends UserServiceTest {
     @Autowired
     private AuthEmailService authEmailService;
 
-    @MockBean
-    private RedisUtil redisUtil;
+    @Autowired
+    private VerifyCodeRepository verifyCodeRepository;
 
     @Nested
     class Case1 {
@@ -45,8 +47,8 @@ public class VerifyEmailCodeAfterSignUpTest extends UserServiceTest {
             String email = "test@soongsil.ac.kr";
             String authCode = "999999";
 
-            willReturn(authCode)
-                    .given(redisUtil).getData(email);
+            VerifyCode verifyCode = new VerifyCode(email, authCode, 60 * 5L);
+            verifyCodeRepository.setData(verifyCode);
 
             AuthEmailRequest.AuthCode request = new AuthEmailRequest.AuthCode(email, authCode);
 
