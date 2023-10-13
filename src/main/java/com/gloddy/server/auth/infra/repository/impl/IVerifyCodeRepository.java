@@ -19,7 +19,7 @@ public class IVerifyCodeRepository implements VerifyCodeRepository {
     private final VerifyCodeJpaRepository verifyCodeJpaRepository;
 
     @Override
-    public void setValue(VerifyCode verifyCode) {
+    public void setData(VerifyCode verifyCode) {
         verifyCodeJpaRepository.deleteById(verifyCode.getKey());
 
         VerifyCodeEntity verifyCodeEntity = VerifyCodeEntityMapper.toEntity(verifyCode);
@@ -27,7 +27,7 @@ public class IVerifyCodeRepository implements VerifyCodeRepository {
     }
 
     @Override
-    public String getValue(String key) {
+    public String getData(String key) {
         Optional<VerifyCodeEntity> verifyCodeEntity =
                 verifyCodeJpaRepository.findByKeyAndExpireDateAfter(key, now());
         return verifyCodeEntity.map(VerifyCodeEntity::getValue).orElse(null);

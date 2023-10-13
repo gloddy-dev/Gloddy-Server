@@ -4,9 +4,9 @@ import com.gloddy.server.auth.domain.VerifyCode;
 
 public interface VerifyCodeRepository {
 
-    void setValue(VerifyCode verifyCode);
+    void setData(VerifyCode verifyCode);
 
-    String getValue(String key);
+    String getData(String key);
 
     Boolean hasKey(String key);
 }

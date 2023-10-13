@@ -25,10 +25,10 @@ public class SetTest extends QueryTest {
                 60 * 3L
         );
         //when
-        verifyCodeRepository.setValue(verifyCode);
+        verifyCodeRepository.setData(verifyCode);
 
         //then
-        String value = verifyCodeRepository.getValue("key");
+        String value = verifyCodeRepository.getData("key");
         assertThat(value).isEqualTo("value");
     }
 
@@ -41,7 +41,7 @@ public class SetTest extends QueryTest {
                 "existValue",
                 60 * 3L
         );
-        verifyCodeRepository.setValue(existVerifyCode);
+        verifyCodeRepository.setData(existVerifyCode);
 
         //when
         VerifyCode newVerifyCode = new VerifyCode(
@@ -50,10 +50,10 @@ public class SetTest extends QueryTest {
                 60 * 3L
         );
 
-        verifyCodeRepository.setValue(newVerifyCode);
+        verifyCodeRepository.setData(newVerifyCode);
 
         //then
-        String value = verifyCodeRepository.getValue("key");
+        String value = verifyCodeRepository.getData("key");
         assertThat(value).isEqualTo("newValue");
     }
 }

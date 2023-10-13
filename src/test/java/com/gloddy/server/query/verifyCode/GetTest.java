@@ -17,7 +17,7 @@ public class GetTest extends QueryTest {
     @Test
     @DisplayName("key에 대한 value가 없으면 null을 반환한다.")
     void getNull_when_no_value() {
-        String key = verifyCodeRepository.getValue("key");
+        String key = verifyCodeRepository.getData("key");
 
         assertThat(key).isNull();
     }
@@ -27,9 +27,9 @@ public class GetTest extends QueryTest {
     void getValue_when_exist_value() {
         VerifyCode verifyCode = new VerifyCode("key", "value", 60 * 3L);
 
-        verifyCodeRepository.setValue(verifyCode);
+        verifyCodeRepository.setData(verifyCode);
 
-        String value = verifyCodeRepository.getValue("key");
+        String value = verifyCodeRepository.getData("key");
         assertThat(value).isEqualTo("value");
     }
 
@@ -38,8 +38,8 @@ public class GetTest extends QueryTest {
     void getNull_when_expire() {
         VerifyCode verifyCode = new VerifyCode("key", "value", 0L);
 
-        verifyCodeRepository.setValue(verifyCode);
-        String value = verifyCodeRepository.getValue("key");
+        verifyCodeRepository.setData(verifyCode);
+        String value = verifyCodeRepository.getData("key");
         assertThat(value).isNull();
     }
 
@@ -48,7 +48,7 @@ public class GetTest extends QueryTest {
     void return_true_when_exist() {
         VerifyCode verifyCode = new VerifyCode("key", "value", 60 * 3L);
 
-        verifyCodeRepository.setValue(verifyCode);
+        verifyCodeRepository.setData(verifyCode);
 
         Boolean isHas = verifyCodeRepository.hasKey("key");
         assertThat(isHas).isTrue();
@@ -59,7 +59,7 @@ public class GetTest extends QueryTest {
     void return_false_when_expire() {
         VerifyCode verifyCode = new VerifyCode("key", "value", 0L);
 
-        verifyCodeRepository.setValue(verifyCode);
+        verifyCodeRepository.setData(verifyCode);
 
         Boolean isHas = verifyCodeRepository.hasKey("key");
         assertThat(isHas).isFalse();
