@@ -1,6 +1,7 @@
 package com.gloddy.server.query;
 
 import com.gloddy.server.article.infra.repository.ArticleJpaRepository;
+import com.gloddy.server.auth.infra.repository.impl.IVerifyCodeRepository;
 import com.gloddy.server.comment.infra.repository.CommentJpaRepository;
 import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 
 @DataJpaTest
-@Import(TestConfig.class)
+@Import({TestConfig.class, IVerifyCodeRepository.class})
 public abstract class QueryTest {
 
     @Autowired
