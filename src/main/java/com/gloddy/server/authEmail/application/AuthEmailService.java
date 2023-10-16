@@ -5,6 +5,7 @@ import com.gloddy.server.authEmail.domain.service.LoginUserVerifyEmailCodeExecut
 import com.gloddy.server.authEmail.exception.InvalidEmailException;
 import com.gloddy.server.authEmail.exception.InvalidVerificationCodeException;
 import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
+import com.gloddy.server.authSms.utils.VerificationCodeUtil;
 import com.gloddy.server.core.utils.RedisUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -23,13 +24,13 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class AuthEmailService {
     private final JavaMailSender mailSender;
-    private final RedisUtil redisUtil;
+    private final VerificationCodeUtil verificationCodeUtil;
     private final LoginUserVerifyEmailCodeExecutor loginUserVerifyEmailCodeExecutor;
 
     @Transactional
     public void authEmail(AuthEmailRequest.AuthEmail request) {
         validateEmail(request.getEmail());
-        String code = createCode();
+        String code = verificationCodeUtil.generate(request.getEmail(), 60 * 5L);
         sendEmail(request.getEmail(), code);
     }
 
@@ -51,16 +52,10 @@ public class AuthEmailService {
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            throw new RuntimeException("mail send fail");
         }
         log.info("email: {}", email);
         log.info("code: {}", code);
-        redisUtil.setDataExpire(email, code, 60 * 5L);
-    }
-
-    private String createCode() {
-        Random random = new Random();
-        String code = String.valueOf(random.nextInt(888888) + 111111);
-        return code;
     }
 
     private void validateEmail(String email) {
@@ -70,14 +65,9 @@ public class AuthEmailService {
     }
 
     // TODO: 유효하지 않은 인증코드인 경우 401 에러를 던지는데 500에러로 뜸 httpStatus 잘못 설정한 듯
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthEmailResponse.VerifyCode verifyCode(AuthEmailRequest.AuthCode request) {
-        String code = redisUtil.getData(request.getEmail());
-        if(!code.equals(request.getAuthCode())) {
-            throw new InvalidVerificationCodeException();
-        }
-        //String school = request.getEmail().split("@")[1].split("\\.")[0];
-        //log.info("school: {}", school);
+        verificationCodeUtil.verify(request.getEmail(), request.getAuthCode());
         return new AuthEmailResponse.VerifyCode(true);
     }
 

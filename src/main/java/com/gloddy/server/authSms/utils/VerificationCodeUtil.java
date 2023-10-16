@@ -1,5 +1,7 @@
 package com.gloddy.server.authSms.utils;
 
+import com.gloddy.server.auth.domain.VerifyCode;
+import com.gloddy.server.auth.domain.handler.VerifyCodeRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.error.handler.exception.VerificationCodeBusinessException;
 import com.gloddy.server.core.utils.RedisUtil;
@@ -10,12 +12,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class VerificationCodeUtil {
 
-    private final RedisUtil redisUtil;
+    private final VerifyCodeRepository verifyCodeRepository;
     private final VerificationCodeGenerator verificationCodeGenerator;
 
     public String generate(String key, long duration) {
         String code = verificationCodeGenerator.generate();
-        redisUtil.setDataExpire(key, code, duration);
+        VerifyCode verifyCode = new VerifyCode(key, code, duration);
+        verifyCodeRepository.setData(verifyCode);
         return code;
     }
 
@@ -25,13 +28,13 @@ public class VerificationCodeUtil {
     }
 
     private void validateKey(String key) {
-        if(!redisUtil.hasKey(key)) {
+        if(!verifyCodeRepository.hasKey(key)) {
             throw new VerificationCodeBusinessException(ErrorCode.VERIFICATION_CODE_EXPIRED);
         }
     }
 
     private void validateCode(String key, String inputCode) {
-        String code = redisUtil.getData(key);
+        String code = verifyCodeRepository.getData(key);
         if(!code.equals(inputCode)) {
             throw new VerificationCodeBusinessException(ErrorCode.VERIFICATION_CODE_INVALID);
         }
