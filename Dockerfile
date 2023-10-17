@@ -4,6 +4,6 @@ EXPOSE 8080
 
 ARG PROJECT_DIRECTORY=/build
 
-WORKDIR %PROJECT_DIRECTORY
+WORKDIR $PROJECT_DIRECTORY
 
-ENTRYPOINT ["java","-jar","/build/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
