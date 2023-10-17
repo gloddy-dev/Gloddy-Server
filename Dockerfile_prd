@@ -11,6 +11,6 @@ COPY ${JAR_FILE_PATH} app.jar
 RUN  apt-get update \
   && apt-get install -y wget \
   && rm -rf /var/lib/apt/lists/*
-RUN wget -O dd-java-agent.jar https://dtdg.co/latest-java-tracer
+RUN wget -O dd-java-agent.jar 'https://dtdg.co/latest-java-tracer'
 
-ENTRYPOINT ["java", "-javaagent:dd-java-agent.jar", "-XX:FlightRecorderOptions=stackdepth=256", "-Ddd.appsec.enabled=true", "-Ddd.iast.enabled=true", "-Ddd.logs.injection=true", "-Ddd.service=gloddy", "-Ddd.env=production", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-javaagent:dd-java-agent.jar", "Ddd.profiling.enabled=true","-XX:FlightRecorderOptions=stackdepth=256", "-Ddd.appsec.enabled=true", "-Ddd.iast.enabled=true", "-Ddd.logs.injection=true", "-Ddd.jmxfetch.enabled=true", "-Ddd.service=gloddy", "-Ddd.env=production", "-jar", "app.jar"]
