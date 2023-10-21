@@ -109,7 +109,7 @@ abstract public class BaseApiTest {
     }
 
     protected String getTokenAfterLogin(User user) {
-        AccessPayload accessPayload = AccessPayload.of(user.getPhone().toString());
+        AccessPayload accessPayload = AccessPayload.of(user.getId().toString());
         return jwtTokenBuilder.createToken(accessPayload);
     }
 
