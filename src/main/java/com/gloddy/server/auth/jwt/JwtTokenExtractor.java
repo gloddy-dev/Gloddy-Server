@@ -24,7 +24,7 @@ public class JwtTokenExtractor extends JwtTokenKeyUsable {
         return request.getHeader(headerKey);
     }
 
-    public String extractPhoneNumberFromToken(String token, String key) {
+    public String extractSubjectFromToken(String token, String key) {
         Claims claims = getClaims(token, key);
         return claims.getSubject();
     }

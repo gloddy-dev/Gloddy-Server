@@ -1,12 +1,9 @@
 package com.gloddy.server.auth.jwt;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.security.auth.Subject;
 import java.util.Collection;
@@ -15,10 +12,10 @@ import java.util.Collection;
 public class JwtAuthentication implements Authentication {
 
     private final JwtUserAdapter userDetails;
-    private final String phoneNumber;
+    private final String userId;
 
-    public static Authentication of(JwtUserAdapter userDetails, String phoneNumber) {
-        return new JwtAuthentication(userDetails, phoneNumber);
+    public static Authentication of(JwtUserAdapter userDetails, String userId) {
+        return new JwtAuthentication(userDetails, userId);
     }
 
 
@@ -54,7 +51,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return phoneNumber;
+        return userId.toString();
     }
 
     @Override
