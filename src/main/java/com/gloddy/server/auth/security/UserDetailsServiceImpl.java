@@ -20,11 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserQueryHandler userQueryHandler;
 
     @Override
-    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-
-        User user = userQueryHandler.findByPhone(new Phone(phoneNumber))
-                .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
-
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        User user = userQueryHandler.findById(Long.parseLong(userId));
         return JwtUserAdapter.from(user);
     }
 }
