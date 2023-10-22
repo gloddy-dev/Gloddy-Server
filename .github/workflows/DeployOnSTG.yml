@@ -1,4 +1,4 @@
-name: Deploy on PRD Server (Amazon ECS)
+name: Deploy on STG Server (Amazon ECS)
 
 on:
   pull_request:
