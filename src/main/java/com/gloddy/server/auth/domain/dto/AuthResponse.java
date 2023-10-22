@@ -27,7 +27,7 @@ public class AuthResponse {
 
         public static SignUp from(User user, JwtTokenIssuer jwtTokenIssuer) {
             return new SignUp(user.getId(), user.getAuthority().getRole(),
-                    jwtTokenIssuer.issueToken(user.getPhone().getPhoneNumber()));
+                    jwtTokenIssuer.issueToken(user.getId().toString()));
         }
     }
 
@@ -47,7 +47,7 @@ public class AuthResponse {
 
         public static Login from(User user, JwtTokenIssuer jwtTokenIssuer) {
             return new Login(true, user.getId(), user.getAuthority().getRole(),
-                    jwtTokenIssuer.issueToken(user.getPhone().getPhoneNumber()));
+                    jwtTokenIssuer.issueToken(user.getId().toString()));
         }
     }
 
