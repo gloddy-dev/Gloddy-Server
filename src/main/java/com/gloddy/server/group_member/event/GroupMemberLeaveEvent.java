@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GroupMemberLeaveEvent implements Event {
     private Long userId;
+    private Long groupId;
 }
