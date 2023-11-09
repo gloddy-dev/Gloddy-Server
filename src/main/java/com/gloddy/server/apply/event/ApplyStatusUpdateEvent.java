@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplyStatusUpdateEvent implements Event {
     private Long userId;
-    private Long groupId;
-    private Long applyId;
+    private Long applyGroupId;
+    private Long applyUserId;
     private Status status;
 }

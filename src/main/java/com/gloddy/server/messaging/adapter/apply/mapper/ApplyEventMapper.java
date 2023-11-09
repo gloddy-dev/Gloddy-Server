@@ -12,7 +12,7 @@ public class ApplyEventMapper {
         return new ApplyAdapterEvent(
                 applyCreateEvent.getUserId(),
                 applyCreateEvent.getGroupId(),
-                applyCreateEvent.getApplyId(),
+                applyCreateEvent.getUserId(),
                 ApplyEventType.APPLY_CREATE
         );
     }
@@ -20,8 +20,8 @@ public class ApplyEventMapper {
     public static ApplyAdapterEvent mapToApplyAdapterEventFrom(ApplyStatusUpdateEvent applyStatusUpdateEvent) {
         return new ApplyAdapterEvent(
                 applyStatusUpdateEvent.getUserId(),
-                applyStatusUpdateEvent.getGroupId(),
-                applyStatusUpdateEvent.getApplyId(),
+                applyStatusUpdateEvent.getApplyGroupId(),
+                applyStatusUpdateEvent.getApplyUserId(),
                 getApplyEventType(applyStatusUpdateEvent.getStatus())
         );
     }

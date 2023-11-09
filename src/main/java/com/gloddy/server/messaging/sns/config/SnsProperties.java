@@ -10,4 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SnsProperties {
     private String applyTopic;
     private String groupMemberTopic;
+    private String groupArticleTopic;
+    private String groupStatusTopic;
 }

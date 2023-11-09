@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class ApplyCreateEvent implements Event {
     private Long userId;
     private Long groupId;
-    private Long applyId;
 }
