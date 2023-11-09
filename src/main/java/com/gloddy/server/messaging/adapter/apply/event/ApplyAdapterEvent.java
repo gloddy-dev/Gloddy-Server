@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ApplyAdapterEvent implements AdapterEvent {
     private Long userId;
-    private Long groupId;
-    private Long applyId;
+    private Long applyGroupId;
+    private Long applyUserId;
     private ApplyEventType eventType;
 }
