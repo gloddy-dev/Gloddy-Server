@@ -22,8 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupScheduler {
 
-    private MessagePublisher messagePublisher;
-    private IGroupRepository groupRepository;
+    private final MessagePublisher messagePublisher;
+    private final IGroupRepository groupRepository;
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Seoul")
     public void publishGroupApproachingEvent() {
