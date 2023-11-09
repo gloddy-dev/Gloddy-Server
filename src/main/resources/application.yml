@@ -54,6 +54,7 @@ spring:
       apply-topic: ${APPLY_TOPIC}
       group-member-topic: ${GROUP_MEMBER_TOPIC}
       group-article-topic: ${GROUP_ARTICLE_TOPIC}
+      group-status-topic: ${GROUP_STATUS_TOPIC}
 
 logging:
   level:

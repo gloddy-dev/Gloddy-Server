@@ -1,5 +1,6 @@
 package com.gloddy.server.messaging.sns.publisher;
 
+import com.gloddy.server.messaging.adapter.group.event.GroupStatusEvent;
 import com.gloddy.server.messaging.AdapterEvent;
 import com.gloddy.server.messaging.MessagePublisher;
 import com.gloddy.server.messaging.adapter.apply.event.ApplyAdapterEvent;
@@ -35,12 +36,18 @@ public class SnsPublisher implements MessagePublisher {
         send(snsProperties.getGroupArticleTopic(), event, null);
     }
 
+    @Override
+    public void publishGroupStatusEvent(GroupStatusEvent event) {
+
+    }
+
     private void send(String topicName, AdapterEvent event, @Nullable String subject) {
         log.info("이벤트 발행 시작(AWS SNS)");
         try {
             snsTemplate.sendNotification(topicName, event, subject);
         } catch (Exception e) {
             log.error(e.getMessage());
+            throw e;
         }
         log.info("이벤트 발행 완료(AWS SNS)");
     }
