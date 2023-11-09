@@ -53,6 +53,7 @@ spring:
     event:
       apply-topic: ${APPLY_TOPIC}
       group-member-topic: ${GROUP_MEMBER_TOPIC}
+      group-article-topic: ${GROUP_ARTICLE_TOPIC}
 
 logging:
   level:

@@ -3,6 +3,7 @@ package com.gloddy.server.messaging.sns.publisher;
 import com.gloddy.server.messaging.AdapterEvent;
 import com.gloddy.server.messaging.MessagePublisher;
 import com.gloddy.server.messaging.adapter.apply.event.ApplyAdapterEvent;
+import com.gloddy.server.messaging.adapter.group.event.GroupArticleAdapterEvent;
 import com.gloddy.server.messaging.adapter.group.event.GroupMemberAdapterEvent;
 import com.gloddy.server.messaging.sns.config.SnsProperties;
 import io.awspring.cloud.sns.core.SnsTemplate;
@@ -27,6 +28,11 @@ public class SnsPublisher implements MessagePublisher {
     @Override
     public void publishGroupMemberEvent(GroupMemberAdapterEvent event) {
         send(snsProperties.getGroupMemberTopic(), event, null);
+    }
+
+    @Override
+    public void publishGroupArticleEvent(GroupArticleAdapterEvent event) {
+        send(snsProperties.getGroupArticleTopic(), event, null);
     }
 
     private void send(String topicName, AdapterEvent event, @Nullable String subject) {
