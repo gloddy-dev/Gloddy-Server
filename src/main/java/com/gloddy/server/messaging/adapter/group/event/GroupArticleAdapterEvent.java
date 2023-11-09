@@ -7,12 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 public class GroupArticleAdapterEvent implements AdapterEvent {
     private Long userId;
     private Long groupId;
+    private List<Long> groupMemberUserIds;
     private Long articleId;
     private GroupArticleEventType eventType;
 
@@ -20,6 +23,7 @@ public class GroupArticleAdapterEvent implements AdapterEvent {
         return new GroupArticleAdapterEvent(
                 event.getUserId(),
                 event.getGroupId(),
+                event.getGroupMemberUserIds(),
                 event.getArticleId(),
                 GroupArticleEventType.from(event.isNotice())
         );

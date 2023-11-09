@@ -61,6 +61,7 @@ public class ArticleService {
                 new GroupArticleCreateEvent(
                         userId,
                         groupId,
+                        article.getGroup().getGroupMemberUserIds(),
                         article.getId(),
                         article.isNotice()
                 )
