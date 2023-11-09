@@ -127,4 +127,10 @@ public class Group extends BaseTimeEntity {
     public boolean canAcceptMoreMembers() {
         return this.getMemberCount() < this.maxUser;
     }
+
+    public List<Long> getGroupMemberUserIds() {
+        return this.getGroupMembers().stream()
+                .map(GroupMemberVO::getUserId)
+                .toList();
+    }
 }
