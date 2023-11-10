@@ -10,17 +10,17 @@ public class ApplyEventMapper {
 
     public static ApplyAdapterEvent mapToApplyAdapterEventFrom(ApplyCreateEvent applyCreateEvent) {
         return new ApplyAdapterEvent(
-                applyCreateEvent.getUserId(),
+                applyCreateEvent.getCaptainId(),
                 applyCreateEvent.getGroupId(),
-                applyCreateEvent.getUserId(),
+                applyCreateEvent.getApplyUserId(),
                 ApplyEventType.APPLY_CREATE
         );
     }
 
     public static ApplyAdapterEvent mapToApplyAdapterEventFrom(ApplyStatusUpdateEvent applyStatusUpdateEvent) {
         return new ApplyAdapterEvent(
-                applyStatusUpdateEvent.getUserId(),
-                applyStatusUpdateEvent.getApplyGroupId(),
+                applyStatusUpdateEvent.getCaptainId(),
+                applyStatusUpdateEvent.getGroupId(),
                 applyStatusUpdateEvent.getApplyUserId(),
                 getApplyEventType(applyStatusUpdateEvent.getStatus())
         );

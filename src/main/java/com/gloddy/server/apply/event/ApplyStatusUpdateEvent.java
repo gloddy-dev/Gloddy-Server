@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ApplyStatusUpdateEvent implements Event {
-    private Long userId;
-    private Long applyGroupId;
+    private Long captainId;
+    private Long groupId;
     private Long applyUserId;
     private Status status;
 }
