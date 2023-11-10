@@ -40,7 +40,7 @@ public class ApplyService {
         Apply apply = applyCommandHandler.save(
                 group.createApply(user, request.getIntroduce(), request.getReason())
         );
-        applyEventProducer.produceEvent(new ApplyCreateEvent(userId, groupId));
+        applyEventProducer.produceEvent(new ApplyCreateEvent(group.getCaptainId(), groupId, userId));
         return new ApplyResponse.Create(apply.getId());
     }
 
