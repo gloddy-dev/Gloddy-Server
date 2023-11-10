@@ -98,6 +98,10 @@ public class Group extends BaseTimeEntity {
         return this.groupMemberVOs.getSize();
     }
 
+    public Long getCaptainId() {
+        return this.captain.getId();
+    }
+
     public Apply createApply(User applier, String introduce, String reason) {
         return Apply.builder()
                 .user(applier)
