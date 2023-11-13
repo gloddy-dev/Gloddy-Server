@@ -1,6 +1,5 @@
 package com.gloddy.server.praise.domain;
 
-import com.gloddy.server.auth.domain.User;
 import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.praise.event.producer.PraiseEventProducer;
@@ -22,10 +21,6 @@ public class Praise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "total_calm_count", nullable = false)
     private Integer totalCalmCount;
 
@@ -45,32 +40,30 @@ public class Praise {
         return new Praise();
     }
 
-    public void init(User user) {
+    public void init() {
         this.totalCalmCount = INIT;
         this.totalKindCount = INIT;
         this.totalActiveCount = INIT;
         this.totalHumorCount = INIT;
         this.totalAbsenceCount = INIT;
-        this.user = user;
-        user.setPraise(this);
     }
 
     public void plusCount(PraiseValue praiseValue, PraiseEventProducer praiseEventProducer) {
         if (praiseValue.isHumor()) {
             plusHumorCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isActive()) {
             plusActiveCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isCalm()) {
             plusCalmCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isKind()) {
             plusKindCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), false));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else {
             plusAbsenceCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(this.user.getId(), true));
+            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, true));
         }
     }
 

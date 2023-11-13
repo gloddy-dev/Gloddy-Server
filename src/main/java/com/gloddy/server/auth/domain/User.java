@@ -53,10 +53,12 @@ public class User extends BaseTimeEntity {
     @Embedded
     private Profile profile;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "reliability_id")
     private Reliability reliability;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "praise_id")
     private Praise praise;
 
     @Builder
@@ -66,14 +68,14 @@ public class User extends BaseTimeEntity {
         this.profile = profile;
         this.status = Status.ACTIVE;
         authorityDefault();
+        this.reliability = new Reliability();
+        Praise praise = Praise.empty();
+        praise.init();
+        this.praise = praise;
     }
 
     private void authorityDefault() {
         this.authority = Authority.USER;
-    }
-
-    public void setPraise(Praise praise) {
-        this.praise = praise;
     }
 
     public Group saveGroup(GroupFactory groupFactory, GroupEventProducer groupEventProducer,
