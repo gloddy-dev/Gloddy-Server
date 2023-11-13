@@ -2,9 +2,9 @@ package com.gloddy.server.reliability.domain.vo;
 
 import java.util.Arrays;
 
-public enum ScoreMinusType {
+public enum ScoreMinusType implements ScoreTypes {
     Absence_Group("모임 불참", 10L),
-    Leaved_Group("모임 나가기", 5L)
+    Leaved_Group("모임 나가기", 5L),
     ;
 
     private final String description;
@@ -25,5 +25,10 @@ public enum ScoreMinusType {
 
     public Long getScore() {
         return this.score;
+    }
+
+    @Override
+    public Long getReflectScore() {
+        return -this.score;
     }
 }

@@ -2,7 +2,7 @@ package com.gloddy.server.reliability.domain.vo;
 
 import java.util.Arrays;
 
-public enum ScorePlusType {
+public enum ScorePlusType implements ScoreTypes {
     Estimated("평가 참여", 5L),
     Praised("칭찬 스티커 (지목 받은 사용자)", 1L),
     Mated("최고의 짝꿍 (지목 받은 인원 사용자)", 2L),
@@ -27,6 +27,11 @@ public enum ScorePlusType {
     }
 
     public Long getScore() {
+        return this.score;
+    }
+
+    @Override
+    public Long getReflectScore() {
         return this.score;
     }
 }

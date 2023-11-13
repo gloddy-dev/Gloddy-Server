@@ -48,22 +48,17 @@ public class Praise {
         this.totalAbsenceCount = INIT;
     }
 
-    public void plusCount(PraiseValue praiseValue, PraiseEventProducer praiseEventProducer) {
+    public void plusPraiseCount(PraiseValue praiseValue) {
         if (praiseValue.isHumor()) {
             plusHumorCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isActive()) {
             plusActiveCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isCalm()) {
             plusCalmCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else if (praiseValue.isKind()) {
             plusKindCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, false));
         } else {
             plusAbsenceCount();
-            praiseEventProducer.produceEvent(new PraiseCountUpdateEvent(userId, true));
         }
     }
 

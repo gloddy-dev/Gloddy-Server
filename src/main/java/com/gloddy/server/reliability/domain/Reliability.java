@@ -35,4 +35,18 @@ public class Reliability {
     public void updateScore(Long score) {
         this.score = score;
     }
+
+    public void upgrade(Long reflectScore) {
+        reflectScore(reflectScore);
+        this.level = this.level.upgradeLevel(this.score);
+    }
+
+    private void reflectScore(Long reflectScore) {
+        long newScore = score + reflectScore;
+        if (newScore >= INIT_SCORE) {
+            this.score = newScore;
+            return;
+        }
+        this.score = INIT_SCORE;
+    }
 }

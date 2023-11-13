@@ -16,8 +16,13 @@ import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
+import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.reliability.domain.Reliability;
 import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.reliability.domain.vo.ScoreMinusType;
+import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.reliability.domain.vo.ScoreTypes;
+import com.gloddy.server.user.event.producer.UserEventProducer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -153,5 +158,19 @@ public class User extends BaseTimeEntity {
         this.school = School.createCertified(
                 school.getSchool(), email
         );
+    }
+
+    public void receivePraise(PraiseValue praiseValue) {
+        this.praise.plusPraiseCount(praiseValue);
+        if (praiseValue.isAbsence()) {
+            reflectReliability(ScoreMinusType.Absence_Group);
+        } else {
+            reflectReliability(ScorePlusType.Praised);
+        }
+    }
+
+    public void reflectReliability(ScoreTypes scoreTypes) {
+        Long reflectScore = scoreTypes.getReflectScore();
+        this.reliability.upgrade(reflectScore);
     }
 }
