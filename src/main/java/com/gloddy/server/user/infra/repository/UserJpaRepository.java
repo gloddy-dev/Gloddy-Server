@@ -11,6 +11,4 @@ public interface UserJpaRepository extends JpaRepository<User, Long>, UserJpaRep
     User findFirstByOrderByIdDesc();
 
     boolean existsByProfile_Nickname(String nickName);
-
-    Optional<User> findByIdAndStatus(Long userId, Status status);
 }

@@ -1,8 +1,6 @@
 package com.gloddy.server.praise.domain;
 
-import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
 import com.gloddy.server.praise.domain.vo.PraiseValue;
-import com.gloddy.server.praise.event.producer.PraiseEventProducer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
