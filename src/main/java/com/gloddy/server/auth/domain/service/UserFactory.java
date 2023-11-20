@@ -1,9 +1,9 @@
 package com.gloddy.server.auth.domain.service;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Phone;
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.School;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Phone;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.School;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

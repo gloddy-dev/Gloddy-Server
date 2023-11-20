@@ -1,7 +1,7 @@
 package com.gloddy.server.group_member.infra.repository.impl;
 
-import com.gloddy.server.auth.domain.QUser;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.QUser;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.infra.repository.custom.GroupMemberJpaRepositoryCustom;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.gloddy.server.auth.domain.QUser.*;
+import static com.gloddy.server.user.domain.QUser.*;
 import static com.gloddy.server.group.domain.QGroup.group;
 import static com.gloddy.server.group_member.domain.QGroupMember.*;
-import static com.gloddy.server.praise.domain.QPraise.praise;
-import static com.gloddy.server.reliability.domain.QReliability.*;
+import static com.gloddy.server.user.domain.QPraise.praise;
+import static com.gloddy.server.user.domain.QReliability.*;
 
 @Repository
 @RequiredArgsConstructor

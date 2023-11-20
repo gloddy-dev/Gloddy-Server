@@ -1,4 +1,4 @@
-package com.gloddy.server.auth.domain.vo.kind;
+package com.gloddy.server.user.domain.vo.kind;
 
 public enum Status {
     ACTIVE,

@@ -1,6 +1,4 @@
-package com.gloddy.server.reliability.domain.vo;
-
-import java.util.Arrays;
+package com.gloddy.server.user.domain.vo;
 
 public enum ScoreMinusType implements ScoreTypes {
     Absence_Group("모임 불참", 10L),

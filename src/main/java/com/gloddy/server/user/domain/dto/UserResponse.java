@@ -1,6 +1,6 @@
-package com.gloddy.server.user.api.dto;
+package com.gloddy.server.user.domain.dto;
 
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

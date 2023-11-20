@@ -1,10 +1,10 @@
 package com.gloddy.server.user.infra.repository.impl;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Phone;
-import com.gloddy.server.auth.domain.vo.kind.Status;
-import com.gloddy.server.praise.domain.dto.PraiseResponse;
-import com.gloddy.server.praise.domain.dto.QPraiseResponse_GetPraiseForUser;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Phone;
+import com.gloddy.server.user.domain.vo.kind.Status;
+import com.gloddy.server.user.domain.dto.PraiseResponse;
+import com.gloddy.server.user.domain.dto.QPraiseResponse_GetPraiseForUser;
 import com.gloddy.server.user.infra.repository.custom.UserJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.gloddy.server.auth.domain.QUser.*;
-import static com.gloddy.server.praise.domain.QPraise.*;
-import static com.gloddy.server.reliability.domain.QReliability.*;
+import static com.gloddy.server.user.domain.QUser.*;
+import static com.gloddy.server.user.domain.QPraise.*;
+import static com.gloddy.server.user.domain.QReliability.*;
 
 @Repository
 @RequiredArgsConstructor

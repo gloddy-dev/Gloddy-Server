@@ -2,7 +2,7 @@ package com.gloddy.server.apply.domain;
 
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.event.producer.ApplyEventProducer;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.Group;
@@ -11,8 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 
 @Entity

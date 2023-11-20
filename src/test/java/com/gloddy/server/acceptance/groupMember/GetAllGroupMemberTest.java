@@ -1,6 +1,6 @@
 package com.gloddy.server.acceptance.groupMember;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.group.GroupApiTest;
 import com.gloddy.server.group.domain.Group;
 import org.junit.jupiter.api.BeforeEach;

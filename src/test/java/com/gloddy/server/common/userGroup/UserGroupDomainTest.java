@@ -1,8 +1,8 @@
 package com.gloddy.server.common.userGroup;
 
 import com.gloddy.server.UnitTest;
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.praise.domain.Praise;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 

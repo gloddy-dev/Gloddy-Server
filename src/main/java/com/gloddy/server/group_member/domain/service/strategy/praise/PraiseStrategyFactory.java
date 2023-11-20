@@ -1,6 +1,6 @@
 package com.gloddy.server.group_member.domain.service.strategy.praise;
 
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 
 public class PraiseStrategyFactory {
 

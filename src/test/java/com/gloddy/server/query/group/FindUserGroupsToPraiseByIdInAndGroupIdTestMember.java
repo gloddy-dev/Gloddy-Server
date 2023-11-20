@@ -1,13 +1,11 @@
 package com.gloddy.server.query.group;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
-import com.gloddy.server.praise.domain.Praise;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.query.QueryTest;
-import com.gloddy.server.reliability.domain.Reliability;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

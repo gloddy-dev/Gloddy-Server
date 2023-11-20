@@ -1,6 +1,6 @@
 package com.gloddy.server.group_member.domain.handler;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 
 import java.util.List;

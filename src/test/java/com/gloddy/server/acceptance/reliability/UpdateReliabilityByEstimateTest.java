@@ -1,13 +1,13 @@
 package com.gloddy.server.acceptance.reliability;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ScorePlusType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

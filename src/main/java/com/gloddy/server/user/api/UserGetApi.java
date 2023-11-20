@@ -2,7 +2,7 @@ package com.gloddy.server.user.api;
 
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.mate.application.MateService;
-import com.gloddy.server.user.api.dto.UserResponse;
+import com.gloddy.server.user.domain.dto.UserResponse;
 import com.gloddy.server.user.application.UserQueryService;
 import com.gloddy.server.user.application.UserService;
 import com.gloddy.server.user.application.facade.UserGetFacade;
@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import static com.gloddy.server.mate.domain.dto.MateResponse.*;
-import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
+import static com.gloddy.server.user.domain.dto.PraiseResponse.*;
 
 @RestController
 @RequiredArgsConstructor

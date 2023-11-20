@@ -1,4 +1,4 @@
-package com.gloddy.server.reliability.domain.vo;
+package com.gloddy.server.user.domain.vo;
 
 import java.util.Arrays;
 

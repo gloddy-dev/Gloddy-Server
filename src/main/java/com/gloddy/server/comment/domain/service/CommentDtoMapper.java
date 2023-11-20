@@ -1,6 +1,6 @@
 package com.gloddy.server.comment.domain.service;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.core.utils.DateTimePatternConstants;
 

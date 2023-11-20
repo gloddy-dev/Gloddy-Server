@@ -1,4 +1,4 @@
-package com.gloddy.server.praise.domain.dto;
+package com.gloddy.server.user.domain.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;

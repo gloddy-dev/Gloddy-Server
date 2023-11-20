@@ -8,7 +8,7 @@ import com.gloddy.server.group.application.GroupService;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group_member.application.GroupMemberService;
 import com.gloddy.server.group_member.domain.dto.GroupMemberRequest;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;

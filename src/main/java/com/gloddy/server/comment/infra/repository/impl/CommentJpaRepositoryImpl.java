@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.gloddy.server.auth.domain.QUser.*;
+import static com.gloddy.server.user.domain.QUser.*;
 import static com.gloddy.server.comment.domain.QComment.*;
 
 @Repository

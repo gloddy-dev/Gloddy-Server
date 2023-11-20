@@ -1,6 +1,6 @@
-package com.gloddy.server.praise.domain;
+package com.gloddy.server.user.domain;
 
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

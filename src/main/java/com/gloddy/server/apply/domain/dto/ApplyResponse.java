@@ -1,6 +1,6 @@
 package com.gloddy.server.apply.domain.dto;
 
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.gloddy.server.auth.domain.vo;
+package com.gloddy.server.user.domain.vo;
 
 import com.gloddy.server.authEmail.exception.InvalidEmailException;
 import jakarta.persistence.Column;

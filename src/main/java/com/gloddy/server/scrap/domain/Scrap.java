@@ -1,6 +1,6 @@
 package com.gloddy.server.scrap.domain;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

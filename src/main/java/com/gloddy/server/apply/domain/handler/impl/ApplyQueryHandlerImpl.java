@@ -5,13 +5,12 @@ import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
 import com.gloddy.server.apply.exception.NotFoundApplyException;
 import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor

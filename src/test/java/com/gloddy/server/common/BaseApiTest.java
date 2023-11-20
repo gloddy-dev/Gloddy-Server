@@ -1,14 +1,14 @@
 package com.gloddy.server.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Phone;
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.School;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Phone;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.School;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
 import com.gloddy.server.auth.jwt.payload.AccessPayload;
-import com.gloddy.server.reliability.domain.Reliability;
+import com.gloddy.server.user.domain.Reliability;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;

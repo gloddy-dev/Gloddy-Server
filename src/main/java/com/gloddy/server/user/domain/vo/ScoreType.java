@@ -1,4 +1,4 @@
-package com.gloddy.server.reliability.domain.vo;
+package com.gloddy.server.user.domain.vo;
 
 public enum ScoreType {
     Estimated("평가 참여"),

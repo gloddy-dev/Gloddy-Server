@@ -1,6 +1,6 @@
 package com.gloddy.server.mate.application;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.mate.event.MateCreateEvent;
 import com.gloddy.server.mate.event.producer.MateEventProducer;
 import com.gloddy.server.mate.domain.Mate;

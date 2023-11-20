@@ -2,7 +2,7 @@ package com.gloddy.server.comment.application;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.handler.ArticleQueryHandler;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.comment.domain.handler.CommentCommandHandler;
 import com.gloddy.server.comment.domain.handler.CommentQueryHandler;
 import com.gloddy.server.comment.domain.service.CommentDeletePolicy;

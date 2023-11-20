@@ -1,9 +1,9 @@
 package com.gloddy.server.common.reliability;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.Group;

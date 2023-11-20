@@ -1,7 +1,7 @@
 package com.gloddy.server.core.converter;
 
 
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import org.apache.logging.log4j.util.Strings;

@@ -1,9 +1,9 @@
 package com.gloddy.server.user.domain.handler.impl;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Phone;
-import com.gloddy.server.auth.domain.vo.kind.Status;
-import com.gloddy.server.praise.domain.dto.PraiseResponse;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Phone;
+import com.gloddy.server.user.domain.vo.kind.Status;
+import com.gloddy.server.user.domain.dto.PraiseResponse;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;

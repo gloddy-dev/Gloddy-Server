@@ -1,6 +1,6 @@
-package com.gloddy.server.reliability.domain;
+package com.gloddy.server.user.domain;
 
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

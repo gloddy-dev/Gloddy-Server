@@ -10,7 +10,7 @@ import com.gloddy.server.article.domain.service.ArticleDtoMapper;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
 import com.gloddy.server.article.event.GroupArticleCreateEvent;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;

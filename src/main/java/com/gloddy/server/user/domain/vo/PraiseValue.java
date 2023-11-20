@@ -1,4 +1,4 @@
-package com.gloddy.server.praise.domain.vo;
+package com.gloddy.server.user.domain.vo;
 
 public enum PraiseValue {
     CALM,

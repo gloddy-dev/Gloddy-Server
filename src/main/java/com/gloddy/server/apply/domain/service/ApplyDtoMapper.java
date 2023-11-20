@@ -2,7 +2,7 @@ package com.gloddy.server.apply.domain.service;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.dto.ApplyResponse;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 
 import java.util.List;
 
