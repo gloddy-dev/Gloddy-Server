@@ -2,8 +2,8 @@ package com.gloddy.server.article.domain.service;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.domain.vo.ArticleImage;
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Profile;
 import com.gloddy.server.core.utils.DateTimePatternConstants;
 import com.gloddy.server.core.utils.DateTimeUtils;
 import org.springframework.data.domain.Page;

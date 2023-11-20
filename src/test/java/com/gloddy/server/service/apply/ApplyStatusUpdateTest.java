@@ -5,7 +5,7 @@ import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.exception.CantAcceptMoreGroupMemberException;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.Group;
 import org.assertj.core.api.Assertions;

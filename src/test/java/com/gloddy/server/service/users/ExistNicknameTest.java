@@ -1,10 +1,9 @@
 package com.gloddy.server.service.users;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.users.UserServiceTest;
-import com.gloddy.server.user.api.dto.UserResponse;
+import com.gloddy.server.user.domain.dto.UserResponse;
 import com.gloddy.server.user.application.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

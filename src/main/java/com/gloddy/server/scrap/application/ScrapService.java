@@ -1,6 +1,6 @@
 package com.gloddy.server.scrap.application;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupResponse.GetGroup;

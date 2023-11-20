@@ -1,22 +1,19 @@
 package com.gloddy.server.service.auth;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.auth.domain.VerifyCode;
 import com.gloddy.server.auth.domain.handler.VerifyCodeRepository;
 import com.gloddy.server.authEmail.application.AuthEmailService;
 import com.gloddy.server.authEmail.domain.dto.request.AuthEmailRequest;
 import com.gloddy.server.common.users.UserServiceTest;
-import com.gloddy.server.core.utils.RedisUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.transaction.AfterTransaction;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
 
 public class VerifyEmailCodeAfterSignUpTest extends UserServiceTest {
 

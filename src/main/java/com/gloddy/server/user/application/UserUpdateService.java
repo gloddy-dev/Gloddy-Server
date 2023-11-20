@@ -1,7 +1,7 @@
 package com.gloddy.server.user.application;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.kind.Status;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.kind.Status;
 import com.gloddy.server.user.domain.dto.UserUpdateResponse;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import lombok.RequiredArgsConstructor;

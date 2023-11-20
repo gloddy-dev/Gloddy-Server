@@ -1,8 +1,7 @@
 package com.gloddy.server.auth.domain.dto;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.auth.jwt.JwtToken;
-import com.gloddy.server.auth.jwt.JwtTokenBuilder;
 import com.gloddy.server.auth.jwt.JwtTokenIssuer;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;

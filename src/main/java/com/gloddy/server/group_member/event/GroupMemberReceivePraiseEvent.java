@@ -1,7 +1,7 @@
 package com.gloddy.server.group_member.event;
 
 import com.gloddy.server.core.event.Event;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

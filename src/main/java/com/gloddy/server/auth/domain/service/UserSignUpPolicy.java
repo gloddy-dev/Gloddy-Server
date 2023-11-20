@@ -1,6 +1,6 @@
 package com.gloddy.server.auth.domain.service;
 
-import com.gloddy.server.auth.domain.vo.Phone;
+import com.gloddy.server.user.domain.vo.Phone;
 import com.gloddy.server.auth.exception.AlreadyUserSignUpException;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import lombok.RequiredArgsConstructor;

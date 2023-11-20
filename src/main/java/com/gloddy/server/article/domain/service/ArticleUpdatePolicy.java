@@ -2,7 +2,7 @@ package com.gloddy.server.article.domain.service;
 
 import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.exception.NoAuthorizedArticleUpdateException;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import org.springframework.stereotype.Component;
 
 @Component

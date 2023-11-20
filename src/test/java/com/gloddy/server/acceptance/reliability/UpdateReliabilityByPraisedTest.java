@@ -1,16 +1,14 @@
 package com.gloddy.server.acceptance.reliability;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.group_member.event.GroupMemberReceivePraiseEvent;
-import com.gloddy.server.praise.event.PraiseCountUpdateEvent;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ScorePlusType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,9 @@ import org.springframework.test.context.event.RecordApplicationEvents;
 import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
 
@@ -36,6 +36,9 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
 
     @Autowired
     private ApplicationEvents events;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     @Test
     @Transactional
@@ -70,20 +73,24 @@ public class UpdateReliabilityByPraisedTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
-        Reliability reliability = reliabilityQueryHandler.findByUserId(receivePraiseUser.getId());
 
-        long praiseCountUpdateEventCount = events.stream(PraiseCountUpdateEvent.class).count();
-        // 칭찬 데이터 덥데이트로 인한 이벤트
-        Assertions.assertThat(praiseCountUpdateEventCount).isEqualTo(1);
-
-        Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Praised.getScore());
-        Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        verifyUserReliability();
 
         groupMemberJpaRepository.deleteAll();
-        reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
+        mateJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
+    }
+
+    private void verifyUserReliability() {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+
+        transactionTemplate.execute(status -> {
+            User receivePraiseUser = userJpaRepository.findFirstByOrderByIdDesc();
+            Assertions.assertThat(receivePraiseUser.getReliability().getScore())
+                    .isEqualTo(ScorePlusType.Praised.getScore());
+            Assertions.assertThat(receivePraiseUser.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+            return null;
+        });
     }
 }

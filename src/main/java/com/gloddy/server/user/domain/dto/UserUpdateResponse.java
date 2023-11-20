@@ -1,8 +1,8 @@
 package com.gloddy.server.user.domain.dto;
 
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.kind.Gender;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.kind.Gender;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

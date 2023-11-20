@@ -2,7 +2,7 @@ package com.gloddy.server.acceptance.apply;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.vo.Status;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.apply.ApplyApiTest;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.event.GroupParticipateEvent;
@@ -121,11 +121,9 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(groupMember.isAbsence()).isFalse();
 
 
-            reliabilityRepository.deleteAll();
             groupMemberJpaRepository.deleteAll();
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
-            praiseJpaRepository.deleteAll();
             userJpaRepository.deleteAll();
         }
     }

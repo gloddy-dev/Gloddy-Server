@@ -1,6 +1,6 @@
 package com.gloddy.server;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;

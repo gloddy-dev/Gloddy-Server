@@ -1,9 +1,8 @@
 package com.gloddy.server.user.domain.dto;
 
-import com.gloddy.server.auth.domain.vo.kind.Gender;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.vo.kind.Gender;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

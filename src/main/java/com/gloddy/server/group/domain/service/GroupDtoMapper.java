@@ -1,7 +1,6 @@
 package com.gloddy.server.group.domain.service;
 
-import com.gloddy.server.apply.domain.vo.Status;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import org.springframework.data.domain.Page;
 

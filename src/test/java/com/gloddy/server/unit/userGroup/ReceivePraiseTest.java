@@ -1,9 +1,9 @@
 //package com.gloddy.server.unit.userGroup;
 //
-//import com.gloddy.server.auth.domain.User;
+//import com.gloddy.server.user.domain.User;
 //import com.gloddy.server.common.userGroup.UserGroupDomainTest;
-//import com.gloddy.server.praise.domain.Praise;
-//import com.gloddy.server.praise.domain.vo.PraiseValue;
+//import com.gloddy.server.user.domain.Praise;
+//import com.gloddy.server.user.domain.vo.PraiseValue;
 //import com.gloddy.server.group.domain.Group;
 //import com.gloddy.server.group_member.domain.GroupMember;
 //import org.junit.jupiter.api.DisplayName;

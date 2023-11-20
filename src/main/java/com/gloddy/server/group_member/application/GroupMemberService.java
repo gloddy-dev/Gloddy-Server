@@ -1,7 +1,7 @@
 package com.gloddy.server.group_member.application;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.kind.Status;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.kind.Status;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.dto.GroupResponse;
 import com.gloddy.server.group.domain.Group;

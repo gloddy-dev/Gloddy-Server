@@ -2,7 +2,7 @@ package com.gloddy.server.group_member.application;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.dto.EstimateResponse;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.domain.GroupApplies;

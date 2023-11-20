@@ -4,7 +4,7 @@ import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.QApply;
 import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.apply.infra.repository.custom.ApplyJpaRepositoryCustom;
-import com.gloddy.server.reliability.domain.QReliability;
+import com.gloddy.server.user.domain.QReliability;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.gloddy.server.apply.domain.QApply.*;
-import static com.gloddy.server.auth.domain.QUser.*;
+import static com.gloddy.server.user.domain.QUser.*;
 import static com.gloddy.server.group.domain.QGroup.*;
-import static com.gloddy.server.reliability.domain.QReliability.*;
+import static com.gloddy.server.user.domain.QReliability.*;
 
 @Repository
 @RequiredArgsConstructor

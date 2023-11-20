@@ -1,6 +1,6 @@
 package com.gloddy.server.group_member.domain.handler.impl;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;

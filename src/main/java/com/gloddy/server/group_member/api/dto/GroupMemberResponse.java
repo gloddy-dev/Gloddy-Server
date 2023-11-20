@@ -1,9 +1,8 @@
 package com.gloddy.server.group_member.api.dto;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
