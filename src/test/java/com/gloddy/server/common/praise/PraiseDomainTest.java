@@ -7,7 +7,7 @@ public abstract class PraiseDomainTest extends UnitTest {
 
     protected Praise getInitPraise() {
         Praise praise = Praise.empty();
-        praise.init(getMockUser());
+        praise.init();
         return praise;
     }
 }

@@ -121,11 +121,9 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(groupMember.isAbsence()).isFalse();
 
 
-            reliabilityRepository.deleteAll();
             groupMemberJpaRepository.deleteAll();
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
-            praiseJpaRepository.deleteAll();
             userJpaRepository.deleteAll();
         }
     }

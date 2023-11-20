@@ -10,9 +10,6 @@ import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -24,11 +21,6 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 
 public abstract class ReliabilityApiTest extends BaseApiTest {
 
-    @Autowired
-    protected ReliabilityQueryHandler reliabilityQueryHandler;
-
-    @Autowired
-    protected ReliabilityRepository reliabilityRepository;
 
     @Autowired
     protected GroupJpaRepository groupJpaRepository;
@@ -51,11 +43,6 @@ public abstract class ReliabilityApiTest extends BaseApiTest {
         GroupMemberVO groupMemberVO = groupMember.createUserGroupVO();
         group.addUserGroupVOs(groupMemberVO);
         return groupMemberJpaRepository.save(groupMember);
-    }
-
-    protected Reliability createReliability(User user) {
-        Reliability reliability = new Reliability(user);
-        return reliabilityQueryHandler.save(reliability);
     }
 
     protected GroupRequest.Create createGroupCreateRequest() {

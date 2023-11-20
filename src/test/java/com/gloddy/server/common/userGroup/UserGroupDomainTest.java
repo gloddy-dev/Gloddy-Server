@@ -10,7 +10,7 @@ public abstract class UserGroupDomainTest extends UnitTest {
 
     protected Praise getInitPraise(User user) {
         Praise praise = Praise.empty();
-        praise.init(user);
+        praise.init();
         return praise;
     }
 

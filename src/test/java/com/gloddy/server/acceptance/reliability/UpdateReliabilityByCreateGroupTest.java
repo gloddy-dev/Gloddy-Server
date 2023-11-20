@@ -44,10 +44,9 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         );
 
         // then
-        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
-        assertThat(reliability).isNotNull();
-        assertThat(reliability.getScore()).isEqualTo(0);
-        assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        assertThat(user.getReliability()).isNotNull();
+        assertThat(user.getReliability().getScore()).isEqualTo(0);
+        assertThat(user.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
         long eventCount = events.stream(GroupParticipateEvent.class).count();
         assertThat(eventCount).isEqualTo(1);
@@ -57,15 +56,12 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
 
-        assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
-        assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        assertThat(user.getReliability().getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
+        assertThat(user.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
         groupMemberJpaRepository.deleteAll();
-        reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }
 }

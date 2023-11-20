@@ -8,11 +8,7 @@ import com.gloddy.server.auth.domain.vo.School;
 import com.gloddy.server.auth.domain.vo.kind.Personality;
 import com.gloddy.server.auth.jwt.JwtTokenBuilder;
 import com.gloddy.server.auth.jwt.payload.AccessPayload;
-import com.gloddy.server.praise.domain.Praise;
-import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
 import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.handler.ReliabilityQueryHandler;
-import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,15 +36,6 @@ abstract public class BaseApiTest {
     protected UserJpaRepository userJpaRepository;
 
     @Autowired
-    protected PraiseJpaRepository praiseJpaRepository;
-
-    @Autowired
-    protected ReliabilityQueryHandler reliabilityQueryHandler;
-
-    @Autowired
-    protected ReliabilityRepository reliabilityRepository;
-
-    @Autowired
     protected ObjectMapper objectMapper;
 
     @Autowired
@@ -68,12 +55,6 @@ abstract public class BaseApiTest {
         return "010" + "-" + number2 + "-" + number3;
     }
 
-    protected Praise createPraise(User user) {
-        Praise mockPraise = Praise.empty();
-        mockPraise.init(user);
-        return praiseJpaRepository.save(mockPraise);
-    }
-
     protected User createLoginUser() {
         Profile profile = Profile.builder()
                 .personalities(List.of(Personality.KIND))
@@ -85,11 +66,6 @@ abstract public class BaseApiTest {
         return userJpaRepository.save(mockUser);
     }
 
-    private Reliability createReliability(User user) {
-        Reliability reliability = new Reliability(user);
-        return reliabilityQueryHandler.save(reliability);
-    }
-
     protected User createUser() {
         Profile profile = Profile.builder()
                 .personalities(List.of(Personality.KIND))
@@ -98,14 +74,7 @@ abstract public class BaseApiTest {
                 .school(School.createNoCertified(school))
                 .profile(profile)
                 .build();
-        User saveUser = userJpaRepository.save(mockUser);
-
-        Praise praise = Praise.empty();
-        praise.init(saveUser);
-        createPraise(saveUser);
-        createReliability(saveUser);
-
-        return saveUser;
+        return userJpaRepository.save(mockUser);
     }
 
     protected String getTokenAfterLogin(User user) {
@@ -116,8 +85,6 @@ abstract public class BaseApiTest {
     @BeforeEach
     void setUp() {
         User mockUser = createLoginUser();
-        createPraise(mockUser);
-        loginUserReliability = createReliability(mockUser);
         accessToken = getTokenAfterLogin(mockUser);
         user = mockUser;
     }

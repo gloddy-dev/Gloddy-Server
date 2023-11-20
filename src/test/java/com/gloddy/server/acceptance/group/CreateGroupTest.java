@@ -72,10 +72,8 @@ public class CreateGroupTest extends GroupApiTest {
         assertThat(groupMember.getAbsenceVoteCount()).isEqualTo(0);
         assertThat(groupMember.isAbsence()).isFalse();
 
-        reliabilityRepository.deleteAll();
         groupMemberJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }
 }

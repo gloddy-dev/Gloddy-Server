@@ -28,17 +28,6 @@ public class FindUserGroupsToPraiseByIdInAndGroupIdTestMember extends QueryTest 
         return userJpaRepository.save(user);
     }
 
-    private Praise getPraise(User user) {
-        Praise praise = Praise.empty();
-        praise.init(user);
-        return praiseJpaRepository.save(praise);
-    }
-
-    private Reliability getReliability(User user) {
-        Reliability reliability = new Reliability(user);
-        return reliabilityRepository.save(reliability);
-    }
-
     private GroupMember getUserGroup(User user, Group group) {
         GroupMember groupMember = GroupMember.empty();
         groupMember.init(user, group);
@@ -52,11 +41,7 @@ public class FindUserGroupsToPraiseByIdInAndGroupIdTestMember extends QueryTest 
         Group group = getGroup();
 
         User user_1 = getUser();
-        Praise praise_1 = getPraise(user_1);
-        getReliability(user_1);
         User user_2 = getUser();
-        Praise praise_2 = getPraise(user_2);
-        getReliability(user_2);
 
         GroupMember group_Member_1 = getUserGroup(user_1, group);
         GroupMember group_Member_2 = getUserGroup(user_2, group);
