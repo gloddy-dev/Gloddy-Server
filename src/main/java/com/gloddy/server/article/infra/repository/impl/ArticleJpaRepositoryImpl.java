@@ -4,8 +4,11 @@ import com.gloddy.server.article.domain.Article;
 import com.gloddy.server.article.infra.repository.custom.ArticleJpaRepositoryCustom;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.QGroup;
+import com.gloddy.server.user.domain.QUser;
+import com.gloddy.server.user.domain.User;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -44,8 +47,22 @@ public class ArticleJpaRepositoryImpl implements ArticleJpaRepositoryCustom {
         return new PageImpl<>(articles, pageable, total);
     }
 
+    @Override
+    public Optional<Article> findByIdFetchUserAndGroup(Long articleId) {
+        return Optional.ofNullable(query.selectFrom(article)
+                .innerJoin(article.user, QUser.user).fetchJoin()
+                .innerJoin(article.group, QGroup.group).fetchJoin()
+                .where(articleIdEq(articleId))
+                .fetchOne()
+        );
+    }
+
     private BooleanExpression groupEq(Group group) {
         return article.group.eq(group);
+    }
+
+    private BooleanExpression articleIdEq(Long articleId) {
+        return article.id.eq(articleId);
     }
 
     private BooleanExpression noticeEq(boolean isNotice) {
