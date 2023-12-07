@@ -1,7 +1,7 @@
 package com.gloddy.server.batch.group;
 
-import com.gloddy.server.messaging.adapter.group.event.GroupStatusEvent;
-import com.gloddy.server.messaging.adapter.group.event.GroupStatusEventType;
+import com.gloddy.server.messaging.adapter.group.event.GroupEvent;
+import com.gloddy.server.messaging.adapter.group.event.GroupEventType;
 import com.gloddy.server.batch.group.repository.IGroupRepository;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.messaging.MessagePublisher;
@@ -33,7 +33,7 @@ public class GroupScheduler {
             List<Group> approachingGroups = groupRepository.findApproachingGroups(nowDateTime);
 
             approachingGroups.stream()
-                    .map(group -> new GroupStatusEvent(group.getId(), group.getGroupMemberUserIds(), GroupStatusEventType.APPROACHING_GROUP))
+                    .map(group -> new GroupEvent(group.getId(), group.getGroupMemberUserIds(), GroupEventType.APPROACHING_GROUP))
                     .forEach(event -> messagePublisher.publishGroupStatusEvent(event));
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -50,7 +50,7 @@ public class GroupScheduler {
             List<Group> endGroups = groupRepository.findEndGroups(nowDateTime);
 
             endGroups.stream()
-                    .map(group -> new GroupStatusEvent(group.getId(), group.getGroupMemberUserIds(), GroupStatusEventType.END_GROUP))
+                    .map(group -> new GroupEvent(group.getId(), group.getGroupMemberUserIds(), GroupEventType.END_GROUP))
                     .forEach(event -> messagePublisher.publishGroupStatusEvent(event));
         } catch (Exception e) {
             log.error(e.getMessage());
