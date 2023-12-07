@@ -44,7 +44,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/files/**")
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/*/**")
                 .requestMatchers("/health")
-                .requestMatchers("/api/v1/users/duplicate");
+                .requestMatchers("/api/v1/users/duplicate")
+                .requestMatchers("/api/internal/**");
     }
 
     @Bean
