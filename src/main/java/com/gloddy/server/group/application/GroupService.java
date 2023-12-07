@@ -54,11 +54,11 @@ public class GroupService {
         User user = userQueryHandler.findById(userId);
         Group group = groupQueryHandler.findById(groupId);
 
-        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, isApplyWaited(userId, groupId), isExistNewApply(groupId), groupChecker);
+        return GroupDtoMapper.mapToGetGroupDetailFrom(user, group, isApplyWaited(user, group), isExistNewApply(groupId), groupChecker);
     }
 
-    private Boolean isApplyWaited(Long userId, Long groupId) {
-        return applyQueryHandler.existsByUserIdAndGroupIdAndStatus(userId, groupId, Status.WAIT);
+    private Boolean isApplyWaited(User user, Group group) {
+        return applyQueryHandler.existsByUserAndGroupAndStatus(user, group, Status.WAIT);
     }
 
     private Boolean isExistNewApply(Long groupId) {
