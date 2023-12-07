@@ -17,4 +17,6 @@ public interface GroupMemberQueryHandler {
     Long countParticipatedGroup(Long userId);
 
     boolean existsByUserAndGroupEndTimeBefore(User user);
+
+    GroupMember findById(Long groupMemberId);
 }

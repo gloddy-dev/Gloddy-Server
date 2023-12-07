@@ -7,6 +7,7 @@ import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.infra.repository.custom.GroupMemberJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -112,6 +113,15 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
         return fetchFirst != null;
     }
 
+    @Override
+    public Optional<GroupMember> findByIdFetchGroupAndUser(Long groupMemberId) {
+        return Optional.ofNullable(query.selectFrom(groupMember)
+                .innerJoin(groupMember.group, group).fetchJoin()
+                .innerJoin(groupMember.user, user).fetchJoin()
+                .where(groupMemberIdEq(groupMemberId))
+                .fetchOne());
+    }
+
     private BooleanExpression userEq(User user) {
         return groupMember.user.eq(user);
     }
@@ -134,6 +144,10 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
 
     private BooleanExpression userIdEq(Long userId) {
         return groupMember.user.id.eq(userId);
+    }
+
+    private BooleanExpression groupMemberIdEq(Long groupMemberId) {
+        return groupMember.id.eq(groupMemberId);
     }
 
     private BooleanExpression endTimeBefore(LocalDateTime time) {

@@ -1,5 +1,6 @@
 package com.gloddy.server.group_member.domain.handler.impl;
 
+import com.gloddy.server.group_member.exception.NotFoundGroupMemberException;
 import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
@@ -49,6 +50,12 @@ public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
     @Override
     public boolean existsByUserAndGroupEndTimeBefore(User user) {
         return groupMemberJpaRepository.existsByUserAndGroupEndTimeBefore(user);
+    }
+
+    @Override
+    public GroupMember findById(Long groupMemberId) {
+        return groupMemberJpaRepository.findByIdFetchGroupAndUser(groupMemberId)
+                .orElseThrow(NotFoundGroupMemberException::new);
     }
 
 }
