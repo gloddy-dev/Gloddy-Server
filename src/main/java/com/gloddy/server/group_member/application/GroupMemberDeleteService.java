@@ -27,8 +27,9 @@ public class GroupMemberDeleteService {
     public void delete(Long userId, Long groupId) {
         deleteGroupMemberVo(userId, groupId);
         deleteGroupMember(userId, groupId);
+        GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
 
-        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(userId, groupId));
+        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(groupMember.getId()));
     }
 
     private void deleteGroupMemberVo(Long userId, Long groupId) {
