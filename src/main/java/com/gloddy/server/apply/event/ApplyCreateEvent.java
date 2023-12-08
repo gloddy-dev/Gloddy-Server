@@ -10,7 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class ApplyCreateEvent implements Event {
-    private Long captainId;
-    private Long groupId;
-    private Long applyUserId;
+    private Long applyId;
 }

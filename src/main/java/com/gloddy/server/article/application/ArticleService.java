@@ -57,15 +57,7 @@ public class ArticleService {
             article.createAndAddAllArticleImages(request.getImages());
         }
 
-        eventPublisher.publishEvent(
-                new GroupArticleCreateEvent(
-                        userId,
-                        groupId,
-                        article.getGroup().getGroupMemberUserIds(),
-                        article.getId(),
-                        article.isNotice()
-                )
-        );
+        eventPublisher.publishEvent(new GroupArticleCreateEvent(article.getId(), article.isNotice()));
 
         return new ArticleResponse.Create(article.getId());
     }

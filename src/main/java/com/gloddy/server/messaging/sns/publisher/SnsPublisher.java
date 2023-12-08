@@ -1,6 +1,6 @@
 package com.gloddy.server.messaging.sns.publisher;
 
-import com.gloddy.server.messaging.adapter.group.event.GroupStatusEvent;
+import com.gloddy.server.messaging.adapter.group.event.GroupAdapterEvent;
 import com.gloddy.server.messaging.AdapterEvent;
 import com.gloddy.server.messaging.MessagePublisher;
 import com.gloddy.server.messaging.adapter.apply.event.ApplyAdapterEvent;
@@ -37,8 +37,8 @@ public class SnsPublisher implements MessagePublisher {
     }
 
     @Override
-    public void publishGroupStatusEvent(GroupStatusEvent event) {
-
+    public void publishGroupStatusEvent(GroupAdapterEvent event) {
+        send(snsProperties.getGroupStatusTopic(), event, null);
     }
 
     private void send(String topicName, AdapterEvent event, @Nullable String subject) {

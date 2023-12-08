@@ -53,6 +53,10 @@ public class Apply extends BaseTimeEntity {
         applyEventProducer.produceEvent(new GroupParticipateEvent(this.user.getId(), this.group.getId()));
     }
 
+    public Long getUserId() {
+        return this.user.getId();
+    }
+
     public void refuseApply() {
         this.status = Status.REFUSE;
     }

@@ -1,6 +1,7 @@
 package com.gloddy.server.messaging.adapter.apply.event;
 
 import com.gloddy.server.messaging.AdapterEvent;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class ApplyAdapterEvent implements AdapterEvent {
-    private Long userId;
-    private Long applyGroupId;
-    private Long applyUserId;
+    private Long applyId;
     private ApplyEventType eventType;
+    private LocalDateTime eventDateTime;
 }

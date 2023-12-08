@@ -56,8 +56,8 @@ public class ApplyQueryHandlerImpl implements ApplyQueryHandler {
     }
 
     @Override
-    public Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status) {
-        return applyJpaRepository.existsByUserIdAndGroupIdAndStatus(userId, groupId, status);
+    public Boolean existsByUserAndGroupAndStatus(User user, Group group, Status status) {
+        return applyJpaRepository.existsByUserAndGroupAndStatus(user, group, status);
     }
 
     @Override

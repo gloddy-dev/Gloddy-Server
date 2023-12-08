@@ -16,8 +16,6 @@ import java.util.Optional;
 public interface ApplyJpaRepository extends JpaRepository<Apply, Long>, ApplyJpaRepositoryCustom {
     int countApplyByGroupIdAndStatus(Long group_id, Status status);
 
-    Optional<Apply> findByUserIdAndGroupId(Long userId, Long groupId);
-
     @Query("select a from Apply a join fetch a.user where a.group = :group and a.status = :status")
     List<Apply> findAppliesByGroupAndStatusFetchUser(@Param("group") Group group, @Param("status") Status status);
 
@@ -25,7 +23,7 @@ public interface ApplyJpaRepository extends JpaRepository<Apply, Long>, ApplyJpa
 
     Apply findFirstByOrderByIdDesc();
 
-    Boolean existsByUserIdAndGroupIdAndStatus(Long userId, Long groupId, Status status);
+    Boolean existsByUserAndGroupAndStatus(User user, Group group, Status status);
 
     Boolean existsByUserAndStatus(User user, Status status);
 
