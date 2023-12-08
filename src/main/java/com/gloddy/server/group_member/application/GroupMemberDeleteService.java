@@ -29,7 +29,7 @@ public class GroupMemberDeleteService {
         deleteGroupMember(userId, groupId);
         GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
 
-        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(groupMember.getId()));
+        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(groupMember.getId(), userId));
     }
 
     private void deleteGroupMemberVo(Long userId, Long groupId) {
