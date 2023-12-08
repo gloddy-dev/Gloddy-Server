@@ -20,7 +20,7 @@ public class GroupMemberQueryHandlerImpl implements GroupMemberQueryHandler {
     @Override
     public GroupMember findByUserIdAndGroupId(Long userId, Long groupId) {
         return groupMemberJpaRepository.findByUserIdAndGroupId(userId, groupId)
-                .orElseThrow(() -> new RuntimeException("Not Found UserGroup"));
+                .orElseThrow(NotFoundGroupMemberException::new);
     }
 
     @Override
