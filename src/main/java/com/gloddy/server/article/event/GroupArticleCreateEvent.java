@@ -10,9 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class GroupArticleCreateEvent {
-    private Long userId;
-    private Long groupId;
-    private List<Long> groupMemberUserIds;
     private Long articleId;
     private boolean isNotice;
 }
