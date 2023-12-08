@@ -31,6 +31,6 @@ public class ApplyStatusUpdateExecutor {
             throw new RuntimeException("Apply Status Invalid");
         }
 
-        applyEventProducer.produceEvent(new ApplyStatusUpdateEvent(userId, apply.getGroup().getId(), apply.getUser().getId(), status));
+        applyEventProducer.produceEvent(new ApplyStatusUpdateEvent(apply.getId(), status));
     }
 }
