@@ -31,12 +31,13 @@ public class GroupPayloadApi {
         return ApiResponse.ok(response);
     }
 
-    @GetMapping("/groups/members/{groupMemberId}")
-    public ResponseEntity<GroupMemberPayload> getGroupPayload(
-            @PathVariable("groupMemberId") Long groupMemberId,
+    @GetMapping("/groups/{groupId}/members/{userId}")
+    public ResponseEntity<GroupMemberPayload> getGroupMemberPayload(
+            @PathVariable("groupId") Long groupId,
+            @PathVariable("userId") Long userId,
             @RequestParam("eventType") GroupMemberPayloadEventType eventType
     ) {
-        GroupMemberPayload response = groupPayloadService.getGroupMemberPayload(groupMemberId, eventType);
+        GroupMemberPayload response = groupPayloadService.getGroupMemberPayload(groupId, userId, eventType);
         return ApiResponse.ok(response);
     }
 }
