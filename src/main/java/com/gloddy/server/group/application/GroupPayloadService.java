@@ -6,10 +6,8 @@ import com.gloddy.server.group.domain.dto.GroupPayload;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group.domain.vo.in.GroupMemberPayloadEventType;
 import com.gloddy.server.group.domain.vo.in.GroupPayloadEventType;
-import com.gloddy.server.group_member.domain.GroupMember;
-import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
-import com.gloddy.server.messaging.adapter.group.event.GroupEventType;
-import com.gloddy.server.messaging.adapter.group.event.GroupMemberEventType;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GroupPayloadService {
     private final GroupQueryHandler groupQueryHandler;
-    private final GroupMemberQueryHandler groupMemberQueryHandler;
+    private final UserQueryHandler userQueryHandler;
 
     public GroupPayload getGroupPayload(Long groupId, GroupPayloadEventType eventType) {
         Group group = groupQueryHandler.findById(groupId);
@@ -25,9 +23,10 @@ public class GroupPayloadService {
         return GroupPayload.toDto(group);
     }
 
-    public GroupMemberPayload getGroupMemberPayload(Long groupMemberId, GroupMemberPayloadEventType eventType) {
-        GroupMember groupMember = groupMemberQueryHandler.findById(groupMemberId);
+    public GroupMemberPayload getGroupMemberPayload(Long groupId, Long userId, GroupMemberPayloadEventType eventType) {
+        Group group = groupQueryHandler.findById(groupId);
+        User groupMemberUser = userQueryHandler.findById(userId);
 
-        return GroupMemberPayload.toDto(groupMember);
+        return GroupMemberPayload.toDto(group, groupMemberUser);
     }
 }

@@ -1,6 +1,7 @@
 package com.gloddy.server.group.domain.dto;
 
-import com.gloddy.server.group_member.domain.GroupMember;
+import com.gloddy.server.group.domain.Group;
+import com.gloddy.server.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,12 @@ public class GroupMemberPayload {
     private String groupMemberName;
     private String groupImage;
 
-    public static GroupMemberPayload toDto(GroupMember groupMember) {
+    public static GroupMemberPayload toDto(Group group, User groupMemberUser) {
         return new GroupMemberPayload(
-                groupMember.getGroup().getId(),
-                groupMember.getGroup().getCaptainId(),
-                groupMember.getUser().getNickName(),
-                groupMember.getGroup().getImageUrl()
+                group.getId(),
+                group.getCaptainId(),
+                groupMemberUser.getNickName(),
+                group.getImageUrl()
         );
     }
 }
