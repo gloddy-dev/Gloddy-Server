@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GroupMemberLeaveEvent implements Event {
-    private Long groupMemberId;
+    private Long groupId;
     private Long userId;
 }

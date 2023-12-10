@@ -20,7 +20,8 @@ public class GroupEventMapper {
 
     public static GroupMemberAdapterEvent mapToGroupMemberAdapterEvent(GroupMemberLeaveEvent event) {
         return new GroupMemberAdapterEvent(
-                event.getGroupMemberId(),
+                event.getGroupId(),
+                event.getUserId(),
                 GroupMemberEventType.GROUP_MEMBER_LEAVE,
                 LocalDateTime.now()
         );
