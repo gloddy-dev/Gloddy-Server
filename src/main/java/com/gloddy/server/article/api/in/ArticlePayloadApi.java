@@ -2,6 +2,7 @@ package com.gloddy.server.article.api.in;
 
 import com.gloddy.server.article.application.ArticlePayloadService;
 import com.gloddy.server.article.domain.dto.ArticlePayload;
+import com.gloddy.server.article.domain.dto.in.GroupArticlePayloadEventType;
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.messaging.adapter.group.event.GroupArticleEventType;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class ArticlePayloadApi {
     @GetMapping("/groups/articles/{articleId}")
     public ResponseEntity<ArticlePayload> getArticlePayload(
             @PathVariable("articleId") Long articleId,
-            @RequestParam("eventType") GroupArticleEventType eventType
+            @RequestParam("eventType") GroupArticlePayloadEventType eventType
     ) {
         ArticlePayload response = articlePayloadService.getArticlePayload(articleId, eventType);
         return ApiResponse.ok(response);
