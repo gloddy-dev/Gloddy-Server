@@ -25,11 +25,10 @@ public class GroupMemberDeleteService {
 
     @Transactional
     public void delete(Long userId, Long groupId) {
-        GroupMember groupMember = groupMemberQueryHandler.findByUserIdAndGroupId(userId, groupId);
         deleteGroupMemberVo(userId, groupId);
         deleteGroupMember(userId, groupId);
 
-        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(groupMember.getId(), userId));
+        groupMemberEventProducer.produceEvent(new GroupMemberLeaveEvent(groupId, userId));
     }
 
     private void deleteGroupMemberVo(Long userId, Long groupId) {

@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class GroupMemberAdapterEvent implements AdapterEvent {
-    private Long groupMemberId;
+    private Long groupId;
+    private Long userId;
     private GroupMemberEventType eventType;
     private LocalDateTime eventDateTime;
 }
