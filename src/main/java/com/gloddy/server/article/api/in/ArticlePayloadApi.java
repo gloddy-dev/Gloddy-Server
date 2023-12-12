@@ -4,7 +4,6 @@ import com.gloddy.server.article.application.ArticlePayloadService;
 import com.gloddy.server.article.domain.dto.ArticlePayload;
 import com.gloddy.server.article.domain.dto.in.GroupArticlePayloadEventType;
 import com.gloddy.server.core.response.ApiResponse;
-import com.gloddy.server.messaging.adapter.group.event.GroupArticleEventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

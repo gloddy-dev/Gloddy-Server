@@ -6,8 +6,6 @@ import com.gloddy.server.group.domain.dto.GroupMemberPayload;
 import com.gloddy.server.group.domain.dto.GroupPayload;
 import com.gloddy.server.group.domain.vo.in.GroupMemberPayloadEventType;
 import com.gloddy.server.group.domain.vo.in.GroupPayloadEventType;
-import com.gloddy.server.messaging.adapter.group.event.GroupEventType;
-import com.gloddy.server.messaging.adapter.group.event.GroupMemberEventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
