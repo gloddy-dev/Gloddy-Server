@@ -21,7 +21,6 @@ public class OutboxEventCommandHandlerImpl implements OutboxEventCommandHandler 
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updatePublished(Long eventId) {
         eventJpaRepository.updatePublished(eventId, LocalDateTime.now());
     }
