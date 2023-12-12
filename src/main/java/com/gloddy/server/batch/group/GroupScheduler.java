@@ -2,7 +2,7 @@ package com.gloddy.server.batch.group;
 
 import com.gloddy.server.batch.group.event.GroupApproachingEvent;
 import com.gloddy.server.batch.group.event.GroupEndEvent;
-import com.gloddy.server.batch.group.event.producer.BatchEventProducer;
+import com.gloddy.server.batch.group.event.producer.GroupBatchEventProducer;
 import com.gloddy.server.core.error.handler.exception.BatchBusinessException;
 import com.gloddy.server.batch.group.repository.IGroupRepository;
 import com.gloddy.server.group.domain.Group;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupScheduler {
 
-    private final BatchEventProducer batchEventProducer;
+    private final GroupBatchEventProducer groupBatchEventProducer;
     private final IGroupRepository groupRepository;
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Seoul")
@@ -34,7 +34,7 @@ public class GroupScheduler {
         executeJob(() -> {
             approachingGroups.stream()
                  .map(group -> new GroupApproachingEvent(group.getId()))
-                 .forEach(batchEventProducer::produceEvent);
+                 .forEach(groupBatchEventProducer::produceEvent);
         });
     }
 
@@ -46,7 +46,7 @@ public class GroupScheduler {
         executeJob(() -> {
             endGroups.stream()
                     .map(group -> new GroupEndEvent(group.getId()))
-                    .forEach(batchEventProducer::produceEvent);
+                    .forEach(groupBatchEventProducer::produceEvent);
         });
     }
 
