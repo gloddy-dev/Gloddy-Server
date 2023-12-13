@@ -28,6 +28,9 @@ public enum ErrorCode {
     GROUP_TIME_INVALID(400, "올바르지 않은 그룹 시작 시간입니다."),
     EXISTS_PARTICIPATING_GROUP(400, "참여 중인 모임이 존재합니다."),
     CANT_ACCEPT_MORE_GROUP_MEMBER(400, "해당 모임의 인원이 모두 다 찼습니다."),
+    NOT_FOUND_GROUP_MEMBER(404, "존재하지 않는 그룹 멤버 입니다."),
+    GROUP_START_NOTIFICATION_BATCH_ERROR(500, "그룹 시작 알림 스케줄러 작업이 실패했습니다."),
+    GROUP_APPROACHING_NOTIFICATION_BATCH_ERROR(500, "그룹 상호 평가 알림 스케줄러 작업이 실패했습니다."),
 
     EMAIL_INVALID(404, "유효하지 않은 이메일 형식입니다."),
     PHONE_NUMBER_INVALID(400, "유효하지 않은 휴대폰 번호입니다."),

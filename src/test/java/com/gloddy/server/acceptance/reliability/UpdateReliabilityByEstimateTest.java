@@ -1,15 +1,13 @@
 package com.gloddy.server.acceptance.reliability;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
-import com.gloddy.server.praise.domain.vo.PraiseValue;
+import com.gloddy.server.user.domain.vo.PraiseValue;
 import com.gloddy.server.mate.application.MateSaveService;
-import com.gloddy.server.praise.application.PraiseService;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ScorePlusType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +27,6 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.*;
 
 @RecordApplicationEvents
 public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
-
-    @MockBean
-    private PraiseService praiseService;
 
     @MockBean
     private MateSaveService mateSaveService;
@@ -69,15 +64,11 @@ public class UpdateReliabilityByEstimateTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
-
-        Assertions.assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
-        Assertions.assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        Assertions.assertThat(user.getReliability().getScore()).isEqualTo(ScorePlusType.Estimated.getScore());
+        Assertions.assertThat(user.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
         groupMemberJpaRepository.deleteAll();
-        reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }
 }

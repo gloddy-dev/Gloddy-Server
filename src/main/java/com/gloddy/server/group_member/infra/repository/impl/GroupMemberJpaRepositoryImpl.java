@@ -1,12 +1,13 @@
 package com.gloddy.server.group_member.infra.repository.impl;
 
-import com.gloddy.server.auth.domain.QUser;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.QUser;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group_member.infra.repository.custom.GroupMemberJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,11 +17,11 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.gloddy.server.auth.domain.QUser.*;
+import static com.gloddy.server.user.domain.QUser.*;
 import static com.gloddy.server.group.domain.QGroup.group;
 import static com.gloddy.server.group_member.domain.QGroupMember.*;
-import static com.gloddy.server.praise.domain.QPraise.praise;
-import static com.gloddy.server.reliability.domain.QReliability.*;
+import static com.gloddy.server.user.domain.QPraise.praise;
+import static com.gloddy.server.user.domain.QReliability.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -112,6 +113,15 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
         return fetchFirst != null;
     }
 
+    @Override
+    public Optional<GroupMember> findByIdFetchGroupAndUser(Long groupMemberId) {
+        return Optional.ofNullable(query.selectFrom(groupMember)
+                .innerJoin(groupMember.group, group).fetchJoin()
+                .innerJoin(groupMember.user, user).fetchJoin()
+                .where(groupMemberIdEq(groupMemberId))
+                .fetchOne());
+    }
+
     private BooleanExpression userEq(User user) {
         return groupMember.user.eq(user);
     }
@@ -134,6 +144,10 @@ public class GroupMemberJpaRepositoryImpl implements GroupMemberJpaRepositoryCus
 
     private BooleanExpression userIdEq(Long userId) {
         return groupMember.user.id.eq(userId);
+    }
+
+    private BooleanExpression groupMemberIdEq(Long groupMemberId) {
+        return groupMember.id.eq(groupMemberId);
     }
 
     private BooleanExpression endTimeBefore(LocalDateTime time) {

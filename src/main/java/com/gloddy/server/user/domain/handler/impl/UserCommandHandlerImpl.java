@@ -1,6 +1,6 @@
 package com.gloddy.server.user.domain.handler.impl;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.user.domain.handler.UserCommandHandler;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;

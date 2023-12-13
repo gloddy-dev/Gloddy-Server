@@ -2,7 +2,7 @@ package com.gloddy.server.common.apply;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.BaseApiTest;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;

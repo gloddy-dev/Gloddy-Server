@@ -2,8 +2,8 @@ package com.gloddy.server.user.api;
 
 import com.gloddy.server.core.response.ApiResponse;
 import com.gloddy.server.mate.application.MateService;
-import com.gloddy.server.praise.application.PraiseService;
-import com.gloddy.server.user.api.dto.UserResponse;
+import com.gloddy.server.user.domain.dto.UserResponse;
+import com.gloddy.server.user.application.UserQueryService;
 import com.gloddy.server.user.application.UserService;
 import com.gloddy.server.user.application.facade.UserGetFacade;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,16 +13,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import static com.gloddy.server.mate.domain.dto.MateResponse.*;
-import static com.gloddy.server.praise.domain.dto.PraiseResponse.*;
+import static com.gloddy.server.user.domain.dto.PraiseResponse.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
 public class UserGetApi {
-    private final PraiseService praiseService;
     private final MateService mateService;
     private final UserService userService;
     private final UserGetFacade userGetFacade;
+    private final UserQueryService userQueryService;
 
     @Operation(summary = "마이페이지 조회")
     @GetMapping("/me/page")
@@ -42,10 +42,10 @@ public class UserGetApi {
 
     @Operation(summary = "마이페이지 칭찬 조회")
     @GetMapping("/me/praises")
-    public ResponseEntity<getPraiseForUser> getPraiseForUser(
+    public ResponseEntity<GetPraiseForUser> getPraiseForUser(
             @AuthenticationPrincipal Long userId
     ) {
-        getPraiseForUser response = praiseService.getPraiseForUser(userId);
+        GetPraiseForUser response = userQueryService.getUserPraise(userId);
         return ApiResponse.ok(response);
     }
 

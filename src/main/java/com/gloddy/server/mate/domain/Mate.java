@@ -1,6 +1,6 @@
 package com.gloddy.server.mate.domain;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;

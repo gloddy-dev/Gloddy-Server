@@ -9,7 +9,8 @@ import com.gloddy.server.article.domain.service.ArticleDeletePolicy;
 import com.gloddy.server.article.domain.service.ArticleDtoMapper;
 import com.gloddy.server.article.domain.service.ArticleUpdatePolicy;
 import com.gloddy.server.article.domain.service.NoticeArticleCreatePolicy;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.article.event.GroupArticleCreateEvent;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import com.gloddy.server.group_member.domain.handler.GroupMemberQueryHandler;
@@ -17,6 +18,7 @@ import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.core.response.PageResponse;
 import com.gloddy.server.group.domain.Group;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +40,7 @@ public class ArticleService {
     private final NoticeArticleCreatePolicy noticeArticleCreatePolicy;
     private final ArticleUpdatePolicy articleUpdatePolicy;
     private final ArticleDeletePolicy articleDeletePolicy;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public ArticleResponse.Create create(Long groupId, Long userId, ArticleRequest.Create request) {
@@ -53,6 +56,8 @@ public class ArticleService {
         if (!request.getImages().isEmpty()) {
             article.createAndAddAllArticleImages(request.getImages());
         }
+
+        eventPublisher.publishEvent(new GroupArticleCreateEvent(article.getId(), article.isNotice()));
 
         return new ArticleResponse.Create(article.getId());
     }

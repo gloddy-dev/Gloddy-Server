@@ -1,7 +1,7 @@
 package com.gloddy.server.mate.application;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Profile;
 import com.gloddy.server.mate.domain.Mate;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;

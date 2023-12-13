@@ -1,7 +1,7 @@
 package com.gloddy.server.group_member.domain;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group_member.event.GroupMemberEstimateCompleteEvent;
 import com.gloddy.server.group_member.event.GroupMemberSelectBestMateEvent;

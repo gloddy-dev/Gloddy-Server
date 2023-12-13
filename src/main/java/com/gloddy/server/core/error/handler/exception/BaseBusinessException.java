@@ -12,4 +12,9 @@ public class BaseBusinessException extends RuntimeException{
         super(errorCode.getErrorMessage());
         this.errorCode = errorCode;
     }
+
+    public BaseBusinessException(ErrorCode errorCode, Exception e) {
+        super(errorCode.getErrorMessage(), e);
+        this.errorCode = errorCode;
+    }
 }

@@ -1,6 +1,6 @@
 package com.gloddy.server.user.application;
 
-import com.gloddy.server.user.api.dto.UserResponse;
+import com.gloddy.server.user.domain.dto.UserResponse;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

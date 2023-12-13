@@ -1,15 +1,12 @@
 package com.gloddy.server.group.domain;
 
 import com.gloddy.server.apply.domain.Apply;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.vo.GroupDateTime;
 import com.gloddy.server.group.domain.vo.GroupMemberVOs;
 import com.gloddy.server.group.domain.vo.GroupPlace;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
-import com.gloddy.server.group_member.domain.GroupMember;
-import com.gloddy.server.group_member.event.GroupMemberLeaveEvent;
-import com.gloddy.server.group_member.event.producer.GroupMemberEventProducer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +16,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -98,6 +94,10 @@ public class Group extends BaseTimeEntity {
         return this.groupMemberVOs.getSize();
     }
 
+    public Long getCaptainId() {
+        return this.captain.getId();
+    }
+
     public Apply createApply(User applier, String introduce, String reason) {
         return Apply.builder()
                 .user(applier)
@@ -126,5 +126,11 @@ public class Group extends BaseTimeEntity {
 
     public boolean canAcceptMoreMembers() {
         return this.getMemberCount() < this.maxUser;
+    }
+
+    public List<Long> getGroupMemberUserIds() {
+        return this.getGroupMembers().stream()
+                .map(GroupMemberVO::getUserId)
+                .toList();
     }
 }

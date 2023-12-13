@@ -1,6 +1,6 @@
 package com.gloddy.server.scrap.infra.repository;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.scrap.domain.Scrap;
 import com.gloddy.server.scrap.infra.repository.custom.ScrapJpaRepositoryCustom;

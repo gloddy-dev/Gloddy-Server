@@ -1,12 +1,11 @@
 package com.gloddy.server.article.domain;
 
 import com.gloddy.server.article.domain.vo.ArticleImage;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

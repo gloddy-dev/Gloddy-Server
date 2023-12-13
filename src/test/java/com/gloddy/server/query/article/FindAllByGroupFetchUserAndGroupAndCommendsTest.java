@@ -1,9 +1,9 @@
 package com.gloddy.server.query.article;
 
 import com.gloddy.server.article.domain.Article;
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import com.gloddy.server.comment.domain.Comment;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.query.QueryTest;

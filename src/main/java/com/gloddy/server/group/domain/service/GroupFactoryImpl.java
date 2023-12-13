@@ -1,6 +1,6 @@
 package com.gloddy.server.group.domain.service;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.vo.GroupDateTime;

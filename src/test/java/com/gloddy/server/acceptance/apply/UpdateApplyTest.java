@@ -2,7 +2,8 @@ package com.gloddy.server.acceptance.apply;
 
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.vo.Status;
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.messaging.MessagePublisher;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.common.apply.ApplyApiTest;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 import com.gloddy.server.core.event.GroupParticipateEvent;
@@ -11,6 +12,7 @@ import com.gloddy.server.group_member.domain.GroupMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.event.ApplicationEvents;
@@ -121,11 +123,9 @@ public class UpdateApplyTest extends ApplyApiTest {
             assertThat(groupMember.isAbsence()).isFalse();
 
 
-            reliabilityRepository.deleteAll();
             groupMemberJpaRepository.deleteAll();
             applyJpaRepository.deleteAll();
             groupJpaRepository.deleteAll();
-            praiseJpaRepository.deleteAll();
             userJpaRepository.deleteAll();
         }
     }

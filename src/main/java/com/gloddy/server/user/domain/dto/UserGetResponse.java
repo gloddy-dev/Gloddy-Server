@@ -1,13 +1,13 @@
 package com.gloddy.server.user.domain.dto;
 
-import com.gloddy.server.auth.domain.User;
-import com.gloddy.server.auth.domain.vo.Profile;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.User;
+import com.gloddy.server.user.domain.vo.Profile;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import com.gloddy.server.core.utils.DateTimePatternConstants;
 import com.gloddy.server.core.utils.DateTimeUtils;
 import com.gloddy.server.core.utils.TimeUtil;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.Reliability;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

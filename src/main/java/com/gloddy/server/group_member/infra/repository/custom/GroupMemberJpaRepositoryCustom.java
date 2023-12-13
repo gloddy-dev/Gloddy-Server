@@ -1,8 +1,9 @@
 package com.gloddy.server.group_member.infra.repository.custom;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group_member.domain.GroupMember;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,4 +25,6 @@ public interface GroupMemberJpaRepositoryCustom {
     Long countByUserIdAndIsAbsenceAndEndDateTimeBeforeJoinGroup(Long userId, boolean isAbsence, LocalDateTime time);
 
     boolean existsByUserAndGroupEndTimeBefore(User user);
+
+    Optional<GroupMember> findByIdFetchGroupAndUser(Long groupMemberId);
 }

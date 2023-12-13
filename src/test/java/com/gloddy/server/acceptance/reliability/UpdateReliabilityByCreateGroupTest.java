@@ -3,9 +3,8 @@ package com.gloddy.server.acceptance.reliability;
 import com.gloddy.server.common.reliability.ReliabilityApiTest;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.domain.dto.GroupRequest;
-import com.gloddy.server.reliability.domain.Reliability;
-import com.gloddy.server.reliability.domain.vo.ReliabilityLevel;
-import com.gloddy.server.reliability.domain.vo.ScorePlusType;
+import com.gloddy.server.user.domain.vo.ReliabilityLevel;
+import com.gloddy.server.user.domain.vo.ScorePlusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +43,9 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
         );
 
         // then
-        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
-        assertThat(reliability).isNotNull();
-        assertThat(reliability.getScore()).isEqualTo(0);
-        assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        assertThat(user.getReliability()).isNotNull();
+        assertThat(user.getReliability().getScore()).isEqualTo(0);
+        assertThat(user.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
         long eventCount = events.stream(GroupParticipateEvent.class).count();
         assertThat(eventCount).isEqualTo(1);
@@ -57,15 +55,12 @@ public class UpdateReliabilityByCreateGroupTest extends ReliabilityApiTest {
     @Transactional
     @Commit
     void afterEvent() {
-        Reliability reliability = reliabilityQueryHandler.findByUserId(user.getId());
 
-        assertThat(reliability.getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
-        assertThat(reliability.getLevel()).isEqualTo(ReliabilityLevel.HOOD);
+        assertThat(user.getReliability().getScore()).isEqualTo(ScorePlusType.Created_Group.getScore());
+        assertThat(user.getReliability().getLevel()).isEqualTo(ReliabilityLevel.HOOD);
 
         groupMemberJpaRepository.deleteAll();
-        reliabilityRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }
 }

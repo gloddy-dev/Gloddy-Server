@@ -43,6 +43,19 @@ spring:
       max-file-size: ${MAX_FILE_SIZE}
       max-request-size: ${MAX_REQUEST_SIZE}
 
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ap-northeast-2
+    event:
+      apply-topic: ${APPLY_TOPIC}
+      group-member-topic: ${GROUP_MEMBER_TOPIC}
+      group-article-topic: ${GROUP_ARTICLE_TOPIC}
+      group-status-topic: ${GROUP_STATUS_TOPIC}
+
 logging:
   level:
     com.gloddy.server.authSms.infra: debug
@@ -79,4 +92,3 @@ springdoc:
   swagger-ui:
     url: /v3/api-docs
     urls-primary-name: Gloddy
-

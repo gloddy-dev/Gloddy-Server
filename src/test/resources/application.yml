@@ -31,6 +31,17 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  cloud:
+    aws:
+      credentials:
+        access-key: dummy-key
+        secret-key: dummy-key
+      region:
+        static: ap-northeast-2
+    event:
+      apply-topic: dummy-apply-topic
+      group-member-topic: dummy-group-member-topic
+
 jwt:
   header: X-AUTH-TOKEN
   secret: testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret-testJwtSecret

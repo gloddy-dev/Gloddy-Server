@@ -15,7 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:3000",
                         "https://gloddy.vercel.app",
                         "http://gloddy.store:3000",
-                        "https://gloddy-git-feature-gueit214.vercel.app/"
+                        "https://gloddy-git-feature-gueit214.vercel.app/",
+                        "https://gloddy-git-develop-gueit214.vercel.app"
                 )
                 .allowedMethods("*")
                 .allowedHeaders("*");

@@ -1,6 +1,6 @@
 package com.gloddy.server.user.domain.handler;
 
-import com.gloddy.server.auth.domain.User;
+import com.gloddy.server.user.domain.User;
 
 public interface UserCommandHandler {
 

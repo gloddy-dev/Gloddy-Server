@@ -3,13 +3,11 @@ package com.gloddy.server.common;
 import com.gloddy.server.apply.infra.repository.ApplyJpaRepository;
 import com.gloddy.server.auth.application.AuthService;
 import com.gloddy.server.auth.domain.dto.AuthRequest;
-import com.gloddy.server.auth.domain.vo.kind.Gender;
-import com.gloddy.server.auth.domain.vo.kind.Personality;
+import com.gloddy.server.user.domain.vo.kind.Gender;
+import com.gloddy.server.user.domain.vo.kind.Personality;
 import com.gloddy.server.group.infra.repository.GroupJpaRepository;
 import com.gloddy.server.group_member.infra.repository.GroupMemberJpaRepository;
 import com.gloddy.server.mate.infra.repository.MateJpaRepository;
-import com.gloddy.server.praise.infra.repository.PraiseJpaRepository;
-import com.gloddy.server.reliability.infra.repository.ReliabilityRepository;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +25,6 @@ public abstract class BaseServiceTest {
 
     @Autowired
     protected UserJpaRepository userJpaRepository;
-    @Autowired
-    private PraiseJpaRepository praiseJpaRepository;
-    @Autowired
-    private ReliabilityRepository reliabilityRepository;
     @Autowired
     private ApplyJpaRepository applyJpaRepository;
     @Autowired
@@ -75,8 +69,6 @@ public abstract class BaseServiceTest {
         groupMemberJpaRepository.deleteAll();
         applyJpaRepository.deleteAll();
         groupJpaRepository.deleteAll();
-        praiseJpaRepository.deleteAll();
-        reliabilityRepository.deleteAll();
         mateJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
     }

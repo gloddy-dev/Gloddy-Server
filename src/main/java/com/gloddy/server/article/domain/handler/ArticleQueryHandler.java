@@ -10,6 +10,8 @@ import java.util.List;
 public interface ArticleQueryHandler {
     Article findById(Long id);
 
+    Article findByIdFetchUserAndGroup(Long id);
+
     Page<Article> findAllToGetArticlePreview(Group group, Pageable pageable);
 
     List<Article> findAllByGroupAndNotice(Group group, boolean isNotice);
