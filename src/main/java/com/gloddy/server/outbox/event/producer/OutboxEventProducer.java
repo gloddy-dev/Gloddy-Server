@@ -1,7 +1,8 @@
 package com.gloddy.server.outbox.event.producer;
 
-import com.gloddy.server.outbox.domain.dto.OutboxEventPayload;
+
+import com.gloddy.server.core.event.Event;
 
 public interface OutboxEventProducer {
-    void produceEvent(OutboxEventPayload payload);
+    void produceEvent(Event payload);
 }
