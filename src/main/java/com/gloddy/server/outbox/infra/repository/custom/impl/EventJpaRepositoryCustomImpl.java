@@ -28,7 +28,7 @@ public class EventJpaRepositoryCustomImpl implements EventJpaRepositoryCustom {
 
     private BooleanExpression isNotPublished() {
         LocalDateTime localDateTime = LocalDateTime.now().minusMinutes(2);
-        return event1.published.eq(false);
-//                .and(event1.createdAt.loe(localDateTime));
+        return event1.published.eq(false)
+                .and(event1.createdAt.loe(localDateTime));
     }
 }
