@@ -8,27 +8,8 @@ import com.gloddy.server.core.utils.TimeUtil;
 import com.gloddy.server.user.domain.Praise;
 import com.gloddy.server.user.domain.Reliability;
 import com.gloddy.server.user.domain.dto.UserResponse;
-import com.gloddy.server.user.domain.dto.UserGetResponse;
 
 public class UserDtoMapper {
-
-    public static UserGetResponse toUserGet(User user, Reliability reliability, Praise praise, int reviewCount) {
-        return new UserGetResponse(
-                user.isCertifiedStudent(),
-                user.getImageUrl(),
-                user.getNickName(),
-                user.getGender().name(),
-                TimeUtil.calculateAge(user.getBirth()),
-                toStringBirth(user),
-                user.getSchool(),
-                reliability.getLevel(),
-                praise.sumPraiseCount(),
-                reviewCount,
-                user.getIntroduce(),
-                Personality.of(user.getPersonalities()),
-                user.getJoinAt()
-        );
-    }
 
     public static UserResponse.FacadeGet toUserGet(User user, Praise praise, Reliability reliability,
                                             Long participatedGroupCount, Long reviewCount) {
@@ -43,6 +24,8 @@ public class UserDtoMapper {
                 user.getSchool(),
                 user.getIntroduce(),
                 Personality.of(user.getPersonalities()),
+                user.getCountry().getName(),
+                user.getCountry().getImage(),
                 user.getJoinAt(),
                 reliability.getLevel(),
                 reliability.getScore(),

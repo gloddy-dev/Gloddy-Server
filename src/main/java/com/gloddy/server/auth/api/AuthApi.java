@@ -5,6 +5,7 @@ import com.gloddy.server.auth.domain.dto.AuthRequest;
 import com.gloddy.server.auth.domain.dto.AuthResponse;
 import com.gloddy.server.core.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +28,7 @@ public class AuthApi {
 
     @Operation(security = {})
     @PostMapping("/sign-up")
-    public ResponseEntity<AuthResponse.SignUp> signUp(@RequestBody AuthRequest.SignUp req) {
+    public ResponseEntity<AuthResponse.SignUp> signUp(@RequestBody @Valid AuthRequest.SignUp req) {
         AuthResponse.SignUp response = authService.signUp(req);
 
         return ApiResponse.ok(response);

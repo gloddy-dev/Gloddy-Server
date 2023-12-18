@@ -59,7 +59,9 @@ public abstract class BaseServiceTest {
                 "nickName",
                 LocalDate.now(),
                 Gender.MAIL,
-                List.of(Personality.KIND, Personality.ACTIVE, Personality.RESPONSIBLE)
+                List.of(Personality.KIND, Personality.ACTIVE, Personality.RESPONSIBLE),
+                "South Korea",
+                "Korea Image"
         );
 
         return authService.signUp(command).getUserId();
