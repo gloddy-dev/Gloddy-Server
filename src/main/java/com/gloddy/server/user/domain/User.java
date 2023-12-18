@@ -1,8 +1,6 @@
 package com.gloddy.server.user.domain;
 
-import com.gloddy.server.user.domain.vo.Profile;
-import com.gloddy.server.user.domain.vo.Phone;
-import com.gloddy.server.user.domain.vo.School;
+import com.gloddy.server.user.domain.vo.*;
 import com.gloddy.server.user.domain.vo.kind.Authority;
 import com.gloddy.server.user.domain.vo.kind.Gender;
 import com.gloddy.server.user.domain.vo.kind.Personality;
@@ -11,17 +9,10 @@ import com.gloddy.server.core.entity.common.BaseTimeEntity;
 import com.gloddy.server.core.event.GroupParticipateEvent;
 import com.gloddy.server.group.event.GroupCreateEvent;
 import com.gloddy.server.group.event.producer.GroupEventProducer;
-import com.gloddy.server.user.domain.Praise;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
-import com.gloddy.server.user.domain.vo.PraiseValue;
-import com.gloddy.server.user.domain.Reliability;
-import com.gloddy.server.user.domain.vo.ReliabilityLevel;
-import com.gloddy.server.user.domain.vo.ScoreMinusType;
-import com.gloddy.server.user.domain.vo.ScorePlusType;
-import com.gloddy.server.user.domain.vo.ScoreTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -123,8 +114,13 @@ public class User extends BaseTimeEntity {
         return this.profile.getPersonalities();
     }
 
+    public Country getCountry() {
+        return this.profile.getCountry();
+    }
+
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
-                              Gender gender, String introduce, List<Personality> personalities
+                              Gender gender, String introduce, List<Personality> personalities,
+                              String countryName, String countryImage
     ) {
         this.profile = Profile.builder()
                 .imageUrl(imageUrl)
@@ -133,6 +129,7 @@ public class User extends BaseTimeEntity {
                 .gender(gender)
                 .introduce(introduce)
                 .personalities(personalities)
+                .country(new Country(countryName, countryImage))
                 .build();
     }
 
