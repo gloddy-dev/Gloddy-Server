@@ -31,6 +31,8 @@ public class UserResponse {
         private String school;
         private String introduce;
         private List<String> personalities;
+        private String countryName;
+        private String countryImage;
         private LocalDate joinAt;
         private ReliabilityLevel reliabilityLevel;
         private Long reliabilityScore;
