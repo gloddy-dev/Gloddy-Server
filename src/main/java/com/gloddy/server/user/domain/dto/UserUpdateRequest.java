@@ -32,5 +32,11 @@ public class UserUpdateRequest {
 
         @Size(min = 3)
         private List<Personality> personalities;
+
+        @NotBlank(message = "국적 이름 입력은 필수 입니다.")
+        private String countryName;
+
+        @NotBlank(message = "국적 이미지 입력은 필수 입니다.")
+        private String countryImage;
     }
 }
