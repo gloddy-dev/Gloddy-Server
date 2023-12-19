@@ -13,6 +13,10 @@ public enum Status {
 
     private final String status;
 
+    public boolean isWait() {
+        return this == WAIT;
+    }
+
     public boolean isApprove() {
         return this == APPROVE;
     }

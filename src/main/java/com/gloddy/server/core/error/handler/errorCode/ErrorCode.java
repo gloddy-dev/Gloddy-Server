@@ -51,6 +51,7 @@ public enum ErrorCode {
     GROUP_NOT_CAPTAIN(403, "권한이 없습니다."),
     APPLY_NOT_FOUND(404, "존재하지 않는 지원서입니다."),
     EXISTS_WAIT_APPLY(400, "대기 상태인 지원서가 존재합니다."),
+    AlREADY_PROCESSED_APPLY(400, "이미 처리된 지원서입니다."),
     NO_TOTAL_GROUP_MEMBER_PRAISE(400, "모든 그룹 참여자에 대해 칭찬 하지 않았습니다"),
 
     SMS_BAD_REQUEST(400, "잘못된 형식의 SMS 요청입니다."),

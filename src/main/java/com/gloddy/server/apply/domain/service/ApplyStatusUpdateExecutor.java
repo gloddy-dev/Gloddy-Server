@@ -21,7 +21,7 @@ public class ApplyStatusUpdateExecutor {
     public void execute(Long userId, Long applyId, Status status) {
         Apply apply = applyQueryHandler.findById(applyId);
 
-        applyStatusUpdatePolicy.validate(userId, apply.getGroup(), status);
+        applyStatusUpdatePolicy.validate(userId, status, apply);
 
         if (status.isApprove()) {
             apply.approveApply(applyEventProducer);
