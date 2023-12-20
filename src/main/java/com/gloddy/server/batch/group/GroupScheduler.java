@@ -1,17 +1,11 @@
 package com.gloddy.server.batch.group;
 
-import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.GROUP_APPROACHING_NOTIFICATION_BATCH_ERROR;
-import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.GROUP_START_NOTIFICATION_BATCH_ERROR;
-import static com.gloddy.server.messaging.adapter.group.event.GroupEventType.APPROACHING_GROUP;
-import static com.gloddy.server.messaging.adapter.group.event.GroupEventType.END_GROUP;
-
-import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
+import com.gloddy.server.batch.group.event.GroupApproachingEvent;
+import com.gloddy.server.batch.group.event.GroupEndEvent;
+import com.gloddy.server.batch.group.event.producer.GroupBatchEventProducer;
 import com.gloddy.server.core.error.handler.exception.BatchBusinessException;
-import com.gloddy.server.messaging.adapter.group.event.GroupAdapterEvent;
-import com.gloddy.server.messaging.adapter.group.event.GroupEventType;
 import com.gloddy.server.batch.group.repository.IGroupRepository;
 import com.gloddy.server.group.domain.Group;
-import com.gloddy.server.messaging.MessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -29,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupScheduler {
 
-    private final MessagePublisher messagePublisher;
+    private final GroupBatchEventProducer groupBatchEventProducer;
     private final IGroupRepository groupRepository;
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Seoul")
@@ -37,7 +31,11 @@ public class GroupScheduler {
         LocalDateTime nowDateTime = getNowDateTime();
         List<Group> approachingGroups = groupRepository.findApproachingGroups(nowDateTime);
 
-        executeJob(approachingGroups, APPROACHING_GROUP, GROUP_APPROACHING_NOTIFICATION_BATCH_ERROR);
+        executeJob(() -> {
+            approachingGroups.stream()
+                 .map(group -> new GroupApproachingEvent(group.getId()))
+                 .forEach(groupBatchEventProducer::produceEvent);
+        });
     }
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Seoul")
@@ -45,17 +43,19 @@ public class GroupScheduler {
         LocalDateTime nowDateTime = getNowDateTime();
         List<Group> endGroups = groupRepository.findEndGroups(nowDateTime);
 
-        executeJob(endGroups, END_GROUP, GROUP_START_NOTIFICATION_BATCH_ERROR);
+        executeJob(() -> {
+            endGroups.stream()
+                    .map(group -> new GroupEndEvent(group.getId()))
+                    .forEach(groupBatchEventProducer::produceEvent);
+        });
     }
 
-    private void executeJob(List<Group> groups, GroupEventType eventType, ErrorCode errorCode) {
+    private void executeJob(Runnable runnable) {
         log.info("publishGroupEndEvent 스케줄러 시작");
         try {
-            groups.stream()
-                    .map(group -> new GroupAdapterEvent(group.getId(), eventType, LocalDateTime.now()))
-                    .forEach(messagePublisher::publishGroupStatusEvent);
+            runnable.run();
         } catch (Exception e) {
-            throw new BatchBusinessException(errorCode, e);
+            throw new BatchBusinessException(e);
         }
         log.info("publishGroupEndEvent 스케줄러 완료");
     }

@@ -3,7 +3,7 @@ package com.gloddy.server.core.error.handler.exception;
 import com.gloddy.server.core.error.handler.errorCode.ErrorCode;
 
 public class BatchBusinessException extends BaseBusinessException {
-    public BatchBusinessException(ErrorCode errorCode, Exception e) {
-        super(errorCode, e);
+    public BatchBusinessException(Exception e) {
+        super(ErrorCode.GROUP_NOTIFICATION_BATCH_ERROR, e);
     }
 }

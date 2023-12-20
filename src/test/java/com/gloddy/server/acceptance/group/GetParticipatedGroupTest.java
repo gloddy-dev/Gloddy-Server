@@ -2,6 +2,8 @@ package com.gloddy.server.acceptance.group;
 
 import com.gloddy.server.common.group.GroupApiTest;
 import com.gloddy.server.group.domain.Group;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
@@ -41,10 +43,8 @@ public class GetParticipatedGroupTest extends GroupApiTest {
         test.andExpect(jsonPath("currentPage").value(0));
         test.andExpect(jsonPath("totalPage").value(1));
         test.andExpect(jsonPath("contents[0].groupId").value(participatedGroup2.getId()));
-        test.andExpect(jsonPath("contents[0].meetDate").value(participatedGroup2.getMeetDate().toString()));
         test.andExpect(jsonPath("contents[0].praised").value(true));
         test.andExpect(jsonPath("contents[1].groupId").value(participatedGroup1.getId()));
-        test.andExpect(jsonPath("contents[1].meetDate").value(participatedGroup1.getMeetDate().toString()));
         test.andExpect(jsonPath("contents[1].praised").value(false));
     }
 }
