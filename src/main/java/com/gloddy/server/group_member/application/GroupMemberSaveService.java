@@ -1,5 +1,6 @@
 package com.gloddy.server.group_member.application;
 
+import com.gloddy.server.group_member.exception.AlreadyExistGroupMemberException;
 import com.gloddy.server.user.domain.User;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.vo.GroupMemberVO;
@@ -8,6 +9,7 @@ import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.group_member.domain.GroupMember;
 import com.gloddy.server.group.domain.handler.GroupQueryHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,15 +22,20 @@ public class GroupMemberSaveService {
 
     public GroupMember saveUserGroup(Long userId, Long groupId) {
 
-        Group findGroup = groupQueryHandler.findById(groupId);
-        User findUser = userQueryHandler.findById(userId);
+        try {
 
-        GroupMember groupMember = GroupMember.empty();
-        groupMember.init(findUser, findGroup);
+            Group findGroup = groupQueryHandler.findById(groupId);
+            User findUser = userQueryHandler.findById(userId);
 
-        GroupMemberVO groupMemberVO = groupMember.createUserGroupVO();
-        findGroup.addUserGroupVOs(groupMemberVO);
+            GroupMember groupMember = GroupMember.empty();
+            groupMember.init(findUser, findGroup);
 
-        return groupMemberCommandHandler.save(groupMember);
+            GroupMemberVO groupMemberVO = groupMember.createUserGroupVO();
+            findGroup.addUserGroupVOs(groupMemberVO);
+
+            return groupMemberCommandHandler.save(groupMember);
+        } catch (DataIntegrityViolationException e) {
+            throw new AlreadyExistGroupMemberException();
+        }
     }
 }

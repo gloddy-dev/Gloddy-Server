@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "group_member_vo")
+@Table(name = "group_member_vo", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "group_id"}))
 public class GroupMemberVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
