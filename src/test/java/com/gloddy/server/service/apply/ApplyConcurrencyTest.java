@@ -5,6 +5,7 @@ import com.gloddy.server.apply.domain.vo.Status;
 import com.gloddy.server.common.myGroup.GroupServiceTest;
 import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
+import com.gloddy.server.group_member.exception.AlreadyExistGroupMemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,9 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.transaction.TransactionDefinition;
 
 import java.time.LocalDate;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -50,23 +49,23 @@ public class ApplyConcurrencyTest extends GroupServiceTest {
 
             int threadCount = 2;
             ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-            CountDownLatch countDownLatch = new CountDownLatch(threadCount);
 
-            for (int i = 0; i < threadCount; i++) {
-                executorService.submit(() -> {
-                    try {
-                        applyService.updateStatusApply(captainId, applyId, Status.APPROVE);
-                        return null;
-                    } finally {
-                        countDownLatch.countDown();
-                    }
-                });
+            Future<?> future1 = executorService.submit(() -> applyService.updateStatusApply(captainId, applyId, Status.APPROVE));
+            Future<?> future2 = executorService.submit(() -> applyService.updateStatusApply(captainId, applyId, Status.APPROVE));
+
+            Exception cause = new Exception();
+
+            try {
+                future1.get();
+                future2.get();
+            } catch (ExecutionException e) {
+                cause = (Exception) e.getCause();
             }
 
-            countDownLatch.await();
 
             Group group = groupJpaRepository.findFirstByOrderByIdDesc();
             assertThat(group.getMemberCount()).isEqualTo(2);
+            assertThat(cause).isInstanceOf(AlreadyExistGroupMemberException.class);
 
             clear();
         }
