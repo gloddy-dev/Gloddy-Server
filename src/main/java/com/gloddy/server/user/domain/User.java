@@ -18,6 +18,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @NoArgsConstructor
@@ -115,7 +116,9 @@ public class User extends BaseTimeEntity {
     }
 
     public Country getCountry() {
-        return this.profile.getCountry();
+        Profile profile = this.profile;
+        return Optional.ofNullable(profile.getCountry())
+                .orElseGet(Country::new);
     }
 
     public void updateProfile(String imageUrl, String nickname, LocalDate birth,
