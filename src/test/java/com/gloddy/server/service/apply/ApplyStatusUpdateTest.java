@@ -51,6 +51,8 @@ public class ApplyStatusUpdateTest extends GroupServiceTest {
                 .given(applyQueryHandler).findById(applyId);
         willReturn(group)
                 .given(apply).getGroup();
+        willReturn(Status.WAIT)
+                .given(apply).getStatus();
 
         //when_and_then
         Assertions.assertThatThrownBy(() -> applyService.updateStatusApply(captainId, applyId, Status.APPROVE))

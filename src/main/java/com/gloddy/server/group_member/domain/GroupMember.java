@@ -24,7 +24,7 @@ import static com.gloddy.server.group_member.domain.dto.GroupMemberRequest.Estim
 @AllArgsConstructor
 @Entity
 @Getter
-@Table(name = "group_member")
+@Table(name = "group_member", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "group_id"}))
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 public class GroupMember extends BaseTimeEntity {
 

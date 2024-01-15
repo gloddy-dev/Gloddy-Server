@@ -1,5 +1,6 @@
 package com.gloddy.server.auth.domain.service;
 
+import com.gloddy.server.user.domain.vo.Country;
 import com.gloddy.server.user.domain.vo.Profile;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class UserProfileFactory {
                 .gender(request.getGender())
                 .introduce(null)
                 .personalities(request.getPersonalities())
+                .country(new Country(request.getCountryName(), request.getCountryImage()))
                 .build();
     }
 }

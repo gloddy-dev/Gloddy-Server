@@ -40,4 +40,7 @@ public class Profile {
     @Default
     @Column(name = "personality")
     private List<Personality> personalities = new ArrayList<>();
+
+    @Embedded
+    private Country country;
 }

@@ -2,7 +2,7 @@ package com.gloddy.server.apply.api.in;
 
 import com.gloddy.server.apply.application.ApplyPayloadService;
 import com.gloddy.server.apply.domain.dto.ApplyPayload;
-import com.gloddy.server.messaging.adapter.apply.event.ApplyEventType;
+import com.gloddy.server.outbox.adapter.apply.event.ApplyEventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

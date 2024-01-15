@@ -3,7 +3,7 @@ package com.gloddy.server.apply.application;
 import com.gloddy.server.apply.domain.Apply;
 import com.gloddy.server.apply.domain.dto.ApplyPayload;
 import com.gloddy.server.apply.domain.handler.ApplyQueryHandler;
-import com.gloddy.server.messaging.adapter.apply.event.ApplyEventType;
+import com.gloddy.server.outbox.adapter.apply.event.ApplyEventType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

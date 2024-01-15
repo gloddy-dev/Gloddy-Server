@@ -39,5 +39,4 @@ public class UserFactory {
         }
         return School.createNoCertified(schoolInfo.getSchool());
     }
-
 }

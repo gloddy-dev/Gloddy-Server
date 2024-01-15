@@ -18,6 +18,8 @@ public class UserUpdateResponse {
     private Gender gender;
     private String introduce;
     private List<Personality> personality;
+    private String countryName;
+    private String countryImage;
 
     public static UserUpdateResponse of(Profile profile) {
         return new UserUpdateResponse(
@@ -26,7 +28,9 @@ public class UserUpdateResponse {
                 profile.getBirth(),
                 profile.getGender(),
                 profile.getIntroduce(),
-                profile.getPersonalities()
+                profile.getPersonalities(),
+                profile.getCountry().getName(),
+                profile.getCountry().getImage()
         );
     }
 }

@@ -24,7 +24,9 @@ public class UserUpdateService {
                 request.getBirth(),
                 request.getGender(),
                 request.getIntroduce(),
-                request.getPersonalities()
+                request.getPersonalities(),
+                request.getCountryName(),
+                request.getCountryImage()
         );
         return UserUpdateResponse.of(user.getProfile());
     }
