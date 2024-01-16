@@ -1,7 +1,7 @@
 package com.gloddy.server.user.domain.vo.kind;
 
 public enum Gender {
-    MAIL("남"),
+    MALE("남"),
     FEMALE("여");
 
     private final String value;
