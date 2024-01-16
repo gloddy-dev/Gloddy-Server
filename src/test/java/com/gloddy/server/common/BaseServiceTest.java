@@ -58,7 +58,7 @@ public abstract class BaseServiceTest {
                 ),
                 "nickName",
                 LocalDate.now(),
-                Gender.MAIL,
+                Gender.MALE,
                 List.of(Personality.KIND, Personality.ACTIVE, Personality.RESPONSIBLE),
                 "South Korea",
                 "Korea Image"
