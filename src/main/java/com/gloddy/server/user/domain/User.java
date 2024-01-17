@@ -15,6 +15,7 @@ import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Getter
 @Table(name = "users")
+@Where(clause = "status = 'ACTIVE'")
 public class User extends BaseTimeEntity {
 
     @Id

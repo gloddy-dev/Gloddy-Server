@@ -35,7 +35,7 @@ public class GroupMemberService {
     private final GroupMemberJpaRepository userGroupJpaRepository;
 
     public GroupResponse.GetGroups getExpectedMyGroup(Long userId) {
-        User findUser = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
+        User findUser = userQueryHandler.findByIdFetch(userId);
         List<Group> expectedMyGroups = userGroupJpaRepository.findExpectedGroupsByUser(findUser);
         return expectedMyGroups.stream()
            .map(GroupResponse.GetGroup::from)
@@ -43,7 +43,7 @@ public class GroupMemberService {
     }
 
     public PageResponse<GroupResponse.GetParticipatedGroup> getParticipatedMyGroup(Long userId, int page, int size) {
-        User findUser = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
+        User findUser = userQueryHandler.findByIdFetch(userId);
         return PageResponse.from(
            userGroupJpaRepository.findParticipatedGroupsByUser(findUser, PageRequest.of(page, size))
            .map(GroupResponse.GetParticipatedGroup::from)

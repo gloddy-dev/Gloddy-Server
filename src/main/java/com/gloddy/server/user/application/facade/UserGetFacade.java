@@ -21,7 +21,7 @@ public class UserGetFacade {
 
     @Transactional(readOnly = true)
     public UserResponse.FacadeGet getUserFacade(Long userId) {
-        User user = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
+        User user = userQueryHandler.findByIdFetch(userId);
         Long countParticipatedGroup = groupMemberQueryHandler.countParticipatedGroup(userId);
         Long reviewCount = mateQueryHandler.countByUserId(userId);
 

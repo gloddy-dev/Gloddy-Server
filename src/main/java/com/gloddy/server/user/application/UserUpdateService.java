@@ -17,7 +17,7 @@ public class UserUpdateService {
 
     @Transactional
     public UserUpdateResponse update(Long userId, Info request) {
-        User user = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
+        User user = userQueryHandler.findByIdFetch(userId);
         user.updateProfile(
                 request.getImageUrl(),
                 request.getName(),
