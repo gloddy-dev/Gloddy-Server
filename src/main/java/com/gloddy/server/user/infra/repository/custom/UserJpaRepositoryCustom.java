@@ -13,7 +13,7 @@ public interface UserJpaRepositoryCustom {
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findByIdAndStatusFetch(Long id, Status status);
+    Optional<User> findByIdFetch(Long id);
 
     PraiseResponse.GetPraiseForUser findPraiseByUserId(Long userId);
 }

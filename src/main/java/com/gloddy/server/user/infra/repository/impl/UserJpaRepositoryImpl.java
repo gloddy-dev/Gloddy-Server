@@ -25,21 +25,21 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
     @Override
     public Optional<User> findByPhone(Phone phone) {
         return Optional.ofNullable(query.selectFrom(user)
-                .where(eqPhone(phone), isActive())
+                .where(eqPhone(phone))
                 .fetchOne());
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(query.selectFrom(user)
-                .where(eqEmail(email), isActive())
+                .where(eqEmail(email))
                 .fetchOne());
     }
 
     @Override
-    public Optional<User> findByIdAndStatusFetch(Long id, Status status) {
+    public Optional<User> findByIdFetch(Long id) {
         return Optional.ofNullable(query.selectFrom(user)
-                .where(eqId(id), eqStatus(status))
+                .where(eqId(id))
                 .join(user.praise, praise).fetchJoin()
                 .join(user.reliability, reliability).fetchJoin()
                 .fetchOne());
@@ -65,14 +65,6 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
 
     private BooleanExpression eqEmail(String email) {
         return user.school.email.eq(email);
-    }
-
-    private BooleanExpression isActive() {
-        return user.status.eq(Status.ACTIVE);
-    }
-
-    private BooleanExpression eqStatus(Status status) {
-        return user.status.eq(status);
     }
 
     private BooleanExpression eqId(Long id) {

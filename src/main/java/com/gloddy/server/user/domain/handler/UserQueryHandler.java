@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserQueryHandler {
     User findById(Long id);
 
-    User findByIdAndStatus(Long id, Status status);
+    User findByIdFetch(Long id);
     Optional<User> findByEmail(String email);
 
     boolean existsByNickname(String nickname);

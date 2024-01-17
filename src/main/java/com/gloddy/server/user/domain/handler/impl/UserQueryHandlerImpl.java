@@ -26,8 +26,8 @@ public class UserQueryHandlerImpl implements UserQueryHandler {
     }
 
     @Override
-    public User findByIdAndStatus(Long id, Status status) {
-        return userJpaRepository.findByIdAndStatusFetch(id, status)
+    public User findByIdFetch(Long id) {
+        return userJpaRepository.findByIdFetch(id)
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
