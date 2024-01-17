@@ -1,8 +1,8 @@
 package com.gloddy.server.user.domain.handler.impl;
 
+import com.gloddy.server.user.application.internal.dto.UserPreviewResponse;
 import com.gloddy.server.user.domain.User;
 import com.gloddy.server.user.domain.vo.Phone;
-import com.gloddy.server.user.domain.vo.kind.Status;
 import com.gloddy.server.user.domain.dto.PraiseResponse;
 import com.gloddy.server.user.domain.handler.UserQueryHandler;
 import com.gloddy.server.user.infra.repository.UserJpaRepository;
@@ -49,5 +49,11 @@ public class UserQueryHandlerImpl implements UserQueryHandler {
     @Override
     public PraiseResponse.GetPraiseForUser findPraiseDtoByUserId(Long userId) {
         return userJpaRepository.findPraiseByUserId(userId);
+    }
+
+    @Override
+    public UserPreviewResponse findUserPreviewById(Long userId) {
+        return userJpaRepository.findUserPreviewById(userId)
+                .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
     }
 }

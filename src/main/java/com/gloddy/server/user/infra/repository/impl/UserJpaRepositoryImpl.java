@@ -1,8 +1,9 @@
 package com.gloddy.server.user.infra.repository.impl;
 
+import com.gloddy.server.user.application.internal.dto.QUserPreviewResponse;
+import com.gloddy.server.user.application.internal.dto.UserPreviewResponse;
 import com.gloddy.server.user.domain.User;
 import com.gloddy.server.user.domain.vo.Phone;
-import com.gloddy.server.user.domain.vo.kind.Status;
 import com.gloddy.server.user.domain.dto.PraiseResponse;
 import com.gloddy.server.user.domain.dto.QPraiseResponse_GetPraiseForUser;
 import com.gloddy.server.user.infra.repository.custom.UserJpaRepositoryCustom;
@@ -57,6 +58,22 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
                 .where(eqId(userId))
                 .join(user.praise, praise)
                 .fetchOne();
+    }
+
+    @Override
+    public Optional<UserPreviewResponse> findUserPreviewById(Long id) {
+        return Optional.ofNullable(query.select(new QUserPreviewResponse(
+                        user.id,
+                        user.school.isCertifiedStudent,
+                        user.profile.imageUrl,
+                        user.profile.nickname,
+                        user.profile.country.name,
+                        user.profile.country.image,
+                        reliability.level
+                )).from(user)
+                .innerJoin(user.reliability, reliability)
+                .where(eqId(id))
+                .fetchOne());
     }
 
     private BooleanExpression eqPhone(Phone phone) {
