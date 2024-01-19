@@ -1,6 +1,7 @@
 package com.gloddy.server.user.domain.handler.impl;
 
 import com.gloddy.server.user.application.internal.dto.UserPreviewResponse;
+import com.gloddy.server.user.application.internal.dto.UserPreviewsResponse;
 import com.gloddy.server.user.domain.User;
 import com.gloddy.server.user.domain.vo.Phone;
 import com.gloddy.server.user.domain.dto.PraiseResponse;
@@ -11,6 +12,8 @@ import com.gloddy.server.core.error.handler.exception.UserBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -55,5 +58,11 @@ public class UserQueryHandlerImpl implements UserQueryHandler {
     public UserPreviewResponse findUserPreviewById(Long userId) {
         return userJpaRepository.findUserPreviewById(userId)
                 .orElseThrow(() -> new UserBusinessException(ErrorCode.USER_NOT_FOUND));
+    }
+
+    @Override
+    public UserPreviewsResponse findUserPreviewsByInId(Collection<Long> userIds) {
+        List<UserPreviewResponse> userPreviews = userJpaRepository.findUserPreviewsByInId(userIds);
+        return new UserPreviewsResponse(userPreviews);
     }
 }
