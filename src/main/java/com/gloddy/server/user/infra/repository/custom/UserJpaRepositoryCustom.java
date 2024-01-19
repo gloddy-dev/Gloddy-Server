@@ -6,7 +6,10 @@ import com.gloddy.server.user.domain.vo.Phone;
 import com.gloddy.server.user.domain.vo.kind.Status;
 import com.gloddy.server.user.domain.dto.PraiseResponse;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserJpaRepositoryCustom {
 
@@ -19,4 +22,6 @@ public interface UserJpaRepositoryCustom {
     PraiseResponse.GetPraiseForUser findPraiseByUserId(Long userId);
 
     Optional<UserPreviewResponse> findUserPreviewById(Long id);
+
+    List<UserPreviewResponse> findUserPreviewsByInId(Collection<Long> ids);
 }

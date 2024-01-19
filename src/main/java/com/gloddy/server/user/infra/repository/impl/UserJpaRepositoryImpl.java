@@ -12,7 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.*;
 
 import static com.gloddy.server.user.domain.QUser.*;
 import static com.gloddy.server.user.domain.QPraise.*;
@@ -76,6 +76,22 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
                 .fetchOne());
     }
 
+    @Override
+    public List<UserPreviewResponse> findUserPreviewsByInId(Collection<Long> ids) {
+        return query.select(new QUserPreviewResponse(
+                        user.id,
+                        user.school.isCertifiedStudent,
+                        user.profile.imageUrl,
+                        user.profile.nickname,
+                        user.profile.country.name,
+                        user.profile.country.image,
+                        reliability.level
+                )).from(user)
+                .innerJoin(user.reliability, reliability)
+                .where(inId(ids))
+                .fetch();
+    }
+
     private BooleanExpression eqPhone(Phone phone) {
         return user.phone.eq(phone);
     }
@@ -86,5 +102,9 @@ public class UserJpaRepositoryImpl implements UserJpaRepositoryCustom {
 
     private BooleanExpression eqId(Long id) {
         return user.id.eq(id);
+    }
+
+    private BooleanExpression inId(Collection<Long> ids) {
+        return user.id.in(ids);
     }
 }
