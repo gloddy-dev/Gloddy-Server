@@ -4,27 +4,27 @@ import static com.gloddy.server.core.error.handler.errorCode.ErrorCode.OUTBOX_EV
 
 import com.gloddy.server.core.error.handler.exception.EventBusinessException;
 import com.gloddy.server.outbox.domain.GroupEvent;
-import com.gloddy.server.outbox.domain.dto.OutboxEventPayload;
-import com.gloddy.server.outbox.domain.handler.OutboxEventQueryHandler;
-import com.gloddy.server.outbox.infra.repository.EventJpaRepository;
+import com.gloddy.server.outbox.domain.dto.GroupOutboxEventPayload;
+import com.gloddy.server.outbox.domain.handler.GroupOutboxEventQueryHandler;
+import com.gloddy.server.outbox.infra.repository.GroupEventJpaRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OutboxEventQueryHandlerImpl implements OutboxEventQueryHandler {
+public class GroupOutboxEventQueryHandlerImpl implements GroupOutboxEventQueryHandler {
 
-    private final EventJpaRepository eventJpaRepository;
+    private final GroupEventJpaRepository groupEventJpaRepository;
 
     @Override
     public GroupEvent findById(Long id) {
-        return eventJpaRepository.findById(id)
+        return groupEventJpaRepository.findById(id)
                 .orElseThrow(() -> new EventBusinessException(OUTBOX_EVENT_NOT_FOUND));
     }
 
     @Override
-    public List<OutboxEventPayload> findAllByNotPublished() {
-        return eventJpaRepository.findAllByNotPublished();
+    public List<GroupOutboxEventPayload> findAllByNotPublished() {
+        return groupEventJpaRepository.findAllByNotPublished();
     }
 }

@@ -1,8 +1,8 @@
 package com.gloddy.server.outbox.domain.handler.impl;
 
 import com.gloddy.server.outbox.domain.GroupEvent;
-import com.gloddy.server.outbox.domain.handler.OutboxEventCommandHandler;
-import com.gloddy.server.outbox.infra.repository.EventJpaRepository;
+import com.gloddy.server.outbox.domain.handler.GroupOutboxEventCommandHandler;
+import com.gloddy.server.outbox.infra.repository.GroupEventJpaRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
-public class OutboxEventCommandHandlerImpl implements OutboxEventCommandHandler {
+public class GroupOutboxEventCommandHandlerImpl implements GroupOutboxEventCommandHandler {
 
-    private final EventJpaRepository eventJpaRepository;
+    private final GroupEventJpaRepository groupEventJpaRepository;
 
     @Override
     public GroupEvent save(GroupEvent groupEvent) {
-        return eventJpaRepository.save(groupEvent);
+        return groupEventJpaRepository.save(groupEvent);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public void updatePublished(Long eventId) {
-        eventJpaRepository.updatePublished(eventId, LocalDateTime.now());
+        groupEventJpaRepository.updatePublished(eventId, LocalDateTime.now());
     }
 }

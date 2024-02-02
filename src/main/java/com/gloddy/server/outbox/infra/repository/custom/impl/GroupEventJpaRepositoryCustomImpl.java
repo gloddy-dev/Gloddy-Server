@@ -1,10 +1,10 @@
 package com.gloddy.server.outbox.infra.repository.custom.impl;
 
-import static com.gloddy.server.outbox.domain.QEvent.event1;
+import static com.gloddy.server.outbox.domain.QGroupEvent.groupEvent;
 
-import com.gloddy.server.outbox.domain.dto.OutboxEventPayload;
-import com.gloddy.server.outbox.domain.dto.QOutboxEventPayload;
-import com.gloddy.server.outbox.infra.repository.custom.EventJpaRepositoryCustom;
+import com.gloddy.server.outbox.domain.dto.GroupOutboxEventPayload;
+import com.gloddy.server.outbox.domain.dto.QGroupOutboxEventPayload;
+import com.gloddy.server.outbox.infra.repository.custom.GroupEventJpaRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
@@ -14,21 +14,21 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class EventJpaRepositoryCustomImpl implements EventJpaRepositoryCustom {
+public class GroupEventJpaRepositoryCustomImpl implements GroupEventJpaRepositoryCustom {
 
     private final JPAQueryFactory query;
 
     @Override
-    public List<OutboxEventPayload> findAllByNotPublished() {
-        return query.select(new QOutboxEventPayload(event1.id))
-                .from(event1)
+    public List<GroupOutboxEventPayload> findAllByNotPublished() {
+        return query.select(new QGroupOutboxEventPayload(groupEvent.id))
+                .from(groupEvent)
                 .where(isNotPublished())
                 .fetch();
     }
 
     private BooleanExpression isNotPublished() {
         LocalDateTime localDateTime = LocalDateTime.now().minusMinutes(2);
-        return event1.published.eq(false)
-                .and(event1.createdAt.loe(localDateTime));
+        return groupEvent.published.eq(false)
+                .and(groupEvent.createdAt.loe(localDateTime));
     }
 }
