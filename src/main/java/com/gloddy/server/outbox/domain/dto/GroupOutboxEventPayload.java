@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class OutboxEventPayload implements Event {
+public class GroupOutboxEventPayload implements Event {
     private Long id;
 
     @QueryProjection
-    public OutboxEventPayload(Long id) {
+    public GroupOutboxEventPayload(Long id) {
         this.id = id;
     }
 }

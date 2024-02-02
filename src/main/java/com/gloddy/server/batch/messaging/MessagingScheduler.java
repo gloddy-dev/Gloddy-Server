@@ -2,7 +2,7 @@ package com.gloddy.server.batch.messaging;
 
 import com.gloddy.server.batch.messaging.producer.MessagingBatchEventProducer;
 import com.gloddy.server.core.error.handler.exception.BatchBusinessException;
-import com.gloddy.server.outbox.domain.handler.OutboxEventQueryHandler;
+import com.gloddy.server.outbox.domain.handler.GroupOutboxEventQueryHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -17,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessagingScheduler {
 
     private final MessagingBatchEventProducer messagingBatchEventProducer;
-    private final OutboxEventQueryHandler outboxEventQueryHandler;
+    private final GroupOutboxEventQueryHandler groupOutboxEventQueryHandler;
 
     @Transactional
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Seoul")
     public void rePublishEvent() {
-        executeJob(() -> outboxEventQueryHandler.findAllByNotPublished()
+        executeJob(() -> groupOutboxEventQueryHandler.findAllByNotPublished()
                 .forEach(messagingBatchEventProducer::produceEvent));
     }
 

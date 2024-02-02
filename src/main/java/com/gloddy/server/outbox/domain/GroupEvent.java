@@ -20,7 +20,7 @@ import org.hibernate.annotations.Type;
 @Table(name = "group_event")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event {
+public class GroupEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class Event {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
-    public Event(Map<String, Object> event, String eventType) {
+    public GroupEvent(Map<String, Object> event, String eventType) {
         this.event = event;
         this.eventType = eventType;
         this.createdAt = LocalDateTime.now();
