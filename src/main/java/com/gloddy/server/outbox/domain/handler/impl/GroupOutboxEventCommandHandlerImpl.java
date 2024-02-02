@@ -1,6 +1,6 @@
 package com.gloddy.server.outbox.domain.handler.impl;
 
-import com.gloddy.server.outbox.domain.Event;
+import com.gloddy.server.outbox.domain.GroupEvent;
 import com.gloddy.server.outbox.domain.handler.OutboxEventCommandHandler;
 import com.gloddy.server.outbox.infra.repository.EventJpaRepository;
 import java.time.LocalDateTime;
@@ -16,8 +16,8 @@ public class OutboxEventCommandHandlerImpl implements OutboxEventCommandHandler 
     private final EventJpaRepository eventJpaRepository;
 
     @Override
-    public Event save(Event event) {
-        return eventJpaRepository.save(event);
+    public GroupEvent save(GroupEvent groupEvent) {
+        return eventJpaRepository.save(groupEvent);
     }
 
     @Override

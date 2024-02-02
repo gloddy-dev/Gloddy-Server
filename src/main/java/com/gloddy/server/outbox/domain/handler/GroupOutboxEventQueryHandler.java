@@ -1,10 +1,10 @@
 package com.gloddy.server.outbox.domain.handler;
 
-import com.gloddy.server.outbox.domain.Event;
+import com.gloddy.server.outbox.domain.GroupEvent;
 import com.gloddy.server.outbox.domain.dto.OutboxEventPayload;
 import java.util.List;
 
 public interface OutboxEventQueryHandler {
-    Event findById(Long id);
+    GroupEvent findById(Long id);
     List<OutboxEventPayload> findAllByNotPublished();
 }

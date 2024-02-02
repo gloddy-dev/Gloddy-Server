@@ -1,6 +1,5 @@
 package com.gloddy.server.outbox.adapter.group.event;
 
-import com.gloddy.server.outbox.adapter.AdapterEvent;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class GroupAdapterEvent implements AdapterEvent {
+public class GroupAdapterEvent implements com.gloddy.server.outbox.adapter.GroupAdapterEvent {
     private Long groupId;
     private GroupEventType eventType;
     private LocalDateTime eventDateTime;

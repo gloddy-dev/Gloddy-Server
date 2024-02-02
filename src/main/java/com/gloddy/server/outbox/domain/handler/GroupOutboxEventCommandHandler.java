@@ -1,8 +1,8 @@
 package com.gloddy.server.outbox.domain.handler;
 
-import com.gloddy.server.outbox.domain.Event;
+import com.gloddy.server.outbox.domain.GroupEvent;
 
 public interface OutboxEventCommandHandler {
-    Event save(Event event);
+    GroupEvent save(GroupEvent groupEvent);
     void updatePublished(Long eventId);
 }
