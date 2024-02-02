@@ -1,26 +1,23 @@
 package com.gloddy.server.outbox.domain;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-@Getter
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
-@Table(name = "group_event")
-@NoArgsConstructor
+@Table(name = "user_event")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Event {
+public class UserEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +38,7 @@ public class Event {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
-    public Event(Map<String, Object> event, String eventType) {
+    public UserEvent(Map<String, Object> event, String eventType) {
         this.event = event;
         this.eventType = eventType;
         this.createdAt = LocalDateTime.now();

@@ -9,7 +9,6 @@ import com.gloddy.server.outbox.adapter.group.event.GroupArticleAdapterEvent;
 import com.gloddy.server.outbox.adapter.group.event.GroupMemberAdapterEvent;
 import com.gloddy.server.outbox.adapter.group.mapper.GroupEventMapper;
 import com.gloddy.server.outbox.application.OutboxEventSaveService;
-import com.gloddy.server.outbox.event.producer.OutboxEventProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

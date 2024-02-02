@@ -1,5 +1,6 @@
 package com.gloddy.server.user.domain;
 
+import com.gloddy.server.core.event.Event;
 import com.gloddy.server.user.domain.vo.*;
 import com.gloddy.server.user.domain.vo.kind.Authority;
 import com.gloddy.server.user.domain.vo.kind.Gender;
@@ -13,11 +14,14 @@ import com.gloddy.server.group.domain.Group;
 import com.gloddy.server.group.domain.dto.GroupRequest;
 import com.gloddy.server.group.domain.handler.GroupCommandHandler;
 import com.gloddy.server.group.domain.service.GroupFactory;
+import com.gloddy.server.user.event.UserProfileUpdateEvent;
+import com.gloddy.server.user.event.UserReliabilityUpgradeEvent;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +62,9 @@ public class User extends BaseTimeEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "praise_id")
     private Praise praise;
+
+    @Transient
+    private List<Event> events = new ArrayList<>();
 
     @Builder
     public User(Phone phone, School school, Profile profile) {
@@ -136,6 +143,7 @@ public class User extends BaseTimeEntity {
                 .personalities(personalities)
                 .country(new Country(countryName, countryImage))
                 .build();
+        this.events.add(new UserProfileUpdateEvent(this.id));
     }
 
     public ReliabilityLevel getReliabilityLevel() {
@@ -173,5 +181,6 @@ public class User extends BaseTimeEntity {
     public void reflectReliability(ScoreTypes scoreTypes) {
         Long reflectScore = scoreTypes.getReflectScore();
         this.reliability.upgrade(reflectScore);
+        this.events.add(new UserReliabilityUpgradeEvent(this.id));
     }
 }
