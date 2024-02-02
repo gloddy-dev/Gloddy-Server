@@ -3,13 +3,18 @@ package com.gloddy.server.messaging.event.consumer;
 import static com.gloddy.server.config.AsyncConfig.EVENT_HANDLER_TASK_EXECUTOR;
 
 import com.gloddy.server.messaging.MessagePublisher;
-import com.gloddy.server.outbox.domain.Event;
-import com.gloddy.server.outbox.domain.dto.OutboxEventPayload;
-import com.gloddy.server.outbox.domain.handler.OutboxEventCommandHandler;
-import com.gloddy.server.outbox.domain.handler.OutboxEventQueryHandler;
+import com.gloddy.server.outbox.domain.GroupEvent;
+import com.gloddy.server.outbox.domain.UserEvent;
+import com.gloddy.server.outbox.domain.dto.GroupOutboxEventPayload;
+import com.gloddy.server.outbox.domain.dto.UserOutboxEventPayload;
+import com.gloddy.server.outbox.domain.handler.GroupOutboxEventCommandHandler;
+import com.gloddy.server.outbox.domain.handler.GroupOutboxEventQueryHandler;
+import com.gloddy.server.outbox.domain.handler.UserOutboxEventCommandHandler;
+import com.gloddy.server.outbox.domain.handler.UserOutboxEventQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -18,14 +23,26 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class OutboxEventConsumer {
 
     private final MessagePublisher messagePublisher;
-    private final OutboxEventQueryHandler outboxEventQueryHandler;
-    private final OutboxEventCommandHandler outboxEventCommandHandler;
+    private final GroupOutboxEventQueryHandler groupOutboxEventQueryHandler;
+    private final GroupOutboxEventCommandHandler groupOutboxEventCommandHandler;
+    private final UserOutboxEventCommandHandler userOutboxEventCommandHandler;
+    private final UserOutboxEventQueryHandler userOutboxEventQueryHandler;
 
     @Async(EVENT_HANDLER_TASK_EXECUTOR)
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handle(OutboxEventPayload payload) {
-        Event outboxEvent = outboxEventQueryHandler.findById(payload.getId());
+    @Transactional
+    public void handle(GroupOutboxEventPayload payload) {
+        GroupEvent outboxEvent = groupOutboxEventQueryHandler.findById(payload.getId());
+        groupOutboxEventCommandHandler.updatePublished(outboxEvent.getId());
         messagePublisher.publishEvent(outboxEvent.getEvent(), outboxEvent.getEventType());
-        outboxEventCommandHandler.updatePublished(outboxEvent.getId());
+    }
+
+    @Async(EVENT_HANDLER_TASK_EXECUTOR)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional
+    public void handle(UserOutboxEventPayload payload) {
+        UserEvent userEvent = userOutboxEventQueryHandler.findById(payload.getId());
+        userOutboxEventCommandHandler.updatePublished(userEvent.getId());
+        messagePublisher.publishEvent(userEvent.getEvent(), userEvent.getEventType());
     }
 }
