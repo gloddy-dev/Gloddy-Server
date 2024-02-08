@@ -67,7 +67,7 @@ public class AuthService {
 
     @Transactional
     public void signOut(Long userId) {
-        User user = userQueryHandler.findByIdAndStatus(userId, Status.ACTIVE);
+        User user = userQueryHandler.findByIdFetch(userId);
         userSignOutPolicy.validate(user);
         user.withDraw();
     }

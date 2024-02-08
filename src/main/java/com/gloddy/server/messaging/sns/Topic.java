@@ -14,7 +14,11 @@ public enum Topic {
     APPROACHING_GROUP("모임 시작이 임박할 때", "group-article-topic"),
     END_GROUP("모임이 완료됏을 때", "group-article-topic"),
 
-    GROUP_MEMBER_LEAVE("그룹 멤버가 모임을 나갔을 때", "group-member-topic");
+    GROUP_MEMBER_LEAVE("그룹 멤버가 모임을 나갔을 때", "group-member-topic"),
+    JOIN("유저가 회원가입 했을 때", "user-topic"),
+    UPDATE_PROFILE("유저가 프로필을 수정했을 때", "user-topic"),
+    UPGRADE_RELIABILITY("유저의 신뢰도가 업데이트 됐을 때", "user-topic")
+    ;
 
     private final String description;
     private final String topicProperty;
