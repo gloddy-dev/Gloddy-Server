@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedOrigins(
+                        "http://10.0.2.2:3000",
                         "http://localhost:3000",
                         "https://gloddy.vercel.app",
                         "http://gloddy.store:3000",
