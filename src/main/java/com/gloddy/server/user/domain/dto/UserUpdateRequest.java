@@ -1,5 +1,6 @@
 package com.gloddy.server.user.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gloddy.server.user.domain.vo.kind.Gender;
 import com.gloddy.server.user.domain.vo.kind.Personality;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +17,7 @@ public class UserUpdateRequest {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @Schema(name = "UserUpdateRequest")
     public static class Info {
         private String imageUrl;
